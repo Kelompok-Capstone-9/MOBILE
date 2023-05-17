@@ -5,7 +5,7 @@ class ColorsTheme {
   static final Color bgScreen = Color(0xffF6F6F6);
 }
 
-class TextTheme {
+class ThemeText {
   static TextStyle heading1 = GoogleFonts.josefinSans(
       fontWeight: FontWeight.w600,
       fontSize: 16,
