@@ -3,7 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
   static final Color bgScreen = Color(0xffF6F6F6);
+  static final Color calContainer = Color(0xffF2f2f2);
   static final Color searchbox = Color(0xffE6E6E6);
+  static final Color divider = Color(0xff919191);
+  static final Color accent = Color(0xffFF7F00);
+  static final Color accentlight = Color(0x45FF8000);
+  static final Color orangelight = Color(0xFFFFA83F);
+  static final Color grey = Color(0xFF6D6D6D);
 }
 
 class ThemeText {
@@ -98,6 +104,31 @@ class ThemeText {
       color: const Color(0xff919191));
 
   static TextStyle headingLocation = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w600,
+      fontSize: 12,
+      color: const Color(0xff0B0B0B));
+
+  static TextStyle headingCalendar = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w600,
+      fontSize: 12,
+      color: const Color(0xff0B0B0B));
+
+  static TextStyle headingTimeCategory = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w700,
+      fontSize: 10,
+      color: const Color(0xff0B0B0B));
+
+  static TextStyle subheadingTimeCategory = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w500,
+      fontSize: 10,
+      color: const Color(0xff0B0B0B));
+
+  static TextStyle labelDay = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w400,
+      fontSize: 10,
+      color: const Color(0xff0B0B0B));
+
+  static TextStyle labelTime = GoogleFonts.josefinSans(
       fontWeight: FontWeight.w600,
       fontSize: 12,
       color: const Color(0xff0B0B0B));
