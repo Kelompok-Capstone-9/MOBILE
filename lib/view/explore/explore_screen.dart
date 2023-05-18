@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/gym.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/explore/gym_card.dart';
+import 'package:gofit_apps/view/explore/widgets/gym_card.dart';
 import 'package:gofit_apps/view/explore/widgets/time_category.dart';
 
 class ExploreScreen extends StatelessWidget {

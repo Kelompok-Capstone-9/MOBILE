@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
-import 'view/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
