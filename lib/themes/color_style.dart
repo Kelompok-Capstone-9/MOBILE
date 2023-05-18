@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
   static final Color bgScreen = Color(0xffF6F6F6);
+  static final Color searchbox = Color(0xffE6E6E6);
 }
 
 class ThemeText {
@@ -80,4 +81,24 @@ class ThemeText {
     fontSize: 10,
     color: const Color(0xff004040),
   );
+
+  static TextStyle headingSearchBlack = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w600,
+      fontSize: 12,
+      color: const Color(0xff0B0B0B));
+
+  static TextStyle headingSearchBig = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w600,
+      fontSize: 12,
+      color: const Color(0xff919191));
+
+  static TextStyle headingSearchSmall = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w400,
+      fontSize: 10,
+      color: const Color(0xff919191));
+
+  static TextStyle headingLocation = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w600,
+      fontSize: 12,
+      color: const Color(0xff0B0B0B));
 }
