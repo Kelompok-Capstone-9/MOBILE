@@ -80,4 +80,24 @@ class ThemeText {
     fontSize: 10,
     color: const Color(0xff004040),
   );
+   static TextStyle headingName = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingOld = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingCustom = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingDetails = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff030303),
+  );
 }
