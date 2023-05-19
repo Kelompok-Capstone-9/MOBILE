@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
+import 'package:gofit_apps/view/booking_detail/payment_confirmation.dart';
 import 'view/splash_screen.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: SplashScreen(),
-      home: BookingDetail(),
+      home: PaymentConfirmation(),
     );
   }
 }
