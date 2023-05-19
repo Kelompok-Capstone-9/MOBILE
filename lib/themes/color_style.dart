@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class ColorsTheme {
-  static final Color bgScreen = Color(0xffF6F6F6);
+  static final Color bgScreen =  Color(0xffF6F6F6);
 }
 
 class ThemeText {
