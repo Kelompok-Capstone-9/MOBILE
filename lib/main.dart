@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: SplashScreen(),
-      home: PaymentMethod(),
+      home: PaymentConfirmation(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/widget/card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentConfirmation extends StatefulWidget {
@@ -173,6 +174,13 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                         style: ThemeText.heading5,
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 14, bottom: 12, left: 16, right: 16),
+                      child: CardWidget(
+                          icon: FontAwesomeIcons.jugDetergent,
+                          keterangan: "Grab your offers"),
+                    ),
                   ],
                 ),
               ),
@@ -255,34 +263,9 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                       style: ThemeText.heading2,
                     ),
                     const SizedBox(height: 10),
-                    Card(
-                        color: ColorsTheme.bgScreen,
-                        shadowColor: Colors.black.withOpacity(0.5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(
-                            color: Color(0xff919191),
-                          ),
-                        ),
-                        elevation: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 21.0, bottom: 21, left: 18),
-                          child: SizedBox(
-                            child: Row(children: [
-                              const Icon(
-                                FontAwesomeIcons.wallet,
-                                color: Color(0xff00007A),
-                                size: 30,
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                'Select payment',
-                                style: ThemeText.heading2,
-                              )
-                            ]),
-                          ),
-                        )),
+                    CardWidget(
+                        icon: FontAwesomeIcons.wallet,
+                        keterangan: "Select payment"),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
                       child: Align(
