@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 class ColorsTheme {
   static final Color bgScreen = Color(0xffF6F6F6);
   static final Color iconColor = Color(0xff00007A);
+  static final Color primary600 = Color(0xffFF7F00);
+  static final Color colorLight = Color(0xffF6F6F6);
 }
 
 class ThemeText {
