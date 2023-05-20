@@ -93,7 +93,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
                 height: 40,
                 width: 328,
                 decoration: BoxDecoration(
-                  color: ColorsTheme.primary600,
+                  color: _payMethod != ""
+                      ? ColorsTheme.primary600
+                      : ColorsTheme.disableColorButton,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
@@ -101,7 +103,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
                   style: GoogleFonts.josefinSans(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
-                      color: ColorsTheme.colorLight),
+                      color: _payMethod != ""
+                          ? ColorsTheme.colorLight
+                          : const Color(0xffB5B5B5)),
                 )),
           ],
         ),

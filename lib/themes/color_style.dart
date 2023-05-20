@@ -6,6 +6,7 @@ class ColorsTheme {
   static final Color iconColor = Color(0xff00007A);
   static final Color primary600 = Color(0xffFF7F00);
   static final Color colorLight = Color(0xffF6F6F6);
+  static final Color disableColorButton = Color(0xffDFDFDF);
 }
 
 class ThemeText {
