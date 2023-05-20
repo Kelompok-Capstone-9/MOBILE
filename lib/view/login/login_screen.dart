@@ -63,7 +63,7 @@ class FormLoginState extends State<FormLogin> {
                               _passwordController.text.isNotEmpty;
                         });
                       },
-                      validator: (email) => EmailValidator.validateEmail(email),
+                      validator: (email) => EmailValidatorLogin.validateEmail(email),
                     ),
                     const SizedBox(
                       height: 16,
@@ -97,7 +97,7 @@ class FormLoginState extends State<FormLogin> {
                               _passwordController.text.isNotEmpty;
                         });
                       },
-                      validator: PasswordValidator.validatePassword,
+                      validator: PasswordValidatorLogin.validatePassword,
                     ),
                   ],
                 ),
