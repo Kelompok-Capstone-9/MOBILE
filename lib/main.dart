@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gofit_apps/view/register/register_screen.dart';
+import 'package:gofit_apps/view/register/gender_screen.dart';
+// import 'package:gofit_apps/view/register/register_screen.dart';
 
 // import 'view/splash_screen.dart';
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RegisterScreen(),
+      home: ChooseGenderScreen(),
     );
   }
 }

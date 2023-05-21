@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/register/widget/validator_register.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -18,41 +19,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorsTheme.bgScreen,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 66, left: 117, right: 117, bottom: 66),
-                  child: Text(
-                    'GoFit',
-                    style: GoogleFonts.josefinSans(
-                        color: const Color(0xFFFF7F00),
-                        fontSize: 48,
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, bottom: 16),
-                  child: Text(
-                    'Sign Up',
-                    style: GoogleFonts.josefinSans(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                buildRegisterForm()
-              ],
+      backgroundColor: ColorsTheme.bgScreen,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 66, bottom: 66),
+              child: Text(
+                'GoFit',
+                style: GoogleFonts.josefinSans(
+                    color: const Color(0xFFFF7F00),
+                    fontSize: 48,
+                    fontWeight: FontWeight.w700),
+                textAlign: TextAlign.justify,
+              ),
             ),
-          ),
-        ));
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16, bottom: 16),
+                child: Text(
+                  'Sign Up',
+                  style: GoogleFonts.josefinSans(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+            ),
+            buildRegisterForm()
+          ],
+        ),
+      ),
+    );
   }
 
   buildRegisterForm() => Container(
@@ -73,14 +73,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelStyle: GoogleFonts.josefinSans(
                       fontSize: 14, color: const Color(0xFFB5B5B5)),
                   border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFF7F00)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4),
+                    ),
+                  ),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
-                validator: (value) {
-                  if (value != null && value.length < 4) {
-                    return 'Enter at least 4 characters';
-                  } else {
-                    return null; //form is valid
-                  }
+                onChanged: (value) {
+                  setState(
+                    () {
+                      isFormFilled = _nameController.text.isNotEmpty &&
+                          _emailController.text.isNotEmpty &&
+                          _passwordController.text.isNotEmpty &&
+                          _confirmpasswordController.text.isNotEmpty;
+                    },
+                  );
                 },
+                validator: (username) =>
+                    UsernameValidatorSignUp.validateUsername(username),
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -95,14 +107,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelStyle: GoogleFonts.josefinSans(
                       fontSize: 14, color: const Color(0xFFB5B5B5)),
                   border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFF7F00)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4),
+                    ),
+                  ),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
-                validator: (value) {
-                  if (value != null && value.length < 4) {
-                    return 'Enter at least 4 characters';
-                  } else {
-                    return null; //form is valid
-                  }
+                onChanged: (value) {
+                  setState(() {
+                    isFormFilled = _nameController.text.isNotEmpty &&
+                        _emailController.text.isNotEmpty &&
+                        _passwordController.text.isNotEmpty &&
+                        _confirmpasswordController.text.isNotEmpty;
+                  });
                 },
+                validator: (email) =>
+                    EmailValidatorSignup.validateEmailSignUp(email),
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -117,13 +139,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelStyle: GoogleFonts.josefinSans(
                       fontSize: 14, color: const Color(0xFFB5B5B5)),
                   border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFF7F00)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4),
+                    ),
+                  ),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
-                validator: (value) {
-                  if (value != null && value.length < 4) {
-                    return 'Enter at least 4 characters';
-                  } else {
-                    return null; //form is valid
-                  }
+                onChanged: (value) {
+                  setState(() {
+                    isFormFilled = _nameController.text.isNotEmpty &&
+                        _emailController.text.isNotEmpty &&
+                        _passwordController.text.isNotEmpty &&
+                        _confirmpasswordController.text.isNotEmpty;
+                  });
                 },
               ),
               const SizedBox(height: 16),
@@ -139,14 +169,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelStyle: GoogleFonts.josefinSans(
                       fontSize: 14, color: const Color(0xFFB5B5B5)),
                   border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFF7F00)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4),
+                    ),
+                  ),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  errorMaxLines: 3,
                 ),
-                validator: (value) {
-                  if (value != null && value.length < 4) {
-                    return 'Enter at least 4 characters';
-                  } else {
-                    return null; //form is valid
-                  }
+                onChanged: (value) {
+                  setState(() {
+                    isFormFilled = _nameController.text.isNotEmpty &&
+                        _emailController.text.isNotEmpty &&
+                        _passwordController.text.isNotEmpty &&
+                        _confirmpasswordController.text.isNotEmpty;
+                  });
                 },
+                validator: (confirmPw) =>
+                    ConfirmPasswordValidator.validateConfirmPw(
+                        confirmPw, _passwordController.text),
               ),
               const SizedBox(height: 40),
               Container(
@@ -154,11 +196,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      backgroundColor: isFormFilled
-                          ? const Color(0xffFF7F00)
-                          : const Color(0xffDFDFDF)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    backgroundColor: isFormFilled
+                        ? const Color(0xffFF7F00)
+                        : const Color(0xffDFDFDF),
+                  ),
                   onPressed: () {
                     final isValidForm = formKey.currentState!.validate();
                     if (isValidForm) {}
