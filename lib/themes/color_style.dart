@@ -24,14 +24,21 @@ class ThemeText {
     fontSize: 12,
     color: const Color(0xff0B0B0B),
   );
+
   static TextStyle heading4 = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w400,
-    fontSize: 10,
+    fontSize: 12,
+    height: 2,
     color: const Color(0xff0B0B0B),
   );
   static TextStyle heading5 = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w600,
     fontSize: 12,
+    color: const Color(0xff0B0B0B),
+  );
+  static TextStyle heading6 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
     color: const Color(0xff0B0B0B),
   );
   static TextStyle headingLabel = GoogleFonts.josefinSans(
