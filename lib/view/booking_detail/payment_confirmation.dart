@@ -49,6 +49,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
+                    color: ColorsTheme.bgScreen,
                     elevation: 5,
                     child: SizedBox(
                       // width: 328,
@@ -61,8 +62,19 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                             child: SizedBox(
                                 width: 70,
                                 height: 70,
-                                child: Image.asset('assets/images/open-gym.png',
-                                    fit: BoxFit.contain)),
+                                child:
+                                    // online class
+                                    ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.asset(
+                                      'assets/images/online-class.png',
+                                      fit: BoxFit.cover),
+                                )
+
+                                // endd class
+                                //  Image.asset('assets/images/open-gym.png',
+                                //     fit: BoxFit.contain)
+                                ),
                           ),
                           Padding(
                             padding:
@@ -149,10 +161,17 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                         'Class type',
                         style: ThemeText.heading3,
                       ),
-                      trailing: Text(
-                        'Offline mentoring',
+                      trailing:
+                          // online class
+                          Text(
+                        'Online mentoring',
                         style: ThemeText.heading5,
                       ),
+                      // end class
+                      // Text(
+                      //   'Offline mentoring',
+                      //   style: ThemeText.heading5,
+                      // ),
                     ),
                     ListTile(
                       horizontalTitleGap: 1,
@@ -184,13 +203,13 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                         style: ThemeText.heading5,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 14, bottom: 12, left: 16, right: 16),
-                      child: CardWidget(
-                          icon: FontAwesomeIcons.jugDetergent,
-                          keterangan: "Grab your offers"),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(
+                    //       top: 14, bottom: 12, left: 16, right: 16),
+                    //   child: CardWidget(
+                    //       icon: FontAwesomeIcons.jugDetergent,
+                    //       keterangan: "Grab your offers"),
+                    // ),
                   ],
                 ),
               ),

@@ -18,6 +18,7 @@ int terceklist = 0;
 bool status = false;
 int _selectedIndex = 5;
 
+// next kasih parameter apakah ONLINE class atau OFFLINE class;
 class _BookingDetailState extends State<BookingDetail> {
   @override
   Widget build(BuildContext context) {
@@ -36,11 +37,17 @@ class _BookingDetailState extends State<BookingDetail> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      // type gym online
                       SizedBox(
                           width: mediaquery.width,
                           height: 220,
-                          child: Image.asset('assets/images/open-gym.png',
+                          child: Image.asset('assets/images/online-class.png',
                               fit: BoxFit.cover)),
+                      // SizedBox(
+                      //     width: mediaquery.width,
+                      //     height: 220,
+                      //     child: Image.asset('assets/images/open-gym.png',
+                      //         fit: BoxFit.cover)),
                       Container(
                         decoration: const BoxDecoration(
                             border: Border(
@@ -55,12 +62,20 @@ class _BookingDetailState extends State<BookingDetail> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Open Gym - Private coach',
-                                    style: ThemeText.heading2),
+                                // type online class
+                                Text('Mr. Jhons', style: ThemeText.heading2),
+                                //end class
+
+                                // Text('Open Gym - Private coach',
+                                //     style: ThemeText.heading2),
                                 const SizedBox(
                                   height: 4,
                                 ),
-                                Text('Onsite Class', style: ThemeText.heading3),
+                                // online class
+                                Text('Online Class', style: ThemeText.heading3),
+
+                                // end class
+                                // Text('Onsite Class', style: ThemeText.heading3),
                                 const SizedBox(height: 10),
                                 Column(
                                   children: [
@@ -86,10 +101,17 @@ class _BookingDetailState extends State<BookingDetail> {
                                           size: 18,
                                         ),
                                         SizedBox(width: 12.67),
+
+                                        // online class
                                         Text(
-                                          'Depok, Jawa Barat, 2.0 Km',
+                                          'Via Zoom',
                                           style: ThemeText.heading4,
                                         ),
+                                        // end class
+                                        // Text(
+                                        //   'Depok, Jawa Barat, 2.0 Km',
+                                        //   style: ThemeText.heading4,
+                                        // ),
                                       ],
                                     ),
                                     const SizedBox(height: 9.33),
@@ -247,9 +269,14 @@ class _BookingDetailState extends State<BookingDetail> {
                                               color: ColorsTheme.iconColor,
                                               size: 24),
                                           const SizedBox(width: 12.67),
+                                          //  online class
                                           Text(
                                               'Safe exercise with hygiene protocols',
                                               style: ThemeText.heading3)
+                                          //end class
+                                          // Text(
+                                          //     'Safe exercise with hygiene protocols',
+                                          //     style: ThemeText.heading3)
                                         ]),
                                         Row(children: [
                                           Icon(Icons.shopping_bag_outlined,
@@ -257,9 +284,15 @@ class _BookingDetailState extends State<BookingDetail> {
                                               size: 24),
                                           const SizedBox(width: 14),
                                           Flexible(
-                                            child: Text(
-                                                'Free all access gym equipment & private mentoringon gym',
-                                                style: ThemeText.heading3),
+                                            child:
+                                                // online class
+                                                Text(
+                                                    'Private online mentoring with coach',
+                                                    style: ThemeText.heading3),
+                                            // end class
+                                            // Text(
+                                            //     'Free all access gym equipment & private mentoringon gym',
+                                            //     style: ThemeText.heading3),
                                           )
                                         ])
                                       ])))),
