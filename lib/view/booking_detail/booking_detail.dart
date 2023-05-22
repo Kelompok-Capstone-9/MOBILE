@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/payment_confirmation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../model/list_detail_dummy.dart';
@@ -14,6 +15,7 @@ class BookingDetail extends StatefulWidget {
 }
 
 int terceklist = 0;
+bool status = false;
 int _selectedIndex = 5;
 
 class _BookingDetailState extends State<BookingDetail> {
@@ -49,7 +51,7 @@ class _BookingDetailState extends State<BookingDetail> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, left: 16),
                           child: SizedBox(
-                            height: 122,
+                            height: 130,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -194,10 +196,12 @@ class _BookingDetailState extends State<BookingDetail> {
                                               terceklist = int.parse(
                                                   package[index]['harga']
                                                       .toString());
+                                              status = true;
                                             } else if (!selected) {
                                               package[index]['status'] = false;
                                               _selectedIndex = 5;
                                               terceklist = 0;
+                                              status = false;
 
                                               setState(() {});
                                             }
@@ -315,7 +319,7 @@ class _BookingDetailState extends State<BookingDetail> {
                       ),
                     ],
                   ),
-                  terceklist == 0
+                  (terceklist == 0 && status == false)
                       ? Container(
                           alignment: Alignment.center,
                           height: 38,
@@ -327,18 +331,31 @@ class _BookingDetailState extends State<BookingDetail> {
                             "Booking Now !",
                             style: ThemeText.headingBookNow,
                           ))
-                      : Container(
-                          alignment: Alignment.center,
-                          height: 38,
-                          width: 148,
-                          decoration: BoxDecoration(
-                              color: const Color(0xffFF7F00),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Text("Booking Now !",
-                              style: GoogleFonts.josefinSans(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.white)))
+                      : GestureDetector(
+                          onTap: () {
+                            log('masuk ke proses payment (payment confirmation screen)');
+                            // nanti pake construcotorx
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PaymentConfirmation(
+                                        data: null,
+                                      )),
+                            );
+                          },
+                          child: Container(
+                              alignment: Alignment.center,
+                              height: 38,
+                              width: 148,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffFF7F00),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text("Booking Now !",
+                                  style: GoogleFonts.josefinSans(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.white))),
+                        )
                 ])));
   }
 }
