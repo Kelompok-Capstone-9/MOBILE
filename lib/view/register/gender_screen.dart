@@ -41,8 +41,8 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                       fontWeight: FontWeight.w700),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              OutlinedButton(
+                onPressed: () {
                   setState(() {});
                 },
                 child: Container(
@@ -68,8 +68,8 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              OutlinedButton(
+                onPressed: () {
                   setState(() {});
                 },
                 child: Container(
