@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/payment_information.dart';
 import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
 import 'package:gofit_apps/view/booking_detail/widget/card.dart';
 import 'package:gofit_apps/view/booking_detail/widget/card_pay.dart';
@@ -28,7 +29,9 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
       appBar: AppBar(
           elevation: 0.8,
           title: Text('Payment confirmation', style: ThemeText.heading1),
-          leading: const Icon(Icons.arrow_back, color: Colors.black),
+          leading: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: const Icon(Icons.arrow_back, color: Colors.black)),
           backgroundColor: ColorsTheme.bgScreen),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -358,21 +361,32 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                       fontSize: 14,
                       color: const Color(0xffFF7F00)),
                 )),
-            Container(
-                alignment: Alignment.center,
-                height: 38,
-                width: 176,
-                decoration: BoxDecoration(
-                    color: const Color(0xffFF7F00),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "Continue to payment",
-                  style: GoogleFonts.josefinSans(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
-                ))
+            GestureDetector(
+              onTap: () {
+                log('ke proses payment');
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PaymentInformation()),
+                );
+              },
+              child: Container(
+                  alignment: Alignment.center,
+                  height: 38,
+                  width: 176,
+                  decoration: BoxDecoration(
+                      color: const Color(0xffFF7F00),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Text(
+                    "Continue to payment",
+                    style: GoogleFonts.josefinSans(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  )),
+            )
           ],
         ),
       ),
