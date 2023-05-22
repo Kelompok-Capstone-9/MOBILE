@@ -7,6 +7,7 @@ class ColorsTheme {
   static final Color primary600 = Color(0xffFF7F00);
   static final Color colorLight = Color(0xffF6F6F6);
   static final Color disableColorButton = Color(0xffDFDFDF);
+  static final Color successColor = Color(0xff44DD77);
 }
 
 class ThemeText {
@@ -90,5 +91,10 @@ class ThemeText {
     fontWeight: FontWeight.w500,
     fontSize: 10,
     color: const Color(0xff004040),
+  );
+  static TextStyle headingSuccessPayment = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 28,
+    color: const Color(0xff030303),
   );
 }
