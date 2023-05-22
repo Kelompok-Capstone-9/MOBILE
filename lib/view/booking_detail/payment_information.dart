@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/widget/button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentInformation extends StatefulWidget {
@@ -17,7 +18,13 @@ TextEditingController bbController = TextEditingController();
 TextEditingController cvvController = TextEditingController();
 
 // String status = 'klik-payment';
+String _cardNumber = '';
+bool verifiedCompliteInput = false;
 String status = '';
+/*validasi ketika user udah nginput  textEditing controller (semuanya)
+set status ke idle
+
+*/
 // ignore: non_constant_identifier_names
 bool check_save_information = false;
 
@@ -144,7 +151,12 @@ class _PaymentInformationState extends State<PaymentInformation> {
                           shadowColor: Colors.blue,
                           child: TextFormField(
                             controller: cardNumberController,
-                            // validator: (value) {},
+                            onChanged: (value) {
+                              _cardNumber = value;
+                              verifiedCompliteInput = true;
+                              log(verifiedCompliteInput.toString());
+                              log(_cardNumber.toString());
+                            },
                             obscureText: false,
                             decoration: const InputDecoration(
                               enabledBorder: OutlineInputBorder(
@@ -293,34 +305,89 @@ class _PaymentInformationState extends State<PaymentInformation> {
         width: mediaquery.width,
         height: 80,
         child: GestureDetector(
-          onTap: () {
-            log("Pay Now heheh :) MASUK KE PAYMENT PROSES");
-            /* janganlupa logika TOMBOL ini klik ketika setelah input form 
+            onTap: () {
+              log("Pay Now heheh :) MASUK KE PAYMENT PROSES");
+              /* janganlupa logika TOMBOL ini klik ketika setelah input form 
             atau sebelum 
             proses input */
-            setState(() {
-              status = 'klik-payment';
-            });
-          },
-          child: Center(
-            child: Container(
-                alignment: Alignment.center,
-                height: 38,
-                width: 360,
-                decoration: BoxDecoration(
-                  color: ColorsTheme.primary600,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  "Pay now",
-                  style: GoogleFonts.josefinSans(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: ColorsTheme.colorLight),
-                )),
-          ),
-        ),
+              setState(() {
+                status = 'klik-payment';
+              });
+
+              // if (status == 'idle') {
+              if (verifiedCompliteInput == true) {
+                print('verified the complit input field');
+                showDialog(
+                    context: context,
+                    barrierDismissible: false, // user must tap button!
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          backgroundColor: ColorsTheme.bgScreen,
+                          insetPadding: EdgeInsets.all(0),
+                          icon: Builder(builder: (context) {
+                            return GestureDetector(
+                              onTap: () => Navigator.of(context).pop(),
+                              child: const Align(
+                                alignment: Alignment.topLeft,
+                                child: Icon(Icons.close),
+                              ),
+                            );
+                          }),
+                          content: SizedBox(
+                            width: mediaquery.width,
+                            height: mediaquery.height,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 48, top: 48),
+                                  height: 140,
+                                  width: 140,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(80),
+                                      color: ColorsTheme.successColor),
+                                  child: Icon(Icons.check,
+                                      size: 52, color: ColorsTheme.colorLight),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 12.0),
+                                  child: Text(
+                                    'Payment Successful!',
+                                    style: ThemeText.headingSuccessPayment,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 44.0),
+                                  child: Text(
+                                    'Hooray! You have completed your payment.',
+                                    style: ThemeText.headingAmountPaid,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20.0),
+                                  child: Text('Amount Paid!',
+                                      style: ThemeText.headingAmountPaid),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 44.0),
+                                  child: Text(
+                                    'Rp 150.000',
+                                    style: ThemeText.headingRupiah,
+                                  ),
+                                ),
+                                ButtonPayWithDetail(
+                                  textButton: 'Go to details',
+                                  id: 'to-detail pay',
+                                )
+                              ],
+                            ),
+                          ));
+                    });
+              }
+            },
+            child: ButtonPay(textButton: 'Pay Now')),
       ),
     );
   }
 }
+
+// ignore: must_be_immutable
