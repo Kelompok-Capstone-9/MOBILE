@@ -1,11 +1,18 @@
+import 'dart:developer';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
 import 'package:gofit_apps/view/booking_detail/widget/card.dart';
+import 'package:gofit_apps/view/booking_detail/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentConfirmation extends StatefulWidget {
-  const PaymentConfirmation({super.key});
+  var data;
+
+  PaymentConfirmation({super.key, required this.data});
 
   @override
   State<PaymentConfirmation> createState() => _PaymentConfirmationState();
@@ -263,9 +270,46 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                       style: ThemeText.heading2,
                     ),
                     const SizedBox(height: 10),
-                    CardWidget(
-                        icon: FontAwesomeIcons.wallet,
-                        keterangan: "Select payment"),
+                    GestureDetector(
+                      onTap: () {
+                        log('masuk ke screen pilih payment methode');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PaymentMethod()),
+                        );
+                      },
+                      child: widget.data == null
+                          ? CardWidget(
+                              icon: FontAwesomeIcons.wallet,
+                              keterangan: "Select payment")
+                          : SizedBox(
+                              // width: 350,
+                              height: 90,
+                              child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    side: BorderSide(
+                                      color: const Color(0xff919191)
+                                          .withOpacity(0.6),
+                                    ),
+                                  ),
+                                  elevation: 5,
+                                  color: ColorsTheme.bgScreen,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CardPay(
+                                      type: paymentMethode[widget.data]['type']
+                                          .toString(),
+                                      desc: paymentMethode[widget.data]['desc']
+                                          .toString(),
+                                      image: paymentMethode[widget.data]
+                                              ['image']
+                                          .toString(),
+                                    ),
+                                  )),
+                            ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
                       child: Align(

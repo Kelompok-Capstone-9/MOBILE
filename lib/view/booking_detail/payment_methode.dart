@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
+import 'package:gofit_apps/view/booking_detail/payment_confirmation.dart';
+import 'package:gofit_apps/view/booking_detail/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/color_style.dart';
@@ -14,6 +16,7 @@ class PaymentMethod extends StatefulWidget {
 }
 
 String _payMethod = "";
+int _indexPayment = 6;
 
 class _PaymentMethodState extends State<PaymentMethod> {
   @override
@@ -50,63 +53,68 @@ class _PaymentMethodState extends State<PaymentMethod> {
                               setState(() {
                                 print(value);
                                 _payMethod = value.toString();
+                                _indexPayment = index;
                               });
+                              log(_indexPayment.toString());
                             }),
                         SizedBox(
                           width: 350,
                           height: 90,
                           child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                color: i['onTap'] == true
-                                    ? Colors.red
-                                    : const Color(0xff919191).withOpacity(0.6),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                  color: i['onTap'] == true
+                                      ? Colors.red
+                                      : const Color(0xff919191)
+                                          .withOpacity(0.6),
+                                ),
                               ),
-                            ),
-                            elevation: 0.2,
-                            color: ColorsTheme.bgScreen,
-                            margin: const EdgeInsets.only(right: 20, top: 16),
-                            child: ListTile(
-                              title: Text(
-                                i['type'].toString(),
-                                style: ThemeText.heading3,
-                              ),
-                              subtitle: Text(
-                                i['desc'].toString(),
-                                style: ThemeText.headingPaymentDescription,
-                              ),
-                              trailing: SizedBox(
-                                width: 50,
-                                child: Image.asset(i['image'].toString(),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-                          ),
+                              elevation: 0.2,
+                              color: ColorsTheme.bgScreen,
+                              margin: const EdgeInsets.only(right: 20, top: 16),
+                              child: CardPay(
+                                type: i['type'].toString(),
+                                desc: i['desc'].toString(),
+                                image: i['image'].toString(),
+                              )),
                         ),
                       ],
                     );
                   }),
             ),
-            Container(
-                alignment: Alignment.center,
-                height: 40,
-                width: 328,
-                decoration: BoxDecoration(
-                  color: _payMethod != ""
-                      ? ColorsTheme.primary600
-                      : ColorsTheme.disableColorButton,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  "Select",
-                  style: GoogleFonts.josefinSans(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: _payMethod != ""
-                          ? ColorsTheme.colorLight
-                          : const Color(0xffB5B5B5)),
-                )),
+            GestureDetector(
+              onTap: () {
+                log('selesai memilih payment method');
+                // kirim data ketika selesai memilih
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PaymentConfirmation(
+                            data: _indexPayment,
+                          )),
+                );
+              },
+              child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  width: 328,
+                  decoration: BoxDecoration(
+                    color: _payMethod != ""
+                        ? ColorsTheme.primary600
+                        : ColorsTheme.disableColorButton,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    "Select",
+                    style: GoogleFonts.josefinSans(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: _payMethod != ""
+                            ? ColorsTheme.colorLight
+                            : const Color(0xffB5B5B5)),
+                  )),
+            ),
           ],
         ),
       ),
