@@ -4,8 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 import 'package:gofit_apps/view/booking_detail/payment_information.dart';
 import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
+import 'package:gofit_apps/view/booking_detail/widget/button.dart';
 import 'package:gofit_apps/view/booking_detail/widget/card.dart';
 import 'package:gofit_apps/view/booking_detail/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -365,21 +367,76 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-                alignment: Alignment.center,
-                height: 38,
-                width: 176,
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(0, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color(0xffFF7F00))),
-                child: Text(
-                  "Cancel Order",
-                  style: GoogleFonts.josefinSans(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: const Color(0xffFF7F00)),
-                )),
+            GestureDetector(
+              onTap: () {
+                log('cancel oreder');
+                showDialog(
+                    context: context,
+                    barrierDismissible: false, // user must tap button!
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          backgroundColor: ColorsTheme.bgScreen,
+                          insetPadding: EdgeInsets.only(left: 17, right: 17),
+                          content: SizedBox(
+                            width: 500,
+                            height: 150,
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(bottom: 8, top: 16),
+                                  child: SizedBox(
+                                      width: 80,
+                                      height: 52,
+                                      child: Image.asset(
+                                        'assets/images/alert-dialog.png',
+                                        fit: BoxFit.cover,
+                                      )),
+                                ),
+                                Text(
+                                  'Are you sure to cancel this order ?',
+                                  style: ThemeText.heading6,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: SizedBox(
+                                    width: mediaquery.width,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {
+                                              log('close window');
+                                              // Navigator.pop(context);
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const BookingDetail()),
+                                              );
+                                            },
+                                            child:
+                                                ButtonOutlineSmallCancelPayment(
+                                                    textButton: 'Yes, sure')),
+                                        GestureDetector(
+                                            onTap: () {
+                                              log('close window');
+                                              Navigator.pop(context);
+                                            },
+                                            child: ButtonFilledSmallBackPayment(
+                                                textButton: 'Back to pay')),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ));
+                    });
+              },
+              child: ButtonOutlineSmall(textButton: 'Cancel Order'),
+            ),
             GestureDetector(
               onTap: () {
                 log('ke proses payment');
@@ -390,21 +447,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                       builder: (context) => const PaymentInformation()),
                 );
               },
-              child: Container(
-                  alignment: Alignment.center,
-                  height: 38,
-                  width: 176,
-                  decoration: BoxDecoration(
-                      color: const Color(0xffFF7F00),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Text(
-                    "Continue to payment",
-                    style: GoogleFonts.josefinSans(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  )),
+              child: ButtonFilledSmall(textButton: 'Continue to payment'),
             )
           ],
         ),
