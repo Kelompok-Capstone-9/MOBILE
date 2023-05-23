@@ -100,6 +100,11 @@ class ThemeText {
     fontSize: 14,
     color: const Color(0xffff7f00),
   );
+  static TextStyle headingSub = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff606060),
+  );
   static TextStyle headingAccount = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w400,
     fontSize: 14,

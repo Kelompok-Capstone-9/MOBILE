@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
+import 'forgot_password_screen.dart';
 import 'widget/decoration_form.dart';
 import 'widget/validator.dart';
 
@@ -63,7 +64,8 @@ class FormLoginState extends State<FormLogin> {
                               _passwordController.text.isNotEmpty;
                         });
                       },
-                      validator: (email) => EmailValidatorLogin.validateEmail(email),
+                      validator: (email) =>
+                          EmailValidatorLogin.validateEmail(email),
                     ),
                     const SizedBox(
                       height: 16,
@@ -112,7 +114,14 @@ class FormLoginState extends State<FormLogin> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPassword(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'Forgot Password?',
                       style: ThemeText.headingText,
