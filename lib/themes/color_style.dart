@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class ColorsTheme {
-  static final Color bgScreen =  Color(0xffF6F6F6);
+  static Color bgScreen = const Color(0xffF6F6F6);
 }
 
 class ThemeText {
@@ -80,5 +79,30 @@ class ThemeText {
     fontWeight: FontWeight.w500,
     fontSize: 10,
     color: const Color(0xff004040),
+  );
+  static TextStyle headingLabelGofit = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 48,
+    color: const Color(0xffff7f00),
+  );
+  static TextStyle headingLogin = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 24,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingInput = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xffb5b5b5),
+  );
+  static TextStyle headingText = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    color: const Color(0xffff7f00),
+  );
+  static TextStyle headingAccount = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff030303),
   );
 }
