@@ -18,8 +18,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
         backgroundColor: ColorsTheme.bgScreen,
         title: Text(
           'Step 1 of 6',
-          style: GoogleFonts.josefinSans(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+          style: ThemeText.heading1,
         ),
         centerTitle: true,
       ),
@@ -33,18 +32,15 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 36, bottom: 36),
-                child: Text(
-                  'Choose Gender',
-                  style: GoogleFonts.josefinSans(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700),
-                ),
+                child: Text('Choose Gender', style: ThemeText.headingLogin),
               ),
               OutlinedButton(
                 onPressed: () {
                   setState(() {});
                 },
+                style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color((0xffFF7F00)),
+                    disabledForegroundColor: ColorsTheme.bgScreen),
                 child: Container(
                   padding: const EdgeInsets.only(
                       left: 16, top: 22, bottom: 22, right: 16),
@@ -59,11 +55,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                       const SizedBox(
                         width: 40,
                       ),
-                      Text('Male',
-                          style: GoogleFonts.josefinSans(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700))
+                      Text('Male', style: ThemeText.heading1)
                     ],
                   ),
                 ),
@@ -72,6 +64,9 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                 onPressed: () {
                   setState(() {});
                 },
+                style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color((0xffFF7F00)),
+                    disabledForegroundColor: ColorsTheme.bgScreen),
                 child: Container(
                   padding: const EdgeInsets.only(
                       left: 16, top: 22, bottom: 22, right: 16),
@@ -83,11 +78,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                       const SizedBox(
                         width: 40,
                       ),
-                      Text('Female',
-                          style: GoogleFonts.josefinSans(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700))
+                      Text('Female', style: ThemeText.heading1)
                     ],
                   ),
                 ),

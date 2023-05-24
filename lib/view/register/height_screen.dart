@@ -27,11 +27,7 @@ class _HeightScreenState extends State<HeightScreen> {
               height: 36,
             ),
             Center(
-              child: Text('Input Your Height',
-                  style: GoogleFonts.josefinSans(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700)),
+              child: Text('Input Your Height', style: ThemeText.headingLogin),
             ),
             const SizedBox(
               height: 36,
@@ -69,12 +65,7 @@ class _HeightScreenState extends State<HeightScreen> {
                 onPressed: () {},
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Text('Continue',
-                      style: GoogleFonts.josefinSans(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          fontStyle: FontStyle.normal,
-                          color: Colors.black)),
+                  child: Text('Continue', style: ThemeText.heading1),
                 ),
               ),
             ),
