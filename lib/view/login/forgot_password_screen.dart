@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
+import 'otp_screen.dart';
 import 'widget/decoration_form.dart';
 import 'widget/validator.dart';
 
@@ -82,7 +83,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 : const Color(0xffDFDFDF)),
                         onPressed: () {
                           final isValidForm = _formKey.currentState!.validate();
-                          if (isValidForm) {}
+                          if (isValidForm) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const OTPScreen(),
+                              ),
+                            );
+                          }
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 12),
