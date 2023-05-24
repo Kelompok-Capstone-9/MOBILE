@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
@@ -43,77 +44,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, left: 16, right: 16),
-                child: Center(
-                  child: Card(
-                    shadowColor: Colors.black.withOpacity(0.5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    color: ColorsTheme.bgScreen,
-                    elevation: 5,
-                    child: SizedBox(
-                      // width: 328,
-                      height: 90,
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 16.0, right: 16),
-                            child: SizedBox(
-                                width: 70,
-                                height: 70,
-                                child:
-                                    // online class
-                                    ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.asset(
-                                      'assets/images/online-class.png',
-                                      fit: BoxFit.cover),
-                                )
-
-                                // endd class
-                                //  Image.asset('assets/images/open-gym.png',
-                                //     fit: BoxFit.contain)
-                                ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 13.5, bottom: 13.5),
-                            child: SizedBox(
-                              width: 140,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Open Gym',
-                                    style: ThemeText.heading2,
-                                  ),
-                                  Text(
-                                    'Depok, Jawa Barat',
-                                    style: ThemeText.headingPaymentDescription,
-                                  ),
-                                  Text(
-                                    '2.0 Km',
-                                    style: ThemeText.headingPaymentDescription,
-                                  ),
-                                  Text(
-                                    'Rp. 20.0000',
-                                    style: ThemeText.heading2,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              contoh().animate().fadeIn().slideX().fadeIn(),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 16),
                 child: Column(
@@ -134,86 +65,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                     width: 1.0,
                   ),
                 )),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      horizontalTitleGap: 0,
-                      leading: const Icon(
-                        Icons.shopping_cart,
-                        color: Colors.black,
-                      ),
-                      title: Text(
-                        'Booking Type',
-                        style: ThemeText.heading3,
-                      ),
-                      trailing: Text(
-                        'Daily',
-                        style: ThemeText.heading5,
-                      ),
-                    ),
-                    ListTile(
-                      horizontalTitleGap: 1,
-                      leading: const Icon(
-                        Icons.tv,
-                        color: Colors.black,
-                      ),
-                      title: Text(
-                        'Class type',
-                        style: ThemeText.heading3,
-                      ),
-                      trailing:
-                          // online class
-                          Text(
-                        'Online mentoring',
-                        style: ThemeText.heading5,
-                      ),
-                      // end class
-                      // Text(
-                      //   'Offline mentoring',
-                      //   style: ThemeText.heading5,
-                      // ),
-                    ),
-                    ListTile(
-                      horizontalTitleGap: 1,
-                      leading: const Icon(
-                        Icons.calendar_month,
-                        color: Colors.black,
-                      ),
-                      title: Text(
-                        'Periode of booking',
-                        style: ThemeText.heading3,
-                      ),
-                      trailing: Text(
-                        '30 Apr 2023',
-                        style: ThemeText.heading5,
-                      ),
-                    ),
-                    ListTile(
-                      horizontalTitleGap: 1,
-                      leading: const Icon(
-                        Icons.timer,
-                        color: Colors.black,
-                      ),
-                      title: Text(
-                        'Time session',
-                        style: ThemeText.heading3,
-                      ),
-                      trailing: Text(
-                        '5AM - 12PM',
-                        style: ThemeText.heading5,
-                      ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(
-                    //       top: 14, bottom: 12, left: 16, right: 16),
-                    //   child: CardWidget(
-                    //       icon: FontAwesomeIcons.jugDetergent,
-                    //       keterangan: "Grab your offers"),
-                    // ),
-                  ],
-                ),
+                child: listV().animate().slideX().fadeIn(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 16),
@@ -226,7 +78,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                     ),
                   ],
                 ),
-              ),
+              ).animate().moveY().fadeIn(),
               SizedBox(
                 height: 120,
                 child: Column(
@@ -245,7 +97,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                           style: ThemeText.heading5,
                         ),
                       ),
-                    ),
+                    ).animate().fadeIn().shake(),
                     SizedBox(
                       height: 40,
                       child: ListTile(
@@ -258,7 +110,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                           style: ThemeText.heading5,
                         ),
                       ),
-                    ),
+                    ).animate().fadeIn().shake(),
                     Center(
                         child: Text(
                             '_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _',
@@ -266,7 +118,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                               fontWeight: FontWeight.w100,
                               fontSize: 20,
                               color: const Color(0xff0B0B0B),
-                            ))),
+                            ))).animate().fadeIn().shake(),
                     SizedBox(
                       height: 25,
                       child: ListTile(
@@ -333,7 +185,12 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                     ),
                                   )),
                             ),
-                    ),
+                    )
+                        .animate()
+                        .saturate()
+                        .shimmer()
+                        .fadeIn()
+                        .effect(duration: Duration(seconds: 6)),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
                       child: Align(
@@ -450,6 +307,159 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
               child: ButtonFilledSmall(textButton: 'Continue to payment'),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Column listV() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        ListTile(
+          horizontalTitleGap: 0,
+          leading: const Icon(
+            Icons.shopping_cart,
+            color: Colors.black,
+          ),
+          title: Text(
+            'Booking Type',
+            style: ThemeText.heading3,
+          ),
+          trailing: Text(
+            'Daily',
+            style: ThemeText.heading5,
+          ),
+        ),
+        ListTile(
+          horizontalTitleGap: 1,
+          leading: const Icon(
+            Icons.tv,
+            color: Colors.black,
+          ),
+          title: Text(
+            'Class type',
+            style: ThemeText.heading3,
+          ),
+          trailing:
+              // online class
+              Text(
+            'Online mentoring',
+            style: ThemeText.heading5,
+          ),
+          // end class
+          // Text(
+          //   'Offline mentoring',
+          //   style: ThemeText.heading5,
+          // ),
+        ),
+        ListTile(
+          horizontalTitleGap: 1,
+          leading: const Icon(
+            Icons.calendar_month,
+            color: Colors.black,
+          ),
+          title: Text(
+            'Periode of booking',
+            style: ThemeText.heading3,
+          ),
+          trailing: Text(
+            '30 Apr 2023',
+            style: ThemeText.heading5,
+          ),
+        ),
+        ListTile(
+          horizontalTitleGap: 1,
+          leading: const Icon(
+            Icons.timer,
+            color: Colors.black,
+          ),
+          title: Text(
+            'Time session',
+            style: ThemeText.heading3,
+          ),
+          trailing: Text(
+            '5AM - 12PM',
+            style: ThemeText.heading5,
+          ),
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(
+        //       top: 14, bottom: 12, left: 16, right: 16),
+        //   child: CardWidget(
+        //       icon: FontAwesomeIcons.jugDetergent,
+        //       keterangan: "Grab your offers"),
+        // ),
+      ],
+    );
+  }
+
+  Padding contoh() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0, left: 16, right: 16),
+      child: Center(
+        child: Card(
+          shadowColor: Colors.black.withOpacity(0.5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          color: ColorsTheme.bgScreen,
+          elevation: 5,
+          child: SizedBox(
+            // width: 328,
+            height: 90,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 16),
+                  child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child:
+                          // online class
+                          ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset('assets/images/online-class.png',
+                            fit: BoxFit.cover),
+                      )
+
+                      // endd class
+                      //  Image.asset('assets/images/open-gym.png',
+                      //     fit: BoxFit.contain)
+                      ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 13.5, bottom: 13.5),
+                  child: SizedBox(
+                    width: 140,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Open Gym',
+                          style: ThemeText.heading2,
+                        ),
+                        Text(
+                          'Depok, Jawa Barat',
+                          style: ThemeText.headingPaymentDescription,
+                        ),
+                        Text(
+                          '2.0 Km',
+                          style: ThemeText.headingPaymentDescription,
+                        ),
+                        Text(
+                          'Rp. 20.0000',
+                          style: ThemeText.heading2,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
