@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/register/height_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChooseGenderScreen extends StatefulWidget {
@@ -60,6 +61,9 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 16,
+              ),
               OutlinedButton(
                 onPressed: () {
                   setState(() {});
@@ -98,7 +102,10 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                         ? const Color(0xffFF7F00)
                         : const Color(0xffDFDFDF),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HeightScreen()));
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Text(

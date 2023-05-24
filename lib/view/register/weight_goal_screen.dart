@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/weight_screen.dart';
 
-class HeightScreen extends StatefulWidget {
-  const HeightScreen({Key? key}) : super(key: key);
+class WeightGoalScreen extends StatefulWidget {
+  const WeightGoalScreen({Key? key}) : super(key: key);
   @override
-  State<HeightScreen> createState() => _HeightScreenState();
+  State<WeightGoalScreen> createState() => _WeightGoalScreenState();
 }
 
-class _HeightScreenState extends State<HeightScreen> {
+class _WeightGoalScreenState extends State<WeightGoalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
         backgroundColor: ColorsTheme.bgScreen,
-        title: Text('Step 2 of 6', style: ThemeText.heading1),
+        title: Text('Step 4 of 6', style: ThemeText.heading1),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -27,7 +26,7 @@ class _HeightScreenState extends State<HeightScreen> {
               height: 36,
             ),
             Center(
-              child: Text('Input Your Height', style: ThemeText.headingLogin),
+              child: Text('Input Goal Weight', style: ThemeText.headingLogin),
             ),
             const SizedBox(
               height: 36,
@@ -63,8 +62,8 @@ class _HeightScreenState extends State<HeightScreen> {
                     ),
                     backgroundColor: const Color(0xffFF7F00)),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const WeightScreen()));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => const WeightGoalScreen()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
