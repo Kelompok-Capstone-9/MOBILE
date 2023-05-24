@@ -160,7 +160,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                               icon: FontAwesomeIcons.wallet,
                               keterangan: "Select payment")
                           : SizedBox(
-                              // width: 350,
+                              width: 350,
                               height: 90,
                               child: Card(
                                   shape: RoundedRectangleBorder(
@@ -233,59 +233,62 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                           backgroundColor: ColorsTheme.bgScreen,
-                          insetPadding: EdgeInsets.only(left: 17, right: 17),
+                          insetPadding: EdgeInsets.only(left: 8, right: 8),
                           content: SizedBox(
-                            width: 500,
-                            height: 150,
+                            width: 600,
+                            height: 160,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(bottom: 8, top: 16),
-                                  child: SizedBox(
-                                      width: 80,
-                                      height: 52,
-                                      child: Image.asset(
-                                        'assets/images/alert-dialog.png',
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                Text(
-                                  'Are you sure to cancel this order ?',
-                                  style: ThemeText.heading6,
+                                  child: Center(
+                                    child: SizedBox(
+                                        width: 80,
+                                        height: 52,
+                                        child: Image.asset(
+                                          'assets/images/alert-dialog.png',
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: SizedBox(
-                                    width: mediaquery.width,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              log('close window');
-                                              // Navigator.pop(context);
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const BookingDetail()),
-                                              );
-                                            },
-                                            child:
-                                                ButtonOutlineSmallCancelPayment(
-                                                    textButton: 'Yes, sure')),
-                                        GestureDetector(
-                                            onTap: () {
-                                              log('close window');
-                                              Navigator.pop(context);
-                                            },
-                                            child: ButtonFilledSmallBackPayment(
-                                                textButton: 'Back to pay')),
-                                      ],
+                                  padding: const EdgeInsets.only(
+                                      top: 16.0, bottom: 8),
+                                  child: Center(
+                                    child: Text(
+                                      'Are you sure to cancel this order ?',
+                                      style: ThemeText.heading6,
                                     ),
                                   ),
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          log('close window');
+                                          // Navigator.pop(context);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const BookingDetail()),
+                                          );
+                                        },
+                                        child: ButtonOutlineSmallCancelPayment(
+                                            textButton: 'Yes, sure')),
+                                    GestureDetector(
+                                        onTap: () {
+                                          log('close window');
+                                          Navigator.pop(context);
+                                        },
+                                        child: ButtonFilledSmallBackPayment(
+                                            textButton: 'Back to pay')),
+                                  ],
                                 )
                               ],
                             ),

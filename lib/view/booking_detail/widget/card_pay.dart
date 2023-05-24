@@ -12,18 +12,21 @@ class CardPay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        type,
-        style: ThemeText.heading3,
-      ),
-      subtitle: Text(
-        desc,
-        style: ThemeText.headingPaymentDescription,
-      ),
-      trailing: SizedBox(
-        width: 50,
-        child: Image.asset(image, fit: BoxFit.cover),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.80,
+      child: ListTile(
+        title: Text(
+          type,
+          style: ThemeText.heading3,
+        ),
+        subtitle: Text(
+          desc,
+          style: ThemeText.headingPaymentDescription,
+        ),
+        trailing: SizedBox(
+          width: 60,
+          child: Image.asset(image, fit: BoxFit.cover),
+        ),
       ),
     );
   }
