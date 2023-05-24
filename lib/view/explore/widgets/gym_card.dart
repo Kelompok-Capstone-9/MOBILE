@@ -39,32 +39,53 @@ class GymCardList extends StatelessWidget {
             leading: Image.asset(
               gymDataItem.imageurl,
             ),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  gymDataItem.gymName,
-                  style: ThemeText.heading2,
+            title: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      gymDataItem.gymName,
+                      style: ThemeText.heading2,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      gymDataItem.location,
+                      style: ThemeText.heading4.copyWith(
+                        color: ColorsTheme.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "${gymDataItem.status} class",
+                      style: ThemeText.heading4.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Rp ${gymDataItem.priceLow} - ${gymDataItem.priceHigh}",
+                      style: ThemeText.heading2.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  gymDataItem.location,
-                  style: ThemeText.heading4.copyWith(
-                    color: ColorsTheme.grey,
+                Container(
+                  alignment: Alignment.center,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: ColorsTheme.accent,
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  "${gymDataItem.status} class",
-                  style: ThemeText.heading4.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  "Rp ${gymDataItem.priceLow} - ${gymDataItem.priceHigh}",
-                  style: ThemeText.heading2.copyWith(
-                    fontWeight: FontWeight.w800,
+                  child: Text(
+                    "Book",
+                    style: ThemeText.heading4.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
