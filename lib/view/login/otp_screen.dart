@@ -109,25 +109,33 @@ class _OTPScreenState extends State<OTPScreen> {
                       width: 5,
                     ),
                     CountdownTimer(
-                      endTime: DateTime.now().millisecondsSinceEpoch + (9 * 60 * 1000),
+                      endTime: DateTime.now().millisecondsSinceEpoch +
+                          (10 * 60 * 1000),
                       onEnd: () {
-                        Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Timer finished')),
+                          SnackBar(
+                              content: Text(
+                            'Time Out',
+                            style: ThemeText.headingInput,
+                          )),
                         );
                       },
                       widgetBuilder: (_, CurrentRemainingTime? time) {
                         if (time == null) {
                           return const Text('00:00');
                         }
-                        final minutes =
-                            ((time.sec! + 60 * 9 ) ~/ 60).toString().padLeft(2, '0');
-                        final seconds =
-                            (time.sec! % 60).toString().padLeft(2, '0');
+                        int remainingTime = (time.min ?? 0).toInt() * 60 +
+                            (time.sec ?? 0).toInt();
+                        final minutes = ((remainingTime - 1) ~/ 60)
+                            .toString()
+                            .padLeft(2, '0');
+                        final seconds = ((remainingTime - 1) % 60)
+                            .toString()
+                            .padLeft(2, '0');
                         final timeFormat = '$minutes:$seconds';
                         return Text(timeFormat);
                       },
-                    )
+                    ),
                   ],
                 ),
                 Row(
