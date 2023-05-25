@@ -172,8 +172,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                   ),
                                   elevation: 5,
                                   color: ColorsTheme.bgScreen,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
                                     child: CardPay(
                                       type: paymentMethode[widget.data]['type']
                                           .toString(),
