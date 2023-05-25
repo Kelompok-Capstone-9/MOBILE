@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
+import 'reset_password_screen.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -67,7 +68,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'email@gmail.com',
+                        'mervin.km@gmail.com', //email yg terdaftar masih dummy
                         style: ThemeText.headingSub2,
                       ),
                     ),
@@ -108,12 +109,23 @@ class _OTPScreenState extends State<OTPScreen> {
                       width: 5,
                     ),
                     CountdownTimer(
-                      endTime: DateTime.now().millisecondsSinceEpoch + 600000,
+                      endTime: DateTime.now().millisecondsSinceEpoch + (9 * 60 * 1000),
                       onEnd: () {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Timer finished')),
                         );
+                      },
+                      widgetBuilder: (_, CurrentRemainingTime? time) {
+                        if (time == null) {
+                          return const Text('00:00');
+                        }
+                        final minutes =
+                            ((time.sec! + 60 * 9 ) ~/ 60).toString().padLeft(2, '0');
+                        final seconds =
+                            (time.sec! % 60).toString().padLeft(2, '0');
+                        final timeFormat = '$minutes:$seconds';
+                        return Text(timeFormat);
                       },
                     )
                   ],
@@ -163,12 +175,12 @@ class _OTPScreenState extends State<OTPScreen> {
                     onPressed: () {
                       final isValidForm = _formKey.currentState!.validate();
                       if (isValidForm) {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const ResetPassword(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ResetPassword(),
+                          ),
+                        );
                       }
                     },
                     child: Padding(
