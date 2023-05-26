@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.4
   hovering: ^1.0.4
+  toggle_switch: ^2.1.0
 
 dev_dependencies:
   flutter_test:

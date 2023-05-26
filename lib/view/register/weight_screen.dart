@@ -38,14 +38,16 @@ class _WeightScreenState extends State<WeightScreen> {
               width: 80,
               height: 60,
               child: const TextField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  fillColor: Color(0xFFFFFFFF),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFF606060),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                    borderSide: BorderSide(
+                      color: Color(0xFF606060),
+                      width: 2,
+                    ),
+                  ),
+                  border: OutlineInputBorder(),
+                  fillColor: Color(0xFFFFFFFF),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
               ),

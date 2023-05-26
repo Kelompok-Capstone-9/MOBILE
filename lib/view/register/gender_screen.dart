@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/height_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hovering/hovering.dart';
 
 class ChooseGenderScreen extends StatefulWidget {
   const ChooseGenderScreen({Key? key}) : super(key: key);
@@ -93,31 +93,23 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    backgroundColor: isSelected
-                        ? const Color(0xffFF7F00)
-                        : const Color(0xffDFDFDF),
-                  ),
-                  onPressed: () {
+                child: HoverButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  onpressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HeightScreen()));
                   },
+                  color: isSelected
+                      ? const Color(0xffFF7F00)
+                      : const Color(0xffDFDFDF),
+                  hoverColor: const Color(0xffFF7F00),
+                  hoverTextColor: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Text(
                       'Continue',
-                      style: GoogleFonts.josefinSans(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        fontStyle: FontStyle.normal,
-                        color: isSelected
-                            ? const Color(0xFFFF700F)
-                            : const Color(0xFFB5B5B5),
-                      ),
+                      style: ThemeText.heading1,
                     ),
                   ),
                 ),
