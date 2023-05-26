@@ -100,4 +100,24 @@ class ThemeText {
     fontSize: 14,
     color: const Color(0xff030303),
   );
+  static TextStyle headingPersonal = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingTitle = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w600,
+    fontSize: 20,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingInputForm = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    color: const Color(0xff919191),
+  );
+  static TextStyle headingSub2 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff606060),
+  );
 }
