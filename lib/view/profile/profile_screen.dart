@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
+import 'personal_details_screen.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfileScreenState extends State<ProfileScreen> {
   bool isNews = true;
 
   @override
@@ -24,8 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Container(
               margin: const EdgeInsets.all(16),
-              width: 400, // Lebar
-              height: 180, // Tinggi
+              width: 400,
+              height: 180,
               decoration: BoxDecoration(
                 color: const Color(0xffF6F6F6),
                 borderRadius: BorderRadius.circular(8),
@@ -155,8 +156,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 vertical: 8,
                 horizontal: 16,
               ),
-              width: 400, // Lebar
-              height: 200, // Tinggi
+              width: 400,
+              height: 200,
               decoration: BoxDecoration(
                 color: const Color(0xffF6F6F6),
                 borderRadius: BorderRadius.circular(8),
@@ -179,7 +180,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         style: ThemeText.headingDetails,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PersonalDetailsScreen(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_forward_ios_outlined,
                           size: 14,

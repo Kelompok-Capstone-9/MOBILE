@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view/profile/widget/card_gender.dart';
+import 'package:gofit_apps/view/profile/widget/card_goal_weight.dart';
+import 'package:gofit_apps/view/profile/widget/card_height.dart';
+import 'package:gofit_apps/view/profile/widget/card_password.dart';
+import 'package:gofit_apps/view/profile/widget/card_training_level.dart';
+import 'package:gofit_apps/view/profile/widget/card_weight.dart';
 import '../../themes/color_style.dart';
+import 'widget/card_username.dart';
 
 class PersonalDetailsScreen extends StatefulWidget {
   const PersonalDetailsScreen({super.key});
@@ -46,7 +53,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CardUsername();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 14,
@@ -65,7 +79,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CardPassword();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 14,
@@ -84,7 +105,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const CardGender();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 14,
@@ -103,7 +131,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const CardHeight();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 14,
@@ -122,7 +157,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const CardWeight();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 14,
@@ -141,7 +183,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const CardGoalWeight();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 14,
@@ -160,7 +209,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const CardTrainingLevel();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 14,
