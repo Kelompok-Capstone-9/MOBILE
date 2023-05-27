@@ -59,23 +59,28 @@ class _PaymentMethodState extends State<PaymentMethod> {
                             });
                             log(_indexPayment.toString());
                           }),
-                      Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(
-                              color: i['onTap'] == true
-                                  ? Colors.red
-                                  : const Color(0xff919191).withOpacity(0.6),
+                      GestureDetector(
+                        onTap: () => setState(() {
+                          _payMethod = i['type'].toString();
+                        }),
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: i['onTap'] == true
+                                    ? Colors.red
+                                    : const Color(0xff919191).withOpacity(0.6),
+                              ),
                             ),
-                          ),
-                          elevation: 0.2,
-                          color: ColorsTheme.bgScreen,
-                          margin: const EdgeInsets.only(right: 20, top: 16),
-                          child: CardPay(
-                            type: i['type'].toString(),
-                            desc: i['desc'].toString(),
-                            image: i['image'].toString(),
-                          )),
+                            elevation: 0.2,
+                            color: ColorsTheme.bgScreen,
+                            margin: const EdgeInsets.only(right: 20, top: 16),
+                            child: CardPay(
+                              type: i['type'].toString(),
+                              desc: i['desc'].toString(),
+                              image: i['image'].toString(),
+                            )),
+                      ),
                     ],
                   );
                 }),
