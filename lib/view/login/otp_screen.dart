@@ -178,8 +178,8 @@ class _OTPScreenState extends State<OTPScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
                         backgroundColor: isFormFilled
-                            ? const Color(0xffFF7F00)
-                            : const Color(0xffDFDFDF)),
+                            ? ColorsTheme.activeButton
+                            : ColorsTheme.inActiveButton),
                     onPressed: () {
                       final isValidForm = _formKey.currentState!.validate();
                       if (isValidForm) {
@@ -200,8 +200,8 @@ class _OTPScreenState extends State<OTPScreen> {
                           fontSize: 16,
                           fontStyle: FontStyle.normal,
                           color: isFormFilled
-                              ? const Color(0xFFF6F6F6)
-                              : const Color(0xFFB5B5B5),
+                              ? ColorsTheme.activeText
+                              : ColorsTheme.inActiveText,
                         ),
                       ),
                     ),

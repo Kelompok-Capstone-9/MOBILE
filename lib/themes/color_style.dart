@@ -3,6 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
   static Color bgScreen = const Color(0xffF6F6F6);
+  static Color activeButton = const Color(0xffFF7F00);
+  static Color inActiveButton = const Color(0xffDFDFDF);
+  static Color activeText = const Color(0xFFF6F6F6);
+  static Color inActiveText = const Color(0xFFB5B5B5);
 }
 
 class ThemeText {

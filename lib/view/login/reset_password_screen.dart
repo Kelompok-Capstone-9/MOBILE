@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/color_style.dart';
+import 'login_screen.dart';
 import 'widget/decoration_form.dart';
 import 'widget/validator.dart';
 
@@ -130,18 +131,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8)),
                               backgroundColor: isFormFilled
-                                  ? const Color(0xffFF7F00)
-                                  : const Color(0xffDFDFDF)),
+                                  ? ColorsTheme.activeButton
+                                  : ColorsTheme.inActiveButton),
                           onPressed: () {
                             final isValidForm =
                                 _formKey.currentState!.validate();
                             if (isValidForm) {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const FormLogin(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const FormLogin(),
+                                ),
+                              );
                             }
                           },
                           child: Padding(
@@ -153,8 +154,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 fontSize: 16,
                                 fontStyle: FontStyle.normal,
                                 color: isFormFilled
-                                    ? const Color(0xFFF6F6F6)
-                                    : const Color(0xFFB5B5B5),
+                                    ? ColorsTheme.activeText
+                                    : ColorsTheme.inActiveText,
                               ),
                             ),
                           ),
