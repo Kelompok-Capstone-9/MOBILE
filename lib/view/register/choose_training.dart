@@ -26,10 +26,8 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(children: [
-          const Padding(padding: EdgeInsets.only(left: 20, right: 20)),
-          const SizedBox(
-            height: 36,
-          ),
+          const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 36)),
           Center(
             child: Text('Choose Training Level', style: ThemeText.headingLogin),
           ),

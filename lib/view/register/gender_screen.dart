@@ -27,12 +27,10 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(padding: EdgeInsets.only(left: 20, right: 20)),
-              const SizedBox(
-                height: 36,
-              ),
+              const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 36)),
               Padding(
-                padding: const EdgeInsets.only(top: 36, bottom: 36),
+                padding: const EdgeInsets.only(bottom: 36),
                 child: Text('Choose Gender', style: ThemeText.headingLogin),
               ),
               OutlinedButton(

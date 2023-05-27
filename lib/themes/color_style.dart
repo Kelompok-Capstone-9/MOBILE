@@ -7,6 +7,8 @@ class ColorsTheme {
   static Color inActiveButton = const Color(0xffDFDFDF);
   static Color activeText = const Color(0xFFF6F6F6);
   static Color inActiveText = const Color(0xFFB5B5B5);
+  static const Color iconColor = Color(0xff00007A);
+  static const Color successColor = Color(0xff44DD77);
 }
 
 class ThemeText {
@@ -118,5 +120,20 @@ class ThemeText {
     fontWeight: FontWeight.w400,
     fontSize: 14,
     color: const Color(0xff606060),
+  );
+  static TextStyle memberPaid = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+    color: const Color(0xffff7f00),
+  );
+  static TextStyle headingMember = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 20,
+    color: Colors.black87,
+  );
+  static TextStyle headingMember2 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+    color: const Color(0xFF919191),
   );
 }
