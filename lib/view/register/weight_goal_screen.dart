@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/register/choose_training.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class WeightGoalScreen extends StatefulWidget {
   const WeightGoalScreen({Key? key}) : super(key: key);
@@ -31,25 +33,57 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
             const SizedBox(
               height: 36,
             ),
-            Container(
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(4))),
-              width: 80,
-              height: 60,
-              child: const TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFF606060),
-                      width: 2,
+            ToggleSwitch(
+              minWidth: 110,
+              minHeight: 30,
+              cornerRadius: 20,
+              customTextStyles: [ThemeText.heading1],
+              activeBgColors: const [
+                [Colors.white],
+                [Colors.white]
+              ],
+              activeFgColor: Colors.white,
+              inactiveBgColor: Colors.black26,
+              inactiveFgColor: Colors.white,
+              totalSwitches: 2,
+              labels: const ['Kilogram', 'Pound'],
+              onToggle: (index) {},
+            ),
+            const SizedBox(
+              height: 56,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                  width: 80,
+                  height: 60,
+                  child: const TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFF606060),
+                          width: 2,
+                        ),
+                      ),
+                      border: OutlineInputBorder(),
+                      fillColor: Color(0xFFFFFFFF),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
                   ),
-                  border: OutlineInputBorder(),
-                  fillColor: Color(0xFFFFFFFF),
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
-              ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  'kg',
+                  style: ThemeText.heading1,
+                ),
+              ],
             ),
             const SizedBox(
               height: 68,
@@ -64,8 +98,8 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                     ),
                     backgroundColor: const Color(0xffFF7F00)),
                 onPressed: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (context) => const WeightGoalScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ChooseTrainingScreen()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),

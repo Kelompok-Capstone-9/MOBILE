@@ -43,6 +43,8 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     foregroundColor: const Color((0xffFF7F00)),
                     disabledForegroundColor: ColorsTheme.bgScreen),
                 child: Container(
+                  width: 328,
+                  height: 60,
                   padding: const EdgeInsets.only(
                       left: 16, top: 22, bottom: 22, right: 16),
                   decoration: const BoxDecoration(
@@ -72,6 +74,8 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     foregroundColor: const Color((0xffFF7F00)),
                     disabledForegroundColor: ColorsTheme.bgScreen),
                 child: Container(
+                  width: 328,
+                  height: 60,
                   padding: const EdgeInsets.only(
                       left: 16, top: 22, bottom: 22, right: 16),
                   child: Row(
