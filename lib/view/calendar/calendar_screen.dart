@@ -53,7 +53,45 @@ class _CalendarViewState extends State<CalendarView> {
               ),
             ),
           ),
-          CalendarView(),
+          Container(
+            padding: const EdgeInsets.all(20),
+            child: TableCalendar(
+              locale: 'en_US',
+              rowHeight: 43,
+              headerStyle: HeaderStyle(
+                titleTextStyle: ThemeText.heading1,
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
+              calendarStyle: CalendarStyle(
+                isTodayHighlighted: true,
+                todayDecoration: BoxDecoration(
+                  color: ColorsTheme.accent.withOpacity(.45),
+                  shape: BoxShape.circle,
+                ),
+                selectedDecoration: BoxDecoration(
+                  color: ColorsTheme.accent,
+                  shape: BoxShape.circle,
+                ),
+                weekNumberTextStyle: ThemeText.heading5,
+                weekendTextStyle: ThemeText.heading5.copyWith(
+                  color: ColorsTheme.grey,
+                ),
+                outsideTextStyle: ThemeText.heading5.copyWith(
+                  color: ColorsTheme.grey,
+                ),
+                todayTextStyle: ThemeText.heading5,
+                defaultTextStyle: ThemeText.heading5,
+                selectedTextStyle: ThemeText.heading5,
+              ),
+              availableGestures: AvailableGestures.all,
+              selectedDayPredicate: (day) => isSameDay(day, today),
+              focusedDay: today,
+              firstDay: DateTime.utc(2010, 10, 16),
+              lastDay: DateTime.utc(2030, 3, 14),
+              onDaySelected: _onDaySelected,
+            ),
+          ),
           const Spacer(),
           Divider(
             color: ColorsTheme.divider,
@@ -100,48 +138,6 @@ class _CalendarViewState extends State<CalendarView> {
           ),
           const SizedBox(height: 8)
         ],
-      ),
-    );
-  }
-
-  Container CalendarView() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: TableCalendar(
-        locale: 'en_US',
-        rowHeight: 43,
-        headerStyle: HeaderStyle(
-          titleTextStyle: ThemeText.heading1,
-          formatButtonVisible: false,
-          titleCentered: true,
-        ),
-        calendarStyle: CalendarStyle(
-          isTodayHighlighted: true,
-          todayDecoration: BoxDecoration(
-            color: ColorsTheme.accent.withOpacity(.45),
-            shape: BoxShape.circle,
-          ),
-          selectedDecoration: BoxDecoration(
-            color: ColorsTheme.accent,
-            shape: BoxShape.circle,
-          ),
-          weekNumberTextStyle: ThemeText.heading5,
-          weekendTextStyle: ThemeText.heading5.copyWith(
-            color: ColorsTheme.grey,
-          ),
-          outsideTextStyle: ThemeText.heading5.copyWith(
-            color: ColorsTheme.grey,
-          ),
-          todayTextStyle: ThemeText.heading5,
-          defaultTextStyle: ThemeText.heading5,
-          selectedTextStyle: ThemeText.heading5,
-        ),
-        availableGestures: AvailableGestures.all,
-        selectedDayPredicate: (day) => isSameDay(day, today),
-        focusedDay: today,
-        firstDay: DateTime.utc(2010, 10, 16),
-        lastDay: DateTime.utc(2030, 3, 14),
-        onDaySelected: _onDaySelected,
       ),
     );
   }

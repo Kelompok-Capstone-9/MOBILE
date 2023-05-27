@@ -4,6 +4,7 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/calendar/calendar_screen.dart';
 import 'package:gofit_apps/view/explore/widgets/gym_card.dart';
 import 'package:gofit_apps/view/explore/widgets/time_category.dart';
+import 'package:gofit_apps/view/filter/filter_screen.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -174,7 +175,12 @@ class ExploreScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FilterView()),
+          );
+        },
         label: const Text('Filter'),
         icon: const Icon(Icons.filter_list_rounded),
         backgroundColor: ColorsTheme.accent,
