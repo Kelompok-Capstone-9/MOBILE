@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
 import 'reset_password_screen.dart';
+import 'package:pinput/pinput.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -12,15 +12,31 @@ class OTPScreen extends StatefulWidget {
   State<OTPScreen> createState() => _OTPScreenState();
 }
 
+final pinController = TextEditingController();
+final _formKey = GlobalKey<FormState>();
+final focusNode = FocusNode();
+bool isOTPFilled = false;
+
 class _OTPScreenState extends State<OTPScreen> {
-  final _inputPin1Controller = TextEditingController();
-  final _inputPin2Controller = TextEditingController();
-  final _inputPin3Controller = TextEditingController();
-  final _inputPin4Controller = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  bool isFormFilled = false;
+  @override
+  void dispose() {
+    pinController.dispose();
+    focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    const focusedBorderColor = Color(0xffFF7F00);
+    final defaultPinTheme = PinTheme(
+      textStyle: ThemeText.headingRupiah,
+      height: 68,
+      width: 68,
+      decoration: BoxDecoration(
+          color: const Color(0xffE6E6E6),
+          borderRadius: BorderRadius.circular(8)),
+    );
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color(0xff030303)),
@@ -77,67 +93,11 @@ class _OTPScreenState extends State<OTPScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                inputOtp(context),
+                formOTP(defaultPinTheme, focusedBorderColor),
                 const SizedBox(
                   height: 24,
                 ),
-                Row(
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: Container(
-                              width: 6,
-                              height: 6,
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'The OTP will be expired in',
-                            style: ThemeText.headingAmountPaid,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    CountdownTimer(
-                      endTime: DateTime.now().millisecondsSinceEpoch +
-                          (10 * 60 * 1000),
-                      onEnd: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                            'Time Out',
-                            style: ThemeText.headingInput,
-                          )),
-                        );
-                      },
-                      widgetBuilder: (_, CurrentRemainingTime? time) {
-                        if (time == null) {
-                          return const Text('00:00');
-                        }
-                        int remainingTime = (time.min ?? 0).toInt() * 60 +
-                            (time.sec ?? 0).toInt();
-                        final minutes = ((remainingTime - 1) ~/ 60)
-                            .toString()
-                            .padLeft(2, '0');
-                        final seconds = ((remainingTime - 1) % 60)
-                            .toString()
-                            .padLeft(2, '0');
-                        final timeFormat = '$minutes:$seconds';
-                        return Text(timeFormat);
-                      },
-                    ),
-                  ],
-                ),
+                timeInputOTP(context),
                 Row(
                   children: [
                     RichText(
@@ -177,7 +137,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
-                        backgroundColor: isFormFilled
+                        backgroundColor: isOTPFilled
                             ? ColorsTheme.activeButton
                             : ColorsTheme.inActiveButton),
                     onPressed: () {
@@ -199,7 +159,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           fontStyle: FontStyle.normal,
-                          color: isFormFilled
+                          color: isOTPFilled
                               ? ColorsTheme.activeText
                               : ColorsTheme.inActiveText,
                         ),
@@ -215,134 +175,102 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 
-  Form inputOtp(BuildContext context) {
+  Widget formOTP(PinTheme defaultPinTheme, Color focusedBorderColor) {
     return Form(
       key: _formKey,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            height: 68,
-            width: 64,
-            decoration: BoxDecoration(
-                color: const Color(0xffE6E6E6),
-                borderRadius: BorderRadius.circular(8)),
-            child: TextFormField(
-              onChanged: (value) {
-                if (value.length == 1) {
-                  FocusScope.of(context).nextFocus();
-                  setState(() {
-                    isFormFilled = _inputPin1Controller.text.isNotEmpty &&
-                        _inputPin2Controller.text.isNotEmpty &&
-                        _inputPin3Controller.text.isNotEmpty &&
-                        _inputPin4Controller.text.isNotEmpty;
-                  });
-                }
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: Pinput(
+              controller: pinController,
+              focusNode: focusNode,
+              defaultPinTheme: defaultPinTheme,
+              hapticFeedbackType: HapticFeedbackType.lightImpact,
+              onCompleted: (pin) {
+                setState(() {
+                  isOTPFilled = pinController.text.isNotEmpty;
+                });
               },
-              onSaved: (pin1) {},
-              controller: _inputPin1Controller,
-              style: Theme.of(context).textTheme.headlineMedium,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              decoration: const InputDecoration(border: InputBorder.none),
-            ),
-          ),
-          Container(
-            height: 68,
-            width: 64,
-            decoration: BoxDecoration(
-                color: const Color(0xffE6E6E6),
-                borderRadius: BorderRadius.circular(8)),
-            child: TextFormField(
-              onChanged: (value) {
-                if (value.length == 1) {
-                  FocusScope.of(context).nextFocus();
-                  setState(() {
-                    isFormFilled = _inputPin1Controller.text.isNotEmpty &&
-                        _inputPin2Controller.text.isNotEmpty &&
-                        _inputPin3Controller.text.isNotEmpty &&
-                        _inputPin4Controller.text.isNotEmpty;
-                  });
-                }
-              },
-              onSaved: (pin2) {},
-              controller: _inputPin2Controller,
-              style: Theme.of(context).textTheme.headlineMedium,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              decoration: const InputDecoration(border: InputBorder.none),
-            ),
-          ),
-          Container(
-            height: 68,
-            width: 64,
-            decoration: BoxDecoration(
-                color: const Color(0xffE6E6E6),
-                borderRadius: BorderRadius.circular(8)),
-            child: TextFormField(
-              onChanged: (value) {
-                if (value.length == 1) {
-                  FocusScope.of(context).nextFocus();
-                  setState(() {
-                    isFormFilled = _inputPin1Controller.text.isNotEmpty &&
-                        _inputPin2Controller.text.isNotEmpty &&
-                        _inputPin3Controller.text.isNotEmpty &&
-                        _inputPin4Controller.text.isNotEmpty;
-                  });
-                }
-              },
-              onSaved: (pin3) {},
-              controller: _inputPin3Controller,
-              style: Theme.of(context).textTheme.headlineMedium,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              decoration: const InputDecoration(border: InputBorder.none),
-            ),
-          ),
-          Container(
-            height: 68,
-            width: 64,
-            decoration: BoxDecoration(
-                color: const Color(0xffE6E6E6),
-                borderRadius: BorderRadius.circular(8)),
-            child: TextFormField(
-              onChanged: (value) {
-                if (value.length == 1) {
-                  FocusScope.of(context).nextFocus();
-                  setState(() {
-                    isFormFilled = _inputPin1Controller.text.isNotEmpty &&
-                        _inputPin2Controller.text.isNotEmpty &&
-                        _inputPin3Controller.text.isNotEmpty &&
-                        _inputPin4Controller.text.isNotEmpty;
-                  });
-                }
-              },
-              onSaved: (pin4) {},
-              controller: _inputPin4Controller,
-              style: Theme.of(context).textTheme.headlineMedium,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              decoration: const InputDecoration(border: InputBorder.none),
+              cursor: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 9),
+                    width: 22,
+                    height: 1,
+                    color: focusedBorderColor,
+                  ),
+                ],
+              ),
+              focusedPinTheme: defaultPinTheme.copyWith(
+                decoration: defaultPinTheme.decoration!.copyWith(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: focusedBorderColor),
+                ),
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget timeInputOTP(BuildContext context) {
+    return Row(
+      children: [
+        RichText(
+          text: TextSpan(
+            children: [
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: Container(
+                  width: 6,
+                  height: 6,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              TextSpan(
+                text: 'The OTP will be expired in',
+                style: ThemeText.headingAmountPaid,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        CountdownTimer(
+          endTime: DateTime.now().millisecondsSinceEpoch + (10 * 60 * 1000),
+          onEnd: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                  content: Text(
+                'Time Out',
+                style: ThemeText.headingInput,
+              )),
+            );
+          },
+          widgetBuilder: (_, CurrentRemainingTime? time) {
+            if (time == null) {
+              return const Text('00:00');
+            }
+            int remainingTime =
+                (time.min ?? 0).toInt() * 60 + (time.sec ?? 0).toInt();
+            final minutes =
+                ((remainingTime - 1) ~/ 60).toString().padLeft(2, '0');
+            final seconds =
+                ((remainingTime - 1) % 60).toString().padLeft(2, '0');
+            final timeFormat = '$minutes:$seconds';
+            return Text(timeFormat);
+          },
+        ),
+      ],
     );
   }
 }
