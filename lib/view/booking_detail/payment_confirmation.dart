@@ -13,6 +13,7 @@ import 'package:gofit_apps/view/booking_detail/widget/card.dart';
 import 'package:gofit_apps/view/booking_detail/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class PaymentConfirmation extends StatefulWidget {
   var data;
 
@@ -26,7 +27,6 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -44,7 +44,77 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              contoh().animate().fadeIn().slideX().fadeIn(),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 16, right: 16),
+                child: Center(
+                  child: Card(
+                    shadowColor: Colors.black.withOpacity(0.5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    color: ColorsTheme.bgScreen,
+                    elevation: 5,
+                    child: SizedBox(
+                      // width: 328,
+                      height: 90,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 16.0, right: 16),
+                            child: SizedBox(
+                                width: 70,
+                                height: 70,
+                                child:
+                                    // online class
+                                    ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.asset(
+                                      'assets/images/online-class.png',
+                                      fit: BoxFit.cover),
+                                )
+
+                                // endd class
+                                //  Image.asset('assets/images/open-gym.png',
+                                //     fit: BoxFit.contain)
+                                ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 13.5, bottom: 13.5),
+                            child: SizedBox(
+                              width: 140,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Open Gym',
+                                    style: ThemeText.heading2,
+                                  ),
+                                  Text(
+                                    'Depok, Jawa Barat',
+                                    style: ThemeText.headingPaymentDescription,
+                                  ),
+                                  Text(
+                                    '2.0 Km',
+                                    style: ThemeText.headingPaymentDescription,
+                                  ),
+                                  Text(
+                                    'Rp. 20.0000',
+                                    style: ThemeText.heading2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ).animate().fadeIn().slideX().fadeIn(),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 16),
                 child: Column(
@@ -394,76 +464,6 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
         //       keterangan: "Grab your offers"),
         // ),
       ],
-    );
-  }
-
-  Padding contoh() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0, left: 16, right: 16),
-      child: Center(
-        child: Card(
-          shadowColor: Colors.black.withOpacity(0.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          color: ColorsTheme.bgScreen,
-          elevation: 5,
-          child: SizedBox(
-            // width: 328,
-            height: 90,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 16),
-                  child: SizedBox(
-                      width: 70,
-                      height: 70,
-                      child:
-                          // online class
-                          ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.asset('assets/images/online-class.png',
-                            fit: BoxFit.cover),
-                      )
-
-                      // endd class
-                      //  Image.asset('assets/images/open-gym.png',
-                      //     fit: BoxFit.contain)
-                      ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 13.5, bottom: 13.5),
-                  child: SizedBox(
-                    width: 140,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Open Gym',
-                          style: ThemeText.heading2,
-                        ),
-                        Text(
-                          'Depok, Jawa Barat',
-                          style: ThemeText.headingPaymentDescription,
-                        ),
-                        Text(
-                          '2.0 Km',
-                          style: ThemeText.headingPaymentDescription,
-                        ),
-                        Text(
-                          'Rp. 20.0000',
-                          style: ThemeText.heading2,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
