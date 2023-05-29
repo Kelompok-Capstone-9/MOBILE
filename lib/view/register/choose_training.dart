@@ -36,7 +36,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
             height: 36,
           ),
           SizedBox(
-            height: 250,
+            height: 212,
             child: ListView.builder(
                 itemCount: trainingLevel.length,
                 itemBuilder: (context, index) {
