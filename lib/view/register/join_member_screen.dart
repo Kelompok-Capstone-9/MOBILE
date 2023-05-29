@@ -49,21 +49,15 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                     style: ThemeText.headingMember2),
               ),
               SizedBox(
-                height: 350,
-                width: mediaquery.width,
+                height: 270,
                 child: ListView.builder(
                     itemCount: memberPackage.length,
                     itemBuilder: (context, index) {
                       var i = memberPackage[index];
-                      return OutlinedButton(
-                        onPressed: () {
-                          setState(() {
-                            _memPackage = i['duration'].toString();
-                          });
-                        },
-                        style: OutlinedButton.styleFrom(
-                            foregroundColor: const Color((0xffFF7F00)),
-                            disabledForegroundColor: ColorsTheme.bgScreen),
+                      return GestureDetector(
+                        onTap: () => setState(() {
+                          _memPackage = i['type'].toString();
+                        }),
                         child: Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -75,7 +69,11 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                             ),
                             elevation: 0.2,
                             color: ColorsTheme.bgScreen,
-                            margin: const EdgeInsets.only(right: 20, top: 16),
+                            margin: const EdgeInsets.only(
+                              left: 16,
+                              right: 20,
+                              top: 16,
+                            ),
                             child: CardMember(
                                 duration: i['duration'].toString(),
                                 price: i['price'].toString(),
@@ -84,7 +82,7 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                     }),
               ),
               const SizedBox(
-                height: 40,
+                height: 35,
               ),
               Container(
                 width: double.infinity,
