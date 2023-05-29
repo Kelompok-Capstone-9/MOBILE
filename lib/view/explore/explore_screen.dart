@@ -98,48 +98,43 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                         child: Column(
                           children: [
-                            Container(
-                              child: TableCalendar(
-                                locale: 'en_US',
-                                daysOfWeekStyle: DaysOfWeekStyle(
-                                  weekdayStyle: ThemeText.heading5,
-                                  weekendStyle: ThemeText.heading5,
-                                ),
-                                headerStyle: HeaderStyle(
-                                  titleTextStyle: ThemeText.heading1,
-                                  formatButtonVisible: false,
-                                  titleCentered: true,
-                                ),
-                                calendarStyle: CalendarStyle(
-                                  isTodayHighlighted: true,
-                                  todayDecoration: BoxDecoration(
-                                    color: ColorsTheme.accent.withOpacity(.45),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  selectedDecoration: BoxDecoration(
-                                    color: ColorsTheme.accent,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  weekNumberTextStyle: ThemeText.heading5,
-                                  weekendTextStyle: ThemeText.heading5.copyWith(
-                                    color: ColorsTheme.grey,
-                                  ),
-                                  outsideTextStyle: ThemeText.heading5.copyWith(
-                                    color: ColorsTheme.grey,
-                                  ),
-                                  todayTextStyle: ThemeText.heading5,
-                                  defaultTextStyle: ThemeText.heading5,
-                                  selectedTextStyle: ThemeText.heading5,
-                                ),
-                                headerVisible: false,
-                                calendarFormat: CalendarFormat.week,
-                                selectedDayPredicate: (day) =>
-                                    isSameDay(day, today),
-                                focusedDay: today,
-                                firstDay: DateTime.utc(2010, 10, 16),
-                                lastDay: DateTime.utc(2030, 3, 14),
-                                onDaySelected: _onDaySelected,
+                            TableCalendar(
+                              locale: 'en_US',
+                              daysOfWeekStyle: DaysOfWeekStyle(
+                                weekdayStyle: ThemeText.heading5,
+                                weekendStyle: ThemeText.heading5,
                               ),
+                              headerStyle: HeaderStyle(
+                                titleTextStyle: ThemeText.heading1,
+                                formatButtonVisible: false,
+                                titleCentered: true,
+                              ),
+                              calendarStyle: CalendarStyle(
+                                isTodayHighlighted: true,
+                                todayDecoration: BoxDecoration(
+                                  color: ColorsTheme.accent.withOpacity(.45),
+                                  shape: BoxShape.circle,
+                                ),
+                                selectedDecoration: BoxDecoration(
+                                  color: ColorsTheme.accent,
+                                  shape: BoxShape.circle,
+                                ),
+                                weekNumberTextStyle: ThemeText.heading5,
+                                weekendTextStyle: ThemeText.heading5,
+                                outsideTextStyle: ThemeText.heading5,
+                                todayTextStyle: ThemeText.heading5,
+                                defaultTextStyle: ThemeText.heading5,
+                                selectedTextStyle: ThemeText.heading5,
+                              ),
+                              headerVisible: false,
+                              availableGestures: AvailableGestures.none,
+                              calendarFormat: CalendarFormat.week,
+                              selectedDayPredicate: (day) =>
+                                  isSameDay(day, today),
+                              focusedDay: today,
+                              firstDay: DateTime.utc(2010, 10, 16),
+                              lastDay: DateTime.utc(2030, 3, 14),
+                              onDaySelected: _onDaySelected,
                             ),
                             Divider(
                               color: ColorsTheme.divider,
