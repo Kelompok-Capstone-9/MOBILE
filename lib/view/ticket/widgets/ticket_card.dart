@@ -24,7 +24,6 @@ class TicketCard extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        minVerticalPadding: 10,
         leading: Image.asset(
           "assets/images/open-gym.png",
         ),
