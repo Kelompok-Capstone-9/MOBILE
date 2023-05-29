@@ -58,6 +58,10 @@ class _CalendarViewState extends State<CalendarView> {
             child: TableCalendar(
               locale: 'en_US',
               rowHeight: 43,
+              daysOfWeekStyle: DaysOfWeekStyle(
+                weekdayStyle: ThemeText.heading5,
+                weekendStyle: ThemeText.heading5,
+              ),
               headerStyle: HeaderStyle(
                 titleTextStyle: ThemeText.heading1,
                 formatButtonVisible: false,

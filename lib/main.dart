@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
+import 'package:gofit_apps/view/search_gym_screen.dart';
+import 'package:gofit_apps/view/search_loc_screen.dart';
 
 void main() {
   runApp(const MyApp());
