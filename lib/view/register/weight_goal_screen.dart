@@ -18,6 +18,9 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
         backgroundColor: ColorsTheme.bgScreen,
         title: Text('Step 4 of 6', style: ThemeText.heading1),
         centerTitle: true,
+        leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SafeArea(
           child: SingleChildScrollView(

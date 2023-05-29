@@ -77,3 +77,27 @@ var trainingLevel = [
     'onTap': 'false'
   },
 ];
+
+var memberPackage = [
+  {
+    'duration': '1 Month',
+    'value': '1',
+    'price': 'Rp 99.000',
+    'desc': 'per month',
+    'onTap': 'false'
+  },
+  {
+    'duration': '3 Month',
+    'value': '2',
+    'price': 'Rp 199.000',
+    'desc': 'per 3 months',
+    'onTap': 'false'
+  },
+  {
+    'duration': '1 Year',
+    'value': '3',
+    'price': 'Rp 699.000',
+    'desc': 'per year',
+    'onTap': 'false'
+  }
+];

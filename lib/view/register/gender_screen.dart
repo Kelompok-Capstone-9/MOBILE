@@ -22,6 +22,9 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
           style: ThemeText.heading1,
         ),
         centerTitle: true,
+        leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

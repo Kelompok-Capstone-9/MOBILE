@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/widget/card_training.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hovering/hovering.dart';
 
 import 'join_member_screen.dart';
@@ -15,7 +16,6 @@ class ChooseTrainingScreen extends StatefulWidget {
 class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   @override
   Widget build(BuildContext context) {
-    var isSelected = false;
     String _trainingLevel = "";
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
@@ -23,6 +23,9 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
         backgroundColor: ColorsTheme.bgScreen,
         title: Text('Step 5 of 6', style: ThemeText.heading1),
         centerTitle: true,
+        leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
@@ -36,7 +39,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
             height: 36,
           ),
           SizedBox(
-            height: 250,
+            height: 270,
             child: ListView.builder(
                 itemCount: trainingLevel.length,
                 itemBuilder: (context, index) {
@@ -66,27 +69,36 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
           const SizedBox(
             height: 40,
           ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: HoverButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              onpressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const JoinMemberScreen()));
-              },
-              color: ColorsTheme.activeButton,
-              hoverColor: const Color(0xffFF7F00),
-              hoverTextColor: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(
-                  'Continue',
-                  style: ThemeText.heading1,
+          GestureDetector(
+            onTap: () {
+              // log('selesai memilih payment method');
+              // // kirim data ketika selesai memilih
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const JoinMemberScreen()),
+              );
+            },
+            child: Container(
+                alignment: Alignment.center,
+                height: 40,
+                width: 360,
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                decoration: BoxDecoration(
+                  color: _trainingLevel != ""
+                      ? ColorsTheme.activeButton
+                      : ColorsTheme.inActiveButton,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-            ),
+                child: Text(
+                  "Continue",
+                  style: GoogleFonts.josefinSans(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: _trainingLevel != ""
+                          ? ColorsTheme.activeText
+                          : const Color(0xffB5B5B5)),
+                )),
           ),
         ]),
       )),

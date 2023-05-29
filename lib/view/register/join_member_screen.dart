@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/payment_method_screen.dart';
+import 'package:gofit_apps/view/register/widget/card_member.dart';
 import 'package:hovering/hovering.dart';
 
 class JoinMemberScreen extends StatefulWidget {
@@ -12,7 +14,8 @@ class JoinMemberScreen extends StatefulWidget {
 class _JoinMemberScreenState extends State<JoinMemberScreen> {
   @override
   Widget build(BuildContext context) {
-    var isSelected = false;
+    String _memPackage = '';
+    var mediaquery = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -22,6 +25,9 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
           style: ThemeText.heading1,
         ),
         centerTitle: true,
+        leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -42,92 +48,40 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                 child: Text('Proper Exercise Technique',
                     style: ThemeText.headingMember2),
               ),
-              OutlinedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color((0xffFF7F00)),
-                    disabledForegroundColor: ColorsTheme.bgScreen),
-                child: Container(
-                  width: 328,
-                  height: 60,
-                  padding: const EdgeInsets.only(
-                      left: 16, top: 22, bottom: 22, right: 16),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Row(
-                    children: [
-                      Text('1 Month', style: ThemeText.heading1),
-                      const Spacer(),
-                      Text(
-                        'Rp 99.000',
-                        style: ThemeText.memberPaid,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color((0xffFF7F00)),
-                    disabledForegroundColor: ColorsTheme.bgScreen),
-                child: Container(
-                  width: 328,
-                  height: 60,
-                  padding: const EdgeInsets.only(
-                      left: 16, top: 22, bottom: 22, right: 16),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Row(
-                    children: [
-                      Text('3 Month', style: ThemeText.heading1),
-                      const Spacer(),
-                      Text(
-                        'Rp 199.000',
-                        style: ThemeText.memberPaid,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color((0xffFF7F00)),
-                    disabledForegroundColor: ColorsTheme.bgScreen),
-                child: Container(
-                  width: 328,
-                  height: 60,
-                  padding: const EdgeInsets.only(
-                      left: 16, top: 22, bottom: 22, right: 16),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Row(
-                    children: [
-                      Text('1 Year', style: ThemeText.heading1),
-                      const Spacer(),
-                      Text(
-                        'Rp 699.000',
-                        style: ThemeText.memberPaid,
-                      )
-                    ],
-                  ),
-                ),
+              SizedBox(
+                height: 350,
+                width: mediaquery.width,
+                child: ListView.builder(
+                    itemCount: memberPackage.length,
+                    itemBuilder: (context, index) {
+                      var i = memberPackage[index];
+                      return OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            _memPackage = i['duration'].toString();
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                            foregroundColor: const Color((0xffFF7F00)),
+                            disabledForegroundColor: ColorsTheme.bgScreen),
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: i['onTap'] == true
+                                    ? Colors.red
+                                    : const Color(0xff919191).withOpacity(0.6),
+                              ),
+                            ),
+                            elevation: 0.2,
+                            color: ColorsTheme.bgScreen,
+                            margin: const EdgeInsets.only(right: 20, top: 16),
+                            child: CardMember(
+                                duration: i['duration'].toString(),
+                                price: i['price'].toString(),
+                                desc: i['desc'].toString())),
+                      );
+                    }),
               ),
               const SizedBox(
                 height: 40,
@@ -140,11 +94,9 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                       borderRadius: BorderRadius.circular(8)),
                   onpressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PaymentMethodScreen()));
+                        builder: (context) => const PaymentMethod()));
                   },
-                  color: isSelected
-                      ? const Color(0xffFF7F00)
-                      : const Color(0xffDFDFDF),
+                  color: const Color(0xffFF7F00),
                   hoverColor: const Color(0xffFF7F00),
                   hoverTextColor: Colors.white,
                   child: Padding(
