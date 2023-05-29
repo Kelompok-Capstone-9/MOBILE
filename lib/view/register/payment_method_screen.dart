@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/register/transaction_screen.dart';
 import 'dart:developer';
 
 import 'package:gofit_apps/view/register/widget/card_pay.dart';
@@ -26,7 +27,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
           elevation: 0.8,
-          title: Text('Payment methode', style: ThemeText.heading1),
+          title: Text('Payment Methode', style: ThemeText.heading1),
           leading: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: const Icon(Icons.arrow_back, color: Colors.black)),
@@ -88,13 +89,11 @@ class _PaymentMethodState extends State<PaymentMethod> {
             onTap: () {
               // log('selesai memilih payment method');
               // // kirim data ketika selesai memilih
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => (
-
-              //           )),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TransactionDetailScreen()),
+              );
             },
             child: Container(
                 alignment: Alignment.center,
