@@ -16,6 +16,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   @override
   Widget build(BuildContext context) {
     var isSelected = false;
+    String _trainingLevel = "";
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -34,65 +35,33 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
           const SizedBox(
             height: 36,
           ),
-          OutlinedButton(
-            onPressed: () {
-              setState(() {});
-            },
-            style: OutlinedButton.styleFrom(
-                foregroundColor: const Color((0xffFF7F00)),
-                disabledForegroundColor: ColorsTheme.bgScreen),
-            child: Container(
-              width: 328,
-              height: 60,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 22, bottom: 22, right: 16),
-              child: Text(
-                'Beginner',
-                style: ThemeText.heading1,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          OutlinedButton(
-            onPressed: () {
-              setState(() {});
-            },
-            style: OutlinedButton.styleFrom(
-                foregroundColor: const Color((0xffFF7F00)),
-                disabledForegroundColor: ColorsTheme.bgScreen),
-            child: Container(
-              width: 328,
-              height: 60,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 22, bottom: 22, right: 16),
-              child: Text(
-                'Intermediate',
-                style: ThemeText.heading1,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          OutlinedButton(
-            onPressed: () {
-              setState(() {});
-            },
-            style: OutlinedButton.styleFrom(
-                foregroundColor: const Color((0xffFF7F00)),
-                disabledForegroundColor: ColorsTheme.bgScreen),
-            child: Container(
-              width: 328,
-              height: 60,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 22, bottom: 22, right: 16),
-              child: Text(
-                'Advance',
-                style: ThemeText.heading1,
-              ),
-            ),
+          SizedBox(
+            height: 250,
+            child: ListView.builder(
+                itemCount: trainingLevel.length,
+                itemBuilder: (context, index) {
+                  var i = trainingLevel[index];
+                  return GestureDetector(
+                    onTap: () => setState(() {
+                      _trainingLevel = i['name'].toString();
+                    }),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: i['onTap'] == true
+                                  ? ColorsTheme.activeButton
+                                  : const Color(0xff919191).withOpacity(0.6)),
+                          borderRadius: BorderRadius.circular(8)),
+                      elevation: 0.2,
+                      color: ColorsTheme.bgScreen,
+                      margin:
+                          const EdgeInsets.only(left: 16, right: 16, top: 16),
+                      child: CardTraining(
+                          name: i['name'].toString(),
+                          desc: i['desc'].toString()),
+                    ),
+                  );
+                }),
           ),
           const SizedBox(
             height: 40,

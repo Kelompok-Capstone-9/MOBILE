@@ -58,14 +58,21 @@ var paymentMethode = [
 ];
 
 var trainingLevel = [
-  {'name': 'Beginner', 'desc': 'I want to start training', 'onTap': 'false'},
+  {
+    'name': 'Beginner',
+    'value': 1,
+    'desc': 'I want to start training',
+    'onTap': 'false'
+  },
   {
     'name': 'Intermediate',
+    'value': 2,
     'desc': 'I train 3 - 5 times a week',
     'onTap': 'false'
   },
   {
     'name': 'Advanced',
+    'value': 3,
     'desc': 'I train more than 5 times a week',
     'onTap': 'false'
   },

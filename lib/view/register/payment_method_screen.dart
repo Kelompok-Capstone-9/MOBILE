@@ -45,7 +45,6 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         groupValue: _payMethod,
                         onChanged: (value) {
                           setState(() {
-                            print(value);
                             _payMethod = value.toString();
                             _indexPayment = index;
                           });
