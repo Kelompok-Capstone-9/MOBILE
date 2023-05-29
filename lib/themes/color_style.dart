@@ -136,4 +136,9 @@ class ThemeText {
     fontSize: 12,
     color: const Color(0xFF919191),
   );
+  static TextStyle headingChangePaymentMember = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 10,
+    color: ColorsTheme.activeButton,
+  );
 }

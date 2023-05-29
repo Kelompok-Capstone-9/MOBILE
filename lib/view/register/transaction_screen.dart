@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/widget/card_pay.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TransactionDetailScreen extends StatefulWidget {
   const TransactionDetailScreen({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class TransactionDetailScreen extends StatefulWidget {
 class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    var mediaquery = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -122,20 +127,141 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 12,
-            ),
-            child: Align(
-              alignment: Alignment.centerRight,
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
               child: Text(
                 'Change payment',
-                style: ThemeText.headingChangePayment,
+                style: ThemeText.headingChangePaymentMember,
               ),
             ),
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 400,
+            height: 150,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {});
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return successDialog();
+                    });
+              },
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    width: 370,
+                    decoration: BoxDecoration(
+                      color: ColorsTheme.activeButton,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      'Pay',
+                      style: GoogleFonts.josefinSans(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: ColorsTheme.activeText),
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Cancel Order',
+                        style: ThemeText.headingChangePaymentMember,
+                      ))
+                ],
+              ),
+            ),
+          ),
         ],
       );
+
+  AlertDialog successDialog() {
+    return AlertDialog(
+      backgroundColor: ColorsTheme.bgScreen,
+      insetPadding: const EdgeInsets.all(0),
+      icon: Builder(builder: (context) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: const Align(
+            alignment: Alignment.topLeft,
+            child: Icon(Icons.close),
+          ),
+        );
+      }),
+      content: SizedBox(
+        width: 360,
+        height: 640,
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(bottom: 48, top: 48),
+              height: 140,
+              width: 140,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  color: ColorsTheme.successColor),
+              child: Icon(Icons.check, size: 52, color: ColorsTheme.activeText),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Text(
+                'Payment Successful!',
+                style: ThemeText.headingpaymentSucces,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 44.0),
+              child: Text(
+                'Hooray! You have completed your payment.',
+                style: ThemeText.headingAmountPaid,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Text('Amount Paid!', style: ThemeText.headingAmountPaid),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 44.0),
+              child: Text(
+                'Rp 99.000',
+                style: ThemeText.headingRupiah,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                // Navigator.of(context).push(
+                //     MaterialPageRoute(builder: (context) => const FormLogin()));
+              },
+              child: Container(
+                  alignment: Alignment.center,
+                  height: 38,
+                  width: 360,
+                  decoration: BoxDecoration(
+                    color: ColorsTheme.activeButton,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    'Done',
+                    style: GoogleFonts.josefinSans(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: ColorsTheme.activeText),
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Column _totalPayment() {
     return Column(
