@@ -34,8 +34,9 @@ class _WeightScreenState extends State<WeightScreen> {
               height: 36,
             ),
             ToggleSwitch(
-              minWidth: 110,
-              minHeight: 30,
+              
+              minWidth: 114,
+              minHeight: 34,
               cornerRadius: 20,
               customTextStyles: [ThemeText.heading1],
               activeBgColors: const [
@@ -46,6 +47,7 @@ class _WeightScreenState extends State<WeightScreen> {
               inactiveBgColor: Colors.black26,
               inactiveFgColor: Colors.white,
               totalSwitches: 2,
+              
               labels: const ['Kilogram', 'Pound'],
               onToggle: (index) {},
             ),

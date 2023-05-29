@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/weight_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hovering/hovering.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -11,7 +12,7 @@ class HeightScreen extends StatefulWidget {
 }
 
 class _HeightScreenState extends State<HeightScreen> {
-  bool isSelected = false;
+  List<bool> isSelected = [true, false];
   var label = [ItemChoice(1, 'Centimetre'), ItemChoice(2, 'Feet')];
   var idSelected = 0;
 
@@ -38,21 +39,70 @@ class _HeightScreenState extends State<HeightScreen> {
             const SizedBox(
               height: 36,
             ),
-            ToggleSwitch(
-              minWidth: 110,
-              minHeight: 30,
-              cornerRadius: 20,
-              customTextStyles: [ThemeText.heading1],
-              activeBgColors: const [
-                [Colors.white],
-                [Colors.white]
-              ],
-              activeFgColor: Colors.white,
-              inactiveBgColor: Colors.black26,
-              inactiveFgColor: Colors.white,
-              totalSwitches: 2,
-              labels: const ['Centimetre', 'Feet'],
-              onToggle: (index) {},
+            Container(
+              padding: const EdgeInsets.all(4),
+              height: 38,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0xffE6E6E6)),
+              child: ToggleButtons(
+                isSelected: isSelected,
+                onPressed: (index) {
+                  setState(() {
+                    for (int buttonIndex = 0;
+                        buttonIndex < isSelected.length;
+                        buttonIndex++) {
+                      isSelected[buttonIndex] = (buttonIndex == index);
+                    }
+                  });
+                },
+                borderRadius: BorderRadius.circular(20),
+                borderColor: Colors.transparent,
+                borderWidth: 0,
+                selectedBorderColor: Colors.transparent,
+                fillColor: Colors.transparent,
+                constraints: const BoxConstraints(minWidth: 114, minHeight: 34),
+                children: [
+                  TextButton(
+                    onPressed: null,
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      backgroundColor: isSelected[0]
+                          ? Colors.white
+                          : const Color(0xffE6E6E6),
+                    ),
+                    child: Text(
+                      'Centimetre',
+                      style: GoogleFonts.josefinSans(
+                          color: isSelected[0]
+                              ? const Color(0xff030303)
+                              : const Color(0xff606060),
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: null,
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      backgroundColor: isSelected[0]
+                          ? Colors.white
+                          : const Color(0xffE6E6E6),
+                    ),
+                    child: Text(
+                      'Feet',
+                      style: GoogleFonts.josefinSans(
+                          color: isSelected[0]
+                              ? const Color(0xff030303)
+                              : const Color(0xff606060),
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 56,
@@ -105,9 +155,7 @@ class _HeightScreenState extends State<HeightScreen> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const WeightScreen()));
                 },
-                color: isSelected
-                    ? const Color(0xffFF7F00)
-                    : const Color(0xffDFDFDF),
+                color: const Color(0xffFF7F00),
                 hoverTextColor: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
