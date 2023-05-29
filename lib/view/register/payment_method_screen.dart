@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/register/join_member_screen.dart';
 import 'dart:developer';
 
 import 'package:gofit_apps/view/register/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hovering/hovering.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   const PaymentMethodScreen({Key? key}) : super(key: key);
@@ -73,19 +75,31 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               }),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              // log('selesai memilih payment method');
-              // // kirim data ketika selesai memilih
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => PaymentConfirmation(
-              //             data: _indexPayment,
-              //           )),
-              // );
-            },
-          )
+          const SizedBox(
+            height: 64,
+          ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: HoverButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              onpressed: () {
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => const JoinMemberScreen()));
+              },
+              color: ColorsTheme.activeButton,
+              hoverColor: const Color(0xffFF7F00),
+              hoverTextColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Text(
+                  'Continue',
+                  style: ThemeText.heading1,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
