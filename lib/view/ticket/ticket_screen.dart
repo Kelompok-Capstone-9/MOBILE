@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
+import 'package:gofit_apps/view/ticket/widgets/ticket_card.dart';
 
 class TicketScreen extends StatelessWidget {
   const TicketScreen({super.key});
@@ -23,79 +24,149 @@ class TicketScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: ColorsTheme.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: ListTile(
-                    minVerticalPadding: 10,
-                    leading: Image.asset(
-                      "assets/images/open-gym.png",
-                    ),
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Open Gym',
-                              style: ThemeText.heading2,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Onsite Class',
-                              style: ThemeText.heading4.copyWith(
-                                color: ColorsTheme.grey,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              "Depok, Jawa Barat",
-                              style: ThemeText.heading4.copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: ColorsTheme.success,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                'Booked',
-                                style: ThemeText.heading4.copyWith(
-                                  color: ColorsTheme.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                const TicketCard(),
                 const SizedBox(height: 20),
                 Text(
                   'Booking Detail',
                   style: ThemeText.heading1,
-                )
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(Icons.shopping_cart_outlined),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Booking Type',
+                            style: ThemeText.heading3,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      'Daily',
+                      style: ThemeText.heading3,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(Icons.tv_outlined),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Class Type',
+                            style: ThemeText.heading3,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      'Offline mentoring',
+                      style: ThemeText.heading3,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(Icons.calendar_month_rounded),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Periode of Booking',
+                            style: ThemeText.heading3,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '1 March 2023',
+                      style: ThemeText.heading3,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(Icons.timer_outlined),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Time Session',
+                            style: ThemeText.heading3,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '5AM - 12PM',
+                      style: ThemeText.heading3,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(Icons.receipt_long_outlined),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Booking Code',
+                            style: ThemeText.heading3,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      'B17AF30CD',
+                      style: ThemeText.heading3,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(Icons.attach_money_outlined),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Price',
+                            style: ThemeText.heading3,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      'Rp. 150.000',
+                      style: ThemeText.heading3,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Location',
+                  style: ThemeText.heading1,
+                ),
               ],
             ),
           ),
