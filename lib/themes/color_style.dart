@@ -11,6 +11,8 @@ class ColorsTheme {
   static final Color orangelight = Color(0xFFFFA83F);
   static final Color grey = Color(0xFF6D6D6D);
   static final Color black = Color(0xff0B0B0B);
+  static final Color white = Color(0xfffffffff);
+  static final Color success = Color(0xff158058);
 }
 
 class ThemeText {
