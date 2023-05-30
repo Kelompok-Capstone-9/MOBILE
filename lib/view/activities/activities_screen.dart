@@ -37,16 +37,16 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Tab Screen',
+            'Activities',
             style: ThemeText.heading1,
           ),
           backgroundColor: ColorsTheme.bgScreen,
           elevation: 0,
           bottom: TabBar(
             labelStyle: ThemeText.heading1,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey[600],
-            indicator: BoxDecoration(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.black,
+            indicator: const BoxDecoration(
               color: Colors.orange,
             ),
             onTap: (index) {
@@ -70,7 +70,7 @@ class OnProgressTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('This is the Home Tab'),
+      child: Text('On Progress'),
     );
   }
 }
@@ -82,7 +82,7 @@ class FinishedTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('This is the Settings Tab'),
+      child: Text('Finished'),
     );
   }
 }
