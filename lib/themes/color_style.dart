@@ -80,4 +80,9 @@ class ThemeText {
     fontSize: 10,
     color: const Color(0xff004040),
   );
+  static TextStyle headingMenu = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 10,
+    color: const Color(0xff606060),
+  );
 }
