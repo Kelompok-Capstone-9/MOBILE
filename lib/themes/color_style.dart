@@ -141,4 +141,9 @@ class ThemeText {
     fontSize: 10,
     color: ColorsTheme.activeButton,
   );
+  static TextStyle headingSub3 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff484649),
+  );
 }

@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^4.0.4
   hovering: ^1.0.4
   toggle_switch: ^2.1.0
+  pinput: ^2.2.31
 
 dev_dependencies:
   flutter_test:
