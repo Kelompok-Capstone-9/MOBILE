@@ -15,6 +15,9 @@ class _HeightScreenState extends State<HeightScreen> {
   List<bool> isSelected = [true, false];
   var label = [ItemChoice(1, 'Centimetre'), ItemChoice(2, 'Feet')];
   var idSelected = 0;
+  final _heightController = TextEditingController();
+  bool isFormFilled = false;
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +46,8 @@ class _HeightScreenState extends State<HeightScreen> {
               height: 36,
             ),
             Container(
-              padding: const EdgeInsets.all(4),
-              height: 38,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(50),
                   color: const Color(0xffE6E6E6)),
               child: ToggleButtons(
                 isSelected: isSelected,
@@ -59,18 +60,19 @@ class _HeightScreenState extends State<HeightScreen> {
                     }
                   });
                 },
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.0),
                 borderColor: Colors.transparent,
                 borderWidth: 0,
                 selectedBorderColor: Colors.transparent,
                 fillColor: Colors.transparent,
-                constraints: const BoxConstraints(minWidth: 114, minHeight: 34),
+                constraints: const BoxConstraints(minWidth: 100),
                 children: [
                   TextButton(
                     onPressed: null,
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
                       backgroundColor: isSelected[0]
                           ? Colors.white
                           : const Color(0xffE6E6E6),
@@ -81,7 +83,7 @@ class _HeightScreenState extends State<HeightScreen> {
                           color: isSelected[0]
                               ? const Color(0xff030303)
                               : const Color(0xff606060),
-                          fontSize: 10.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -89,18 +91,19 @@ class _HeightScreenState extends State<HeightScreen> {
                     onPressed: null,
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: isSelected[0]
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      backgroundColor: isSelected[1]
                           ? Colors.white
                           : const Color(0xffE6E6E6),
                     ),
                     child: Text(
-                      'Feet',
+                      'feet',
                       style: GoogleFonts.josefinSans(
-                          color: isSelected[0]
+                          color: isSelected[1]
                               ? const Color(0xff030303)
                               : const Color(0xff606060),
-                          fontSize: 10.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -114,26 +117,35 @@ class _HeightScreenState extends State<HeightScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
-                  width: 80,
-                  height: 60,
-                  child: const TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      counterText: "",
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFF606060),
-                          width: 2,
+                Form(
+                  key: formKey,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    width: 80,
+                    height: 60,
+                    child: TextFormField(
+                      controller: _heightController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        counterText: "",
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF606060),
+                            width: 2,
+                          ),
                         ),
+                        border: OutlineInputBorder(),
+                        fillColor: Color(0xFFFFFFFF),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
-                      border: OutlineInputBorder(),
-                      fillColor: Color(0xFFFFFFFF),
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      maxLength: 3,
+                      onChanged: (value) {
+                        setState(() {
+                          isFormFilled = _heightController.text.isNotEmpty;
+                        });
+                      },
                     ),
-                    maxLength: 3,
                   ),
                 ),
                 const SizedBox(
@@ -151,20 +163,37 @@ class _HeightScreenState extends State<HeightScreen> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: HoverButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                onpressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const WeightScreen()));
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  backgroundColor: isFormFilled
+                      ? const Color(0xffFF7F00)
+                      : const Color(0xffDFDFDF),
+                ),
+                onPressed: () {
+                  final isValidForm = formKey.currentState!.validate();
+                  if (isValidForm) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WeightScreen()),
+                    );
+                  }
                 },
-                color: const Color(0xffFF7F00),
-                hoverTextColor: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
                     'Continue',
-                    style: ThemeText.heading1,
+                    style: GoogleFonts.josefinSans(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      fontStyle: FontStyle.normal,
+                      color: isFormFilled
+                          ? const Color(0xFFF6F6F6)
+                          : const Color(0xFFB5B5B5),
+                    ),
                   ),
                 ),
               ),
