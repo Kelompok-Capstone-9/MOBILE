@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/index.dart';
 
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/gender_screen.dart';
