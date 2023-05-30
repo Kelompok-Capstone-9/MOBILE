@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view/navbar/home.dart';
+import 'package:gofit_apps/view/register/register_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
+import '../booking_detail/booking_detail.dart';
 import 'forgot_password_screen.dart';
 import 'widget/decoration_form.dart';
 import 'widget/validator.dart';
@@ -145,7 +150,11 @@ class FormLoginState extends State<FormLogin> {
                         : ColorsTheme.inActiveButton),
                 onPressed: () {
                   final isValidForm = _formKey.currentState!.validate();
-                  if (isValidForm) {}
+                  if (isValidForm) {
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
+                    );
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -174,7 +183,13 @@ class FormLoginState extends State<FormLogin> {
                   style: ThemeText.headingAccount,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    log('masuk ke halaman sign in email');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterScreen()));
+                  },
                   child: Text(
                     'Sign Up',
                     style: ThemeText.headingText,

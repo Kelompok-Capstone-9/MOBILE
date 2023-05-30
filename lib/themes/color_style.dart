@@ -203,9 +203,9 @@ class ThemeText {
   );
   static TextStyle headingSub = GoogleFonts.josefinSans();
   static TextStyle headingLabelGofit = GoogleFonts.josefinSans(
-    fontWeight: FontWeight.w400,
-    fontSize: 14,
-    color: const Color(0xff606060),
+    fontWeight: FontWeight.w700,
+    fontSize: 48,
+    color: ColorsTheme.activeButton,
   );
   static TextStyle headingDetails = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w700,

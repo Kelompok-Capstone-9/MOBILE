@@ -333,10 +333,13 @@ class TopBar extends StatelessWidget {
       height: 45,
       child: Row(
         children: <Widget>[
-          const Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.black,
-            size: 18,
+          GestureDetector(
+            // onTap: () => Navigator.pop(context),
+            child: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.black,
+              size: 18,
+            ),
           ),
           const SizedBox(width: 24),
           Text(

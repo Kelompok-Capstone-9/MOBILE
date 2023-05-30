@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 import 'package:gofit_apps/view/filter/widgets/filter_class.dart';
 
 class FilterView extends StatelessWidget {
@@ -147,18 +150,27 @@ class FilterView extends StatelessWidget {
                   ),
                   child: const Icon(Icons.delete_outline),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 40,
-                  width: 272,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: ColorsTheme.accent,
-                  ),
-                  child: Text(
-                    "Apply Settings",
-                    style: ThemeText.heading1.copyWith(
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    log("masuk ke detail Booking");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BookingDetail()));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    width: 272,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: ColorsTheme.accent,
+                    ),
+                    child: Text(
+                      "Apply Settings",
+                      style: ThemeText.heading1.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

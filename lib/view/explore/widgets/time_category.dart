@@ -30,7 +30,7 @@ class _TimeCategoryState extends State<TimeCategory> {
       },
       child: Container(
         height: 46,
-        width: 112,
+        // width: 112,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: _isTapped

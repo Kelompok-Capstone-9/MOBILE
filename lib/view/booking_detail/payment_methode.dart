@@ -62,6 +62,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                       GestureDetector(
                         onTap: () => setState(() {
                           _payMethod = i['type'].toString();
+                          _indexPayment = index;
                         }),
                         child: Card(
                             shape: RoundedRectangleBorder(

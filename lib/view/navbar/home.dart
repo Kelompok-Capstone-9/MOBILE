@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view/activities/activities_screen.dart';
+import 'package:gofit_apps/view/article/artikel_screen.dart';
+import 'package:gofit_apps/view/profile/profile_screen.dart';
 import '../../themes/color_style.dart';
+import '../dashboard/dashboard.dart';
+import '../explore/explore_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,11 +34,11 @@ class _HomeState extends State<Home> {
     setState(() {
       currentIndex = index;
       _pages = const [
-        // NewsLetter(),
-        // Explore(),
-        // Training(),
-        // Activities(),
-        // ProfilePage()
+        Home_Screen(),
+        ExploreScreen(),
+        Artikel(),
+        ActivitiesScreen(),
+        ProfileScreen()
       ];
     });
   }

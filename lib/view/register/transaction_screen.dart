@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../login/login_screen.dart';
 
 class TransactionDetailScreen extends StatefulWidget {
   const TransactionDetailScreen({Key? key}) : super(key: key);
@@ -12,7 +16,7 @@ class TransactionDetailScreen extends StatefulWidget {
 class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    // var mediaquery = MediaQuery.of(context).size;
+    var mediaquery = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
@@ -79,7 +83,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 24),
-                child: _paymentMethod(),
+                child: _paymentMethod(mediaquery),
               ),
             ],
           ),
@@ -88,7 +92,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     );
   }
 
-  Column _paymentMethod() => Column(
+  Column _paymentMethod(mediaquery) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -138,8 +142,8 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             height: 20,
           ),
           SizedBox(
-            width: 400,
-            height: 150,
+            // width: 400,
+            // height: 150,
             child: GestureDetector(
               onTap: () {
                 setState(() {});
@@ -147,7 +151,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                     context: context,
                     barrierDismissible: false,
                     builder: (BuildContext context) {
-                      return successDialog();
+                      return successDialog(mediaquery);
                     });
               },
               child: Column(
@@ -169,7 +173,9 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                     ),
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: Text(
                         'Cancel Order',
                         style: ThemeText.headingChangePaymentMember,
@@ -181,7 +187,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
         ],
       );
 
-  AlertDialog successDialog() {
+  AlertDialog successDialog(mediaquery) {
     return AlertDialog(
       backgroundColor: ColorsTheme.bgScreen,
       insetPadding: const EdgeInsets.all(0),
@@ -196,7 +202,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
       }),
       content: SizedBox(
         width: 360,
-        height: 640,
+        height: mediaquery.height,
         child: Column(
           children: <Widget>[
             Container(
@@ -235,8 +241,9 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             ),
             GestureDetector(
               onTap: () {
-                // Navigator.of(context).push(
-                //     MaterialPageRoute(builder: (context) => const FormLogin()));
+                log('masuk ke login screen (redirect to login)');
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const FormLogin()));
               },
               child: Container(
                   alignment: Alignment.center,

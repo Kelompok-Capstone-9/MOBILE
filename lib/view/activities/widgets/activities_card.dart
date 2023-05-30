@@ -17,7 +17,6 @@ class ActivitiesCard extends StatelessWidget {
         vertical: 8,
         horizontal: 16,
       ),
-      height: 120,
       width: double.maxFinite,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,9 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../payment_confirmation.dart';
 
-class WidgetTotal extends StatelessWidget {
+class WidgetTotal extends StatefulWidget {
   const WidgetTotal({super.key});
 
+  @override
+  State<WidgetTotal> createState() => _WidgetTotalState();
+}
+
+class _WidgetTotalState extends State<WidgetTotal> {
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;

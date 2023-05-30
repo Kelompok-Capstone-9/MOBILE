@@ -15,17 +15,17 @@ class _Home_Screen extends State<Home_Screen> {
   // ignore: non_constant_identifier_names
   int activeIndex = 0;
   final imageSlinder = [
-    'assets/Join.png',
-    'assets/Dailyprogress.png',
-    'assets/Meet.png'
+    'assets/images/Join.png',
+    'assets/images/Dailyprogress.png',
+    'assets/images/Meet.png'
   ];
   final imagesArtikel = [
-    'assets/mobile.jpeg',
-    'assets/Athletis.png',
-    'assets/Foods.png',
-    'assets/Nurtrition.png',
-    'assets/Fruits.png',
-    'assets/GettingStarted.png'
+    'assets/images/mobile.jpeg',
+    'assets/images/Athletis.png',
+    'assets/images/Foods.png',
+    'assets/images/Nurtrition.png',
+    'assets/images/Fruits.png',
+    'assets/images/GettingStarted.png'
   ];
   final titleslider = [
     'Save time in the kitchen with Gofit'
