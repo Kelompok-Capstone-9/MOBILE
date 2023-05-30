@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
-  static final Color bgScreen = Color(0xffF6F6F6);
+  static Color bgScreen = const Color(0xffF6F6F6);
+  static Color activeButton = const Color(0xffFF7F00);
+  static Color inActiveButton = const Color(0xffDFDFDF);
+  static Color activeText = const Color(0xFFF6F6F6);
+  static Color inActiveText = const Color(0xFFB5B5B5);
 }
 
 class ThemeText {
@@ -79,5 +83,40 @@ class ThemeText {
     fontWeight: FontWeight.w500,
     fontSize: 10,
     color: const Color(0xff004040),
+  );
+  static TextStyle headingLabelGofit = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 48,
+    color: const Color(0xffff7f00),
+  );
+  static TextStyle headingLogin = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 24,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingInput = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xffb5b5b5),
+  );
+  static TextStyle headingText = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    color: const Color(0xffff7f00),
+  );
+  static TextStyle headingSub = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff606060),
+  );
+  static TextStyle headingAccount = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingSub2 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff606060),
   );
 }
