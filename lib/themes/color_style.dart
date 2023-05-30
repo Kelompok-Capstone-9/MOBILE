@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
   static final Color bgScreen = Color(0xffF6F6F6);
+  static Color colorButton = const Color(0xffFF7F00);
   static final Color bgActivites = Color(0xffFFEFCC);
 
   static const Color bgScreen = Color(0xffF6F6F6);
@@ -31,6 +32,7 @@ class ColorsTheme {
   static const Color colorLight = Color(0xffF6F6F6);
   static const Color disableColorButton = Color(0xffDFDFDF);
   static const Color successColor = Color(0xff44DD77);
+// >>>>>>> dev
 }
 
 class ThemeText {
@@ -115,6 +117,24 @@ class ThemeText {
     fontSize: 10,
     color: const Color(0xff004040),
   );
+// <<<<<<< profile
+   static TextStyle headingName = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingOld = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingCustom = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingDetails = GoogleFonts.josefinSans(
+// =======
 
   static TextStyle headingSearchBlack = GoogleFonts.josefinSans(
       fontWeight: FontWeight.w600,
@@ -192,10 +212,32 @@ class ThemeText {
     color: const Color(0xff606060),
   );
   static TextStyle headingAccount = GoogleFonts.josefinSans(
+// >>>>>>> dev
     fontWeight: FontWeight.w400,
     fontSize: 14,
     color: const Color(0xff030303),
   );
+// <<<<<<< profile
+  static TextStyle headingPersonal = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingTitle = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w600,
+    fontSize: 20,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingInputForm = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    color: const Color(0xff919191),
+  );
+  static TextStyle headingSub2 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff606060),
+// =======
   static TextStyle headingSub2 = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w400,
     fontSize: 14,
@@ -232,5 +274,6 @@ class ThemeText {
     fontWeight: FontWeight.w500,
     fontSize: 28,
     color: const Color(0xff030303),
+// >>>>>>> dev
   );
 }
