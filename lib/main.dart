@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:gofit_apps/view/home_screen.dart';
+
+import 'package:gofit_apps/view/register/gender_screen.dart';
+import 'package:gofit_apps/view/register/otp_regist_screen.dart';
+import 'package:gofit_apps/view/register/register_screen.dart';
+
+import 'view/splash_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Artikel',
-      debugShowCheckedModeBanner: false,
-      home: Home_Screen(),
-    );
+
+        debugShowCheckedModeBanner: false, home: RegisterScreen());
   }
 }
