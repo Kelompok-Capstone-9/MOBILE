@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'login/login_screen.dart';
+import '../login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   splashScreenStart() async {
     var duration = const Duration(seconds: 3);
     return Timer(duration, () {
@@ -42,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
     splashScreenStart();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

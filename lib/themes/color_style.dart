@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
-
   static final Color bgScreen = Color(0xffF6F6F6);
   static final Color calContainer = Color(0xffF2f2f2);
   static final Color searchbox = Color(0xffE6E6E6);
@@ -15,7 +14,6 @@ class ColorsTheme {
   static final Color white = Color(0xfffffffff);
   static final Color success = Color(0xff158058);
 
-  static Color bgScreen = const Color(0xffF6F6F6);
   static Color activeButton = const Color(0xffFF7F00);
   static Color inActiveButton = const Color(0xffDFDFDF);
   static Color activeText = const Color(0xFFF6F6F6);
@@ -25,7 +23,6 @@ class ColorsTheme {
 //   static const Color successColor = Color(0xff44DD77);
 // =======
 // >>>>>>> dev
-
 }
 
 class ThemeText {
@@ -104,7 +101,6 @@ class ThemeText {
     color: const Color(0xff004040),
   );
 
-
   static TextStyle headingSearchBlack = GoogleFonts.josefinSans(
       fontWeight: FontWeight.w600,
       fontSize: 12,
@@ -149,7 +145,7 @@ class ThemeText {
       fontWeight: FontWeight.w600,
       fontSize: 12,
       color: const Color(0xff0B0B0B));
-=======
+
   static TextStyle headingMenu = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w500,
     fontSize: 10,
@@ -216,5 +212,4 @@ class ThemeText {
     fontSize: 14,
     color: const Color(0xff484649),
   );
-
 }
