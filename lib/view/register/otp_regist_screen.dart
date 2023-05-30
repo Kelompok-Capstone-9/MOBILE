@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPRegistScreen extends StatefulWidget {
@@ -94,38 +95,75 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
 
   Widget formOTP(PinTheme defaultPinTheme, Color focusedBorderColor) => Form(
         key: _formKey,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           children: [
-            Directionality(
-              textDirection: TextDirection.ltr,
-              child: Pinput(
-                controller: pinController,
-                focusNode: focusNode,
-                hapticFeedbackType: HapticFeedbackType.lightImpact,
-                onCompleted: (pin) {
-                  setState(() {
-                    isOTPFilled = pinController.text.isNotEmpty;
-                  });
-                },
-                cursor: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 9),
-                      width: 22,
-                      height: 1,
-                      color: focusedBorderColor,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Pinput(
+                    controller: pinController,
+                    focusNode: focusNode,
+                    hapticFeedbackType: HapticFeedbackType.lightImpact,
+                    onCompleted: (pin) {
+                      setState(() {
+                        isOTPFilled = pinController.text.isNotEmpty;
+                      });
+                    },
+                    cursor: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 9),
+                          width: 22,
+                          height: 1,
+                          color: focusedBorderColor,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                focusedPinTheme: defaultPinTheme.copyWith(
-                  decoration: defaultPinTheme.decoration!.copyWith(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: focusedBorderColor),
+                    focusedPinTheme: defaultPinTheme.copyWith(
+                      decoration: defaultPinTheme.decoration!.copyWith(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: focusedBorderColor),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
+            ),
+            SizedBox(
+              height: 113,
+            ),
+            GestureDetector(
+              onTap: () {
+                // log('selesai memilih payment method');
+                // // kirim data ketika selesai memilih
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => ()),
+                // );
+              },
+              child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  width: 328,
+                  decoration: BoxDecoration(
+                    color: isOTPFilled != true
+                        ? ColorsTheme.activeButton
+                        : ColorsTheme.inActiveButton,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    "Verify & Process",
+                    style: GoogleFonts.josefinSans(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: isOTPFilled != true
+                            ? ColorsTheme.activeText
+                            : const Color(0xffB5B5B5)),
+                  )),
             ),
           ],
         ),
