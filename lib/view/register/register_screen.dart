@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/register/otp_regist_screen.dart';
 import 'package:gofit_apps/view/register/widget/decoration_form.dart';
 import 'package:gofit_apps/view/register/widget/validator_register.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
   bool isFormFilled = false;
+  bool hidePw = false;
+  bool hideConfirmPw = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,10 +88,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
+                obscureText: hidePw ? false : true,
                 controller: _passwordController,
                 decoration: DecorationFormStyle.decorationForm(
-                    labelText: 'Password',
-                    prefixIcon: const Icon(Icons.lock_outline)),
+                  labelText: 'Password',
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    color: const Color(0xFFB5B5B5),
+                    onPressed: () {
+                      setState(() {
+                        hidePw = !hidePw;
+                      });
+                    },
+                    icon: hidePw
+                        ? const Icon(Icons.remove_red_eye)
+                        : const Icon(Icons.visibility_off_rounded),
+                    iconSize: 16,
+                  ),
+                ),
                 onChanged: (value) {
                   setState(() {
                     isFormFilled = _nameController.text.isNotEmpty &&
@@ -103,10 +120,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
+                obscureText: hideConfirmPw ? false : true,
                 controller: _confirmpasswordController,
                 decoration: DecorationFormStyle.decorationForm(
-                    labelText: 'Confirm Password',
-                    prefixIcon: const Icon(Icons.lock_outline)),
+                  labelText: 'Confirm Password',
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    color: const Color(0xFFB5B5B5),
+                    onPressed: () {
+                      setState(() {
+                        hideConfirmPw = !hideConfirmPw;
+                      });
+                    },
+                    icon: hideConfirmPw
+                        ? const Icon(Icons.remove_red_eye)
+                        : const Icon(Icons.visibility_off_rounded),
+                    iconSize: 16,
+                  ),
+                ),
                 onChanged: (value) {
                   setState(() {
                     isFormFilled = _nameController.text.isNotEmpty &&
@@ -134,7 +165,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   onPressed: () {
                     final isValidForm = formKey.currentState!.validate();
-                    if (isValidForm) {}
+                    if (isValidForm) {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const OTPRegistScreen()),
+                      // );
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),

@@ -57,7 +57,7 @@ var paymentMethode = [
   },
 ];
 
-var trainingLevel = [
+List<Map<String, dynamic>> trainingLevel = [
   {
     'name': 'Beginner',
     'value': 1,
