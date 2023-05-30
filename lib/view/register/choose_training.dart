@@ -3,7 +3,6 @@ import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/widget/card_training.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hovering/hovering.dart';
 
 import 'join_member_screen.dart';
 
@@ -14,9 +13,10 @@ class ChooseTrainingScreen extends StatefulWidget {
 }
 
 class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
+  String _trainingLevel = "";
+
   @override
   Widget build(BuildContext context) {
-    String _trainingLevel = "";
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -47,21 +47,37 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                   return GestureDetector(
                     onTap: () => setState(() {
                       _trainingLevel = i['name'].toString();
+                      trainingLevel = trainingLevel.map((item) {
+                        if (item['name'] == i['name']) {
+                          return {
+                            ...item,
+                            'onTap': true,
+                          };
+                        } else {
+                          return {
+                            ...item,
+                            'onTap': false,
+                          };
+                        }
+                      }).toList();
                     }),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
-                              color: i['onTap'] == true
-                                  ? ColorsTheme.activeButton
-                                  : const Color(0xff919191).withOpacity(0.6)),
+                            color: i['onTap'] == true
+                                ? ColorsTheme.activeButton
+                                : const Color(0xff919191).withOpacity(0.6),
+                          ),
                           borderRadius: BorderRadius.circular(8)),
                       elevation: 0.2,
                       color: ColorsTheme.bgScreen,
                       margin:
                           const EdgeInsets.only(left: 16, right: 16, top: 16),
                       child: CardTraining(
-                          name: i['name'].toString(),
-                          desc: i['desc'].toString()),
+                        name: i['name'].toString(),
+                        desc: i['desc'].toString(),
+                        isTapped: bool.parse(i['onTap'].toString()),
+                      ),
                     ),
                   );
                 }),
