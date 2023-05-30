@@ -151,9 +151,11 @@ class FormLoginState extends State<FormLogin> {
                 onPressed: () {
                   final isValidForm = _formKey.currentState!.validate();
                   if (isValidForm) {
-                    MaterialPageRoute(
-                      builder: (context) => const Home(),
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Home(),
+                        ));
                   }
                 },
                 child: Padding(
