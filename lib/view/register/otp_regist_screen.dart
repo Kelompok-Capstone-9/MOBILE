@@ -131,7 +131,7 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChooseGenderScreen()),
+                        builder: (context) => const ChooseGenderScreen()),
                   );
                 },
                 child: Container(

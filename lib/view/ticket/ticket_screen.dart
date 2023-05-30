@@ -16,7 +16,7 @@ class TicketScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 60),
             child: TopBar(),
           ),
-          Divider(
+          const Divider(
             color: ColorsTheme.divider,
           ),
           Padding(

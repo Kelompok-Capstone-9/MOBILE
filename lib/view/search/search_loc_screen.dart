@@ -15,7 +15,7 @@ class SearchLocView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TopBar(),
+                const TopBar(),
                 Text(
                   'Search result',
                   style: ThemeText.heading2.copyWith(

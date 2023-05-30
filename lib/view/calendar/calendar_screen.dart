@@ -28,7 +28,7 @@ class _CalendarViewState extends State<CalendarView> {
             padding: EdgeInsets.only(top: 60),
             child: TopBar(),
           ),
-          Divider(
+          const Divider(
             color: ColorsTheme.divider,
           ),
           Padding(
@@ -73,7 +73,7 @@ class _CalendarViewState extends State<CalendarView> {
                   color: ColorsTheme.accent.withOpacity(.45),
                   shape: BoxShape.circle,
                 ),
-                selectedDecoration: BoxDecoration(
+                selectedDecoration: const BoxDecoration(
                   color: ColorsTheme.accent,
                   shape: BoxShape.circle,
                 ),
@@ -97,7 +97,7 @@ class _CalendarViewState extends State<CalendarView> {
             ),
           ),
           const Spacer(),
-          Divider(
+          const Divider(
             color: ColorsTheme.divider,
           ),
           Padding(
@@ -159,7 +159,7 @@ class TopBar extends StatelessWidget {
       child: Row(
         children: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.black,
               size: 18,

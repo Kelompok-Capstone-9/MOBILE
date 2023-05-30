@@ -16,7 +16,7 @@ class FilterView extends StatelessWidget {
             padding: EdgeInsets.only(top: 60),
             child: TopBar(),
           ),
-          Divider(
+          const Divider(
             color: ColorsTheme.divider,
           ),
           Column(
@@ -70,7 +70,7 @@ class FilterView extends StatelessWidget {
                   ],
                 ),
               ),
-              Divider(color: ColorsTheme.divider),
+              const Divider(color: ColorsTheme.divider),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8,
@@ -124,7 +124,7 @@ class FilterView extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Divider(color: ColorsTheme.divider),
+          const Divider(color: ColorsTheme.divider),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 10,

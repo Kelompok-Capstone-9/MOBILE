@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TransactionDetailScreen extends StatefulWidget {
@@ -15,7 +12,7 @@ class TransactionDetailScreen extends StatefulWidget {
 class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    var mediaquery = MediaQuery.of(context).size;
+    // var mediaquery = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
@@ -140,7 +137,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
           const SizedBox(
             height: 20,
           ),
-          Container(
+          SizedBox(
             width: 400,
             height: 150,
             child: GestureDetector(

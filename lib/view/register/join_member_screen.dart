@@ -14,8 +14,7 @@ class JoinMemberScreen extends StatefulWidget {
 class _JoinMemberScreenState extends State<JoinMemberScreen> {
   @override
   Widget build(BuildContext context) {
-    String _memPackage = '';
-    var mediaquery = MediaQuery.of(context).size;
+    // var mediaquery = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -55,13 +54,12 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                     itemBuilder: (context, index) {
                       var i = memberPackage[index];
                       return GestureDetector(
-                        onTap: () => setState(() {
-                          _memPackage = i['type'].toString();
-                        }),
+                        onTap: () => setState(() {}),
                         child: Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                               side: BorderSide(
+                                // ignore: unrelated_type_equality_checks
                                 color: i['onTap'] == true
                                     ? Colors.red
                                     : const Color(0xff919191).withOpacity(0.6),

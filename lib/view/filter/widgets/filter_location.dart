@@ -24,7 +24,7 @@ class _LocationFilterState extends State<LocationFilter> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 10,
           horizontal: 16,
         ),

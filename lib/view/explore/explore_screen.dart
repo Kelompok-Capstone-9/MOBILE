@@ -37,12 +37,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: ColorsTheme.divider,
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: ColorsTheme.bgScreen,
             ),
             child: const SearchSection(),
@@ -115,7 +115,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   color: ColorsTheme.accent.withOpacity(.45),
                                   shape: BoxShape.circle,
                                 ),
-                                selectedDecoration: BoxDecoration(
+                                selectedDecoration: const BoxDecoration(
                                   color: ColorsTheme.accent,
                                   shape: BoxShape.circle,
                                 ),
@@ -136,7 +136,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               lastDay: DateTime.utc(2030, 3, 14),
                               onDaySelected: _onDaySelected,
                             ),
-                            Divider(
+                            const Divider(
                               color: ColorsTheme.divider,
                             ),
                             const SizedBox(height: 12),
@@ -208,7 +208,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
 class DatePicker extends StatelessWidget {
   const DatePicker({
-    Key? key,
+    super.key,
     required this.date,
     required this.time,
     this.isSelected = false,
@@ -249,7 +249,7 @@ class DatePicker extends StatelessWidget {
 
 class SearchSection extends StatelessWidget {
   const SearchSection({
-    Key? key,
+    super.key,
   });
 
   @override
@@ -324,7 +324,7 @@ class SearchSection extends StatelessWidget {
 
 class TopBar extends StatelessWidget {
   const TopBar({
-    Key? key,
+    super.key,
   });
 
   @override

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
-  static final Color bgScreen = Color(0xffF6F6F6);
-  static final Color calContainer = Color(0xffF2f2f2);
-  static final Color searchbox = Color(0xffE6E6E6);
-  static final Color divider = Color(0xff919191);
-  static final Color accent = Color(0xffFF7F00);
-  static final Color accentlight = Color(0x45FF8000);
-  static final Color orangelight = Color(0xFFFFA83F);
-  static final Color grey = Color(0xFF6D6D6D);
-  static final Color black = Color(0xff0B0B0B);
-  static final Color white = Color(0xfffffffff);
-  static final Color success = Color(0xff158058);
+  static const Color bgScreen = Color(0xffF6F6F6);
+  static const Color calContainer = Color(0xffF2f2f2);
+  static const Color searchbox = Color(0xffE6E6E6);
+  static const Color divider = Color(0xff919191);
+  static const Color accent = Color(0xffFF7F00);
+  static const Color accentlight = Color(0x45FF8000);
+  static const Color orangelight = Color(0xFFFFA83F);
+  static const Color grey = Color(0xFF6D6D6D);
+  static const Color black = Color(0xff0B0B0B);
+  static const Color white = Color(0xffffffff);
+  static const Color success = Color(0xff158058);
 
   static Color activeButton = const Color(0xffFF7F00);
   static Color inActiveButton = const Color(0xffDFDFDF);
@@ -23,6 +23,11 @@ class ColorsTheme {
 //   static const Color successColor = Color(0xff44DD77);
 // =======
 // >>>>>>> dev
+  static const Color iconColor = Color(0xff00007A);
+  static const Color primary600 = Color(0xffFF7F00);
+  static const Color colorLight = Color(0xffF6F6F6);
+  static const Color disableColorButton = Color(0xffDFDFDF);
+  static const Color successColor = Color(0xff44DD77);
 }
 
 class ThemeText {
@@ -40,14 +45,21 @@ class ThemeText {
     fontSize: 12,
     color: const Color(0xff0B0B0B),
   );
+
   static TextStyle heading4 = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w400,
-    fontSize: 10,
+    fontSize: 12,
+    height: 2,
     color: const Color(0xff0B0B0B),
   );
   static TextStyle heading5 = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w600,
     fontSize: 12,
+    color: const Color(0xff0B0B0B),
+  );
+  static TextStyle heading6 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
     color: const Color(0xff0B0B0B),
   );
   static TextStyle headingLabel = GoogleFonts.josefinSans(
@@ -211,5 +223,11 @@ class ThemeText {
     fontWeight: FontWeight.w400,
     fontSize: 14,
     color: const Color(0xff484649),
+  );
+
+  static TextStyle headingSuccessPayment = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 28,
+    color: const Color(0xff030303),
   );
 }
