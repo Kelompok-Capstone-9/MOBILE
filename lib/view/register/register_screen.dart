@@ -166,11 +166,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onPressed: () {
                     final isValidForm = formKey.currentState!.validate();
                     if (isValidForm) {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const OTPRegistScreen()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const OTPRegistScreen()),
+                      );
                     }
                   },
                   child: Padding(
