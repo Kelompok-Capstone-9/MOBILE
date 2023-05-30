@@ -1,6 +1,7 @@
 // Import the necessary packages and libraries
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/activities/widgets/activities_card.dart';
 
 // Create a stateful widget for the screen
 class ActivitiesScreen extends StatefulWidget {
@@ -69,8 +70,11 @@ class OnProgressTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('On Progress'),
+    return const Column(
+      children: [
+        ActivitiesCard(),
+        ActivitiesCard(),
+      ],
     );
   }
 }
@@ -81,8 +85,10 @@ class FinishedTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Finished'),
+    return const Column(
+      children: [
+        ActivitiesCard(),
+      ],
     );
   }
 }
