@@ -17,7 +17,7 @@ class PaymentMethod extends StatefulWidget {
 }
 
 String _payMethod = "";
-int _indexPayment = 4;
+int _indexPayment = 6;
 
 class _PaymentMethodState extends State<PaymentMethod> {
   @override
@@ -63,6 +63,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                       GestureDetector(
                         onTap: () => setState(() {
                           _payMethod = i['type'].toString();
+                          _indexPayment = index;
                         }),
                         child: Card(
                             shape: RoundedRectangleBorder(
