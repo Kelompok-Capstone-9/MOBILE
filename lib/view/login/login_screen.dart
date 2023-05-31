@@ -5,7 +5,6 @@ import 'package:gofit_apps/view/navbar/home.dart';
 import 'package:gofit_apps/view/register/register_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
-import '../booking_detail/booking_detail.dart';
 import 'forgot_password_screen.dart';
 import 'widget/decoration_form.dart';
 import 'widget/validator.dart';

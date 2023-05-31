@@ -51,7 +51,7 @@ List<Map<String, dynamic>> trainingLevel = [
   },
 ];
 
-var memberPackage = [
+List<Map<String, dynamic>> memberPackage = [
   {
     'duration': '1 Month',
     'value': '1',

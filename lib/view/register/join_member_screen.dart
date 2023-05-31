@@ -12,6 +12,7 @@ class JoinMemberScreen extends StatefulWidget {
 }
 
 class _JoinMemberScreenState extends State<JoinMemberScreen> {
+  String _memberPackage = "";
   @override
   Widget build(BuildContext context) {
     // var mediaquery = MediaQuery.of(context).size;
@@ -54,7 +55,22 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                     itemBuilder: (context, index) {
                       var i = memberPackage[index];
                       return GestureDetector(
-                        onTap: () => setState(() {}),
+                        onTap: () => setState(() {
+                          _memberPackage = i['duration'].toString();
+                          memberPackage = memberPackage.map((item) {
+                            if (item['duration'] == i['duration']) {
+                              return {
+                                ...item,
+                                'onTap': true,
+                              };
+                            } else {
+                              return {
+                                ...item,
+                                'onTap': false,
+                              };
+                            }
+                          }).toList();
+                        }),
                         child: Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),

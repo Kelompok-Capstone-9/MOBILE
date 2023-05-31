@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../login/login_screen.dart';
@@ -131,7 +132,10 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const PaymentMethod()));
+              },
               child: Text(
                 'Change payment',
                 style: ThemeText.headingChangePaymentMember,
