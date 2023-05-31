@@ -1,14 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
+import 'package:gofit_apps/view/register/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../login/login_screen.dart';
 
+// ignore: must_be_immutable
 class TransactionDetailScreen extends StatefulWidget {
-  const TransactionDetailScreen({Key? key}) : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
+  var data;
+  TransactionDetailScreen({super.key, required this.data});
   @override
   State<TransactionDetailScreen> createState() =>
       _TransactionDetailScreenState();
@@ -103,31 +108,26 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
           const SizedBox(
             height: 10,
           ),
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(
-                color: const Color(0xff919191).withOpacity(0.6),
-              ),
-            ),
-            elevation: 0.2,
-            color: ColorsTheme.bgScreen,
-            margin: const EdgeInsets.only(top: 16),
-            child: ListTile(
-              title: Text(
-                'GO-PAY',
-                style: ThemeText.heading3,
-              ),
-              subtitle: Text(
-                'Scan QR code with GO-JEK app',
-                style: ThemeText.headingPaymentDescription,
-              ),
-              trailing: SizedBox(
-                width: 60,
-                child:
-                    Image.asset('assets/images/gopay.png', fit: BoxFit.cover),
-              ),
-            ),
+          SizedBox(
+            width: 350,
+            height: 90,
+            child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(
+                    color: const Color(0xff919191).withOpacity(0.6),
+                  ),
+                ),
+                elevation: 0.2,
+                color: ColorsTheme.bgScreen,
+                margin: const EdgeInsets.only(top: 16),
+                child: SizedBox(
+                  child: CardPay(
+                    type: paymentMethode[widget.data]['type'].toString(),
+                    desc: paymentMethode[widget.data]['desc'].toString(),
+                    image: paymentMethode[widget.data]['image'].toString(),
+                  ),
+                )),
           ),
           Align(
             alignment: Alignment.centerRight,

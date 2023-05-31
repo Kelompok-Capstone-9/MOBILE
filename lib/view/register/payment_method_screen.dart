@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/transaction_screen.dart';
@@ -80,7 +81,12 @@ class _PaymentMethodState extends State<PaymentMethod> {
                               desc: i['desc'].toString(),
                               image: i['image'].toString(),
                             )),
-                      ),
+                      )
+                          .animate()
+                          .saturate()
+                          .shimmer()
+                          .fadeIn()
+                          .effect(duration: const Duration(seconds: 6)),
                     ],
                   );
                 }),
@@ -92,7 +98,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TransactionDetailScreen()),
+                    builder: (context) => TransactionDetailScreen(
+                          data: _indexPayment,
+                        )),
               );
             },
             child: Container(
