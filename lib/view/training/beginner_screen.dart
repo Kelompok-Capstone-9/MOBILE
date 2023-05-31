@@ -26,36 +26,32 @@ class _BeginnerScreenState extends State<BeginnerScreen> {
                 child: const Icon(Icons.arrow_back, color: Colors.black)),
             backgroundColor: ColorsTheme.bgScreen),
         body: SingleChildScrollView(
-            child: SafeArea(
-                child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16, left: 18, right: 18),
-            child: SizedBox(
-              height: 550,
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24),
-                  itemCount: trainingBeginner.length,
-                  itemBuilder: (context, index) {
-                    var i = trainingBeginner[index];
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        color: ColorsTheme.bgScreen,
-                        elevation: 0.6,
-                        child: CardTraining(
-                            image: i['image'].toString(),
-                            title: i['title'].toString()),
-                      ),
-                    );
-                  }),
-            ),
-          ),
-        ))));
+            child: Container(
+          height: 600,
+          padding: const EdgeInsets.only(top: 16, left: 18, right: 18),
+          child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, mainAxisSpacing: 12, crossAxisSpacing: 12),
+              itemCount: trainingBeginner.length,
+              scrollDirection: Axis.vertical,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                var i = trainingBeginner[index];
+                return GestureDetector(
+                  onTap: () {},
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: ColorsTheme.bgScreen,
+                    elevation: 2,
+                    child: CardTraining(
+                        image: i['image'].toString(),
+                        title: i['title'].toString()),
+                  ),
+                );
+              }),
+        )));
   }
 }
