@@ -17,7 +17,7 @@ class PaymentMethod extends StatefulWidget {
 }
 
 String _payMethod = "";
-int _indexPayment = 6;
+int _indexPayment = 4;
 
 class _PaymentMethodState extends State<PaymentMethod> {
   @override

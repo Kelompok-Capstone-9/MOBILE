@@ -1,9 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
+import 'package:gofit_apps/view/booking_detail/widget/card.dart';
 import 'package:gofit_apps/view/register/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -108,27 +111,46 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
           const SizedBox(
             height: 10,
           ),
-          SizedBox(
-            width: 350,
-            height: 90,
-            child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(
-                    color: const Color(0xff919191).withOpacity(0.6),
+          GestureDetector(
+            onTap: () {
+              log('masuk ke screen pilih payment methode');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PaymentMethod()),
+              );
+            },
+            child: widget.data == null
+                ? CardWidget(
+                    icon: FontAwesomeIcons.wallet, keterangan: "Select payment")
+                : SizedBox(
+                    width: 350,
+                    height: 90,
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color: const Color(0xff919191).withOpacity(0.6),
+                          ),
+                        ),
+                        elevation: 5,
+                        color: ColorsTheme.bgScreen,
+                        child: SizedBox(
+                          child: CardPay(
+                            type:
+                                paymentMethode[widget.data]['type'].toString(),
+                            desc:
+                                paymentMethode[widget.data]['desc'].toString(),
+                            image:
+                                paymentMethode[widget.data]['image'].toString(),
+                          ),
+                        )),
                   ),
-                ),
-                elevation: 0.2,
-                color: ColorsTheme.bgScreen,
-                margin: const EdgeInsets.only(top: 16),
-                child: SizedBox(
-                  child: CardPay(
-                    type: paymentMethode[widget.data]['type'].toString(),
-                    desc: paymentMethode[widget.data]['desc'].toString(),
-                    image: paymentMethode[widget.data]['image'].toString(),
-                  ),
-                )),
-          ),
+          )
+              .animate()
+              .saturate()
+              .shimmer()
+              .fadeIn()
+              .effect(duration: const Duration(seconds: 6)),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
