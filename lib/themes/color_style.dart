@@ -277,4 +277,14 @@ class ThemeText {
     fontSize: 20,
     color: const Color(0xffff7f00),
   );
+  static TextStyle headingImage = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: const Color(0xff919191),
+  );
+  static TextStyle headingView = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    color: const Color(0xffff7f00),
+  );
 }
