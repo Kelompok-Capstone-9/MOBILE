@@ -102,3 +102,26 @@ List<Icon> icon = const [
     color: Color(0xff7D7D7D),
   )
 ];
+var content = [
+  {
+    'gifImage': 'assets/gif/butt-kick.gif',
+    'type': 'BUTT KICKS',
+    'durationPlay': '00:20',
+    'desc':
+        'Stand up on the floor, then run in place while kicking your heel up to touch your butt with each step. Try to do it as fast as you can. It’s a great exercise for gluteus and harmstrings.'
+  },
+  {
+    'gifImage': 'assets/gif/quick-feet.gif',
+    'type': 'QUICK FEET',
+    'durationPlay': '00:20',
+    'desc':
+        'Start with your feet shoulder width apart. Bend your legs slightly and lean your upper body forward. Put your hands in front of you to keep balance, then run in place quickly.'
+  },
+  {
+    'gifImage': 'assets/gif/jumping-jacks.gif',
+    'type': 'JUMPING JACKS',
+    'durationPlay': '00:20',
+    'desc':
+        'Start with your feet together and your arms by your sides, then jump up with your feet apart and your hands overhead. Return to the start position then do the next rep. This exercise provides a full-body workout and works all your large muscle groups.'
+  },
+];

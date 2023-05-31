@@ -277,4 +277,20 @@ class ThemeText {
     fontSize: 20,
     color: const Color(0xffff7f00),
   );
+  //
+  static TextStyle headingg = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    color: Colors.black,
+  );
+  static TextStyle headingDesc = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff6D6D6D),
+  );
+  static TextStyle headingListDivider = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff787579),
+  );
 }
