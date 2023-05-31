@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/gym.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 
 class GymCardList extends StatelessWidget {
   const GymCardList({
@@ -73,18 +74,27 @@ class GymCardList extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: ColorsTheme.accent,
-                  ),
-                  child: Text(
-                    "Book",
-                    style: ThemeText.heading4.copyWith(
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BookingDetail()),
+                    );
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: ColorsTheme.accent,
+                    ),
+                    child: Text(
+                      "Book",
+                      style: ThemeText.heading4.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
