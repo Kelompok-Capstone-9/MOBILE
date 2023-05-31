@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/widget/button.dart';
+import 'package:gofit_apps/view/ticket/ticket_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentInformation extends StatefulWidget {
@@ -377,9 +378,20 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                     style: ThemeText.headingRupiah,
                                   ),
                                 ),
-                                ButtonPayWithDetail(
-                                  textButton: 'Go to details',
-                                  id: 'to-detail pay',
+                                GestureDetector(
+                                  onTap: () {
+                                    log("masuk ke detail tiket (success page)");
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => TicketScreen()),
+                                    );
+                                  },
+                                  child: ButtonPayWithDetail(
+                                    textButton: 'Go to details',
+                                    id: 'to-detail pay',
+                                  ),
                                 )
                               ],
                             ),
