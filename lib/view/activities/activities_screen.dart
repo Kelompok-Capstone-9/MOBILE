@@ -37,6 +37,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
       length: _tabBars.length,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             'Activities',
             style: ThemeText.heading1,

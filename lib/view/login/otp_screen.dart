@@ -247,14 +247,16 @@ class _OTPScreenState extends State<OTPScreen> {
           width: 5,
         ),
         CountdownTimer(
-          endTime: DateTime.now().millisecondsSinceEpoch + (10 * 60 * 1000),
+          endTime: DateTime.now().millisecondsSinceEpoch + (1 * 60 * 1000),
           onEnd: () {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  content: Text(
-                'Time Out',
-                style: ThemeText.headingInput,
-              )),
+                content: Text(
+                  'Time Out',
+                  style: ThemeText.heading2,
+                ),
+                backgroundColor: ColorsTheme.activeButton,
+              ),
             );
           },
           widgetBuilder: (_, CurrentRemainingTime? time) {

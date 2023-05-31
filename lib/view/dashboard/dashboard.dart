@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/themes/color_style.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // ignore: camel_case_types
@@ -36,8 +37,12 @@ class _Home_Screen extends State<Home_Screen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.orange,
-          title: const Text('GoFit'),
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color(0xFFF6F6F6),
+          title: Text(
+            'GoFit',
+            style: ThemeText.headingDashboard,
+          ),
         ),
         body: Center(
           child: Column(

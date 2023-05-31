@@ -30,7 +30,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 60),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: const Column(
               children: [
                 TopBar(),

@@ -137,6 +137,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                             final isValidForm =
                                 _formKey.currentState!.validate();
                             if (isValidForm) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Succes Reset Password',
+                                    style: ThemeText.heading2,
+                                  ),
+                                  backgroundColor: ColorsTheme.activeButton,
+                                ),
+                              );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

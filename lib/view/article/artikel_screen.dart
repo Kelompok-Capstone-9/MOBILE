@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../themes/color_style.dart';
+
 class Artikel extends StatefulWidget {
   const Artikel({super.key});
 
@@ -23,9 +25,9 @@ class _ArtikelState extends State<Artikel> {
           ),
         ),
         backgroundColor: Colors.white,
-        title: const Text(
+        title: Text(
           'ARTICLES',
-          style: TextStyle(color: Colors.black),
+          style: ThemeText.heading1,
         ),
       ),
       body: Padding(

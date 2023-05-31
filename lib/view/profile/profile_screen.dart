@@ -17,6 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0.9,
         title: Text('Profile', style: ThemeText.heading1),
         backgroundColor: const Color(0xFFF6F6F6),
@@ -178,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         'Personal Details',
-                        style: ThemeText.headingPersonal,
+                        style: ThemeText.headingAccount,
                       ),
                       IconButton(
                         onPressed: () {
@@ -206,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         'My Membership',
-                        style: ThemeText.headingPersonal,
+                        style: ThemeText.headingAccount,
                       ),
                       IconButton(
                         onPressed: () {},
@@ -226,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         'Newsletter',
-                        style: ThemeText.headingPersonal,
+                        style: ThemeText.headingAccount,
                       ),
                       Switch(
                         value: isNews,

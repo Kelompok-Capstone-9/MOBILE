@@ -272,4 +272,9 @@ class ThemeText {
     color: const Color(0xff030303),
 // >>>>>>> dev
   );
+  static TextStyle headingDashboard = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 20,
+    color: const Color(0xffff7f00),
+  );
 }
