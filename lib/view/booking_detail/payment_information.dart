@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gofit_apps/component/time_widget.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/widget/button.dart';
 import 'package:gofit_apps/view/ticket/ticket_screen.dart';
@@ -68,14 +69,16 @@ class _PaymentInformationState extends State<PaymentInformation> {
                       )),
                   // waktu dl
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 28.0),
-                    child: Text('02:59:52',
-                        style: GoogleFonts.josefinSans(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: ColorsTheme.primary600,
-                        )),
-                  )
+                      padding: const EdgeInsets.only(bottom: 28.0),
+                      // 2 jam = 7200
+                      //  untuk type apakah 3 baris (00:00:00) atau 2 bari (00:00);
+                      // isi aja 2 atau 3
+
+                      child: TimeWidget(
+                        waktu: '7200', //default nya pake ' kutip ' ya
+                        typeWaktu: 3,
+                        styleText: ThemeText.headingWaktuPayment,
+                      ))
                 ],
               ),
             ),
@@ -167,7 +170,9 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder(),
-                              labelText: '1234 1234 1234 1234',
+                              // filled: false,
+                              hintText: ' 1234 1234 1234 1234',
+                              // labelText: '1234 1234 1234 1234',
                             ),
                           ),
                         ),
@@ -193,7 +198,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                         color: Colors.grey, width: 0.0),
                                   ),
                                   border: OutlineInputBorder(),
-                                  labelText: 'BB/TT',
+                                  hintText: 'BB/TT',
                                 ),
                               ),
                             ),
@@ -217,7 +222,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                           color: Colors.grey, width: 0.0),
                                     ),
                                     border: OutlineInputBorder(),
-                                    labelText: '*********',
+                                    hintText: '*********',
                                     labelStyle: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14,
