@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/article/artikel_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // ignore: camel_case_types
@@ -51,87 +52,85 @@ class _Home_Screen extends State<Home_Screen> {
                   itemCount: imageSlinder.length,
                   itemBuilder: (context, index, realIndex) {
                     final imageSlinders = imageSlinder[index];
-
                     return buiildImage(imageSlinders, index);
                   },
                   options: CarouselOptions(
-                      height: 300,
+                      height: 320,
                       viewportFraction: 1,
                       autoPlay: true,
                       autoPlayInterval: const Duration(seconds: 4),
                       onPageChanged: (index, reason) =>
                           setState(() => activeIndex = index))),
-              SizedBox(height: 32, child: buildIndicator()),
-              const Padding(padding: EdgeInsets.all(3)),
-              const Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'NEW ARTICLES',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 230,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'View All',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.orange),
-                    ),
-                  )
-                ],
+              SizedBox(
+                height: 24,
+                child: buildIndicator(),
               ),
-              const Padding(padding: EdgeInsets.all(3)),
-              CarouselSlider.builder(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'NEW ARTICLES',
+                      style: ThemeText.heading4,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Artikel(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'View all',
+                        style: ThemeText.headingView,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
                   itemCount: imagesArtikel.length,
-                  itemBuilder: (context, index, realIndex) {
-                    final imagesArtikels = imagesArtikel[index];
-
-                    return buiildImageArtikel(imagesArtikels, index);
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: SizedBox(
+                        width: 400,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            imagesArtikel[index],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    );
                   },
-                  options: CarouselOptions(
-                      height: 250,
-                      viewportFraction: 1,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 2),
-                      onPageChanged: (index, reason) =>
-                          setState(() => activeIndex = index))),
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Save time in the kitchen with GoFit',
+                      style: ThemeText.headingImage,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   backgroundColor: Colors.grey,
-        //   items: const <BottomNavigationBarItem>[
-        //     BottomNavigationBarItem(
-        //         backgroundColor: Colors.grey,
-        //         icon: Icon(Icons.home),
-        //         label: 'Home'),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.business),
-        //       label: 'Business',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.school),
-        //       label: 'School',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.settings),
-        //       label: 'Settings',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.add_a_photo),
-        //       label: 'Settings',
-        //     ),
-        //   ],
-        //   // currentIndex: _selectedIndex,
-        //   // selectedItemColor: Colors.amber[800],
-        //   // onTap: _onItemTapped,
-        // ),
       );
 
   Widget buiildImage(String imageSlinder, int index) => Container(
