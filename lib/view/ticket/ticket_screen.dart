@@ -178,7 +178,8 @@ class TicketScreen extends StatelessWidget {
 
 class TopBar extends StatelessWidget {
   const TopBar({
-    Key? key,
+    super.key,
+    // Key? key,
   });
 
   @override

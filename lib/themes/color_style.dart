@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
   static Color colorButton = const Color(0xffFF7F00);
-  static final Color bgActivites = Color(0xffFFEFCC);
+  static const Color bgActivites = Color(0xffFFEFCC);
 
   static const Color bgScreen = Color(0xffF6F6F6);
   static const Color calContainer = Color(0xffF2f2f2);
@@ -276,6 +276,44 @@ class ThemeText {
     fontWeight: FontWeight.w700,
     fontSize: 20,
     color: const Color(0xffff7f00),
+  );
+  //
+  static TextStyle headingg = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    color: Colors.black,
+  );
+  static TextStyle headingDesc = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff6D6D6D),
+  );
+  static TextStyle headingListDivider = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: const Color(0xff787579),
+  );
+  static TextStyle headingTextDone = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 20,
+    color: const Color(0xff030303),
+  );
+  static TextStyle headingTextDone2 = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 20,
+    color: const Color(0xff030303),
+  );
+// >>>>>>> TRAINING STYLE
+
+  static TextStyle headingOnTrendingCard = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 20,
+    color: const Color(0xffF6F6F6),
+  );
+  static TextStyle subheadingOnTrendingCard = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    color: const Color(0xffF6F6F6),
   );
   static TextStyle headingWaktuPayment = GoogleFonts.josefinSans(
     fontWeight: FontWeight.w500,
