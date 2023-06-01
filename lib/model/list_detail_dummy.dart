@@ -102,6 +102,7 @@ List<Icon> icon = const [
     color: Color(0xff7D7D7D),
   )
 ];
+// for introduction training / beginner
 var content = [
   {
     'gifImage': 'assets/gif/butt-kick.gif',
