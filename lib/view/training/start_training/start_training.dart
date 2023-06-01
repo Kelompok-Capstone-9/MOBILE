@@ -3,26 +3,40 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/training/training_done_screen.dart';
+import 'package:gofit_apps/view/training/training_push_up.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class StartTrainingScren extends StatefulWidget {
   // ignore: non_constant_identifier_names
   String data_training;
 
-  StartTrainingScren({super.key, required this.data_training});
+  var index_page;
+
+  double widgetIsLoading;
+
+  StartTrainingScren(
+      {super.key,
+      required this.data_training,
+      required this.index_page,
+      required this.widgetIsLoading});
 // tangkep data construct
 
   @override
   State<StartTrainingScren> createState() => _StartTrainingScrenState();
 }
-
-int _indexPage = 0;
-double _widthIsLoading = 120;
+// double _widthIsLoading = widget.widgetIsLoading;
 
 class _StartTrainingScrenState extends State<StartTrainingScren> {
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
     var a = widget.data_training;
+    int _indexPage = widget.index_page;
+
     // var b = a[0]['da'].toString
     return Scaffold(
       // no appbar
@@ -70,7 +84,7 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
               ),
               Container(
                 height: 8,
-                width: _widthIsLoading,
+                width: widget.index_page == 2 ? 600 : widget.widgetIsLoading,
                 decoration: BoxDecoration(
                     color: ColorsTheme.activeButton,
                     borderRadius: BorderRadius.circular(20)),
@@ -89,12 +103,8 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                   style: ThemeText.headingLabelGofit
                       .copyWith(color: ColorsTheme.black, fontSize: 28),
                 ),
-                SizedBox(height: 24),
-                Text(
-                  content[0]['durationPlay'].toString(),
-                  style: ThemeText.headingLabelGofit
-                      .copyWith(color: ColorsTheme.black),
-                ),
+                const SizedBox(height: 24),
+                waktu(context, content[0]['durationPlay'].toString()),
               ],
             )
           else if (widget.data_training == 'content' && _indexPage == 1)
@@ -103,12 +113,8 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                 Text(content[1]['type'].toString(),
                     style: ThemeText.headingLabelGofit
                         .copyWith(color: ColorsTheme.black, fontSize: 28)),
-                SizedBox(height: 24),
-                Text(
-                  content[0]['durationPlay'].toString(),
-                  style: ThemeText.headingLabelGofit
-                      .copyWith(color: ColorsTheme.black),
-                ),
+                const SizedBox(height: 24),
+                waktu(context, content[1]['durationPlay'].toString()),
               ],
             )
           else
@@ -117,14 +123,10 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                 Text(content[2]['type'].toString(),
                     style: ThemeText.headingLabelGofit
                         .copyWith(color: ColorsTheme.black, fontSize: 28)),
-                SizedBox(height: 24),
-                Text(
-                  content[0]['durationPlay'].toString(),
-                  style: ThemeText.headingLabelGofit
-                      .copyWith(color: ColorsTheme.black),
-                ),
+                const SizedBox(height: 24),
+                waktu(context, content[2]['durationPlay'].toString()),
               ],
-            )
+            ),
         ],
       ),
       bottomNavigationBar: Container(
@@ -143,15 +145,33 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
             children: [
               TextButton(
                   onPressed: () {
-                    if (_indexPage == 0) {
-                    } else {
+                    if (widget.index_page == 0) {
+                    } else if (widget.index_page == 1) {
                       setState(() {
                         log(_indexPage.toString());
 
-                        _widthIsLoading += mediaquery.width * -0.45;
-                        _indexPage -= 1;
+                        widget.widgetIsLoading = mediaquery.width - 240;
+                        widget.index_page = 0;
 
-                        print(_widthIsLoading);
+                        print(widget.widgetIsLoading);
+                      });
+                    } else if (widget.index_page == 2) {
+                      setState(() {
+                        log(_indexPage.toString());
+
+                        widget.widgetIsLoading = mediaquery.width - 120;
+                        widget.index_page = 1;
+
+                        print(widget.widgetIsLoading);
+                      });
+                    } else if (widget.index_page == 1) {
+                      setState(() {
+                        log(_indexPage.toString());
+
+                        widget.widgetIsLoading = 120;
+                        widget.index_page = 0;
+
+                        print(widget.widgetIsLoading);
                       });
                     }
                   },
@@ -192,14 +212,25 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                   onPressed: () {
                     setState(() {
                       if (_indexPage == 2) {
-                        log('tidak bisa');
+                        log('tidak bisa, sudah finish');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TrainingDoneScreen()));
                       } else {
                         log(_indexPage.toString());
 
-                        _widthIsLoading += mediaquery.width * 0.45;
-                        _indexPage += 1;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TrainingPushUp(
+                                      data_training: widget.data_training,
+                                      index_page: _indexPage,
+                                      widhtIsLoading: widget.widgetIsLoading,
+                                    )));
 
-                        print(_widthIsLoading);
+                        // _widthIsLoading += mediaquery.width * 0.45;
+                        // _indexPage += 1;
                       }
                     });
                   },
@@ -207,13 +238,14 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                   child: _indexPage == 2
                       ? Row(
                           children: [
-                            Icon(Icons.skip_previous,
-                                color: ColorsTheme.disableColorButton),
+                            Icon(
+                              Icons.skip_previous,
+                            ),
                             Text(
-                              "Previous",
+                              "Finish",
                               style: ThemeText.headingpaymentSucces.copyWith(
-                                  fontSize: 20,
-                                  color: ColorsTheme.disableColorButton),
+                                fontSize: 20,
+                              ),
                             ),
                           ],
                         )
@@ -236,7 +268,27 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
       ),
     );
   }
+
+  CountdownTimer waktu(BuildContext context, waktu) {
+    return CountdownTimer(
+      endTime:
+          DateTime.now().millisecondsSinceEpoch + (1 * int.parse(waktu) * 1000),
+      onEnd: () {},
+      widgetBuilder: (_, CurrentRemainingTime? time) {
+        if (time == null) {
+          return Text('00:00',
+              style: ThemeText.headingLabelGofit
+                  .copyWith(color: ColorsTheme.black, fontSize: 28));
+        }
+        int remainingTime =
+            (time.min ?? 0).toInt() * 60 + (time.sec ?? 0).toInt();
+        final minutes = ((remainingTime - 1) ~/ 60).toString().padLeft(2, '0');
+        final seconds = ((remainingTime - 1) % 60).toString().padLeft(2, '0');
+        final timeFormat = '$minutes:$seconds';
+        return Text(timeFormat,
+            style: ThemeText.headingLabelGofit
+                .copyWith(color: ColorsTheme.black, fontSize: 28));
+      },
+    );
+  }
 }
-
-//  
-

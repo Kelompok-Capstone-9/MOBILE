@@ -191,7 +191,11 @@ class _TrainingDetailState extends State<TrainingDetail> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StartTrainingScren(data_training: data),
+                  builder: (context) => StartTrainingScren(
+                    data_training: data,
+                    index_page: 0,
+                    widgetIsLoading: 120,
+                  ),
                 ),
               );
             },

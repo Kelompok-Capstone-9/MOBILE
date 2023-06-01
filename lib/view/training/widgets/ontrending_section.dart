@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/trending.dart';
+import 'package:gofit_apps/view/training/training_kategori.dart';
 import 'package:gofit_apps/view/training/widgets/ontrending_card.dart';
 
 class OnTrendingSection extends StatefulWidget {
@@ -34,6 +37,20 @@ class _OnTrendingSectionState extends State<OnTrendingSection> {
         itemBuilder: (context, index) {
           var trending = onTrending[index];
           return GestureDetector(
+            onTap: () {
+              log('ke kategori detail');
+              // berdasarkan type yaitu jika "Best Home Work Out"
+              //nah berarti di models ontrending harusnya ada 'type': 'onRecomended'
+              String type = 'onRecommend';
+              log(trending.title);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TrainingKategori(
+                          type: type,
+                        )),
+              );
+            },
             child: OnTrendingCard(
               title: trending.title,
               subtitle: trending.subtitle,
