@@ -303,4 +303,16 @@ class ThemeText {
     fontSize: 20,
     color: const Color(0xff030303),
   );
+// >>>>>>> TRAINING STYLE
+
+  static TextStyle headingOnTrendingCard = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 20,
+    color: const Color(0xffF6F6F6),
+  );
+  static TextStyle subheadingOnTrendingCard = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    color: const Color(0xffF6F6F6),
+  );
 }
