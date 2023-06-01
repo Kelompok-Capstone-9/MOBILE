@@ -33,7 +33,8 @@ class SearchGymView extends StatelessWidget {
 
 class TopBar extends StatelessWidget {
   const TopBar({
-    Key? key,
+    super.key,
+    // Key? key,
   });
 
   @override
