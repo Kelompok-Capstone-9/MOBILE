@@ -277,4 +277,9 @@ class ThemeText {
     fontSize: 20,
     color: const Color(0xffff7f00),
   );
+  static TextStyle headingWaktuPayment = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 12,
+    color: ColorsTheme.primary600,
+  );
 }
