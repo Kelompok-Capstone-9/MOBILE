@@ -126,3 +126,30 @@ var content = [
         'Start with your feet together and your arms by your sides, then jump up with your feet apart and your hands overhead. Return to the start position then do the next rep. This exercise provides a full-body workout and works all your large muscle groups.'
   },
 ];
+
+List<Map<String, dynamic>> trainingBeginner = [
+  {
+    'image': 'assets/images/01.jpg',
+    'title': 'Abs Beginner',
+  },
+  {
+    'image': 'assets/images/02.jpg',
+    'title': 'Chest Beginner',
+  },
+  {
+    'image': 'assets/images/03.jpg',
+    'title': 'Arm Beginner',
+  },
+  {
+    'image': 'assets/images/04.jpg',
+    'title': 'Leg Beginner',
+  },
+  {
+    'image': 'assets/images/05.jpg',
+    'title': 'Back Beginner',
+  },
+  {
+    'image': 'assets/images/06.jpg',
+    'title': 'Shoulder Beginner',
+  },
+];
