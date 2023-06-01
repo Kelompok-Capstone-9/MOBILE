@@ -9,7 +9,7 @@ class ActivitiesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: ColorsTheme.bgActivites,
       ),
       margin: const EdgeInsets.symmetric(vertical: 6),

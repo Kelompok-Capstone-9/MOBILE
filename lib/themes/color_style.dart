@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ColorsTheme {
   static Color colorButton = const Color(0xffFF7F00);
-  static final Color bgActivites = Color(0xffFFEFCC);
+  static const Color bgActivites = Color(0xffFFEFCC);
 
   static const Color bgScreen = Color(0xffF6F6F6);
   static const Color calContainer = Color(0xffF2f2f2);
