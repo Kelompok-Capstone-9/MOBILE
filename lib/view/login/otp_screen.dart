@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:gofit_apps/component/time_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
 import 'reset_password_screen.dart';
@@ -243,36 +244,10 @@ class _OTPScreenState extends State<OTPScreen> {
             ],
           ),
         ),
-        const SizedBox(
-          width: 5,
-        ),
-        CountdownTimer(
-          endTime: DateTime.now().millisecondsSinceEpoch + (1 * 60 * 1000),
-          onEnd: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Time Out',
-                  style: ThemeText.heading2,
-                ),
-                backgroundColor: ColorsTheme.activeButton,
-              ),
-            );
-          },
-          widgetBuilder: (_, CurrentRemainingTime? time) {
-            if (time == null) {
-              return const Text('00:00');
-            }
-            int remainingTime =
-                (time.min ?? 0).toInt() * 60 + (time.sec ?? 0).toInt();
-            final minutes =
-                ((remainingTime - 1) ~/ 60).toString().padLeft(2, '0');
-            final seconds =
-                ((remainingTime - 1) % 60).toString().padLeft(2, '0');
-            final timeFormat = '$minutes:$seconds';
-            return Text(timeFormat);
-          },
-        ),
+        const SizedBox(width: 5),
+        // 5 menit aja, 5 menit = 300 detik
+        // type waktu 2 adalah biar (00:00)
+        TimeWidget(waktu: '300', typeWaktu: 2, styleText: ThemeText.heading3)
       ],
     );
   }

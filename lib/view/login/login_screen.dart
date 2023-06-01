@@ -24,7 +24,7 @@ class FormLoginState extends State<FormLogin> {
   final _formKey = GlobalKey<FormState>();
   bool hidePw = false;
   bool isFormFilled = false;
-
+  String appName = 'GoFit';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class FormLoginState extends State<FormLogin> {
             Padding(
               padding: const EdgeInsets.only(top: 66, bottom: 66),
               child: Text(
-                'GoFit',
+                appName,
                 style: ThemeText.headingLabelGofit,
               ),
             ),
@@ -49,9 +49,7 @@ class FormLoginState extends State<FormLogin> {
                       'Login',
                       style: ThemeText.headingLogin,
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    const SizedBox(height: 16),
                     TextFormField(
                       controller: _emailController,
                       decoration: DecorationFormStyle.decorationForm(
@@ -110,10 +108,7 @@ class FormLoginState extends State<FormLogin> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: 5,
-                right: 10,
-              ),
+              padding: const EdgeInsets.only(top: 5, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -126,17 +121,13 @@ class FormLoginState extends State<FormLogin> {
                         ),
                       );
                     },
-                    child: Text(
-                      'Forgot Password?',
-                      style: ThemeText.headingText,
-                    ),
+                    child:
+                        Text('Forgot Password?', style: ThemeText.headingText),
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 28,
-            ),
+            const SizedBox(height: 28),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -173,9 +164,7 @@ class FormLoginState extends State<FormLogin> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 28,
-            ),
+            const SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -191,10 +180,7 @@ class FormLoginState extends State<FormLogin> {
                         MaterialPageRoute(
                             builder: (context) => const RegisterScreen()));
                   },
-                  child: Text(
-                    'Sign Up',
-                    style: ThemeText.headingText,
-                  ),
+                  child: Text('Sign Up', style: ThemeText.headingText),
                 ),
               ],
             )
