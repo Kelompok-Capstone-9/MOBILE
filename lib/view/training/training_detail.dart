@@ -66,6 +66,7 @@ class _TrainingDetailState extends State<TrainingDetail> {
               itemCount: content.length,
               itemBuilder: (context, index) {
                 return Card(
+                  // kemana ilangnya code yaampun :(
                   margin: EdgeInsets.only(bottom: 8.0),
                   child: Row(
                     children: [
