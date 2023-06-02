@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../themes/color_style.dart';
 
 class DecorationFormStyle {
@@ -31,6 +32,11 @@ class DecorationFormStyle {
         labelText: labelText,
         labelStyle: ThemeText.headingInput,
         floatingLabelBehavior: FloatingLabelBehavior.never,
+        errorMaxLines: 3,
+        errorStyle: GoogleFonts.josefinSans(
+          fontWeight: FontWeight.w400,
+          fontSize: 12,
+        ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       );
