@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../themes/color_style.dart';
+import '../login/widget/decoration_form.dart';
 
 class Artikel extends StatefulWidget {
   const Artikel({super.key});
@@ -18,7 +19,9 @@ class _ArtikelState extends State<Artikel> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -34,13 +37,21 @@ class _ArtikelState extends State<Artikel> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            TextField(
-                controller: username,
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    label: Text('Cari Gym atau kelas online'))),
+            TextFormField(
+              // controller: _emailController,
+              decoration: DecorationFormStyle.decorationForm(
+                labelText: 'Cari Gym atau kelas online',
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Color(0xFFB5B5B5),
+                  size: 16,
+                ),
+              ),
+
+              onChanged: (value) {},
+            ),
             const SizedBox(
-              height: 10,
+              height: 14,
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),

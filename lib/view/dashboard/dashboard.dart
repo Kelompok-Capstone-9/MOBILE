@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -76,6 +78,7 @@ class _Home_Screen extends State<Home_Screen> {
                     ),
                     TextButton(
                       onPressed: () {
+                        log('ke artikel screen');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
