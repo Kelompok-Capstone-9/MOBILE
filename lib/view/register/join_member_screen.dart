@@ -19,6 +19,7 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
+        elevation: 0.2,
         backgroundColor: ColorsTheme.bgScreen,
         title: Text(
           'Step 6 of 6',

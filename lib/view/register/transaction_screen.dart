@@ -30,7 +30,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
-          elevation: 0.8,
+          elevation: 0.2,
           title: Text('Transaction Details', style: ThemeText.heading1),
           leading: GestureDetector(
               onTap: () => Navigator.pop(context),

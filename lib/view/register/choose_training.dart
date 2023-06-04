@@ -20,6 +20,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
+        elevation: 0.2,
         backgroundColor: ColorsTheme.bgScreen,
         title: Text('Step 5 of 6', style: ThemeText.heading1),
         centerTitle: true,

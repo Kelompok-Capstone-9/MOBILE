@@ -19,6 +19,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
+        elevation: 0.2,
         backgroundColor: ColorsTheme.bgScreen,
         title: Text('Step 4 of 6', style: ThemeText.heading1),
         centerTitle: true,

@@ -37,7 +37,7 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
     );
     return Scaffold(
       appBar: AppBar(
-          elevation: 0.8,
+          elevation: 0.2,
           leading: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: const Icon(Icons.arrow_back, color: Colors.black)),

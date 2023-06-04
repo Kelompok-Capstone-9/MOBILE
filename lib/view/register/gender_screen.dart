@@ -18,6 +18,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
+        
         backgroundColor: ColorsTheme.bgScreen,
         title: Text(
           'Step 1 of 6',
