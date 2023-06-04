@@ -14,12 +14,14 @@ class UsernameValidatorSignUp {
 class EmailValidatorSignup {
   static String? validateEmailSignUp(String? email) {
     if (email == null || email.isEmpty) {
-      return 'This Field is Required';
+      return 'Email address is Required';
     }
     String emailPattern = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
     RegExp regex = RegExp(emailPattern);
     if (!regex.hasMatch(email)) {
       return 'Please enter a valid email address.';
+    } else if (email == email) {
+      return 'Email address is already registered.';
     }
     return null;
   }
@@ -28,7 +30,7 @@ class EmailValidatorSignup {
 class ConfirmPasswordValidator {
   static String? validateConfirmPw(String? confirmPw, String password) {
     if (confirmPw == null || confirmPw.isEmpty) {
-      return 'Please enter the password again';
+      return 'Password is required';
     } else if (password != confirmPw) {
       return 'The password confirmation does not match';
     } else if (!RegExp(
