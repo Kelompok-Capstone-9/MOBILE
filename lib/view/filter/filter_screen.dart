@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
-import 'package:gofit_apps/view/filter/widgets/filter_class.dart';
+
+import '../../component/filters/filter_class.dart';
 
 class FilterView extends StatelessWidget {
   const FilterView({super.key});
