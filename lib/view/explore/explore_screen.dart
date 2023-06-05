@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/gym.dart';
+import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/calendar/calendar_screen.dart';
 import 'package:gofit_apps/view/explore/widgets/gym_card.dart';
-import 'package:gofit_apps/view/explore/widgets/time_category.dart';
+
 import 'package:gofit_apps/view/filter/filter_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -22,24 +24,21 @@ class _ExploreScreenState extends State<ExploreScreen> {
     });
   }
 
+  String terceklist = '';
+  bool status = false;
+  int _selectedIndex = 6;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
+      appBar: AppBar(
+          elevation: 0.8,
+          title: Text('Explore', style: ThemeText.heading1),
+          backgroundColor: ColorsTheme.bgScreen),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(left: 16, right: 16),
-            child: const Column(
-              children: [
-                TopBar(),
-              ],
-            ),
-          ),
-          const Divider(
-            color: ColorsTheme.divider,
-          ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
             decoration: const BoxDecoration(
@@ -161,27 +160,87 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ),
                     ),
                     const SizedBox(height: 23),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TimeCategory(
-                          icon: 'assets/icons/cloud.png',
-                          time: 'Pagi',
-                          clock: '5AM - 12PM',
-                        ),
-                        TimeCategory(
-                          icon: 'assets/icons/sun.png',
-                          time: 'Siang',
-                          clock: '12PM - 5PM',
-                        ),
-                        TimeCategory(
-                          icon: 'assets/icons/moon.png',
-                          time: 'Malam',
-                          clock: '5PM - 11PM',
-                        )
-                      ],
+                    SizedBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            alignment: WrapAlignment.spaceBetween,
+                            spacing: 8.0,
+                            children: List<Widget>.generate(
+                              timeSelect.length,
+                              (int index) {
+                                return ChoiceChip(
+                                  backgroundColor: Colors.white,
+                                  shape: const RoundedRectangleBorder(
+                                      side:
+                                          BorderSide(color: Color(0xffFF7F00)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  label: SizedBox(
+                                    height: 42,
+                                    width: 80,
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          timeSelect[index]['icon'].toString(),
+                                          height: 16,
+                                        ),
+                                        SizedBox(width: 12),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                                timeSelect[index]['time']
+                                                    .toString(),
+                                                style: ThemeText
+                                                    .headingTimeCategory),
+                                            SizedBox(height: 5),
+                                            Text(
+                                                timeSelect[index]['clock']
+                                                    .toString(),
+                                                style: ThemeText
+                                                    .subheadingTimeCategory),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  selected: _selectedIndex == index,
+                                  selectedColor:
+                                      const Color(0xffFF7F00).withOpacity(.45),
+                                  onSelected: (bool selected) {
+                                    setState(
+                                      () {
+                                        if (selected) {
+                                          timeSelect[index]['status'] = true;
+                                          _selectedIndex =
+                                              (selected ? index : 5);
+                                          terceklist = timeSelect[index]['time']
+                                              .toString();
+                                          status = true;
+                                        } else if (!selected) {
+                                          timeSelect[index]['status'] = false;
+                                          _selectedIndex = 5;
+                                          terceklist = '';
+                                          status = false;
+
+                                          setState(() {});
+                                        }
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                            ).toList(),
+                          )
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 23),
+                    const SizedBox(height: 16),
                     GymCardList(gymData: gymData),
                   ],
                 ),
@@ -318,36 +377,6 @@ class SearchSection extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class TopBar extends StatelessWidget {
-  const TopBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45,
-      child: Row(
-        children: <Widget>[
-          GestureDetector(
-            // onTap: () => Navigator.pop(context),
-            child: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.black,
-              size: 18,
-            ),
-          ),
-          const SizedBox(width: 24),
-          Text(
-            'Explore Class',
-            style: ThemeText.heading1,
-          ),
-        ],
-      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/color_style.dart';
 import '../../view/login/login_screen.dart';
+import '../register/decoration_form.dart';
 import 'decoration_form.dart';
 import '../../component/login/validator.dart';
 

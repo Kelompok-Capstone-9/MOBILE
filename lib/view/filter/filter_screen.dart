@@ -12,64 +12,79 @@ class FilterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
+      appBar: AppBar(
+          elevation: 0.8,
+          title: Text('Filter', style: ThemeText.heading1),
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(Icons.arrow_back, color: Colors.black)),
+          backgroundColor: ColorsTheme.bgScreen),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 60),
-            child: TopBar(),
-          ),
-          const Divider(
-            color: ColorsTheme.divider,
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 8,
+                  vertical: 10,
                   horizontal: 16,
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'Price range',
-                      style: ThemeText.heading2,
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: 'Minimum price',
-                              labelStyle: ThemeText.heading3.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: ColorsTheme.grey,
-                              ),
-                            ),
-                          ),
+                        Text(
+                          'Price range',
+                          style: ThemeText.heading2,
                         ),
-                        const SizedBox(width: 47),
-                        const Text('-'),
-                        const SizedBox(width: 47),
-                        Expanded(
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: 'Maximum price',
-                              labelStyle: ThemeText.heading3.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: ColorsTheme.grey,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.center,
+                                textAlignVertical: TextAlignVertical.center,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  labelText: 'Minimum price',
+                                  labelStyle: ThemeText.heading3.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorsTheme.grey,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            const SizedBox(width: 47),
+                            const Text('-'),
+                            const SizedBox(width: 47),
+                            Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.center,
+                                textAlignVertical: TextAlignVertical.center,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  labelText: 'Maximum price',
+                                  labelStyle: ThemeText.heading3.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorsTheme.grey,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
+                    const SizedBox(height: 20),
+                    Text(
+                      '0 - 10.000.000',
+                      style: ThemeText.headingDescription,
+                    )
                   ],
                 ),
               ),
@@ -112,13 +127,27 @@ class FilterView extends StatelessWidget {
                       style: ThemeText.heading2,
                     ),
                     const SizedBox(height: 8),
-                    const Row(
+                    const Column(
                       children: [
-                        ClassFilter(classtype: 'All'),
-                        SizedBox(width: 10),
-                        ClassFilter(classtype: 'Under 2 km'),
-                        SizedBox(width: 10),
-                        ClassFilter(classtype: 'Above 2 km'),
+                        Row(
+                          children: [
+                            ClassFilter(classtype: 'DKI Jakarta'),
+                            SizedBox(width: 10),
+                            ClassFilter(classtype: 'Jawa Barat'),
+                            SizedBox(width: 10),
+                            ClassFilter(classtype: 'Jawa Tengah'),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            ClassFilter(classtype: 'Jawa Timur'),
+                            SizedBox(width: 10),
+                            ClassFilter(classtype: 'Kalimantan'),
+                            SizedBox(width: 10),
+                            ClassFilter(classtype: 'Sumatera'),
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -178,38 +207,6 @@ class FilterView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8)
-        ],
-      ),
-    );
-  }
-}
-
-class TopBar extends StatelessWidget {
-  const TopBar({
-    Key? key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45,
-      child: Row(
-        children: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.black,
-              size: 18,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          const SizedBox(width: 10),
-          Text(
-            'Filter',
-            style: ThemeText.heading1,
-          ),
         ],
       ),
     );

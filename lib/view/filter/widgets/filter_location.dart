@@ -24,10 +24,7 @@ class _LocationFilterState extends State<LocationFilter> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 16,
-        ),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: _isTapped ? ColorsTheme.accent : ColorsTheme.bgScreen,
           borderRadius: BorderRadius.circular(10),

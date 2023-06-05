@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 
+var timeSelect = [
+  {
+    'icon': 'assets/icons/cloud.png',
+    'time': 'Pagi',
+    'clock': '5AM - 12PM',
+    'status': false,
+  },
+  {
+    'icon': 'assets/icons/sun.png',
+    'time': 'Siang',
+    'clock': '12AM - 5PM',
+    'status': false,
+  },
+  {
+    'icon': 'assets/icons/moon.png',
+    'time': 'Malam',
+    'clock': '5PM - 11PM',
+    'status': false,
+  },
+];
+
 var package = [
   {'harga': 65000, 'type': '/ Daily', 'status': false},
   {'harga': 150000, 'type': '/ Weekly', 'status': false},
