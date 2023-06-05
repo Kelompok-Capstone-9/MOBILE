@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/register/register_screen.dart';
+import 'package:gofit_apps/view_model/login_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../component/login/forgot_password_screen.dart';
 import '../../component/navbar/home.dart';
 import '../../themes/color_style.dart';
@@ -18,7 +20,20 @@ class FormLogin extends StatefulWidget {
   }
 }
 
+String email = "mobile@email.com";
+String password = "Mobile9_";
+
 class FormLoginState extends State<FormLogin> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Future.microtask(
+  //     () => Provider.of<LoginProvider>(context, listen: false)
+  //         .login(email: "erorr@gmail.com", password: "errorterus"),
+  //   );
+  // }
+
+  @override
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
