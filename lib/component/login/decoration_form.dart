@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../themes/color_style.dart';
+import '../../themes/color_style.dart';
 
 class DecorationFormStyle {
   static decorationForm({
