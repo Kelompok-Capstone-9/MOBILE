@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gofit_apps/view/profile/widget/card_gender.dart';
-import 'package:gofit_apps/view/profile/widget/card_goal_weight.dart';
-import 'package:gofit_apps/view/profile/widget/card_height.dart';
-import 'package:gofit_apps/view/profile/widget/card_password.dart';
-import 'package:gofit_apps/view/profile/widget/card_training_level.dart';
-import 'package:gofit_apps/view/profile/widget/card_weight.dart';
+import '../../component/profile/card_gender.dart';
+import '../../component/profile/card_goal_weight.dart';
+import '../../component/profile/card_height.dart';
+import '../../component/profile/card_password.dart';
+import '../../component/profile/card_training_level.dart';
+import '../../component/profile/card_username.dart';
+import '../../component/profile/card_weight.dart';
 import '../../themes/color_style.dart';
-import 'widget/card_username.dart';
 
 class PersonalDetailsScreen extends StatefulWidget {
   const PersonalDetailsScreen({super.key});
