@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/weight_screen.dart';
+import 'package:gofit_apps/view/register/screens/choose_training.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HeightScreen extends StatefulWidget {
-  const HeightScreen({Key? key}) : super(key: key);
+class WeightGoalScreen extends StatefulWidget {
+  const WeightGoalScreen({Key? key}) : super(key: key);
   @override
-  State<HeightScreen> createState() => _HeightScreenState();
+  State<WeightGoalScreen> createState() => _WeightGoalScreenState();
 }
 
-class _HeightScreenState extends State<HeightScreen> {
+class _WeightGoalScreenState extends State<WeightGoalScreen> {
   List<bool> isSelected = [true, false];
-  var label = [ItemChoice(1, 'Centimetre'), ItemChoice(2, 'Feet')];
-  var idSelected = 0;
-  final _heightController = TextEditingController();
+  final _weightGoalController = TextEditingController();
   bool isFormFilled = false;
   final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +21,7 @@ class _HeightScreenState extends State<HeightScreen> {
       appBar: AppBar(
         elevation: 0.2,
         backgroundColor: ColorsTheme.bgScreen,
-        title: Text('Step 2 of 6', style: ThemeText.heading1),
+        title: Text('Step 4 of 6', style: ThemeText.heading1),
         centerTitle: true,
         leading: GestureDetector(
             onTap: () => Navigator.pop(context),
@@ -39,7 +36,7 @@ class _HeightScreenState extends State<HeightScreen> {
               height: 36,
             ),
             Center(
-              child: Text('Input Your Height', style: ThemeText.headingLogin),
+              child: Text('Input Goal Weight', style: ThemeText.headingLogin),
             ),
             const SizedBox(
               height: 36,
@@ -77,7 +74,7 @@ class _HeightScreenState extends State<HeightScreen> {
                           : const Color(0xffE6E6E6),
                     ),
                     child: Text(
-                      'Centimetre',
+                      'Kilogram',
                       style: GoogleFonts.josefinSans(
                           color: isSelected[0]
                               ? const Color(0xff030303)
@@ -97,7 +94,7 @@ class _HeightScreenState extends State<HeightScreen> {
                           : const Color(0xffE6E6E6),
                     ),
                     child: Text(
-                      'feet',
+                      'Pound',
                       style: GoogleFonts.josefinSans(
                           color: isSelected[1]
                               ? const Color(0xff030303)
@@ -124,7 +121,7 @@ class _HeightScreenState extends State<HeightScreen> {
                     width: 80,
                     height: 60,
                     child: TextFormField(
-                      controller: _heightController,
+                      controller: _weightGoalController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         counterText: "",
@@ -141,7 +138,7 @@ class _HeightScreenState extends State<HeightScreen> {
                       maxLength: 3,
                       onChanged: (value) {
                         setState(() {
-                          isFormFilled = _heightController.text.isNotEmpty;
+                          isFormFilled = _weightGoalController.text.isNotEmpty;
                         });
                       },
                     ),
@@ -151,7 +148,7 @@ class _HeightScreenState extends State<HeightScreen> {
                   width: 8,
                 ),
                 Text(
-                  'cm',
+                  'kg',
                   style: ThemeText.heading1,
                 ),
               ],
@@ -177,7 +174,7 @@ class _HeightScreenState extends State<HeightScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WeightScreen()),
+                          builder: (context) => const ChooseTrainingScreen()),
                     );
                   }
                 },
@@ -202,11 +199,4 @@ class _HeightScreenState extends State<HeightScreen> {
       )),
     );
   }
-}
-
-class ItemChoice {
-  final int id;
-  final String label;
-
-  ItemChoice(this.id, this.label);
 }

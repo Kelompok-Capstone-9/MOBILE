@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/payment_method_screen.dart';
 import 'package:gofit_apps/component/register/card_member.dart';
 import 'package:hovering/hovering.dart';
+
+import 'payment_method_screen.dart';
 
 class JoinMemberScreen extends StatefulWidget {
   const JoinMemberScreen({Key? key}) : super(key: key);

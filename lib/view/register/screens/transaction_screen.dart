@@ -9,8 +9,8 @@ import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
 import 'package:gofit_apps/component/register/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../component/booking_detail/card.dart';
-import '../login/login_screen.dart';
+import '../../../component/booking_detail/card.dart';
+import '../../login/login_screen.dart';
 
 // ignore: must_be_immutable
 class TransactionDetailScreen extends StatefulWidget {

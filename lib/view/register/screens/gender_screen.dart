@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/height_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'height_screen.dart';
 
 class ChooseGenderScreen extends StatefulWidget {
   const ChooseGenderScreen({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
-        
         backgroundColor: ColorsTheme.bgScreen,
         title: Text(
           'Step 1 of 6',

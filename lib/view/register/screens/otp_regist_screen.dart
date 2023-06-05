@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/gender_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+
+import 'gender_screen.dart';
 
 class OTPRegistScreen extends StatefulWidget {
   const OTPRegistScreen({Key? key}) : super(key: key);

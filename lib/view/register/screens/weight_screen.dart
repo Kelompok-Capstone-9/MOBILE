@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/choose_training.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class WeightGoalScreen extends StatefulWidget {
-  const WeightGoalScreen({Key? key}) : super(key: key);
+import 'weight_goal_screen.dart';
+
+class WeightScreen extends StatefulWidget {
+  const WeightScreen({Key? key}) : super(key: key);
   @override
-  State<WeightGoalScreen> createState() => _WeightGoalScreenState();
+  State<WeightScreen> createState() => _WeightScreenState();
 }
 
-class _WeightGoalScreenState extends State<WeightGoalScreen> {
+class _WeightScreenState extends State<WeightScreen> {
   List<bool> isSelected = [true, false];
-  final _weightGoalController = TextEditingController();
+  final _weightController = TextEditingController();
   bool isFormFilled = false;
   final formKey = GlobalKey<FormState>();
   @override
@@ -19,9 +20,8 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
-        elevation: 0.2,
         backgroundColor: ColorsTheme.bgScreen,
-        title: Text('Step 4 of 6', style: ThemeText.heading1),
+        title: Text('Step 3 of 6', style: ThemeText.heading1),
         centerTitle: true,
         leading: GestureDetector(
             onTap: () => Navigator.pop(context),
@@ -36,7 +36,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
               height: 36,
             ),
             Center(
-              child: Text('Input Goal Weight', style: ThemeText.headingLogin),
+              child: Text('Input Your Weight', style: ThemeText.headingLogin),
             ),
             const SizedBox(
               height: 36,
@@ -121,7 +121,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                     width: 80,
                     height: 60,
                     child: TextFormField(
-                      controller: _weightGoalController,
+                      controller: _weightController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         counterText: "",
@@ -138,7 +138,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                       maxLength: 3,
                       onChanged: (value) {
                         setState(() {
-                          isFormFilled = _weightGoalController.text.isNotEmpty;
+                          isFormFilled = _weightController.text.isNotEmpty;
                         });
                       },
                     ),
@@ -174,7 +174,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ChooseTrainingScreen()),
+                          builder: (context) => const WeightGoalScreen()),
                     );
                   }
                 },

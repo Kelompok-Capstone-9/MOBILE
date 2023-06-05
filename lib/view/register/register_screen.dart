@@ -3,10 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/login/login_screen.dart';
-import 'package:gofit_apps/view/register/otp_regist_screen.dart';
 import 'package:gofit_apps/component/register/decoration_form.dart';
 import 'package:gofit_apps/component/register/validator_register.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'screens/otp_regist_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);

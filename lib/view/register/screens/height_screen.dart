@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/weight_goal_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class WeightScreen extends StatefulWidget {
-  const WeightScreen({Key? key}) : super(key: key);
+import 'weight_screen.dart';
+
+class HeightScreen extends StatefulWidget {
+  const HeightScreen({Key? key}) : super(key: key);
   @override
-  State<WeightScreen> createState() => _WeightScreenState();
+  State<HeightScreen> createState() => _HeightScreenState();
 }
 
-class _WeightScreenState extends State<WeightScreen> {
+class _HeightScreenState extends State<HeightScreen> {
   List<bool> isSelected = [true, false];
-  final _weightController = TextEditingController();
+  var label = [ItemChoice(1, 'Centimetre'), ItemChoice(2, 'Feet')];
+  var idSelected = 0;
+  final _heightController = TextEditingController();
   bool isFormFilled = false;
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
+        elevation: 0.2,
         backgroundColor: ColorsTheme.bgScreen,
-        title: Text('Step 3 of 6', style: ThemeText.heading1),
+        title: Text('Step 2 of 6', style: ThemeText.heading1),
         centerTitle: true,
         leading: GestureDetector(
             onTap: () => Navigator.pop(context),
@@ -35,7 +40,7 @@ class _WeightScreenState extends State<WeightScreen> {
               height: 36,
             ),
             Center(
-              child: Text('Input Your Weight', style: ThemeText.headingLogin),
+              child: Text('Input Your Height', style: ThemeText.headingLogin),
             ),
             const SizedBox(
               height: 36,
@@ -73,7 +78,7 @@ class _WeightScreenState extends State<WeightScreen> {
                           : const Color(0xffE6E6E6),
                     ),
                     child: Text(
-                      'Kilogram',
+                      'Centimetre',
                       style: GoogleFonts.josefinSans(
                           color: isSelected[0]
                               ? const Color(0xff030303)
@@ -93,7 +98,7 @@ class _WeightScreenState extends State<WeightScreen> {
                           : const Color(0xffE6E6E6),
                     ),
                     child: Text(
-                      'Pound',
+                      'feet',
                       style: GoogleFonts.josefinSans(
                           color: isSelected[1]
                               ? const Color(0xff030303)
@@ -120,7 +125,7 @@ class _WeightScreenState extends State<WeightScreen> {
                     width: 80,
                     height: 60,
                     child: TextFormField(
-                      controller: _weightController,
+                      controller: _heightController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         counterText: "",
@@ -137,7 +142,7 @@ class _WeightScreenState extends State<WeightScreen> {
                       maxLength: 3,
                       onChanged: (value) {
                         setState(() {
-                          isFormFilled = _weightController.text.isNotEmpty;
+                          isFormFilled = _heightController.text.isNotEmpty;
                         });
                       },
                     ),
@@ -147,7 +152,7 @@ class _WeightScreenState extends State<WeightScreen> {
                   width: 8,
                 ),
                 Text(
-                  'kg',
+                  'cm',
                   style: ThemeText.heading1,
                 ),
               ],
@@ -173,7 +178,7 @@ class _WeightScreenState extends State<WeightScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WeightGoalScreen()),
+                          builder: (context) => const WeightScreen()),
                     );
                   }
                 },
@@ -198,4 +203,11 @@ class _WeightScreenState extends State<WeightScreen> {
       )),
     );
   }
+}
+
+class ItemChoice {
+  final int id;
+  final String label;
+
+  ItemChoice(this.id, this.label);
 }

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/transaction_screen.dart';
 import 'dart:developer';
 
 import 'package:gofit_apps/component/register/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'transaction_screen.dart';
 
 @immutable
 class PaymentMethod extends StatefulWidget {
