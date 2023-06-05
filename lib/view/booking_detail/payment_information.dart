@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gofit_apps/component/time_widget.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/booking_detail/widget/button.dart';
 import 'package:gofit_apps/view/ticket/ticket_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../component/booking_detail/button.dart';
 
 class PaymentInformation extends StatefulWidget {
   const PaymentInformation({super.key});

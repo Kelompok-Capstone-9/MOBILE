@@ -5,7 +5,7 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../payment_confirmation.dart';
+import '../../view/booking_detail/payment_confirmation.dart';
 
 class WidgetTotal extends StatefulWidget {
   const WidgetTotal({super.key});

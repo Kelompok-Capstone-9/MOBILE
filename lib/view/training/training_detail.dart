@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/training/start_training/start_training.dart';
 
+import '../../component/booking_detail/button.dart';
 import '../../model/list_detail_dummy.dart';
 import '../../themes/color_style.dart';
-import '../booking_detail/widget/button.dart';
 
 class TrainingDetail extends StatefulWidget {
   const TrainingDetail({super.key});

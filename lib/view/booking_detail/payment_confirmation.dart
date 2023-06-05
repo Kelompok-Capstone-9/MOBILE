@@ -6,11 +6,12 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 import 'package:gofit_apps/view/booking_detail/payment_information.dart';
 import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
-import 'package:gofit_apps/view/booking_detail/widget/button.dart';
-import 'package:gofit_apps/view/booking_detail/widget/card.dart';
-import 'package:gofit_apps/view/booking_detail/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../component/booking_detail/button.dart';
+import '../../component/booking_detail/card.dart';
+import '../../component/booking_detail/card_pay.dart';
 
 // ignore: must_be_immutable
 class PaymentConfirmation extends StatefulWidget {

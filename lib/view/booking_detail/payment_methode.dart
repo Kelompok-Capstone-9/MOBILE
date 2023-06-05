@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/view/booking_detail/payment_confirmation.dart';
-import 'package:gofit_apps/view/booking_detail/widget/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../component/booking_detail/card_pay.dart';
 import '../../themes/color_style.dart';
 
 class PaymentMethod extends StatefulWidget {
