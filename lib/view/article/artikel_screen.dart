@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../themes/color_style.dart';
 import '../../component/login/decoration_form.dart';
+import '../register/widget/decoration_form.dart';
 
 class Artikel extends StatefulWidget {
   const Artikel({super.key});

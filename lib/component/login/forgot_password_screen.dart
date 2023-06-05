@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
-import 'decoration_form.dart';
+import '../../view/register/widget/decoration_form.dart';
 import 'otp_screen.dart';
 import '../../component/login/validator.dart';
 

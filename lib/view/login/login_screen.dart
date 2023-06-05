@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:gofit_apps/component/navbar/home.dart';
 import 'package:gofit_apps/view/register/register_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../component/login/forgot_password_screen.dart';
+import '../../component/navbar/home.dart';
 import '../../themes/color_style.dart';
-import '../../component/login/decoration_form.dart';
 import '../../component/login/validator.dart';
+import '../register/widget/decoration_form.dart';
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);
