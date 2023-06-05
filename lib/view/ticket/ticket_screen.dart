@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
-import 'package:gofit_apps/view/ticket/widgets/ticket_card.dart';
+import 'package:gofit_apps/component/ticket_card.dart';
 
 class TicketScreen extends StatelessWidget {
   const TicketScreen({super.key});

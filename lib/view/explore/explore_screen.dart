@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/gym.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/calendar/calendar_screen.dart';
-import 'package:gofit_apps/view/explore/widgets/gym_card.dart';
+import 'package:gofit_apps/component/calendar/calendar_screen.dart';
+import 'package:gofit_apps/component/explore/gym_card.dart';
 
 import 'package:gofit_apps/view/filter/filter_screen.dart';
 import 'package:google_fonts/google_fonts.dart';

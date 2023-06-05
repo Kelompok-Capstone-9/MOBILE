@@ -5,7 +5,7 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/transaction_screen.dart';
 import 'dart:developer';
 
-import 'package:gofit_apps/view/register/widget/card_pay.dart';
+import 'package:gofit_apps/component/register/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 @immutable

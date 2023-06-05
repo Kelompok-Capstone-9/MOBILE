@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/register/widget/card_training.dart';
+import 'package:gofit_apps/component/register/card_training.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'join_member_screen.dart';

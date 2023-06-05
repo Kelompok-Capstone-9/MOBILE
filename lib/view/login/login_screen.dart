@@ -7,7 +7,7 @@ import '../../component/login/forgot_password_screen.dart';
 import '../../component/navbar/home.dart';
 import '../../themes/color_style.dart';
 import '../../component/login/validator.dart';
-import '../register/widget/decoration_form.dart';
+import '../../component/register/decoration_form.dart';
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 // Import the necessary packages and libraries
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/activities/widgets/activities_card.dart';
+import 'package:gofit_apps/component/activities/activities_card.dart';
 
 // Create a stateful widget for the screen
 class ActivitiesScreen extends StatefulWidget {
