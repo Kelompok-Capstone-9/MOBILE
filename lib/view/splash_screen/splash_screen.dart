@@ -10,6 +10,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
+String appName = 'GoFit';
+
 class _SplashScreenState extends State<SplashScreen> {
   splashScreenStart() async {
     var duration = const Duration(seconds: 3);
@@ -49,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
       home: Scaffold(
         body: Center(
           child: Text(
-            'GoFit',
+            appName,
             style: GoogleFonts.josefinSans(
               fontWeight: FontWeight.w700,
               fontSize: 48,
