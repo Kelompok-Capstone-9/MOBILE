@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:gofit_apps/component/time_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
