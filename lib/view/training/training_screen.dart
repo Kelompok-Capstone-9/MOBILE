@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/training/widgets/levels_section.dart';
-import 'package:gofit_apps/view/training/widgets/ontrending_section.dart';
-import 'package:gofit_apps/view/training/widgets/recommend_section.dart';
+import 'package:gofit_apps/component/training/levels_section.dart';
+import 'package:gofit_apps/component/training/ontrending_section.dart';
+import 'package:gofit_apps/component/training/recommend_section.dart';
 
 class TrainingScreen extends StatelessWidget {
   const TrainingScreen({super.key});

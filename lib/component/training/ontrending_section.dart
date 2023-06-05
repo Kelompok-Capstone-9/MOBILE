@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/trending.dart';
 import 'package:gofit_apps/view/training/training_kategori.dart';
-import 'package:gofit_apps/view/training/widgets/ontrending_card.dart';
+import 'package:gofit_apps/component/training/ontrending_card.dart';
 
 class OnTrendingSection extends StatefulWidget {
   const OnTrendingSection({Key? key}) : super(key: key);

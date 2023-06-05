@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/training/training_detail.dart';
-import 'package:gofit_apps/view/training/widgets/levels_section.dart';
-import 'package:gofit_apps/view/training/widgets/recommend_card.dart';
-import 'package:gofit_apps/view/training/widgets/training_card.dart';
+import 'package:gofit_apps/component/training/levels_section.dart';
+import 'package:gofit_apps/component/training/recommend_card.dart';
+import 'package:gofit_apps/component/training/training_card.dart';
 
 import '../../model/levels.dart';
 import '../../model/recommend.dart';

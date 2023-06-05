@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/model/training.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/training/widgets/training_card.dart';
+import 'package:gofit_apps/component/training/training_card.dart';
 
 class BeginnerScreen extends StatefulWidget {
   const BeginnerScreen({Key? key}) : super(key: key);

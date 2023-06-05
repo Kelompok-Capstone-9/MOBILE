@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/recommend.dart';
 
-import 'package:gofit_apps/view/training/widgets/recommend_card.dart';
+import 'package:gofit_apps/component/training/recommend_card.dart';
 
 class RecommendSection extends StatelessWidget {
   RecommendSection({Key? key}) : super(key: key);
