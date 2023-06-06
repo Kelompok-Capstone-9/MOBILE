@@ -194,7 +194,8 @@ class _WeightScreenState extends State<WeightScreen> {
                           builder: (context) => WeightGoalScreen(name: widget.name, email: widget.email,
                               password: widget.password,
                               gender: widget.gender,
-                              height: widget.height)),
+                              height: widget.height,
+                              weight: _weightController)),
                     );
                   }
                 },

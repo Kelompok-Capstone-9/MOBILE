@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -6,8 +8,29 @@ import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class WeightGoalScreen extends StatefulWidget {
-  const WeightGoalScreen({Key? key, required name, required email, required password, required gender, required height}) : super(key: key);
+  var name;
+
+  var email;
+
+  var password;
+
+  var gender;
+
+  var height;
+
+  var weight;
+
+  WeightGoalScreen(
+      {Key? key,
+      required name,
+      required email,
+      required password,
+      required gender,
+      required height,
+      required this.weight})
+      : super(key: key);
   @override
   State<WeightGoalScreen> createState() => _WeightGoalScreenState();
 }
@@ -182,12 +205,12 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                     final registerUser = Data(
                       // isi name dll pakai constructor dari halaman ini
 
-                      name: "Jungkook",
-                      email: "jungkookie@gmail.com",
-                      password: "altera123!",
-                      gender: "pria",
-                      height: 178,
-                      weight: 67,
+                      name: widget.name,
+                      email: widget.email,
+                      password: widget.password,
+                      gender: widget.gender,
+                      height: widget.height,
+                      weight: widget.weight,
                       goalWeight: 0,
                       goalHeight: 0,
                     );
