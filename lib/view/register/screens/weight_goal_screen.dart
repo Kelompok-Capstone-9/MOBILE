@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/screens/choose_training.dart';
+import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class WeightGoalScreen extends StatefulWidget {
   const WeightGoalScreen({Key? key}) : super(key: key);
@@ -171,11 +174,24 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                 onPressed: () {
                   final isValidForm = formKey.currentState!.validate();
                   if (isValidForm) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ChooseTrainingScreen()),
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const ChooseTrainingScreen()),
+                    // );
+                    final registerUser = Data(
+                      name: "Risdiani",
+                      email: "dinirisdi4@gmail.com",
+                      password: "altera123!",
+                      gender: "wanita",
+                      height: 155,
+                      weight: 52,
+                      goalWeight: 47,
+                      goalHeight: 0,
                     );
+
+                    Provider.of<RegisterProvider>(context, listen: false)
+                        .register(registerUser);
                   }
                 },
                 child: Padding(

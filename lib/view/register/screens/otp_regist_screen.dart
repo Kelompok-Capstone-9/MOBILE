@@ -129,11 +129,11 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
                 onTap: () {
                   // log('selesai memilih payment method');
                   // // kirim data ketika selesai memilih
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ChooseGenderScreen()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) =>  ChooseGenderScreen(name: null,)),
+                  // );
                 },
                 child: Container(
                     alignment: Alignment.center,

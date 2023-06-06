@@ -4,8 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'height_screen.dart';
 
+// ignore: must_be_immutable
 class ChooseGenderScreen extends StatefulWidget {
-  const ChooseGenderScreen({Key? key}) : super(key: key);
+  var name;
+
+  var email;
+
+  var password;
+
+  ChooseGenderScreen({
+    Key? key,
+    required this.name,
+    required this.email,
+    required this.password,
+  }) : super(key: key);
   @override
   State<ChooseGenderScreen> createState() => _ChooseGenderScreenState();
 }
@@ -167,7 +179,12 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                   ),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const HeightScreen()));
+                        builder: (context) => HeightScreen(
+                              name: widget.name,
+                              email: widget.email,
+                              password: widget.password,
+                              gender: isGender,
+                            )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),

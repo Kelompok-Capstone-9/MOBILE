@@ -5,6 +5,7 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/login/login_screen.dart';
 import 'package:gofit_apps/component/register/decoration_form.dart';
 import 'package:gofit_apps/component/register/validator_register.dart';
+import 'package:gofit_apps/view/register/screens/gender_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'screens/otp_regist_screen.dart';
@@ -173,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const OTPRegistScreen()),
+                            builder: (context) =>  ChooseGenderScreen(name: _nameController, email: _emailController, password: _passwordController)),
                       );
                     }
                   },

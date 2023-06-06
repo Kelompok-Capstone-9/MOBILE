@@ -21,7 +21,7 @@ class RegisterModel {
 
     String toRawJson() => json.encode(toJson());
 
-    factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
+    factory RegisterModel.fromJson(Map json) => RegisterModel(
         metadata: json["metadata"] == null ? null : RegisterModelMetadata.fromJson(json["metadata"]),
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
     );
@@ -33,7 +33,7 @@ class RegisterModel {
 }
 
 class Data {
-    int? id;
+    // int? id;
     String? name;
     String? email;
     String? password;
@@ -45,7 +45,7 @@ class Data {
     DataMetadata? metadata;
 
     Data({
-        this.id,
+        // this.id,
         this.name,
         this.email,
         this.password,
@@ -62,7 +62,7 @@ class Data {
     String toRawJson() => json.encode(toJson());
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
+        // id: json["id"],
         name: json["name"],
         email: json["email"],
         password: json["password"],
@@ -75,7 +75,7 @@ class Data {
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
+        // "id": id,
         "name": name,
         "email": email,
         "password": password,

@@ -1,11 +1,28 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'weight_screen.dart';
 
+// ignore: must_be_immutable
 class HeightScreen extends StatefulWidget {
-  const HeightScreen({Key? key}) : super(key: key);
+  var name;
+
+  var email;
+
+  var password;
+  
+  var gender;
+
+  HeightScreen(
+      {Key? key,
+      required this.name,
+      required this.email,
+      required this.password,
+      required this.gender})
+      : super(key: key);
   @override
   State<HeightScreen> createState() => _HeightScreenState();
 }

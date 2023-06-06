@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:gofit_apps/model/login.dart';
+import 'package:gofit_apps/model/register.dart';
 import 'package:http/http.dart ' as http;
 
 class ApiGym {
@@ -57,4 +58,6 @@ class ApiGym {
       return null;
     }
   }
+
+  static registerUser(Data data) {}
 }

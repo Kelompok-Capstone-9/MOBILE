@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:gofit_apps/model/login.dart';
+import 'package:gofit_apps/model/register.dart';
+import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
+import 'package:http/http.dart';
 import 'package:http/http.dart ' as http;
 
 class ApiGym {
@@ -20,11 +23,22 @@ class ApiGym {
      "password" : "Mobile9_"
      */
 
-  static Future loginUsers() {
-    return null;
-  }
+  // static Future loginUsers() {
+  //   return null;
+  // }
 
-  static Future registerUser() {
-    return null;
+  static Future<RegisterModel> registerUser(Data data) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl$register'),
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: jsonEncode(data.toJson()),
+    );
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+      return RegisterModel.fromJson(jsonDecode(response.body));
+    } else {
+      print(response.statusCode);
+      throw "Can't add user";
+    }
   }
 }
