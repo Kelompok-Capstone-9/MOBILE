@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class WeightGoalScreen extends StatefulWidget {
-  const WeightGoalScreen({Key? key}) : super(key: key);
+  const WeightGoalScreen({Key? key, required name, required email, required password, required gender, required height}) : super(key: key);
   @override
   State<WeightGoalScreen> createState() => _WeightGoalScreenState();
 }
@@ -180,13 +180,15 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                     //       builder: (context) => const ChooseTrainingScreen()),
                     // );
                     final registerUser = Data(
-                      name: "Risdiani",
-                      email: "dinirisdi4@gmail.com",
+                      // isi name dll pakai constructor dari halaman ini
+
+                      name: "Jungkook",
+                      email: "jungkookie@gmail.com",
                       password: "altera123!",
-                      gender: "wanita",
-                      height: 155,
-                      weight: 52,
-                      goalWeight: 47,
+                      gender: "pria",
+                      height: 178,
+                      weight: 67,
+                      goalWeight: 0,
                       goalHeight: 0,
                     );
 

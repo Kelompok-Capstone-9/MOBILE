@@ -23,20 +23,18 @@ class ApiGym {
      "password" : "Mobile9_"
      */
 
-  // static Future loginUsers() {
-  //   return null;
-  // }
-
   static Future<RegisterModel> registerUser(Data data) async {
     final response = await http.post(
       Uri.parse('$baseUrl$register'),
-      headers: <String, String>{'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: jsonEncode(data.toJson()),
     );
     if (response.statusCode == 200) {
+      print(data);
       print(response.statusCode);
       return RegisterModel.fromJson(jsonDecode(response.body));
     } else {
+      print(data);
       print(response.statusCode);
       throw "Can't add user";
     }

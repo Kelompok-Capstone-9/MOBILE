@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view/register/screens/gender_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'weight_screen.dart';
@@ -15,13 +16,16 @@ class HeightScreen extends StatefulWidget {
   var password;
   
   var gender;
+  
+  var height;
 
   HeightScreen(
       {Key? key,
       required this.name,
       required this.email,
       required this.password,
-      required this.gender})
+      required this.gender,
+      })
       : super(key: key);
   @override
   State<HeightScreen> createState() => _HeightScreenState();
@@ -195,7 +199,12 @@ class _HeightScreenState extends State<HeightScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WeightScreen()),
+                          builder: (context) => WeightScreen(name: widget.name,
+                              email: widget.email,
+                              password: widget.password,
+                              gender: isGender,
+                              height: _heightController
+                              )),
                     );
                   }
                 },

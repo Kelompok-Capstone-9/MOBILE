@@ -5,7 +5,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'weight_goal_screen.dart';
 
 class WeightScreen extends StatefulWidget {
-  const WeightScreen({Key? key}) : super(key: key);
+  var name;
+
+  var email;
+
+  var password;
+
+  var gender;
+
+  var height;
+
+  WeightScreen(
+      {Key? key,
+      required this.name,
+      required this.email,
+      required this.password,
+      required this.gender,
+      required this.height})
+      : super(key: key);
   @override
   State<WeightScreen> createState() => _WeightScreenState();
 }
@@ -174,7 +191,10 @@ class _WeightScreenState extends State<WeightScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WeightGoalScreen()),
+                          builder: (context) => WeightGoalScreen(name: widget.name, email: widget.email,
+                              password: widget.password,
+                              gender: widget.gender,
+                              height: widget.height)),
                     );
                   }
                 },

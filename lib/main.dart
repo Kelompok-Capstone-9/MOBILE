@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NewsLetterProvider()),
       ],
       child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: WeightGoalScreen()),
+          debugShowCheckedModeBanner: false, home: SplashScreen()),
     );
   }
 }
