@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:gofit_apps/model/login.dart';
 import 'package:http/http.dart ' as http;
 
 class ApiGym {
@@ -20,11 +18,31 @@ class ApiGym {
      "password" : "Mobile9_"
      */
 
-  static Future loginUsers() {
-    return null;
-  }
+  static Future loginUsers(uname, upass) async {
+    final url = Uri.parse('$baseUrl$login');
+    final Map<String, dynamic> requestBody = {
+      "email": uname,
+      "password": upass
+    };
 
-  static Future registerUser() {
-    return null;
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = json.decode(response.body);
+      log(responseData.toString());
+      return responseData;
+    } else {
+      print('Failed to login');
+      print('Status Code: ${response.statusCode}');
+      log(response.body);
+      throw "Can't get the data";
+    }
   }
 }

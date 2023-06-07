@@ -1,27 +1,35 @@
+import '../../model/login.dart';
+import '../../view_model/login_provider.dart';
+
 class EmailValidatorLogin {
-  static String? validateEmail(String? email) {
+  static String? validateEmail(String? email, LoginProvider loginProvider) {
     if (email == null || email.isEmpty) {
-      return 'This Field is Required';
+      return 'This field is required';
     }
-    String emailPattern = 'mervin.km@gmail.com'; //email yang terdaftar ketika register, misal (mervin.km@gmail.com)
-    RegExp regex = RegExp(emailPattern);
-    if (!regex.hasMatch(email)) {
+
+    UserLogin? userLogin = loginProvider.userLogin;
+    if (userLogin != null && userLogin.email != email) {
       return 'Please enter a valid email address.';
     }
+
     return null;
   }
 }
 
 class PasswordValidatorLogin {
-  static String? validatePassword(String? password) {
+  static String? validatePassword(
+      String? password, LoginProvider? loginProvider) {
     if (password == null || password.isEmpty) {
       return 'This field is required';
     }
-    String passwordPattern = 'Mervinkm21'; //password yang terdaftar ketika register, misal (Mervinkm21)
-    RegExp regex = RegExp(passwordPattern);
-    if (!regex.hasMatch(password)) {
-      return 'Password is not correct.';
+
+    if (loginProvider != null) {
+      UserLogin? userLogin = loginProvider.userLogin;
+      if (userLogin != null && userLogin.password != password) {
+        return 'Password is not correct.';
+      }
     }
+
     return null;
   }
 }
