@@ -4,6 +4,23 @@ import 'package:gofit_apps/model/apis/service_api.dart';
 import 'package:gofit_apps/model/register.dart';
 
 class RegisterProvider extends ChangeNotifier {
+  Data? _dataUser;
+  Data? get dataUser => _dataUser;
+  String? _name;
+  String? get name => _name;
+  String? _email;
+  String? get email => _email;
+  String? _password;
+  String? get password => _password;
+
+  void getDataUser({String? name, String? email, String? password}) {
+    _name = name;
+    _email = email;
+    _password = password;
+
+    notifyListeners();
+  }
+
   // class fungsi
   Future<void> register(Data data) async {
     try {

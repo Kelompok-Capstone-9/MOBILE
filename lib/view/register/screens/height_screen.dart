@@ -14,19 +14,14 @@ class HeightScreen extends StatefulWidget {
   var email;
 
   var password;
-  
+
   var gender;
-  
+
   var height;
 
-  HeightScreen(
-      {Key? key,
-      required this.name,
-      required this.email,
-      required this.password,
-      required this.gender,
-      })
-      : super(key: key);
+  HeightScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<HeightScreen> createState() => _HeightScreenState();
 }
@@ -199,12 +194,12 @@ class _HeightScreenState extends State<HeightScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => WeightScreen(name: widget.name,
+                          builder: (context) => WeightScreen(
+                              name: widget.name,
                               email: widget.email,
                               password: widget.password,
                               gender: isGender,
-                              height: _heightController
-                              )),
+                              height: _heightController)),
                     );
                   }
                 },
