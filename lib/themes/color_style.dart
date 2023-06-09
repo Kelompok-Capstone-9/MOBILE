@@ -32,6 +32,7 @@ class ColorsTheme {
   static const Color disableColorButton = Color(0xffDFDFDF);
   static const Color successColor = Color(0xff44DD77);
 // >>>>>>> dev
+ static const Color bgMembership = Color(0xff0E0E0E);
 }
 
 class ThemeText {
@@ -327,5 +328,40 @@ class ThemeText {
     fontWeight: FontWeight.w600,
     fontSize: 14,
     color: const Color(0xffff7f00),
+  );
+  static TextStyle headingMembership = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 20,
+    color: const Color(0xff6D6D6D),
+  );
+  static TextStyle headingTextFree = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 20,
+    color: const Color(0xffFFFFFF),
+  );
+  static TextStyle headingTextPlan = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: const Color(0xffFFFFFF),
+  );
+  static TextStyle headingCustomTittle = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    color: const Color(0xffFFFFFF),
+  );
+  static TextStyle headingCustomRp = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 20,
+    color: const Color(0xffFFFFFF),
+  );
+  static TextStyle headingCustomTerms = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 8,
+    color: const Color(0xffFFFFFF),
+  );
+  static TextStyle headingCustomApply = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 8,
+    color: const Color(0xff606060),
   );
 }

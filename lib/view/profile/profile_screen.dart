@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view/profile/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../themes/color_style.dart';
 import 'personal_details_screen.dart';
@@ -206,11 +207,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'My Membership',
+                        'Membership',
                         style: ThemeText.headingAccount,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const MembershipScreen(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_forward_ios_outlined,
                           size: 14,
