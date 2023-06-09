@@ -165,6 +165,24 @@ class FormLoginState extends State<FormLogin> {
                     final password = _passwordController.text;
                     final loginProvider =
                         Provider.of<LoginProvider>(context, listen: false);
+
+                    final emailError =
+                        EmailValidatorLogin.validateEmail(email, loginProvider);
+                    final passwordError =
+                        PasswordValidatorLogin.validatePassword(
+                            password, loginProvider);
+
+                    if (emailError != null || passwordError != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            emailError ?? passwordError ?? 'An error occurred.',
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+
                     loginProvider.login(email: email, password: password).then(
                       (_) {
                         if (loginProvider.userLogin != null) {
@@ -172,6 +190,16 @@ class FormLoginState extends State<FormLogin> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => const Home(),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Email or password is incorrect.',
+                                style: ThemeText.heading2,
+                              ),
+                              backgroundColor: ColorsTheme.activeButton,
                             ),
                           );
                         }

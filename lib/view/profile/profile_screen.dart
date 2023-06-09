@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../themes/color_style.dart';
+import '../../view_model/login_provider.dart';
+import '../login/login_screen.dart';
 import 'personal_details_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -258,7 +261,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     backgroundColor: const Color(0xffFF7F00)),
-                onPressed: () {},
+                onPressed: () async {
+                  final loginProvider =
+                      Provider.of<LoginProvider>(context, listen: false);
+                  await loginProvider.logout(params: 0, context: context);
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FormLogin(),
+                    ),
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
