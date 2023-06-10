@@ -18,6 +18,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -84,11 +86,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                           title: Text(
-                            'Kevin Nicholas',
+                            loginProvider.userLogin?.name ?? '',
                             style: ThemeText.headingName,
                           ),
                           subtitle: Text(
-                            '21 years old',
+                            loginProvider.userLogin?.email ?? '',
                             style: ThemeText.headingOld,
                           ),
                         ),
@@ -113,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: ThemeText.headingOld,
                             ),
                             Text(
-                              '75 Kg',
+                              '${loginProvider.userLogin?.weight ?? ''} Kg',
                               style: ThemeText.headingOld,
                             ),
                           ],
@@ -129,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: ThemeText.headingOld,
                             ),
                             Text(
-                              '65 Kg',
+                              '${loginProvider.userLogin?.goalWeight ?? ''} Kg',
                               style: ThemeText.headingOld,
                             ),
                           ],
