@@ -20,11 +20,11 @@ class ApiGym {
      "password" : "Mobile9_"
      */
 
-  static Future loginUsers() {
-    return null;
-  }
+  // static Future loginUsers() {
+  //   return null;
+  // }
 
-  static Future registerUser() {
-    return null;
-  }
+  // static Future registerUser() {
+  //   return null;
+  // }
 }
