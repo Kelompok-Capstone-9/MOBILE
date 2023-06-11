@@ -23,9 +23,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<RegisterProvider>(context, listen: false);
-    print(prov.name);
-    print(prov.email);
-    print(prov.password);
+    
 
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
