@@ -29,7 +29,7 @@ class ApiGym {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(data.toJson()),
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       print(data);
       print(response.statusCode);
       return RegisterModel.fromJson(jsonDecode(response.body));

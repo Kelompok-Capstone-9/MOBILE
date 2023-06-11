@@ -70,17 +70,3 @@ class RegisterProvider extends ChangeNotifier {
     hati hati dan semangat */
   }
 }
-// Future<void> addProduct(NewProduct newProduct) async {
-//     _requestState = RequestState.loading;
-//     notifyListeners();
-//     try {
-//       final result = await ApiProduct.addProduct(newProduct);
-//       _newProducts.add(result);
-//       _requestState = RequestState.loaded;
-//       notifyListeners();
-//     } catch (e) {
-//       _requestState = RequestState.error;
-//       _message = 'Error: $e';
-//       notifyListeners();
-//     }
-//   }
