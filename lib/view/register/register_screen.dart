@@ -96,7 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                
+             
                 obscureText: hidePw ? false : true,
                 controller: _passwordController,
                 decoration: DecorationFormStyle.decorationForm(

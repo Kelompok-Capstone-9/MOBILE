@@ -9,17 +9,9 @@ import 'weight_screen.dart';
 
 // ignore: must_be_immutable
 class HeightScreen extends StatefulWidget {
-  var name;
 
-  var email;
 
-  var password;
-
-  var gender;
-
-  var height;
-
-  HeightScreen({
+  const HeightScreen({
     Key? key,
   }) : super(key: key);
   @override
@@ -194,12 +186,8 @@ class _HeightScreenState extends State<HeightScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => WeightScreen(
-                              name: widget.name,
-                              email: widget.email,
-                              password: widget.password,
-                              gender: isGender,
-                              height: _heightController)),
+                          builder: (context) => const WeightScreen(
+                              )),
                     );
                   }
                 },

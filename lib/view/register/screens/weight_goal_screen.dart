@@ -10,27 +10,9 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class WeightGoalScreen extends StatefulWidget {
-  var name;
-
-  var email;
-
-  var password;
-
-  var gender;
-
-  var height;
-
-  var weight;
-
-  WeightGoalScreen(
-      {Key? key,
-      required name,
-      required email,
-      required password,
-      required gender,
-      required height,
-      required this.weight})
-      : super(key: key);
+  const WeightGoalScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<WeightGoalScreen> createState() => _WeightGoalScreenState();
 }
@@ -202,18 +184,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                     //   MaterialPageRoute(
                     //       builder: (context) => const ChooseTrainingScreen()),
                     // );
-                    final registerUser = Data(
-                      // isi name dll pakai constructor dari halaman ini
-
-                      name: widget.name,
-                      email: widget.email,
-                      password: widget.password,
-                      gender: widget.gender,
-                      height: widget.height,
-                      weight: widget.weight,
-                      goalWeight: 0,
-                      goalHeight: 0,
-                    );
+                    final registerUser = Data();
 
                     Provider.of<RegisterProvider>(context, listen: false)
                         .register(registerUser);

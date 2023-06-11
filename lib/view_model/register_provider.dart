@@ -12,6 +12,10 @@ class RegisterProvider extends ChangeNotifier {
   String? get email => _email;
   String? _password;
   String? get password => _password;
+  Data? _genderUser;
+  Data? get genderUser => _genderUser;
+  Data? _heightUser;
+  Data? get heightUser => _heightUser;
 
   void getDataUser({String? name, String? email, String? password}) {
     _name = name;
@@ -19,6 +23,14 @@ class RegisterProvider extends ChangeNotifier {
     _password = password;
 
     notifyListeners();
+  }
+
+  void getGenderUser({String? isGender}) {
+    _genderUser = genderUser;
+  }
+
+  void getHeightUser({int? height}) {
+    _heightUser = heightUser;
   }
 
   // class fungsi
