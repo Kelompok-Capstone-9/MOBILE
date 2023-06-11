@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../model/login.dart';
 import '../../themes/color_style.dart';
 import '../../view_model/login_provider.dart';
-import '../login/login_screen.dart';
 import 'personal_details_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -18,7 +18,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginProvider>(context);
+    LoginProvider loginProvider = Provider.of<LoginProvider>(context);
+    UserLogin? user = loginProvider.userLogin;
 
     return Scaffold(
       appBar: AppBar(
@@ -86,11 +87,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                           title: Text(
-                            loginProvider.userLogin?.name ?? '',
+                            user?.name ?? '',
                             style: ThemeText.headingName,
                           ),
                           subtitle: Text(
-                            loginProvider.userLogin?.email ?? '',
+                            user?.email ?? '',
                             style: ThemeText.headingOld,
                           ),
                         ),
@@ -115,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: ThemeText.headingOld,
                             ),
                             Text(
-                              '${loginProvider.userLogin?.weight ?? ''} Kg',
+                              (user?.weight ?? 0).toString(),
                               style: ThemeText.headingOld,
                             ),
                           ],
@@ -131,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: ThemeText.headingOld,
                             ),
                             Text(
-                              '${loginProvider.userLogin?.goalWeight ?? ''} Kg',
+                              (user?.goalWeight ?? 0).toString(),
                               style: ThemeText.headingOld,
                             ),
                           ],
@@ -263,17 +264,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     backgroundColor: const Color(0xffFF7F00)),
-                onPressed: () async {
-                  final loginProvider =
+                onPressed: () {
+                  LoginProvider loginProvider =
                       Provider.of<LoginProvider>(context, listen: false);
-                  await loginProvider.logout(params: 0, context: context);
-                  // ignore: use_build_context_synchronously
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FormLogin(),
-                    ),
-                  );
+                  loginProvider.logout(params: 0, context: context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),

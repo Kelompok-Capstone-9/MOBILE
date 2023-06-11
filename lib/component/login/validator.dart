@@ -25,7 +25,9 @@ class PasswordValidatorLogin {
 
     if (loginProvider != null) {
       UserLogin? userLogin = loginProvider.userLogin;
-      if (userLogin != null && userLogin.password != password) {
+      if (userLogin != null &&
+          userLogin.password != null &&
+          userLogin.password != password) {
         return 'Password is not correct.';
       }
     }
