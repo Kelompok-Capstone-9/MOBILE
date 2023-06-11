@@ -96,7 +96,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-             
                 obscureText: hidePw ? false : true,
                 controller: _passwordController,
                 decoration: DecorationFormStyle.decorationForm(
@@ -182,7 +181,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       final prov =
                           Provider.of<RegisterProvider>(context, listen: false)
                               .getDataUser(
-                                  name: name, email: email, password: password);
+                                  name: Data(name: name),
+                                  email: Data(email: email),
+                                  password: Data(password: password));
 
                       Navigator.push(
                         context,

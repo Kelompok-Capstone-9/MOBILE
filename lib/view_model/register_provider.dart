@@ -6,20 +6,22 @@ import 'package:gofit_apps/model/register.dart';
 class RegisterProvider extends ChangeNotifier {
   Data? _dataUser;
   Data? get dataUser => _dataUser;
-  String? _name;
-  String? get name => _name;
-  String? _email;
-  String? get email => _email;
-  String? _password;
-  String? get password => _password;
+  Data? _name;
+  Data? get name => _name;
+  Data? _email;
+  Data? get email => _email;
+  Data? _password;
+  Data? get password => _password;
   Data? _genderUser;
-  Data? get genderUser => _genderUser;
-  Data? _heightUser;
-  Data? get heightUser => _heightUser;
-  Data? _weightUser;
-  Data? get weightUser => _weightUser;
+  Data? get isGender => _genderUser;
+  int? _heightUser;
+  int? get height => _heightUser;
+  int? _weightUser;
+  int? get weight => _weightUser;
+  int? _weightGoalUser;
+  int? get weightGoalUser => _weightGoalUser;
 
-  void getDataUser({String? name, String? email, String? password}) {
+  void getDataUser({Data? name, Data? email, Data? password}) {
     _name = name;
     _email = email;
     _password = password;
@@ -27,21 +29,33 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getGenderUser({String? isGender}) {
-    _genderUser = genderUser;
+  void getGenderUser({Data? isGender}) {
+    _genderUser = isGender;
 
     notifyListeners();
+
+    print(isGender);
   }
 
   void getHeightUser({int? height}) {
-    _heightUser = heightUser;
+    _heightUser = height;
 
     notifyListeners();
+    print(height);
   }
 
   void getWeightUser({int? weight}) {
-    _weightUser = weightUser;
+    _weightUser = weight;
     notifyListeners();
+
+    print(weight);
+  }
+
+  void getWeightGoalUser({int? weightgoal}) {
+    _weightGoalUser = weightgoal;
+    notifyListeners();
+
+    print(weightGoalUser);
   }
 
   // class fungsi

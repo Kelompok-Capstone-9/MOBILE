@@ -9,7 +9,7 @@ import 'height_screen.dart';
 
 // ignore: must_be_immutable
 class ChooseGenderScreen extends StatefulWidget {
-  ChooseGenderScreen({
+  const ChooseGenderScreen({
     Key? key,
   }) : super(key: key);
   @override
@@ -65,7 +65,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      isGender = 'male';
+                      isGender = 'pria';
                       isSelected = true;
                     });
                   },
@@ -78,18 +78,18 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     child: Row(
                       children: [
                         Icon(
-                            isGender == 'male'
+                            isGender == 'pria'
                                 ? Icons.male_outlined
                                 : Icons.male_outlined,
-                            color: isGender == 'male'
+                            color: isGender == 'pria'
                                 ? ColorsTheme.activeButton
                                 : Colors.black),
                         const SizedBox(
                           width: 40,
                         ),
                         Text(
-                          isGender == 'male' ? 'Male' : 'Male',
-                          style: isGender == 'male'
+                          isGender == 'pria' ? 'Male' : 'Male',
+                          style: isGender == 'pria'
                               ? GoogleFonts.josefinSans(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
@@ -114,7 +114,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        side: isGender == 'female'
+                        side: isGender == 'wanita'
                             ? BorderSide(color: ColorsTheme.activeButton)
                             : BorderSide(color: ColorsTheme.inActiveButton),
                       ),
@@ -122,7 +122,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      isGender = 'female';
+                      isGender = 'wanita';
                       isSelected = true;
                     });
                   },
@@ -135,18 +135,18 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     child: Row(
                       children: [
                         Icon(
-                            isGender == 'female'
+                            isGender == 'wanita'
                                 ? Icons.female_outlined
                                 : Icons.female_outlined,
-                            color: isGender == 'female'
+                            color: isGender == 'wanita'
                                 ? ColorsTheme.activeButton
                                 : Colors.black),
                         const SizedBox(
                           width: 40,
                         ),
                         Text(
-                          isGender == 'female' ? 'Female' : 'Female',
-                          style: isGender == 'female'
+                          isGender == 'wanita' ? 'Female' : 'Female',
+                          style: isGender == 'wanita'
                               ? GoogleFonts.josefinSans(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
@@ -177,6 +177,9 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                         : ColorsTheme.inActiveButton,
                   ),
                   onPressed: () {
+                    final prov =
+                        Provider.of<RegisterProvider>(context, listen: false)
+                            .getGenderUser(isGender: Data(gender: isGender));
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HeightScreen()));
                   },

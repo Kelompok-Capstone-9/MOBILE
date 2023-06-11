@@ -24,6 +24,8 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<RegisterProvider>(context, listen: false);
+
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -179,15 +181,26 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                 onPressed: () {
                   final isValidForm = formKey.currentState!.validate();
                   if (isValidForm) {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const ChooseTrainingScreen()),
-                    // );
-                    final registerUser = Data();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChooseTrainingScreen()),
+                    );
+                    final register =
+                        Provider.of<RegisterProvider>(context, listen: false)
+                            .register(Data(
+                                name: provider.name.toString(),
+                                email: provider.email.toString(),
+                                password: provider.password.toString(),
+                                gender: provider.isGender.toString(),
+                                height: provider.height,
+                                weight: provider.weight,
+                                goalWeight: provider.weightGoalUser));
 
-                    Provider.of<RegisterProvider>(context, listen: false)
-                        .register(registerUser);
+                    final prov = Provider.of<RegisterProvider>(context,
+                            listen: false)
+                        .getWeightGoalUser(
+                            weightgoal: int.parse(_weightGoalController.text));
                   }
                 },
                 child: Padding(

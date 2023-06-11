@@ -1,16 +1,17 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/register/screens/gender_screen.dart';
+import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'weight_screen.dart';
 
 // ignore: must_be_immutable
 class HeightScreen extends StatefulWidget {
-
-
   const HeightScreen({
     Key? key,
   }) : super(key: key);
@@ -28,6 +29,11 @@ class _HeightScreenState extends State<HeightScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final prov = Provider.of<RegisterProvider>(context, listen: false);
+    // print(prov.name);
+    // print(prov.email);
+    // print(prov.password);
+    // print(prov.isGender);
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -183,11 +189,14 @@ class _HeightScreenState extends State<HeightScreen> {
                 onPressed: () {
                   final isValidForm = formKey.currentState!.validate();
                   if (isValidForm) {
+                    final prov =
+                        Provider.of<RegisterProvider>(context, listen: false)
+                            .getHeightUser(
+                                height: int.parse(_heightController.text));
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WeightScreen(
-                              )),
+                          builder: (context) => const WeightScreen()),
                     );
                   }
                 },
