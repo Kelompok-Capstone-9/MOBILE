@@ -6,56 +6,45 @@ import 'package:gofit_apps/model/register.dart';
 class RegisterProvider extends ChangeNotifier {
   Data? _dataUser;
   Data? get dataUser => _dataUser;
-  Data? _name;
-  Data? get name => _name;
-  Data? _email;
-  Data? get email => _email;
-  Data? _password;
-  Data? get password => _password;
-  Data? _genderUser;
-  Data? get isGender => _genderUser;
-  int? _heightUser;
-  int? get height => _heightUser;
-  int? _weightUser;
-  int? get weight => _weightUser;
-  int? _weightGoalUser;
-  int? get weightGoalUser => _weightGoalUser;
 
-  void getDataUser({Data? name, Data? email, Data? password}) {
-    _name = name;
-    _email = email;
-    _password = password;
+  void getDataUser({String? name, String? email, String? password}) {
+    _dataUser!.name = name;
+    _dataUser!.email = email;
+    _dataUser!.password = password;
 
     notifyListeners();
+    // print(dataUser!.name);
+    // print(dataUser!.email);
+    // print(dataUser!.password);
   }
 
-  void getGenderUser({Data? isGender}) {
-    _genderUser = isGender;
+  void getGenderUser({isGender}) {
+    dataUser!.gender = isGender;
 
     notifyListeners();
 
-    print(isGender);
+    // print(isGender);
   }
 
-  void getHeightUser({int? height}) {
-    _heightUser = height;
+  void getHeightUser({height}) {
+    dataUser!.height = height;
 
     notifyListeners();
-    print(height);
+    print(dataUser!.height);
   }
 
   void getWeightUser({int? weight}) {
-    _weightUser = weight;
+    dataUser!.weight = weight;
     notifyListeners();
 
     print(weight);
   }
 
   void getWeightGoalUser({int? weightgoal}) {
-    _weightGoalUser = weightgoal;
+    dataUser!.goalWeight = weightgoal;
     notifyListeners();
 
-    print(weightGoalUser);
+    print(dataUser!.goalWeight);
   }
 
   // class fungsi
@@ -70,3 +59,17 @@ class RegisterProvider extends ChangeNotifier {
     hati hati dan semangat */
   }
 }
+// Future<void> addProduct(NewProduct newProduct) async {
+//     _requestState = RequestState.loading;
+//     notifyListeners();
+//     try {
+//       final result = await ApiProduct.addProduct(newProduct);
+//       _newProducts.add(result);
+//       _requestState = RequestState.loaded;
+//       notifyListeners();
+//     } catch (e) {
+//       _requestState = RequestState.error;
+//       _message = 'Error: $e';
+//       notifyListeners();
+//     }
+//   }

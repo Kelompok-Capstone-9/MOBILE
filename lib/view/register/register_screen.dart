@@ -181,9 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       final prov =
                           Provider.of<RegisterProvider>(context, listen: false)
                               .getDataUser(
-                                  name: Data(name: name),
-                                  email: Data(email: email),
-                                  password: Data(password: password));
+                                  name: name, email: email, password: password);
 
                       Navigator.push(
                         context,
