@@ -186,6 +186,10 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                       MaterialPageRoute(
                           builder: (context) => const ChooseTrainingScreen()),
                     );
+                    final prov = Provider.of<RegisterProvider>(context,
+                            listen: false)
+                        .getWeightGoalUser(
+                            weightgoal: int.parse(_weightGoalController.text));
                     final register =
                         Provider.of<RegisterProvider>(context, listen: false)
                             .register(Data(
@@ -196,11 +200,6 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                                 height: provider.dataUser?.height,
                                 weight: provider.dataUser?.weight,
                                 goalWeight: provider.dataUser?.goalWeight));
-
-                    final prov = Provider.of<RegisterProvider>(context,
-                            listen: false)
-                        .getWeightGoalUser(
-                            weightgoal: int.parse(_weightGoalController.text));
                   }
                 },
                 child: Padding(

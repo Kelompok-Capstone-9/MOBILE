@@ -13,9 +13,9 @@ class RegisterProvider extends ChangeNotifier {
     _dataUser?.password = password;
 
     notifyListeners();
-    // print(dataUser!.name);
-    // print(dataUser!.email);
-    // print(dataUser!.password);
+    print(dataUser!.name);
+    print(dataUser!.email);
+    print(dataUser!.password);
   }
 
   void getGenderUser({isGender}) {
@@ -23,7 +23,7 @@ class RegisterProvider extends ChangeNotifier {
 
     notifyListeners();
 
-    // print(isGender);
+    print(isGender);
   }
 
   void getHeightUser({height}) {
