@@ -179,7 +179,8 @@ class _WeightScreenState extends State<WeightScreen> {
                     final prov =
                         Provider.of<RegisterProvider>(context, listen: false)
                             .getWeightUser(
-                                weight: int.parse(_weightController.text));
+                                weight: Data(
+                                    weight: int.parse(_weightController.text)));
                     Navigator.push(
                       context,
                       MaterialPageRoute(

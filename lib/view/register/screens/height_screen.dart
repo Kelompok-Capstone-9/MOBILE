@@ -192,7 +192,8 @@ class _HeightScreenState extends State<HeightScreen> {
                     final prov =
                         Provider.of<RegisterProvider>(context, listen: false)
                             .getHeightUser(
-                                height: int.parse(_heightController.text));
+                                height: Data(
+                                    height: int.parse(_heightController.text)));
                     Navigator.push(
                       context,
                       MaterialPageRoute(

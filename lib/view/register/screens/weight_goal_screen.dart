@@ -186,20 +186,22 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                       MaterialPageRoute(
                           builder: (context) => const ChooseTrainingScreen()),
                     );
-                    final prov = Provider.of<RegisterProvider>(context,
-                            listen: false)
-                        .getWeightGoalUser(
-                            weightgoal: int.parse(_weightGoalController.text));
-                    final register =
+                    final prov =
                         Provider.of<RegisterProvider>(context, listen: false)
-                            .register(Data(
-                                name: provider.dataUser?.name,
-                                email: provider.dataUser?.email,
-                                password: provider.dataUser?.password,
-                                gender: provider.dataUser?.gender,
-                                height: provider.dataUser?.height,
-                                weight: provider.dataUser?.weight,
-                                goalWeight: provider.dataUser?.goalWeight));
+                            .getWeightGoalUser(
+                                weightgoal: Data(
+                                    goalWeight:
+                                        int.parse(_weightGoalController.text)));
+                    final register = Provider.of<RegisterProvider>(context,
+                            listen: false)
+                        .register(Data(
+                            name: provider.name!.name,
+                            email: provider.email!.email,
+                            password: provider.password!.password,
+                            gender: provider.genderUser!.gender,
+                            height: provider.heightUser!.height,
+                            weight: provider.weightUser!.weight,
+                            goalWeight: provider.weightGoalUser!.goalWeight));
                   }
                 },
                 child: Padding(
