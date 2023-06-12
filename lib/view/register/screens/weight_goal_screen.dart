@@ -189,13 +189,13 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                     final register =
                         Provider.of<RegisterProvider>(context, listen: false)
                             .register(Data(
-                                name: provider.dataUser!.name,
-                                email: provider.dataUser!.email,
-                                password: provider.dataUser!.password,
-                                gender: provider.dataUser!.gender,
-                                height: provider.dataUser!.height,
-                                weight: provider.dataUser!.weight,
-                                goalWeight: provider.dataUser!.goalWeight));
+                                name: provider.dataUser?.name,
+                                email: provider.dataUser?.email,
+                                password: provider.dataUser?.password,
+                                gender: provider.dataUser?.gender,
+                                height: provider.dataUser?.height,
+                                weight: provider.dataUser?.weight,
+                                goalWeight: provider.dataUser?.goalWeight));
 
                     final prov = Provider.of<RegisterProvider>(context,
                             listen: false)
