@@ -16,15 +16,5 @@ class ApiGym {
       semangat tim uhuy ...
 
   */
-  /*  "email" : "mobile@email.com",
-     "password" : "Mobile9_"
-     */
-
-  static Future loginUsers() {
-    return null;
-  }
-
-  static Future registerUser() {
-    return null;
-  }
+ 
 }

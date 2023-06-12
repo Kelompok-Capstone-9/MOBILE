@@ -72,25 +72,63 @@ class _MembershipScreenState extends State<MembershipScreen> {
                       physics: const ClampingScrollPhysics(),
                       children: const [
                         CardItem(
-                          color: Color(0xffFF8B82),
+                          gradient: LinearGradient(
+                            begin: Alignment(2.0, 1.0),
+                            end: Alignment(-1.0, -1.0),
+                            stops: [0.0903, 1.4071, 1.4072],
+                            colors: [
+                              Color(0xFFFF8B82),
+                              Color.fromRGBO(255, 139, 130, 0.366667),
+                              Color.fromRGBO(255, 139, 130, 0),
+                            ],
+                            transform: GradientRotation(257.56),
+                          ),
                           title: 'Basic Monthly',
                           subtitle: 'Rp 49.990',
                           trailing: '/MONTH',
                         ),
                         CardItem(
-                          color: Color(0xff158058),
+                          gradient: LinearGradient(
+                            begin: Alignment(-0.8, -0.8),
+                            end: Alignment(0.5, 1.0),
+                            stops: [0.092, 1.9114],
+                            colors: [
+                              Color(0xFF158058),
+                              Color.fromRGBO(21, 128, 88, 0),
+                            ],
+                            transform: GradientRotation(167.29),
+                          ),
                           title: 'Intermediate Monthly',
                           subtitle: 'Rp 144.990',
                           trailing: '/3 MONTH',
                         ),
                         CardItem(
-                          color: Color(0xffFF7F00),
-                          title: 'Advace Monthly',
+                          gradient: LinearGradient(
+                            begin: Alignment(3.0, 3.5),
+                            end: Alignment(-0.5, 1.2),
+                            stops: [-0.2962, 1.1182],
+                            colors: [
+                              Color(0xFFFF7F00),
+                              Color.fromRGBO(255, 127, 0, 0.366667),
+                            ],
+                            transform: GradientRotation(173.63),
+                          ),
+                          title: 'Advance Monthly',
                           subtitle: 'Rp 289,990',
                           trailing: '/6 MONTH',
                         ),
                         CardItem(
-                          color: Color(0xffFFC166),
+                          gradient: LinearGradient(
+                            begin: Alignment(1.5, 3.0),
+                            end: Alignment(-1.0, -1.0),
+                            stops: [0.1389, 2.37, 2.374],
+                            colors: [
+                              Color(0xFFFFC166),
+                              Color.fromRGBO(255, 193, 102, 0.15),
+                              Color.fromRGBO(255, 193, 102, 0.37),
+                            ],
+                            transform: GradientRotation(288.15),
+                          ),
                           title: 'Student',
                           subtitle: 'Rp 29.990',
                           trailing: '/MONTH',
