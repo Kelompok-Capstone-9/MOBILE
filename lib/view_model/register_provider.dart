@@ -8,9 +8,9 @@ class RegisterProvider extends ChangeNotifier {
   Data? get dataUser => _dataUser;
 
   void getDataUser({String? name, String? email, String? password}) {
-    _dataUser!.name = name;
-    _dataUser!.email = email;
-    _dataUser!.password = password;
+    _dataUser?.name = name;
+    _dataUser?.email = email;
+    _dataUser?.password = password;
 
     notifyListeners();
     // print(dataUser!.name);
@@ -19,7 +19,7 @@ class RegisterProvider extends ChangeNotifier {
   }
 
   void getGenderUser({isGender}) {
-    dataUser!.gender = isGender;
+    dataUser?.gender = isGender;
 
     notifyListeners();
 
@@ -27,24 +27,24 @@ class RegisterProvider extends ChangeNotifier {
   }
 
   void getHeightUser({height}) {
-    dataUser!.height = height;
+    dataUser?.height = height;
 
     notifyListeners();
-    print(dataUser!.height);
+    print(dataUser?.height);
   }
 
   void getWeightUser({int? weight}) {
-    dataUser!.weight = weight;
+    dataUser?.weight = weight;
     notifyListeners();
 
     print(weight);
   }
 
   void getWeightGoalUser({int? weightgoal}) {
-    dataUser!.goalWeight = weightgoal;
+    dataUser?.goalWeight = weightgoal;
     notifyListeners();
 
-    print(dataUser!.goalWeight);
+    print(dataUser?.goalWeight);
   }
 
   // class fungsi
