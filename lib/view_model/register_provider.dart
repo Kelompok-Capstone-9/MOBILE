@@ -6,45 +6,59 @@ import 'package:gofit_apps/model/register.dart';
 class RegisterProvider extends ChangeNotifier {
   Data? _dataUser;
   Data? get dataUser => _dataUser;
+  Data? _name;
+  Data? get name => _name;
+  Data? _email;
+  Data? get email => _email;
+  Data? _password;
+  Data? get password => _password;
+  Data? _genderUser;
+  Data? get genderUser => _genderUser;
+  Data? _heightUser;
+  Data? get heightUser => _heightUser;
+  Data? _weightUser;
+  Data? get weightUser => _weightUser;
+  Data? _weightGoalUser;
+  Data? get weightGoalUser => _weightGoalUser;
 
-  void getDataUser({String? name, String? email, String? password}) {
-    _dataUser?.name = name;
-    _dataUser?.email = email;
-    _dataUser?.password = password;
+  void getDataUser({Data? name, Data? email, Data? password}) {
+    _name = name;
+    _email = email;
+    _password = password;
 
     notifyListeners();
-    print(dataUser!.name);
-    print(dataUser!.email);
-    print(dataUser!.password);
+    print(name!.name);
+    print(email!.email);
+    print(password!.password);
   }
 
   void getGenderUser({isGender}) {
-    dataUser?.gender = isGender;
+    _genderUser = isGender;
 
     notifyListeners();
 
-    print(isGender);
+    print("isGender : ${genderUser!.gender}");
   }
 
-  void getHeightUser({height}) {
-    dataUser?.height = height;
+  void getHeightUser({Data? height}) {
+    _heightUser = height;
 
     notifyListeners();
-    print(dataUser?.height);
+    print(height!.height);
   }
 
-  void getWeightUser({int? weight}) {
-    dataUser?.weight = weight;
+  void getWeightUser({Data? weight}) {
+    _weightUser = weight;
     notifyListeners();
 
-    print(weight);
+    print(weightUser!.weight);
   }
 
-  void getWeightGoalUser({int? weightgoal}) {
-    dataUser?.goalWeight = weightgoal;
+  void getWeightGoalUser({Data? weightgoal}) {
+    _weightGoalUser = weightgoal;
     notifyListeners();
 
-    print(dataUser?.goalWeight);
+    print(weightGoalUser!.goalWeight);
   }
 
   // class fungsi
@@ -59,17 +73,3 @@ class RegisterProvider extends ChangeNotifier {
     hati hati dan semangat */
   }
 }
-// Future<void> addProduct(NewProduct newProduct) async {
-//     _requestState = RequestState.loading;
-//     notifyListeners();
-//     try {
-//       final result = await ApiProduct.addProduct(newProduct);
-//       _newProducts.add(result);
-//       _requestState = RequestState.loaded;
-//       notifyListeners();
-//     } catch (e) {
-//       _requestState = RequestState.error;
-//       _message = 'Error: $e';
-//       notifyListeners();
-//     }
-//   }
