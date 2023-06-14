@@ -38,9 +38,9 @@ class UserLogin {
   String? password;
   String? gender;
   int? height;
-  int? goalHeight;
+  int? goal_height;
   int? weight;
-  int? goalWeight;
+  int? goal_weight;
   DataMetadata? metadata;
 
   UserLogin({
@@ -50,9 +50,9 @@ class UserLogin {
     required this.password,
     this.gender,
     this.height,
-    this.goalHeight,
+    this.goal_height,
     this.weight,
-    this.goalWeight,
+    this.goal_weight,
     this.metadata,
   });
 
@@ -68,9 +68,9 @@ class UserLogin {
         password: json["password"],
         gender: json["gender"],
         height: json["height"],
-        goalHeight: json["goal_height"],
+        goal_height: json["goal_height"],
         weight: json["weight"],
-        goalWeight: json["goal_weight"],
+        goal_weight: json["goal_weight"],
         metadata: json["metadata"] == null
             ? null
             : DataMetadata.fromJson(json["metadata"]),
@@ -83,9 +83,9 @@ class UserLogin {
         "password": password,
         "gender": gender,
         "height": height,
-        "goal_height": goalHeight,
+        "goal_height": goal_height,
         "weight": weight,
-        "goal_weight": goalWeight,
+        "goal_weight": goal_weight,
         "metadata": metadata?.toJson(),
       };
 }

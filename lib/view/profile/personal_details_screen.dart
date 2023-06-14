@@ -19,6 +19,8 @@ class PersonalDetailsScreen extends StatefulWidget {
 }
 
 class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
+  String token = "";
+
   @override
   Widget build(BuildContext context) {
     LoginProvider loginProvider = Provider.of<LoginProvider>(context);
@@ -58,11 +60,15 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final token = await loginProvider.getToken();
+
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return CardUsername();
+                        return CardUsername(
+                            user: user, token: token.toString());
                       },
                     );
                   },
@@ -80,7 +86,8 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  '•' * (user?.password?.length ?? 0),
+                  // '•' * (user?.password?.length ?? 0),
+                  user?.password ?? '',
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
@@ -110,11 +117,13 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final token = await loginProvider.getToken();
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return const CardGender();
+                        return CardGender(user: user, token: token.toString());
                       },
                     );
                   },
@@ -136,11 +145,13 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final token = await loginProvider.getToken();
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return const CardHeight();
+                        return CardHeight(user: user, token: token.toString());
                       },
                     );
                   },
@@ -162,11 +173,13 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final token = await loginProvider.getToken();
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return const CardWeight();
+                        return CardWeight(user: user, token: token.toString());
                       },
                     );
                   },
@@ -184,15 +197,18 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  (user?.goalWeight ?? 0).toString(),
+                  (user?.goal_weight ?? 0).toString(),
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final token = await loginProvider.getToken();
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return const CardGoalWeight();
+                        return CardGoalWeight(
+                            user: user, token: token.toString());
                       },
                     );
                   },

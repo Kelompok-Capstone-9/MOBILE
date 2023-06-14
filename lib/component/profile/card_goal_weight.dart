@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../../themes/color_style.dart';
+import '../../model/login.dart';
+import '../../view_model/login_provider.dart';
 
 class CardGoalWeight extends StatefulWidget {
-  const CardGoalWeight({super.key});
+  final UserLogin? user;
+  final String token;
+
+  const CardGoalWeight({required this.user, required this.token, Key? key})
+      : super(key: key);
   @override
   State<CardGoalWeight> createState() => _CardGoalWeightState();
 }
 
 class _CardGoalWeightState extends State<CardGoalWeight> {
   List<bool> isSelected = [true, false];
-  double goalValue = 0.0;
-  final _goalController = TextEditingController();
+  double goalWeightKg = 0.0;
+  double goalWeightLb = 0.0;
+  final _goalWeightController = TextEditingController();
+  final double kilogramToPound = 2.20462;
+
+  @override
+  void initState() {
+    super.initState();
+    _goalWeightController.text = (widget.user?.goal_weight ?? 0).toString();
+    goalWeightKg = double.tryParse(_goalWeightController.text) ?? 0.0;
+    goalWeightLb = goalWeightKg * kilogramToPound;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +45,7 @@ class _CardGoalWeightState extends State<CardGoalWeight> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _goalController,
+                    controller: _goalWeightController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(
@@ -39,7 +56,8 @@ class _CardGoalWeightState extends State<CardGoalWeight> {
                     ),
                     onChanged: (value) {
                       setState(() {
-                        goalValue = double.tryParse(value) ?? 0.0;
+                        goalWeightKg = double.tryParse(value) ?? 0.0;
+                        goalWeightLb = goalWeightKg * kilogramToPound;
                       });
                     },
                   ),
@@ -58,6 +76,16 @@ class _CardGoalWeightState extends State<CardGoalWeight> {
                             buttonIndex < isSelected.length;
                             buttonIndex++) {
                           isSelected[buttonIndex] = (buttonIndex == index);
+                        }
+                        if (isSelected[1]) {
+                          goalWeightLb = goalWeightKg * kilogramToPound;
+                          _goalWeightController.text =
+                              goalWeightLb.toStringAsFixed(2);
+                        } else {
+                          goalWeightKg =
+                              (goalWeightLb / kilogramToPound).roundToDouble();
+                          _goalWeightController.text =
+                              goalWeightKg.toStringAsFixed(0);
                         }
                       });
                     },
@@ -129,9 +157,24 @@ class _CardGoalWeightState extends State<CardGoalWeight> {
         ),
         TextButton(
           onPressed: () {
-            // final selectedUnit = isSelected[0] ? 'kg' : 'lb';
-            // print('Berat: $goalValue $selectedUnit');
-            Navigator.of(context).pop();
+            if (widget.user != null) {
+              final updatedUser = UserLogin(
+                id: widget.user!.id,
+                email: widget.user!.email,
+                password: widget.user!.password,
+                goal_weight: goalWeightKg.toInt(),
+              );
+
+              Provider.of<LoginProvider>(context, listen: false)
+                  .updateUser(updatedUser, widget.token)
+                  .then((_) {
+                Navigator.pop(context, updatedUser.goal_weight);
+              }).catchError((error) {
+                print('Failed to update user: $error');
+              });
+            } else {
+              print('User is null');
+            }
           },
           child: Text(
             'Save',
