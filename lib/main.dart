@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view/article/healty_tips_screen.dart';
+import 'package:gofit_apps/view/article/newsletter_screen.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
 import 'package:gofit_apps/view/training/beginner_screen.dart';
 import 'package:gofit_apps/view/training/training_kategori.dart';
@@ -41,7 +43,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NewsLetterProvider()),
       ],
       child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: SplashScreen()),
+          debugShowCheckedModeBanner: false, home: NewsLetter()
+          //  SplashScreen(),
+          ),
     );
   }
 }

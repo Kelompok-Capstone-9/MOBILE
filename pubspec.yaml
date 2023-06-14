@@ -40,6 +40,7 @@ dependencies:
   http: ^1.0.0
   pinput: ^2.2.31
   provider: ^6.0.5
+  readmore: ^2.2.0
   shared_preferences: ^2.1.1
   sliding_sheet: ^0.5.2
   sliding_up_panel: ^2.0.0+1

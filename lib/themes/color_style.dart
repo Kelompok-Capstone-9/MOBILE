@@ -32,7 +32,7 @@ class ColorsTheme {
   static const Color disableColorButton = Color(0xffDFDFDF);
   static const Color successColor = Color(0xff44DD77);
 // >>>>>>> dev
- static const Color bgMembership = Color(0xff0E0E0E);
+  static const Color bgMembership = Color(0xff0E0E0E);
 }
 
 class ThemeText {
@@ -364,4 +364,31 @@ class ThemeText {
     fontSize: 8,
     color: const Color(0xff606060),
   );
+  //  Healty Tips
+  static TextStyle headingHealtyTips = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w400,
+    fontSize: 30,
+    color: Color.fromARGB(255, 255, 255, 255),
+  );
+  static TextStyle headingCoustomHealtyTips = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w700,
+      fontSize: 18,
+      color: Color.fromARGB(255, 3, 3, 3));
+
+// Newsletter Pop UP
+
+  static TextStyle headingNewsLetterPopup = GoogleFonts.josefinSans(
+    fontWeight: FontWeight.w800,
+    fontSize: 50,
+    color: Color.fromARGB(255, 12, 12, 12),
+  );
+  static TextStyle headingCoustomPopUp = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w700,
+      fontSize: 18,
+      color: Color.fromARGB(255, 3, 3, 3));
+
+  static TextStyle headingbuttonPopUp = GoogleFonts.josefinSans(
+      fontWeight: FontWeight.w700,
+      fontSize: 18,
+      color: Color.fromARGB(255, 250, 249, 249));
 }
