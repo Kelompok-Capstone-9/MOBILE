@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/register.dart';
