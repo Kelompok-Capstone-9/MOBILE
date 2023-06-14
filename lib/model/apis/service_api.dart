@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:html';
 
+import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:http/http.dart ' as http;
 
@@ -34,6 +36,22 @@ class ApiGym {
       print(data);
       print(response.statusCode);
       throw "Can't add user";
+    }
+  }
+
+  static Future<PlanModel> planUser(PlanData planData) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl$plan'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode == 200) {
+      print(planData);
+      print(response.statusCode);
+      return PlanModel.fromJson(jsonDecode(response.body));
+    } else {
+      print(planData);
+      print(response.statusCode);
+      throw "Can't add plan";
     }
   }
 }
