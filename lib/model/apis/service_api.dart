@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 
-import 'package:gofit_apps/model/login.dart';
 import 'package:gofit_apps/model/register.dart';
-import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart ' as http;
 
 class ApiGym {
@@ -12,6 +8,7 @@ class ApiGym {
   static const String login = '/login';
   static const String register = '/register';
   static const String user = '/user';
+  static const String plan = '/plans/all';
 
   /*  untuk endpoints lain-lain bisa menyusul ya, keep spirit kawan :)
       - kalau ada yang kurang, konfirmasi aja ya, PC atau di group
