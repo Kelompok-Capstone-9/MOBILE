@@ -37,7 +37,7 @@ class PlanModel {
 class PlanData {
   int? id;
   String? name;
-  String? desc;
+
   int? duration;
   int? price;
   PlanData? metadata;
@@ -45,7 +45,6 @@ class PlanData {
   PlanData({
     this.id,
     this.name,
-    this.desc,
     this.duration,
     this.price,
     this.metadata,
@@ -59,7 +58,6 @@ class PlanData {
   factory PlanData.fromJson(Map<String, dynamic> json) => PlanData(
         id: json["id"],
         name: json["name"],
-        desc: json["desc"],
         duration: json["duration"],
         price: json["price"],
         metadata: json["metadata"] == null
