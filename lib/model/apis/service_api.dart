@@ -11,6 +11,7 @@ class ApiGym {
   static const String register = '/register';
   static const String user = '/user';
   static const String plan = '/plans/all';
+  static const String joinMember = '/memberships/join/';
 
   /*  untuk endpoints lain-lain bisa menyusul ya, keep spirit kawan :)
       - kalau ada yang kurang, konfirmasi aja ya, PC atau di group
@@ -25,7 +26,9 @@ class ApiGym {
   static Future<RegisterModel> registerUser(Data data) async {
     final response = await http.post(
       Uri.parse('$baseUrl$register'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: jsonEncode(data.toJson()),
     );
     if (response.statusCode == 201) {
@@ -37,6 +40,31 @@ class ApiGym {
       print(response.statusCode);
       throw "Can't add user";
     }
+  }
+
+  static Future joinMembership({int? idPlan, String? token}) async {
+    log('id plan terpilih $idPlan');
+    final response = await http.post(
+      Uri.parse('$baseUrl$joinMember$idPlan'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+
+      // body: null,
+    );
+    print(response.statusCode);
+
+    if (response.statusCode == 201) {
+      print("success daftar plan id $idPlan");
+      // var responData = response.statusCode == 201;
+      return response.statusCode;
+    } else {
+      print(response.statusCode);
+      throw "Can't add plan";
+    }
+
+    // throw "Can't add plan";
   }
 
   static Future<PlanModel> planUser(PlanData planData) async {

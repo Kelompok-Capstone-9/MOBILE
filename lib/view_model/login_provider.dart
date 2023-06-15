@@ -15,6 +15,9 @@ class LoginProvider extends ChangeNotifier {
   int? statusCode;
   String? message;
 
+  String? _token;
+  String? get token => _token;
+
   Future<void> login({required String email, required String password}) async {
     try {
       final result = await ApiGym.loginUsers(email, password);
@@ -28,6 +31,7 @@ class LoginProvider extends ChangeNotifier {
         message = userLoginResponse!.message;
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
+        _token = result['token'];
         prefs.setString('email', email);
         prefs.setString('password', password);
 

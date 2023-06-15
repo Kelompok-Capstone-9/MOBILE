@@ -1,7 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
 
 import 'package:gofit_apps/model/register.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login_provider.dart';
 
 class RegisterProvider extends ChangeNotifier {
   Data? _dataUser;
@@ -20,7 +26,9 @@ class RegisterProvider extends ChangeNotifier {
   Data? get weightUser => _weightUser;
   Data? _weightGoalUser;
   Data? get weightGoalUser => _weightGoalUser;
-
+  String? _token;
+  String? get token => _token;
+  int? statusCode = 0;
   void getDataUser({Data? name, Data? email, Data? password}) {
     _name = name;
     _email = email;
@@ -62,14 +70,44 @@ class RegisterProvider extends ChangeNotifier {
   }
 
   // class fungsi
-  Future<void> register(Data data) async {
+  Future<void> register(Data data, context) async {
+    final prov = Provider.of<LoginProvider>(context, listen: false);
     try {
       final result = await ApiGym.registerUser(data);
+      log("login proses");
+      final res = await prov.login(
+          email: data.email.toString(), password: data.password.toString());
+      _token = prov.token;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      print('tokennya adalah : $token');
+
+      prefs.setString('token', _token!); // Simpan token otentikasi
+      print('tokennya adalah : $token');
+      notifyListeners();
     } catch (e) {
       print(e);
     }
     // post data
     /* banyak yang harus diperhatikan ya yaitu weight, height, dsb, 
     hati hati dan semangat */
+  }
+
+// join member (plan)
+  Future<void> joinMember(int idPlan, context) async {
+    try {
+      final result = await ApiGym.joinMembership(idPlan: idPlan, token: _token);
+      statusCode = result;
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+    log(statusCode.toString());
+  }
+
+  Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString('token');
+    return _token;
   }
 }
