@@ -174,7 +174,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         children: [
                           Wrap(
                             alignment: WrapAlignment.spaceBetween,
-                            spacing: 8.0,
+                            spacing: 12.0,
                             children: List<Widget>.generate(
                               timeSelect.length,
                               (int index) {
