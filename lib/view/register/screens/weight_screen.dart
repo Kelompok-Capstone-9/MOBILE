@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -16,8 +18,12 @@ class WeightScreen extends StatefulWidget {
 }
 
 class _WeightScreenState extends State<WeightScreen> {
+  // kondisi ketika chips nya berganti antara kg/pnd
+  double isPound = 2.20; //lb  //1 kg adalah segitu
+  int nilaiInputAwal = 0;
+
   List<bool> isSelected = [true, false];
-  final _weightController = TextEditingController();
+  var _weightController = TextEditingController();
   bool isFormFilled = false;
   final formKey = GlobalKey<FormState>();
   @override
@@ -60,6 +66,14 @@ class _WeightScreenState extends State<WeightScreen> {
                       isSelected[buttonIndex] = (buttonIndex == index);
                     }
                   });
+                  if (isSelected[1]) {
+                    var ft = int.parse(_weightController.text) * isPound;
+                    _weightController.text = ft.toString();
+                    log('is Pound aktif $ft ');
+                  } else {
+                    _weightController.text = nilaiInputAwal.toString();
+                    log('is Kg aktif ${_weightController.text}');
+                  }
                 },
                 borderRadius: BorderRadius.circular(20.0),
                 borderColor: Colors.transparent,
@@ -144,6 +158,7 @@ class _WeightScreenState extends State<WeightScreen> {
                       onChanged: (value) {
                         setState(() {
                           isFormFilled = _weightController.text.isNotEmpty;
+                          nilaiInputAwal = int.parse(_weightController.text);
                         });
                       },
                     ),
@@ -176,11 +191,9 @@ class _WeightScreenState extends State<WeightScreen> {
                 onPressed: () {
                   final isValidForm = formKey.currentState!.validate();
                   if (isValidForm) {
-                    final prov =
-                        Provider.of<RegisterProvider>(context, listen: false)
-                            .getWeightUser(
-                                weight: Data(
-                                    weight: int.parse(_weightController.text)));
+                    final prov = Provider.of<RegisterProvider>(context,
+                            listen: false)
+                        .getWeightUser(weight: Data(weight: nilaiInputAwal));
                     Navigator.push(
                       context,
                       MaterialPageRoute(

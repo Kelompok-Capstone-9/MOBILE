@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -18,8 +20,11 @@ class WeightGoalScreen extends StatefulWidget {
 }
 
 class _WeightGoalScreenState extends State<WeightGoalScreen> {
+  // kondisi ketika chips nya berganti antara kg/pnd
+  double isPound = 2.20; //lb  //1 kg adalah segitu
+  int nilaiInputAwal = 0;
   List<bool> isSelected = [true, false];
-  final _weightGoalController = TextEditingController();
+  var _weightGoalController = TextEditingController();
   bool isFormFilled = false;
   final formKey = GlobalKey<FormState>();
   @override
@@ -65,6 +70,14 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                       isSelected[buttonIndex] = (buttonIndex == index);
                     }
                   });
+                  if (isSelected[1]) {
+                    var ft = int.parse(_weightGoalController.text) * isPound;
+                    _weightGoalController.text = ft.toString();
+                    log('is Pound aktif $ft ');
+                  } else {
+                    _weightGoalController.text = nilaiInputAwal.toString();
+                    log('is Kg aktif ${_weightGoalController.text}');
+                  }
                 },
                 borderRadius: BorderRadius.circular(20.0),
                 borderColor: Colors.transparent,
@@ -149,6 +162,8 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                       onChanged: (value) {
                         setState(() {
                           isFormFilled = _weightGoalController.text.isNotEmpty;
+                          nilaiInputAwal =
+                              int.parse(_weightGoalController.text);
                         });
                       },
                     ),
@@ -181,17 +196,10 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                 onPressed: () {
                   final isValidForm = formKey.currentState!.validate();
                   if (isValidForm) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ChooseTrainingScreen()),
-                    );
                     final prov =
                         Provider.of<RegisterProvider>(context, listen: false)
                             .getWeightGoalUser(
-                                weightgoal: Data(
-                                    goalWeight:
-                                        int.parse(_weightGoalController.text)));
+                                weightgoal: Data(goalWeight: nilaiInputAwal));
                     final register = Provider.of<RegisterProvider>(context,
                             listen: false)
                         .register(Data(
@@ -202,6 +210,11 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                             height: provider.heightUser!.height,
                             weight: provider.weightUser!.weight,
                             goalWeight: provider.weightGoalUser!.goalWeight));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChooseTrainingScreen()),
+                    );
                   }
                 },
                 child: Padding(

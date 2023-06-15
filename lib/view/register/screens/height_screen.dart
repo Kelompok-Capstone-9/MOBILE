@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -20,10 +22,13 @@ class HeightScreen extends StatefulWidget {
 }
 
 class _HeightScreenState extends State<HeightScreen> {
+  // kondisi ketika chips nya berganti antara cm/ft
+  double feet = 30.48; //cm  //1 cm adalah segitu
+  int nilaiInputAwal = 0;
   List<bool> isSelected = [true, false];
   var label = [ItemChoice(1, 'Centimetre'), ItemChoice(2, 'Feet')];
   var idSelected = 0;
-  final _heightController = TextEditingController();
+  var _heightController = TextEditingController();
   bool isFormFilled = false;
   final formKey = GlobalKey<FormState>();
 
@@ -66,13 +71,23 @@ class _HeightScreenState extends State<HeightScreen> {
               child: ToggleButtons(
                 isSelected: isSelected,
                 onPressed: (index) {
-                  setState(() {
-                    for (int buttonIndex = 0;
-                        buttonIndex < isSelected.length;
-                        buttonIndex++) {
-                      isSelected[buttonIndex] = (buttonIndex == index);
-                    }
-                  });
+                  setState(
+                    () {
+                      for (int buttonIndex = 0;
+                          buttonIndex < isSelected.length;
+                          buttonIndex++) {
+                        isSelected[buttonIndex] = (buttonIndex == index);
+                      }
+                    },
+                  );
+                  if (isSelected[1]) {
+                    var ft = int.parse(_heightController.text) / feet;
+                    _heightController.text = ft.toString();
+                    log('is feet aktif $ft ');
+                  } else {
+                    _heightController.text = nilaiInputAwal.toString();
+                    log('is cm aktif ${_heightController.text}');
+                  }
                 },
                 borderRadius: BorderRadius.circular(20.0),
                 borderColor: Colors.transparent,
@@ -157,6 +172,8 @@ class _HeightScreenState extends State<HeightScreen> {
                       onChanged: (value) {
                         setState(() {
                           isFormFilled = _heightController.text.isNotEmpty;
+                          // simpan data ke nilaiawal sebelum dikonversi (untuk ke saave ke db)
+                          nilaiInputAwal = int.parse(_heightController.text);
                         });
                       },
                     ),
@@ -189,11 +206,9 @@ class _HeightScreenState extends State<HeightScreen> {
                 onPressed: () {
                   final isValidForm = formKey.currentState!.validate();
                   if (isValidForm) {
-                    final prov =
-                        Provider.of<RegisterProvider>(context, listen: false)
-                            .getHeightUser(
-                                height: Data(
-                                    height: int.parse(_heightController.text)));
+                    final prov = Provider.of<RegisterProvider>(context,
+                            listen: false)
+                        .getHeightUser(height: Data(height: nilaiInputAwal));
                     Navigator.push(
                       context,
                       MaterialPageRoute(
