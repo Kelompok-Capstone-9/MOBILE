@@ -8,6 +8,8 @@ class PlanProvider extends ChangeNotifier {
   PlanData? get id => _id;
   PlanData? _name;
   PlanData? get name => _name;
+  PlanData? _desc;
+  PlanData? get desc => _desc;
   PlanData? _duration;
   PlanData? get duration => _duration;
   PlanData? _price;
