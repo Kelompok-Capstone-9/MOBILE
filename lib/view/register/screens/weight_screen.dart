@@ -168,7 +168,7 @@ class _WeightScreenState extends State<WeightScreen> {
                   width: 8,
                 ),
                 Text(
-                  'kg',
+                  isSelected[0] ? 'kg' : "lb",
                   style: ThemeText.heading1,
                 ),
               ],
