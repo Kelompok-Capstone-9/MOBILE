@@ -4,6 +4,7 @@ import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/calendar/calendar_screen.dart';
 import 'package:gofit_apps/view/explore/widgets/gym_card.dart';
+import 'package:intl/intl.dart';
 
 import 'package:gofit_apps/view/filter/filter_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,11 +19,16 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   DateTime today = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
+      selectedDate = day;
     });
   }
+
+  final DateFormat _dateFormat = DateFormat('EEEE, d MMMM yyyy');
 
   String terceklist = '';
   bool status = false;
@@ -66,7 +72,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                         const SizedBox(width: 18),
                         Text(
-                          'Sunday, 30 April 2023',
+                          _dateFormat.format(selectedDate),
                           style: ThemeText.headingCalendar,
                         ),
                       ],
