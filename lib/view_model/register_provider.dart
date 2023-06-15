@@ -7,7 +7,10 @@ import 'package:gofit_apps/model/register.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/plan.dart';
 import 'login_provider.dart';
+
+enum RequestState { empty, loading, loaded, error }
 
 class RegisterProvider extends ChangeNotifier {
   Data? _dataUser;
@@ -29,6 +32,17 @@ class RegisterProvider extends ChangeNotifier {
   String? _token;
   String? get token => _token;
   int? statusCode = 0;
+
+  RequestState _requestState = RequestState.empty;
+  RequestState get requestState => _requestState;
+
+  String _message = '';
+  String get message => _message;
+
+  List<PlanData> _planList = [];
+
+  List<PlanData> get planList => _planList;
+  ApiGym _apiService = ApiGym();
   void getDataUser({Data? name, Data? email, Data? password}) {
     _name = name;
     _email = email;
@@ -103,6 +117,16 @@ class RegisterProvider extends ChangeNotifier {
       print(e);
     }
     log(statusCode.toString());
+  }
+
+  Future<void> fetchDataPlan() async {
+    print("prov OK");
+    try {
+      _planList = await _apiService.getAllPlans();
+      notifyListeners();
+    } catch (error) {
+      print("error data");
+    }
   }
 
   Future<String?> getToken() async {

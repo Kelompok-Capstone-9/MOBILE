@@ -67,19 +67,34 @@ class ApiGym {
     // throw "Can't add plan";
   }
 
-  static Future<PlanModel> planUser(PlanData planData) async {
+  static Future<PlanData> planUser() async {
     final response = await http.get(
       Uri.parse('$baseUrl$plan'),
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
-      print(planData);
+      print("planData");
       print(response.statusCode);
-      return PlanModel.fromJson(jsonDecode(response.body));
+      return PlanData.fromJson(jsonDecode(response.body));
     } else {
-      print(planData);
+      // print(planData);
       print(response.statusCode);
       throw "Can't add plan";
+    }
+  }
+
+  Future<List<PlanData>> getAllPlans() async {
+    print("service ok");
+
+    final response = await http.get(Uri.parse('$baseUrl$plan'));
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final dataList = responseData['data'];
+      return dataList.map<PlanData>((data) => PlanData.fromJson(data)).toList();
+    } else {
+      throw Exception('Gagal load plans');
     }
   }
 
