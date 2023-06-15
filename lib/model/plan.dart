@@ -34,10 +34,10 @@ class PlanModel {
       };
 }
 
-
 class PlanData {
   int? id;
   String? name;
+  String? desc;
   int? duration;
   int? price;
   PlanData? metadata;
@@ -45,6 +45,7 @@ class PlanData {
   PlanData({
     this.id,
     this.name,
+    this.desc,
     this.duration,
     this.price,
     this.metadata,
@@ -58,6 +59,7 @@ class PlanData {
   factory PlanData.fromJson(Map<String, dynamic> json) => PlanData(
         id: json["id"],
         name: json["name"],
+        desc: json["desc"],
         duration: json["duration"],
         price: json["price"],
         metadata: json["metadata"] == null
@@ -90,12 +92,10 @@ class PlanDataMetadata {
 
   factory PlanDataMetadata.fromJson(Map<String, dynamic> json) =>
       PlanDataMetadata(
-        createdAt: json["createdAt"] == null
-            ? null
-            : json["createdAt"] as String,
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : json["updatedAt"] as String,
+        createdAt:
+            json["createdAt"] == null ? null : json["createdAt"] as String,
+        updatedAt:
+            json["updatedAt"] == null ? null : json["updatedAt"] as String,
       );
 
   Map<String, dynamic> toJson() => {
@@ -103,7 +103,6 @@ class PlanDataMetadata {
         "updatedAt": updatedAt,
       };
 }
-
 
 class PlanModelMetadata {
   int? statusCode;
@@ -116,21 +115,23 @@ class PlanModelMetadata {
     this.errorReason,
   });
 
-  factory PlanModelMetadata.fromRawJson(String str) => PlanModelMetadata.fromJson(json.decode(str));
+  factory PlanModelMetadata.fromRawJson(String str) =>
+      PlanModelMetadata.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory PlanModelMetadata.fromJson(Map<String, dynamic> json) => PlanModelMetadata(
+  factory PlanModelMetadata.fromJson(Map<String, dynamic> json) =>
+      PlanModelMetadata(
         statusCode: json["status_code"],
         message: json["message"],
         errorReason: json["error_reason"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "status_code": statusCode,
         "message": message,
         "error_reason": errorReason,
-    };
+      };
 }
 
 class Pagination {
