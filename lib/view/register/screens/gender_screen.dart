@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'height_screen.dart';
 
+// ignore: must_be_immutable
 class ChooseGenderScreen extends StatefulWidget {
-  const ChooseGenderScreen({Key? key}) : super(key: key);
+  const ChooseGenderScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<ChooseGenderScreen> createState() => _ChooseGenderScreenState();
 }
@@ -16,6 +22,9 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
+    final prov = Provider.of<RegisterProvider>(context, listen: false);
+    
+
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -54,7 +63,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      isGender = 'male';
+                      isGender = 'pria';
                       isSelected = true;
                     });
                   },
@@ -67,18 +76,18 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     child: Row(
                       children: [
                         Icon(
-                            isGender == 'male'
+                            isGender == 'pria'
                                 ? Icons.male_outlined
                                 : Icons.male_outlined,
-                            color: isGender == 'male'
+                            color: isGender == 'pria'
                                 ? ColorsTheme.activeButton
                                 : Colors.black),
                         const SizedBox(
                           width: 40,
                         ),
                         Text(
-                          isGender == 'male' ? 'Male' : 'Male',
-                          style: isGender == 'male'
+                          isGender == 'pria' ? 'Male' : 'Male',
+                          style: isGender == 'pria'
                               ? GoogleFonts.josefinSans(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
@@ -103,7 +112,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        side: isGender == 'female'
+                        side: isGender == 'wanita'
                             ? BorderSide(color: ColorsTheme.activeButton)
                             : BorderSide(color: ColorsTheme.inActiveButton),
                       ),
@@ -111,7 +120,7 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      isGender = 'female';
+                      isGender = 'wanita';
                       isSelected = true;
                     });
                   },
@@ -124,18 +133,18 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                     child: Row(
                       children: [
                         Icon(
-                            isGender == 'female'
+                            isGender == 'wanita'
                                 ? Icons.female_outlined
                                 : Icons.female_outlined,
-                            color: isGender == 'female'
+                            color: isGender == 'wanita'
                                 ? ColorsTheme.activeButton
                                 : Colors.black),
                         const SizedBox(
                           width: 40,
                         ),
                         Text(
-                          isGender == 'female' ? 'Female' : 'Female',
-                          style: isGender == 'female'
+                          isGender == 'wanita' ? 'Female' : 'Female',
+                          style: isGender == 'wanita'
                               ? GoogleFonts.josefinSans(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
@@ -166,6 +175,9 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
                         : ColorsTheme.inActiveButton,
                   ),
                   onPressed: () {
+                    final prov =
+                        Provider.of<RegisterProvider>(context, listen: false)
+                            .getGenderUser(isGender: Data(gender: isGender));
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HeightScreen()));
                   },

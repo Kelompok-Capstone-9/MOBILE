@@ -1,11 +1,15 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/login/login_screen.dart';
 import 'package:gofit_apps/component/register/decoration_form.dart';
 import 'package:gofit_apps/component/register/validator_register.dart';
+import 'package:gofit_apps/view/register/screens/gender_screen.dart';
+import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/otp_regist_screen.dart';
 
@@ -170,10 +174,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onPressed: () {
                     final isValidForm = formKey.currentState!.validate();
                     if (isValidForm) {
+                      var name = _nameController.text;
+                      var email = _emailController.text;
+                      var password = _passwordController.text;
+
+                      final prov =
+                          Provider.of<RegisterProvider>(context, listen: false)
+                              .getDataUser(
+                                  name: Data(name: name),
+                                  email: Data(email: email),
+                                  password: Data(password: password));
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const OTPRegistScreen()),
+                            builder: (context) => ChooseGenderScreen()),
                       );
                     }
                   },
