@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../component/profile/card_gender.dart';
 import '../../component/profile/card_goal_weight.dart';
 import '../../component/profile/card_height.dart';
@@ -6,7 +7,9 @@ import '../../component/profile/card_password.dart';
 import '../../component/profile/card_training_level.dart';
 import '../../component/profile/card_username.dart';
 import '../../component/profile/card_weight.dart';
+import '../../model/login.dart';
 import '../../themes/color_style.dart';
+import '../../view_model/login_provider.dart';
 
 class PersonalDetailsScreen extends StatefulWidget {
   const PersonalDetailsScreen({super.key});
@@ -18,6 +21,8 @@ class PersonalDetailsScreen extends StatefulWidget {
 class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    LoginProvider loginProvider = Provider.of<LoginProvider>(context);
+    UserLogin? user = loginProvider.userLogin;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -38,7 +43,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  'email.gmail.com',
+                  user?.email ?? '',
                   style: ThemeText.headingSub2,
                 ),
               ),
@@ -49,7 +54,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  'User',
+                  user?.name ?? '',
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
@@ -75,7 +80,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  '********',
+                  '•' * (user?.password?.length ?? 0),
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
@@ -101,7 +106,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  'Male',
+                  user?.gender ?? '',
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
@@ -127,7 +132,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  '173 cm',
+                  (user?.height ?? 0).toString(),
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
@@ -153,7 +158,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  '73 kg',
+                  (user?.weight ?? 0).toString(),
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
@@ -179,7 +184,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingPersonal,
                 ),
                 subtitle: Text(
-                  '65 kg',
+                  (user?.goalWeight ?? 0).toString(),
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(

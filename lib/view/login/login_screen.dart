@@ -20,9 +20,6 @@ class FormLogin extends StatefulWidget {
   }
 }
 
-String email = "mobile@email.com";
-String password = "Mobile9_";
-
 class FormLoginState extends State<FormLogin> {
   // @override
   // void initState() {
@@ -33,7 +30,6 @@ class FormLoginState extends State<FormLogin> {
   //   );
   // }
 
-  @override
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -81,8 +77,12 @@ class FormLoginState extends State<FormLogin> {
                               _passwordController.text.isNotEmpty;
                         });
                       },
-                      validator: (email) =>
-                          EmailValidatorLogin.validateEmail(email),
+                      validator: (email) {
+                        final loginProvider =
+                            Provider.of<LoginProvider>(context, listen: false);
+                        return EmailValidatorLogin.validateEmail(
+                            email, loginProvider);
+                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -116,7 +116,12 @@ class FormLoginState extends State<FormLogin> {
                               _passwordController.text.isNotEmpty;
                         });
                       },
-                      validator: PasswordValidatorLogin.validatePassword,
+                      validator: (password) {
+                        final loginProvider =
+                            Provider.of<LoginProvider>(context, listen: false);
+                        return PasswordValidatorLogin.validatePassword(
+                            password, loginProvider);
+                      },
                     ),
                   ],
                 ),
@@ -156,11 +161,50 @@ class FormLoginState extends State<FormLogin> {
                 onPressed: () {
                   final isValidForm = _formKey.currentState!.validate();
                   if (isValidForm) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Home(),
-                        ));
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
+                    final loginProvider =
+                        Provider.of<LoginProvider>(context, listen: false);
+
+                    final emailError =
+                        EmailValidatorLogin.validateEmail(email, loginProvider);
+                    final passwordError =
+                        PasswordValidatorLogin.validatePassword(
+                            password, loginProvider);
+
+                    if (emailError != null || passwordError != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            emailError ?? passwordError ?? 'An error occurred.',
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+
+                    loginProvider.login(email: email, password: password).then(
+                      (_) {
+                        if (loginProvider.userLogin != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Email or password is incorrect.',
+                                style: ThemeText.heading2,
+                              ),
+                              backgroundColor: ColorsTheme.activeButton,
+                            ),
+                          );
+                        }
+                      },
+                    );
                   }
                 },
                 child: Padding(

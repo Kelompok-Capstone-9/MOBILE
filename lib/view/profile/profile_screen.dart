@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/profile/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../model/login.dart';
 import '../../themes/color_style.dart';
+import '../../view_model/login_provider.dart';
 import 'personal_details_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,6 +19,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    LoginProvider loginProvider = Provider.of<LoginProvider>(context);
+    UserLogin? user = loginProvider.userLogin;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -82,11 +88,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                           title: Text(
-                            'Kevin Nicholas',
+                            user?.name ?? '',
                             style: ThemeText.headingName,
                           ),
                           subtitle: Text(
-                            '21 years old',
+                            user?.email ?? '',
                             style: ThemeText.headingOld,
                           ),
                         ),
@@ -111,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: ThemeText.headingOld,
                             ),
                             Text(
-                              '75 Kg',
+                              (user?.weight ?? 0).toString(),
                               style: ThemeText.headingOld,
                             ),
                           ],
@@ -127,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: ThemeText.headingOld,
                             ),
                             Text(
-                              '65 Kg',
+                              (user?.goalWeight ?? 0).toString(),
                               style: ThemeText.headingOld,
                             ),
                           ],
@@ -267,7 +273,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     backgroundColor: const Color(0xffFF7F00)),
-                onPressed: () {},
+                onPressed: () {
+                  LoginProvider loginProvider =
+                      Provider.of<LoginProvider>(context, listen: false);
+                  loginProvider.logout(params: 0, context: context);
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
