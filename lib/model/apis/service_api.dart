@@ -12,6 +12,7 @@ class ApiGym {
   static const String user = '/user';
   static const String plan = '/plans/all';
   static const String joinMember = '/memberships/join/';
+  static const String apiLevel = 'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
 
   /*  untuk endpoints lain-lain bisa menyusul ya, keep spirit kawan :)
       - kalau ada yang kurang, konfirmasi aja ya, PC atau di group
