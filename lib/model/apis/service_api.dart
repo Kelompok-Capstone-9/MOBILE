@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'dart:developer';
@@ -12,7 +13,8 @@ class ApiGym {
   static const String user = '/user';
   static const String plan = '/plans/all';
   static const String joinMember = '/memberships/join/';
-  static const String apiLevel = 'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
+  static const String apiLevel =
+      'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
 
   /*  untuk endpoints lain-lain bisa menyusul ya, keep spirit kawan :)
       - kalau ada yang kurang, konfirmasi aja ya, PC atau di group
@@ -99,6 +101,23 @@ class ApiGym {
     }
   }
 
+  Future<List<LevelTraining>> getLevelUser() async {
+    print("service ok");
+
+    final response = await http.get(Uri.parse(apiLevel));
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final level = responseData['level'];
+      return level
+          .map<LevelTraining>((level) => LevelTraining.fromJson(level))
+          .toList();
+    } else {
+      throw Exception('Gagal load level');
+    }
+  }
+
   static Future loginUsers(uname, upass) async {
     final url = Uri.parse('$baseUrl$login');
     final Map<String, dynamic> requestBody = {
@@ -126,6 +145,4 @@ class ApiGym {
       throw "Can't get the data";
     }
   }
-
-
 }
