@@ -126,4 +126,6 @@ class ApiGym {
       throw "Can't get the data";
     }
   }
+
+
 }
