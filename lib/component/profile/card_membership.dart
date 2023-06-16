@@ -6,6 +6,7 @@ class CardItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final String trailing;
+  final String description;
 
   const CardItem({
     Key? key,
@@ -13,6 +14,7 @@ class CardItem extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.trailing,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -55,7 +57,7 @@ class CardItem extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                'Unlimited Health Tips Content \n Unlimited Video Content Library \n Cancel Anytime',
+                description,
                 style: ThemeText.headingCustomTittle,
                 textAlign: TextAlign.center,
               ),

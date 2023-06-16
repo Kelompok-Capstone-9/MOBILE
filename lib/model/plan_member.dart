@@ -43,13 +43,15 @@ class PlanMember {
   String? name;
   int? duration;
   int? price;
-  DatumMetadata? metadata;
+  String? description;
+  PlanMemberMetadata? metadata;
 
   PlanMember({
     this.id,
     this.name,
     this.duration,
     this.price,
+    this.description,
     this.metadata,
   });
 
@@ -63,9 +65,10 @@ class PlanMember {
         name: json["name"],
         duration: json["duration"],
         price: json["price"],
+        description: json["description"],
         metadata: json["metadata"] == null
             ? null
-            : DatumMetadata.fromJson(json["metadata"]),
+            : PlanMemberMetadata.fromJson(json["metadata"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -73,25 +76,27 @@ class PlanMember {
         "name": name,
         "duration": duration,
         "price": price,
+        "description": description,
         "metadata": metadata?.toJson(),
       };
 }
 
-class DatumMetadata {
+class PlanMemberMetadata {
   String? createdAt;
   String? updatedAt;
 
-  DatumMetadata({
+  PlanMemberMetadata({
     this.createdAt,
     this.updatedAt,
   });
 
-  factory DatumMetadata.fromRawJson(String str) =>
-      DatumMetadata.fromJson(json.decode(str));
+  factory PlanMemberMetadata.fromRawJson(String str) =>
+      PlanMemberMetadata.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory DatumMetadata.fromJson(Map<String, dynamic> json) => DatumMetadata(
+  factory PlanMemberMetadata.fromJson(Map<String, dynamic> json) =>
+      PlanMemberMetadata(
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
       );
