@@ -19,6 +19,7 @@ class ChooseTrainingScreen extends StatefulWidget {
 
 class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   String _trainingLevel = "";
+  String selectedLevelId = '';
   @override
   void initState() {
     super.initState();
@@ -60,9 +61,39 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                     itemCount: levelProvider.level.length,
                     itemBuilder: (context, index) {
                       final levTraining = levelProvider.level[index];
-                      return CardTraining(
-                          nameLevel: levTraining!.nameLevel.toString(),
-                          desc: levTraining.description.toString());
+                      final id = levTraining?.id;
+
+                      bool isSelected = selectedLevelId == levTraining?.id;
+
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedLevelId = id!;
+                          });
+                          print('Selected Level ID: $selectedLevelId');
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(
+                              // ignore: unrelated_type_equality_checks
+                              color: isSelected
+                                  ? ColorsTheme.primary600
+                                  : const Color(0xff919191).withOpacity(0.6),
+                            ),
+                          ),
+                          elevation: 0.2,
+                          color: ColorsTheme.bgScreen,
+                          margin: const EdgeInsets.only(
+                            left: 16,
+                            right: 20,
+                            top: 16,
+                          ),
+                          child: CardTraining(
+                              nameLevel: levTraining!.nameLevel.toString(),
+                              desc: levTraining.description.toString()),
+                        ),
+                      );
                     })),
           ),
           const SizedBox(
