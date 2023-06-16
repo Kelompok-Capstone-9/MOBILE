@@ -107,7 +107,7 @@ class ApiGym {
     final response = await http.get(Uri.parse(apiLevel));
 
     print(response.statusCode);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       final responseData = json.decode(response.body);
       final level = responseData['level'];
       return level
