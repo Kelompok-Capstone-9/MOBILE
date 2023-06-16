@@ -22,8 +22,8 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   @override
   void initState() {
     super.initState();
-    final prov = Provider.of<LevelProvider>(context, listen: false).fetchLevelUser();
-    
+    final prov =
+        Provider.of<LevelProvider>(context, listen: false).fetchLevelUser();
   }
 
   @override
@@ -61,10 +61,9 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                     itemBuilder: (context, index) {
                       final levTraining = levelProvider.level[index];
                       return CardTraining(
-                          name: levTraining!.nameLevel.toString(),
+                          nameLevel: levTraining!.nameLevel.toString(),
                           desc: levTraining.description.toString());
-                    })
-                    ),
+                    })),
           ),
           const SizedBox(
             height: 40,
