@@ -68,8 +68,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           isFormFilled = _emailController.text.isNotEmpty;
                         });
                       },
-                      validator: (email) =>
-                          EmailValidatorLogin.validateEmail(email),
+                      // validator: (email) =>
+                      //     EmailValidatorLogin.validateEmail(email),
                     ),
                     const SizedBox(height: 24),
                     SizedBox(
