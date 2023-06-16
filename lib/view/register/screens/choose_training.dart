@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_training.dart';
@@ -27,6 +28,8 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final levelProvider = Provider.of<LevelProvider>(context);
+    final levelModel = levelProvider.level;
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -49,50 +52,13 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
           const SizedBox(
             height: 36,
           ),
-          SizedBox(
-            height: 270,
-            child: ListView.builder(
-                itemCount: trainingLevel.length,
-                itemBuilder: (context, index) {
-                  var i = trainingLevel[index];
-                  return GestureDetector(
-                    onTap: () => setState(() {
-                      _trainingLevel = i['name'].toString();
-                      trainingLevel = trainingLevel.map((item) {
-                        if (item['name'] == i['name']) {
-                          return {
-                            ...item,
-                            'onTap': true,
-                          };
-                        } else {
-                          return {
-                            ...item,
-                            'onTap': false,
-                          };
-                        }
-                      }).toList();
-                    }),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: i['onTap'] == true
-                                ? ColorsTheme.activeButton
-                                : const Color(0xff919191).withOpacity(0.6),
-                          ),
-                          borderRadius: BorderRadius.circular(8)),
-                      elevation: 0.2,
-                      color: ColorsTheme.bgScreen,
-                      margin:
-                          const EdgeInsets.only(left: 16, right: 16, top: 16),
-                      child: CardTraining(
-                        name: i['name'].toString(),
-                        desc: i['desc'].toString(),
-                        isTapped: bool.parse(i['onTap'].toString()),
-                      ),
-                    ),
-                  );
-                }),
-          ),
+          Consumer<LevelProvider>(
+              builder: (context, value, child) => ListView.builder(
+                  itemCount: levelModel.length,
+                  itemBuilder: (context, index) {
+                    final level = levelModel[index];
+                    return CardTraining(name: level?.nameLevel, desc: level?.description);
+                  })),
           const SizedBox(
             height: 40,
           ),
