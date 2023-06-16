@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_training.dart';
+import 'package:gofit_apps/view_model/level_provider.dart';
+import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../../../view_model/login_provider.dart';
 import 'join_member_screen.dart';
 
 class ChooseTrainingScreen extends StatefulWidget {
@@ -14,9 +19,18 @@ class ChooseTrainingScreen extends StatefulWidget {
 
 class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   String _trainingLevel = "";
+  @override
+  void initState() {
+    super.initState();
+    final prov =
+        Provider.of<LevelProvider>(context, listen: false).fetchLevelUser();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final levelProvider = Provider.of<LevelProvider>(context);
+    final levelModel = levelProvider.level;
+
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -41,47 +55,15 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
           ),
           SizedBox(
             height: 270,
-            child: ListView.builder(
-                itemCount: trainingLevel.length,
-                itemBuilder: (context, index) {
-                  var i = trainingLevel[index];
-                  return GestureDetector(
-                    onTap: () => setState(() {
-                      _trainingLevel = i['name'].toString();
-                      trainingLevel = trainingLevel.map((item) {
-                        if (item['name'] == i['name']) {
-                          return {
-                            ...item,
-                            'onTap': true,
-                          };
-                        } else {
-                          return {
-                            ...item,
-                            'onTap': false,
-                          };
-                        }
-                      }).toList();
-                    }),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: i['onTap'] == true
-                                ? ColorsTheme.activeButton
-                                : const Color(0xff919191).withOpacity(0.6),
-                          ),
-                          borderRadius: BorderRadius.circular(8)),
-                      elevation: 0.2,
-                      color: ColorsTheme.bgScreen,
-                      margin:
-                          const EdgeInsets.only(left: 16, right: 16, top: 16),
-                      child: CardTraining(
-                        name: i['name'].toString(),
-                        desc: i['desc'].toString(),
-                        isTapped: bool.parse(i['onTap'].toString()),
-                      ),
-                    ),
-                  );
-                }),
+            child: Consumer<LevelProvider>(
+                builder: (context, levelProvider, child) => ListView.builder(
+                    itemCount: levelProvider.level.length,
+                    itemBuilder: (context, index) {
+                      final levTraining = levelProvider.level[index];
+                      return CardTraining(
+                          nameLevel: levTraining!.nameLevel.toString(),
+                          desc: levTraining.description.toString());
+                    })),
           ),
           const SizedBox(
             height: 40,
@@ -90,11 +72,16 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
             onTap: () {
               // log('selesai memilih payment method');
               // // kirim data ketika selesai memilih
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const JoinMemberScreen()),
-              );
+              final prov =
+                  Provider.of<RegisterProvider>(context, listen: false);
+
+              if (prov.token != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const JoinMemberScreen()),
+                );
+              }
             },
             child: Container(
                 alignment: Alignment.center,

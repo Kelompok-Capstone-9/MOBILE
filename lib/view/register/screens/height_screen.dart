@@ -183,7 +183,7 @@ class _HeightScreenState extends State<HeightScreen> {
                   width: 8,
                 ),
                 Text(
-                  'cm',
+                  isSelected[0] ? 'cm' : "feet",
                   style: ThemeText.heading1,
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'dart:developer';
@@ -11,6 +12,9 @@ class ApiGym {
   static const String register = '/register';
   static const String user = '/user';
   static const String plan = '/plans/all';
+  static const String joinMember = '/memberships/join/';
+  static const String apiLevel =
+      'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
 
   /*  untuk endpoints lain-lain bisa menyusul ya, keep spirit kawan :)
       - kalau ada yang kurang, konfirmasi aja ya, PC atau di group
@@ -25,7 +29,9 @@ class ApiGym {
   static Future<RegisterModel> registerUser(Data data) async {
     final response = await http.post(
       Uri.parse('$baseUrl$register'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: jsonEncode(data.toJson()),
     );
     if (response.statusCode == 201) {
@@ -39,19 +45,79 @@ class ApiGym {
     }
   }
 
-  static Future<PlanModel> planUser(PlanData planData) async {
+  static Future joinMembership({int? idPlan, String? token}) async {
+    log('id plan terpilih $idPlan');
+    final response = await http.post(
+      Uri.parse('$baseUrl$joinMember$idPlan'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+
+      // body: null,
+    );
+    print(response.statusCode);
+
+    if (response.statusCode == 201) {
+      print("success daftar plan id $idPlan");
+      // var responData = response.statusCode == 201;
+      return response.statusCode;
+    } else {
+      print(response.statusCode);
+      throw "Can't add plan";
+    }
+
+    // throw "Can't add plan";
+  }
+
+  static Future<PlanData> planUser() async {
     final response = await http.get(
       Uri.parse('$baseUrl$plan'),
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
-      print(planData);
+      print("planData");
       print(response.statusCode);
-      return PlanModel.fromJson(jsonDecode(response.body));
+      return PlanData.fromJson(jsonDecode(response.body));
     } else {
-      print(planData);
+      // print(planData);
       print(response.statusCode);
       throw "Can't add plan";
+    }
+  }
+
+  Future<List<PlanData>> getAllPlans() async {
+    print("service ok");
+
+    final response = await http.get(Uri.parse('$baseUrl$plan'));
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final dataList = responseData['data'];
+      return dataList.map<PlanData>((data) => PlanData.fromJson(data)).toList();
+    } else {
+      throw Exception('Gagal load plans');
+    }
+  }
+
+  Future<List<LevelTraining>> getLevelUser() async {
+    print("service ok");
+
+    final response = await http.get(Uri.parse(apiLevel));
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      // final level = responseData['level'];
+      final level = responseData;
+      print(level);
+
+      return level
+          .map<LevelTraining>((level) => LevelTraining.fromJson(level))
+          .toList();
+    } else {
+      throw Exception('Gagal load level');
     }
   }
 

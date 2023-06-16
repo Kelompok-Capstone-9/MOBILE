@@ -173,7 +173,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                   width: 8,
                 ),
                 Text(
-                  'kg',
+                  isSelected[0] ? 'kg' : "lb",
                   style: ThemeText.heading1,
                 ),
               ],
@@ -200,16 +200,20 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                         Provider.of<RegisterProvider>(context, listen: false)
                             .getWeightGoalUser(
                                 weightgoal: Data(goalWeight: nilaiInputAwal));
-                    final register = Provider.of<RegisterProvider>(context,
-                            listen: false)
-                        .register(Data(
-                            name: provider.name!.name,
-                            email: provider.email!.email,
-                            password: provider.password!.password,
-                            gender: provider.genderUser!.gender,
-                            height: provider.heightUser!.height,
-                            weight: provider.weightUser!.weight,
-                            goalWeight: provider.weightGoalUser!.goalWeight));
+                    final register =
+                        Provider.of<RegisterProvider>(context, listen: false)
+                            .register(
+                                Data(
+                                    name: provider.name!.name,
+                                    email: provider.email!.email,
+                                    password: provider.password!.password,
+                                    gender: provider.genderUser!.gender,
+                                    height: provider.heightUser!.height,
+                                    weight: provider.weightUser!.weight,
+                                    goalWeight:
+                                        provider.weightGoalUser!.goalWeight),
+                                context);
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(

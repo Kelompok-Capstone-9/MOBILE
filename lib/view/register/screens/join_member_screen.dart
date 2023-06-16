@@ -4,6 +4,7 @@ import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_member.dart';
 import 'package:gofit_apps/view_model/plan_provider.dart';
+import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:hovering/hovering.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,9 @@ class JoinMemberScreen extends StatefulWidget {
 }
 
 class _JoinMemberScreenState extends State<JoinMemberScreen> {
-  String _memberPackage = "";
+  // jumping id
+  int selectedPlanId = 0;
+  int idPlan = 0;
   @override
   Widget build(BuildContext context) {
     // var mediaquery = MediaQuery.of(context).size;
@@ -31,7 +34,9 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
         ),
         centerTitle: true,
         leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
+            // onTap: () => Navigator.pop(context),
+            onTap: () => Provider.of<RegisterProvider>(context, listen: false)
+                .fetchDataPlan(),
             child: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SafeArea(
@@ -55,82 +60,91 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
               ),
               SizedBox(
                 height: 270,
-                child: ListView.builder(
-                    itemCount: memberPackage.length,
-                    itemBuilder: (context, index) {
-                      var i = memberPackage[index];
-                      return GestureDetector(
-                        onTap: () => setState(() {
-                          _memberPackage = i['duration'].toString();
-                          memberPackage = memberPackage.map((item) {
-                            if (item['duration'] == i['duration']) {
-                              return {
-                                ...item,
-                                'onTap': true,
-                              };
-                            } else {
-                              return {
-                                ...item,
-                                'onTap': false,
-                              };
-                            }
-                          }).toList();
-                        }),
-                        child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                // ignore: unrelated_type_equality_checks
-                                color: i['onTap'] == true
-                                    ? Colors.red
-                                    : const Color(0xff919191).withOpacity(0.6),
+                child: Consumer<RegisterProvider>(
+                  builder: (context, registerProvider, _) => ListView.builder(
+                      itemCount: registerProvider.planList.length,
+                      itemBuilder: (context, index) {
+                        var i = registerProvider.planList[index];
+                        var nilai = i.duration;
+                        int convert = 0;
+                        if (nilai == 30) {
+                          convert = 3;
+                        } else if (nilai == 180) {
+                          convert = 6;
+                        } else if (nilai == 90) {
+                          convert = 3;
+                        }
+                        bool isSelected = selectedPlanId == i.id;
+
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedPlanId = i.id!;
+                            });
+                            print('Selected plan ID: $selectedPlanId');
+                          },
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                  // ignore: unrelated_type_equality_checks
+                                  color: isSelected
+                                      ? ColorsTheme.primary600
+                                      : const Color(0xff919191)
+                                          .withOpacity(0.6),
+                                ),
                               ),
-                            ),
-                            elevation: 0.2,
-                            color: ColorsTheme.bgScreen,
-                            margin: const EdgeInsets.only(
-                              left: 16,
-                              right: 20,
-                              top: 16,
-                            ),
-                            child: CardMember(
-                                duration: i['duration'].toString(),
-                                price: i['price'].toString(),
-                                desc: i['desc'].toString())),
-                      );
-                    }),
+                              elevation: 0.2,
+                              color: ColorsTheme.bgScreen,
+                              margin: const EdgeInsets.only(
+                                left: 16,
+                                right: 20,
+                                top: 16,
+                              ),
+                              child: CardMember(
+                                  duration: '${convert.toString()} Month',
+                                  price: "Rp. ${i.price.toString()}",
+                                  desc: i.name.toString())),
+                        );
+                      }),
+                ),
               ),
               const SizedBox(
                 height: 35,
               ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: HoverButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  onpressed: () {
-                    var id;
-                    var name;
-                    var duration;
+              Consumer<RegisterProvider>(
+                builder: (context, registerProv, child) => Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: HoverButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    onpressed: () {
+                      // var id;
+                      // var name;
+                      // var duration;
 
-                    final prov =
-                        Provider.of<PlanProvider>(context, listen: false)
-                            .getPlanUser(
-                                id: PlanData(id: id),
-                                name: PlanData(name: name),
-                                duration: PlanData(duration: duration));
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PaymentMethod()));
-                  },
-                  color: const Color(0xffFF7F00),
-                  hoverColor: const Color(0xffFF7F00),
-                  hoverTextColor: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: Text(
-                      'Continue',
-                      style: ThemeText.heading1,
+                      final prov =
+                          Provider.of<RegisterProvider>(context, listen: false)
+                              .joinMember(idPlan, context);
+                      if (registerProv.statusCode == 201) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const PaymentMethod()));
+                      }
+                      //         .getPlanUser(
+                      //             id: PlanData(id: id),
+                      //             name: PlanData(name: name),
+                      //             duration: PlanData(duration: duration));
+                    },
+                    color: const Color(0xffFF7F00),
+                    hoverColor: const Color(0xffFF7F00),
+                    hoverTextColor: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Text(
+                        'Continue',
+                        style: ThemeText.heading1,
+                      ),
                     ),
                   ),
                 ),

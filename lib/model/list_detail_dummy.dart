@@ -74,6 +74,7 @@ List<Map<String, dynamic>> trainingLevel = [
 
 List<Map<String, dynamic>> memberPackage = [
   {
+    'id': 1,
     'duration': '1 Month',
     'value': '1',
     'price': 'Rp 99.000',
@@ -81,6 +82,7 @@ List<Map<String, dynamic>> memberPackage = [
     'onTap': 'false'
   },
   {
+    'id': 2,
     'duration': '3 Month',
     'value': '2',
     'price': 'Rp 199.000',
@@ -88,6 +90,7 @@ List<Map<String, dynamic>> memberPackage = [
     'onTap': 'false'
   },
   {
+    'id': 3,
     'duration': '1 Year',
     'value': '3',
     'price': 'Rp 699.000',
