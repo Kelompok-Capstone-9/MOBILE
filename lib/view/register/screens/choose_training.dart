@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_training.dart';
+import 'package:gofit_apps/view_model/level_provider.dart';
 import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,12 @@ class ChooseTrainingScreen extends StatefulWidget {
 
 class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   String _trainingLevel = "";
+  @override
+  void initState() {
+    super.initState();
+    final prov = Provider.of<LevelProvider>(context, listen: false);
+    prov.fetchLevelUser();
+  }
 
   @override
   Widget build(BuildContext context) {

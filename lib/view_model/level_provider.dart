@@ -14,6 +14,10 @@ class LevelProvider extends ChangeNotifier {
       _level = await apiLevel.getLevelUser();
 
       notifyListeners();
+      print(_level.length);
+      for (var element in _level) {
+        print(element!.nameLevel);
+      }
     } catch (error) {
       rethrow;
     }

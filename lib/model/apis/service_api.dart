@@ -109,10 +109,13 @@ class ApiGym {
     print(response.statusCode);
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      final level = responseData['level'];
-      return level
-          .map<LevelTraining>((level) => LevelTraining.fromJson(level))
-          .toList();
+      // final level = responseData['level'];
+      final level = responseData;
+      print(level);
+      return level;
+      // return level
+      //     .map<LevelTraining>((level) => LevelTraining.fromJson(level))
+      //     .toList();
     } else {
       throw Exception('Gagal load level');
     }
