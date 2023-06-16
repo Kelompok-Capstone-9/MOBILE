@@ -18,9 +18,9 @@ class LevelTraining {
 
   factory LevelTraining.fromJson(Map<String, dynamic> json) => LevelTraining(
       id: json["id"],
-      nameLevel: json["nameLevel"],
+      nameLevel: json["name_level"],
       description: json["description"]);
 
   Map<String, dynamic> toJson() =>
-      {"id": id, "nameLevel": nameLevel, "description": description};
+      {"id": id, "name_level": nameLevel, "description": description};
 }
