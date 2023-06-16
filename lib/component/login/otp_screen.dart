@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/component/time_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../themes/color_style.dart';
+import '../../view_model/forgot_provider.dart';
 import 'reset_password_screen.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key});
+  final String email;
+  const OTPScreen({super.key, required this.email});
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -23,6 +26,23 @@ class _OTPScreenState extends State<OTPScreen> {
     pinController.dispose();
     focusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 10), () {
+      _loadOTPFromSharedPreferences();
+    });
+  }
+
+  Future<void> _loadOTPFromSharedPreferences() async {
+    final forgotProvider =
+        Provider.of<ForgotPasswordProvider>(context, listen: false);
+    String? otp = await forgotProvider.getOTPFromSharedPreferences();
+    if (otp != null) {
+      pinController.text = otp;
+    }
   }
 
   @override
@@ -84,7 +104,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'mervin.km@gmail.com', //email yg terdaftar masih dummy
+                        'mervin.km@gmail.com',
                         style: ThemeText.headingSub2,
                       ),
                     ),
@@ -123,7 +143,19 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final forgotProvider =
+                            Provider.of<ForgotPasswordProvider>(context,
+                                listen: false);
+                        pinController.clear();
+                        String otp = forgotProvider.generateOTP();
+                        await forgotProvider.saveOTPToSharedPreferences(otp);
+                        Future.delayed(const Duration(seconds: 10), () {
+                          _loadOTPFromSharedPreferences();
+                        });
+                        print('Kode OTP: $otp');
+                        setState(() {});
+                      },
                       child: Text('Resend', style: ThemeText.headingText),
                     ),
                   ],
