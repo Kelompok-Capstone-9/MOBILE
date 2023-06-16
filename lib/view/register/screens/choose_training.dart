@@ -22,8 +22,8 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   @override
   void initState() {
     super.initState();
-    final prov = Provider.of<LevelProvider>(context, listen: false);
-    prov.fetchLevelUser();
+    final prov = Provider.of<LevelProvider>(context, listen: false).fetchLevelUser();
+    
   }
 
   @override
@@ -54,7 +54,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
             height: 36,
           ),
           SizedBox(
-            height: 400,
+            height: 270,
             child: Consumer<LevelProvider>(
                 builder: (context, levelProvider, child) => ListView.builder(
                     itemCount: levelProvider.level.length,
@@ -63,7 +63,8 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                       return CardTraining(
                           name: levTraining!.nameLevel.toString(),
                           desc: levTraining.description.toString());
-                    })),
+                    })
+                    ),
           ),
           const SizedBox(
             height: 40,

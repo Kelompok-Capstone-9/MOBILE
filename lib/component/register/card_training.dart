@@ -19,7 +19,7 @@ class CardTraining extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.80,
       child: ListTile(
-        title: Text(name!,
+        title: Text(name ?? '',
             style: isTapped ? ThemeText.memberPaid : ThemeText.heading1),
         subtitle: Text(
           desc!,
