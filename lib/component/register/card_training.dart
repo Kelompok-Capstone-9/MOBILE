@@ -9,8 +9,8 @@ class CardTraining extends StatelessWidget {
 
   CardTraining({
     super.key,
-     this.name,
-     this.desc,
+    this.name,
+    this.desc,
     this.isTapped = false,
   });
 
@@ -19,10 +19,10 @@ class CardTraining extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.80,
       child: ListTile(
-        title: Text(CardTraining(name: name,),
+        title: Text(name!,
             style: isTapped ? ThemeText.memberPaid : ThemeText.heading1),
         subtitle: Text(
-          desc,
+          desc!,
           style: ThemeText.headingPaymentDescription,
         ),
       ),

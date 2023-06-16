@@ -30,6 +30,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   Widget build(BuildContext context) {
     final levelProvider = Provider.of<LevelProvider>(context);
     final levelModel = levelProvider.level;
+
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -52,13 +53,18 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
           const SizedBox(
             height: 36,
           ),
-          Consumer<LevelProvider>(
-              builder: (context, value, child) => ListView.builder(
-                  itemCount: levelModel.length,
-                  itemBuilder: (context, index) {
-                    final level = levelModel[index];
-                    return CardTraining(name: level?.nameLevel, desc: level?.description);
-                  })),
+          SizedBox(
+            height: 400,
+            child: Consumer<LevelProvider>(
+                builder: (context, levelProvider, child) => ListView.builder(
+                    itemCount: levelProvider.level.length,
+                    itemBuilder: (context, index) {
+                      final levTraining = levelProvider.level[index];
+                      return CardTraining(
+                          name: levTraining!.nameLevel.toString(),
+                          desc: levTraining.description.toString());
+                    })),
+          ),
           const SizedBox(
             height: 40,
           ),
