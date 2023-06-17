@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'dart:convert';
-
 class NewsLetter {
   String? judulArtikel;
   String? descArtikel;
