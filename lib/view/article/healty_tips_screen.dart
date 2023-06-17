@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/news_letter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:readmore/readmore.dart';
 
 class HealtyTips extends StatefulWidget {
-  const HealtyTips({super.key});
+  final String imgurl;
+  final String judulDesc;
+  final String desc;
+  const HealtyTips({
+    super.key,
+    required this.imgurl,
+    required this.judulDesc,
+    required this.desc,
+  });
+
+  String getItemTitle() {
+    return judulDesc;
+  }
+
+  String getItemDesc() {
+    return desc;
+  }
+
+  String getItemImgUrl() {
+    return imgurl;
+  }
 
   @override
   State<HealtyTips> createState() => _HealtyTipsState();
@@ -28,10 +49,12 @@ class _HealtyTipsState extends State<HealtyTips> {
             children: [
               Container(
                 height: 250,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/images/mobile.jpeg"))),
+                        image: NetworkImage(
+                          widget.getItemImgUrl(),
+                        ))),
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Row(
@@ -39,8 +62,7 @@ class _HealtyTipsState extends State<HealtyTips> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
-                        child: Text(
-                            'How Health Tracking Apps Can Help You Reach Your Health Goals',
+                        child: Text(widget.getItemTitle(),
                             style: ThemeText.headingHealtyTips,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 8),
@@ -58,7 +80,7 @@ class _HealtyTipsState extends State<HealtyTips> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
-                          child: ReadMoreText(content,
+                          child: ReadMoreText(widget.getItemDesc(),
                               trimLines: 20,
                               textAlign: TextAlign.justify,
                               trimMode: TrimMode.Line,
