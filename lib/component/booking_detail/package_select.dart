@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/booking.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,13 +61,13 @@ class _WidgetTotalState extends State<WidgetTotal> {
                   onTap: () {
                     log('masuk ke proses payment (payment confirmation screen)');
                     // nanti pake construcotorx
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PaymentConfirmation(
-                                data: null,
-                              )),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => PaymentConfirmation(
+                    //             data: DataClass,
+                    //           )),
+                    // );
                   },
                   child: Container(
                       alignment: Alignment.center,

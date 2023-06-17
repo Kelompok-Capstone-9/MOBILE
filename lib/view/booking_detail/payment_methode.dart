@@ -90,13 +90,13 @@ class _PaymentMethodState extends State<PaymentMethod> {
             onTap: () {
               log('selesai memilih payment method');
               // kirim data ketika selesai memilih
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PaymentConfirmation(
-                          data: _indexPayment,
-                        )),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => PaymentConfirmation(
+              //             data: _indexPayment,
+              //           )),
+              // );
             },
             child: Container(
                 alignment: Alignment.center,
