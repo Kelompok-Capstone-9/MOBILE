@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gofit_apps/view/register/screens/choose_training.dart';
+import 'package:gofit_apps/view/explore/explore_screen.dart';
+import 'package:gofit_apps/view/training/beginner_screen.dart';
+import 'package:gofit_apps/view/training/training_kategori.dart';
+import 'package:gofit_apps/view/training/training_screen.dart';
 import 'package:gofit_apps/view_model/booking_provider.dart';
 import 'package:gofit_apps/view_model/dashboard_provider.dart';
 import 'package:gofit_apps/view_model/level_provider.dart';
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LevelProvider()),
       ],
       child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: ChooseTrainingScreen()),
+          debugShowCheckedModeBanner: false, home: SplashScreen()),
     );
   }
 }
