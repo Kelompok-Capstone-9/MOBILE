@@ -91,11 +91,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   style: ThemeText.headingSub2,
                 ),
                 trailing: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final token = await loginProvider.getToken();
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return const CardPassword();
+                        return CardPassword(
+                            user: user, token: token.toString());
                       },
                     );
                   },

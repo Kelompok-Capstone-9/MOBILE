@@ -36,7 +36,7 @@ class _CardGenderState extends State<CardGender> {
         children: [
           RadioListTile(
             title: Text(
-              'Male',
+              'Pria',
               style: ThemeText.heading1,
             ),
             value: 'pria',
@@ -50,7 +50,7 @@ class _CardGenderState extends State<CardGender> {
           ),
           RadioListTile(
             title: Text(
-              'Female',
+              'Wanita',
               style: ThemeText.heading1,
             ),
             value: 'wanita',

@@ -40,7 +40,7 @@ class ApiGym {
     int id,
     String newName,
     String token,
-    // String newPw,
+    String newPw,
     String newGender,
     int newHeight,
     int newWeight,
@@ -49,7 +49,7 @@ class ApiGym {
     final url = Uri.parse('$baseUrl$user/$id');
     final Map<String, dynamic> requestBody = {
       "name": newName,
-      // "password": newPw,
+      "password": newPw,
       "gender": newGender,
       "height": newHeight,
       "weight": newWeight,

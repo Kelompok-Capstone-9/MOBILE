@@ -92,7 +92,7 @@ class LoginProvider extends ChangeNotifier {
         user.id ?? 0,
         user.name ?? '',
         token,
-        // user.password ?? '',
+        user.password ?? '',
         user.gender ?? '',
         user.height ?? 0,
         user.weight ?? 0,
