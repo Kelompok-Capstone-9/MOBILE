@@ -1,4 +1,11 @@
 import 'dart:convert';
+<<<<<<< Updated upstream
+=======
+
+class ArtikelData {
+  final String image;
+  final String title;
+>>>>>>> Stashed changes
 
 class NewsLetter {
   String? category;
@@ -37,7 +44,41 @@ class NewsLetter {
       };
 }
 
+<<<<<<< Updated upstream
 
+=======
+class Artikel {
+  String? judulArtikel;
+  String? descArtikel;
+  String? imageUrl;
+  String? id;
+
+  Artikel({
+    this.judulArtikel,
+    this.descArtikel,
+    this.imageUrl,
+    this.id,
+  });
+
+  factory Artikel.fromRawJson(String str) => Artikel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Artikel.fromJson(Map<String, dynamic> json) => Artikel(
+        id: json["id"],
+        judulArtikel: json["judul_artikel"],
+        descArtikel: json["desc_artikel"],
+        imageUrl: json["image_url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "judul_artikel": judulArtikel,
+        "desc_artikel": descArtikel,
+        "image_url": imageUrl
+      };
+}
+>>>>>>> Stashed changes
 
 // List<ArtikelData> artikelData = [
 //   ArtikelData(
