@@ -184,7 +184,7 @@ class _ArtikelState extends State<Artikel> {
                                       child: const Padding(
                                         padding: EdgeInsets.all(8.0),
                                         child: Text(
-                                          'Athletis',
+                                          'ATHLESTIS',
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.white),
