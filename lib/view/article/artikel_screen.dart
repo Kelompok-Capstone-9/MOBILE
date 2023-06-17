@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../themes/color_style.dart';
 import '../../component/login/decoration_form.dart';
 import '../../component/register/decoration_form.dart';
+import 'healty_tips_screen.dart';
 
 class Artikel extends StatefulWidget {
   const Artikel({super.key});
@@ -81,31 +84,43 @@ class _ArtikelState extends State<Artikel> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: width / 2 - (5 / 100 * width),
-                                height: 200,
-                                decoration: const BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                            "assets/images/mobile.jpeg"))),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      color: Colors.orange,
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'MOBILE',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white),
+                              GestureDetector(
+                                onTap: () {
+                                  log('kehalaman detail');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HealtyTips(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: width / 2 - (5 / 100 * width),
+                                  height: 200,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: AssetImage(
+                                              "assets/images/mobile.jpeg"))),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        color: Colors.orange,
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'MOBILE',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.white),
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               const Padding(padding: EdgeInsets.all(5)),
