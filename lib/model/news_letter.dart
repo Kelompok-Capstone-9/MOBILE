@@ -1,14 +1,12 @@
 import 'dart:convert';
 
 class NewsLetter {
-  String? category;
   String? judulArtikel;
   String? descArtikel;
   String? imageUrl;
   String? id;
 
   NewsLetter({
-    this.category,
     this.judulArtikel,
     this.descArtikel,
     this.imageUrl,
@@ -22,7 +20,6 @@ class NewsLetter {
 
   factory NewsLetter.fromJson(Map<String, dynamic> json) => NewsLetter(
         id: json["id"],
-        category: json["category"],
         judulArtikel: json["judul_artikel"],
         descArtikel: json["desc_artikel"],
         imageUrl: json["image_url"],
@@ -30,7 +27,6 @@ class NewsLetter {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "category": category,
         "judul_artikel": judulArtikel,
         "desc_artikel": descArtikel,
         "image_url": imageUrl,

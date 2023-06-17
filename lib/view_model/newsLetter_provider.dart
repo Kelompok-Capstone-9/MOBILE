@@ -15,16 +15,17 @@ class NewsLetterProvider extends ChangeNotifier {
 
     try {
       _artikel = await apiNews.getNewsLetter();
-      // isLoading = false;
+      isLoading = false;
       error = '';
       print(_artikel.length);
       for (var element in _artikel) {
         print(element.judulArtikel);
       }
-      notifyListeners();
     } catch (e) {
       error = 'Failed to fetch news letters.';
       isLoading = false;
     }
+
+    notifyListeners();
   }
 }
