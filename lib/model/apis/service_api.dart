@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/register.dart';
+import 'package:gofit_apps/model/news_letter.dart';
 import 'dart:developer';
 import 'package:http/http.dart ' as http;
 
@@ -17,6 +18,8 @@ class ApiGym {
   static const String joinMember = '/memberships/join/';
   static const String apiLevel =
       'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
+  static const String apiNews =
+      'https://648cad3e8620b8bae7ed3c9b.mockapi.io/health_tips';
 
   static const String bookingDetail = 'classes';
 
@@ -196,5 +199,24 @@ class ApiGym {
         }));
     print(response);
     return response.statusCode;
+  }
+
+  Future<List<NewsLetter>> getNewsLetter() async {
+    final url = Uri.parse(apiNews);
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final artikel = json.decode(response.body);
+        return artikel
+            .map<NewsLetter>((artikel) => NewsLetter.fromJson(artikel))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch news letters.');
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to the server.');
+    }
   }
 }
