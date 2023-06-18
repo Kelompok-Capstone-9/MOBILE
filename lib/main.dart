@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view_model/booking_provider.dart';
 import 'package:gofit_apps/view_model/dashboard_provider.dart';
+import 'package:gofit_apps/view_model/forgot_provider.dart';
 import 'package:gofit_apps/view_model/level_provider.dart';
 import 'package:gofit_apps/view_model/newsLetter_provider.dart';
 import 'package:gofit_apps/view_model/plan_provider.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NewsLetterProvider()),
         ChangeNotifierProvider(create: (_) => PlanProvider()),
         ChangeNotifierProvider(create: (_) => LevelProvider()),
+        ChangeNotifierProvider(create: (_) => ForgotPasswordProvider()),
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false, home: SplashScreen()
