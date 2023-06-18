@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/booking.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
@@ -12,13 +13,24 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../component/booking_detail/button.dart';
 import '../../component/booking_detail/card.dart';
 import '../../component/booking_detail/card_pay.dart';
+import '../../component/booking_detail/convert.dart';
 
 // ignore: must_be_immutable
+
 class PaymentConfirmation extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
-  var data;
+  DataClass? data;
 
-  PaymentConfirmation({super.key, required this.data});
+  final int hargaPackage;
+  final int idPackage;
+  var cardType;
+  PaymentConfirmation({
+    super.key,
+    required this.data,
+    required this.hargaPackage,
+    required this.idPackage,
+    required this.cardType,
+  });
 
   @override
   State<PaymentConfirmation> createState() => _PaymentConfirmationState();
@@ -26,6 +38,14 @@ class PaymentConfirmation extends StatefulWidget {
 
 class _PaymentConfirmationState extends State<PaymentConfirmation> {
   @override
+  void initState() {
+    super.initState();
+    print(widget.idPackage);
+  }
+
+  @override
+  final int disc = 0;
+
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
     return Scaffold(
@@ -95,7 +115,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                     style: ThemeText.heading2,
                                   ),
                                   Text(
-                                    'Depok, Jawa Barat',
+                                    widget.data!.location.name,
                                     style: ThemeText.headingPaymentDescription,
                                   ),
                                   Text(
@@ -103,7 +123,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                     style: ThemeText.headingPaymentDescription,
                                   ),
                                   Text(
-                                    'Rp. 20.0000',
+                                    formatCurrency(widget.hargaPackage),
                                     style: ThemeText.heading2,
                                   ),
                                 ],
@@ -164,7 +184,9 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                           style: ThemeText.heading3,
                         ),
                         trailing: Text(
-                          'Rp 150.000',
+                          formatCurrency(widget
+                              .data!.classPackages[widget.idPackage].price!
+                              .toInt()),
                           style: ThemeText.heading5,
                         ),
                       ),
@@ -177,7 +199,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                           style: ThemeText.heading3,
                         ),
                         trailing: Text(
-                          'Rp 0',
+                          formatCurrency(disc),
                           style: ThemeText.heading5,
                         ),
                       ),
@@ -198,7 +220,9 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                           style: ThemeText.heading3,
                         ),
                         trailing: Text(
-                          'Rp 150.000',
+                          formatCurrency(widget.data!
+                                  .classPackages[widget.idPackage].price! +
+                              disc.toInt()),
                           style: ThemeText.heading5,
                         ),
                       ),
@@ -223,10 +247,14 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PaymentMethod()),
+                              builder: (context) => PaymentMethod(
+                                  data: widget.data,
+                                  hargaPackage: widget.hargaPackage,
+                                  idPackage: widget.idPackage,
+                                  cardType: widget.cardType)),
                         );
                       },
-                      child: widget.data == null
+                      child: widget.cardType == null
                           ? CardWidget(
                               icon: FontAwesomeIcons.wallet,
                               keterangan: "Select payment")
@@ -245,11 +273,13 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                   color: ColorsTheme.bgScreen,
                                   child: SizedBox(
                                     child: CardPay(
-                                      type: paymentMethode[widget.data]['type']
+                                      type: paymentMethode[widget.cardType]
+                                              ['type']
                                           .toString(),
-                                      desc: paymentMethode[widget.data]['desc']
+                                      desc: paymentMethode[widget.cardType]
+                                              ['desc']
                                           .toString(),
-                                      image: paymentMethode[widget.data]
+                                      image: paymentMethode[widget.cardType]
                                               ['image']
                                           .toString(),
                                     ),
@@ -261,13 +291,27 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                         .shimmer()
                         .fadeIn()
                         .effect(duration: const Duration(seconds: 6)),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Change payment',
-                          style: ThemeText.headingChangePayment,
+                    GestureDetector(
+                      onTap: () {
+                        log('masuk ke screen pilih payment methode');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentMethod(
+                                  data: widget.data,
+                                  hargaPackage: widget.hargaPackage,
+                                  idPackage: widget.idPackage,
+                                  cardType: widget.cardType)),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'Change payment',
+                            style: ThemeText.headingChangePayment,
+                          ),
                         ),
                       ),
                     )
@@ -343,12 +387,12 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                         onTap: () {
                                           log('close window');
                                           // Navigator.pop(context);
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const BookingDetail()),
-                                          );
+                                          //   Navigator.push(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //         builder: (context) =>
+                                          //             const BookingDetail()),
+                                          //   );
                                         },
                                         child: ButtonOutlineSmallCancelPayment(
                                             textButton: 'Yes, sure')),
@@ -368,18 +412,36 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
               },
               child: ButtonOutlineSmall(textButton: 'Cancel Order'),
             ),
-            GestureDetector(
-              onTap: () {
-                log('ke proses payment');
+            widget.cardType != null
+                ? GestureDetector(
+                    onTap: () {
+                      log('ke proses payment');
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PaymentInformation()),
-                );
-              },
-              child: ButtonFilledSmall(textButton: 'Continue to payment'),
-            )
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentInformation(
+                                  hargaTotal: widget.hargaPackage,
+                                )),
+                      );
+                    },
+                    child: ButtonFilledSmall(textButton: 'Continue to payment'),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      log('ke proses payment');
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => PaymentInformation(
+                      //             hargaTotal: widget.hargaPackage,
+                      //           )),
+                      // );
+                    },
+                    child:
+                        ButtonFilledSmallDisabled(textButton: 'Continue to '),
+                  )
           ],
         ),
       ),
@@ -402,7 +464,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
             style: ThemeText.heading3,
           ),
           trailing: Text(
-            'Daily',
+            widget.data!.classPackages[widget.idPackage].period.toString(),
             style: ThemeText.heading5,
           ),
         ),
@@ -419,7 +481,9 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
           trailing:
               // online class
               Text(
-            'Online mentoring',
+            widget.data!.classType == 'offline'
+                ? widget.data!.classType
+                : 'Online mentoring',
             style: ThemeText.heading5,
           ),
           // end class
@@ -439,7 +503,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
             style: ThemeText.heading3,
           ),
           trailing: Text(
-            '30 Apr 2023',
+            formatDateOnly(widget.data!.startedAt.toString()),
             style: ThemeText.heading5,
           ),
         ),
@@ -454,7 +518,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
             style: ThemeText.heading3,
           ),
           trailing: Text(
-            '5AM - 12PM',
+            formatTimeOnly(widget.data!.startedAt.toString()),
             style: ThemeText.heading5,
           ),
         ),

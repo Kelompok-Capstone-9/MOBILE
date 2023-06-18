@@ -6,6 +6,8 @@ import 'package:gofit_apps/model/register.dart';
 import 'dart:developer';
 import 'package:http/http.dart ' as http;
 
+import '../booking.dart';
+
 class ApiGym {
   static const String baseUrl = 'http://18.141.56.154:8000';
   static const String login = '/login';
@@ -15,6 +17,8 @@ class ApiGym {
   static const String joinMember = '/memberships/join/';
   static const String apiLevel =
       'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
+
+  static const String bookingDetail = 'classes';
 
   /*  untuk endpoints lain-lain bisa menyusul ya, keep spirit kawan :)
       - kalau ada yang kurang, konfirmasi aja ya, PC atau di group
@@ -146,6 +150,23 @@ class ApiGym {
       print('Status Code: ${response.statusCode}');
       log(response.body);
       throw "Can't get the data";
+    }
+  }
+
+  static Future<Map<String, dynamic>> detailBooking(
+      {int? id, String? token}) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/$bookingDetail/$id'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = json.decode(response.body);
+      print(response.body);
+      return responseData;
+    } else {
+      // print(planData);
+      print(response.statusCode);
+      throw "Can't get dataclass";
     }
   }
 }

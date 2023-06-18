@@ -4,12 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/view/booking_detail/payment_confirmation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../component/booking_detail/card_pay.dart';
+import '../../model/booking.dart';
 import '../../themes/color_style.dart';
+import '../../view_model/booking_provider.dart';
 
 class PaymentMethod extends StatefulWidget {
-  const PaymentMethod({super.key});
+  DataClass? data;
+
+  // var data;
+  var hargaPackage;
+
+  var idPackage;
+
+  var cardType;
+
+  PaymentMethod({
+    super.key,
+    required this.data,
+    required this.hargaPackage,
+    required this.idPackage,
+    required this.cardType,
+  });
 
   @override
   State<PaymentMethod> createState() => _PaymentMethodState();
@@ -89,12 +107,16 @@ class _PaymentMethodState extends State<PaymentMethod> {
           GestureDetector(
             onTap: () {
               log('selesai memilih payment method');
+              final prov = Provider.of<BookingProvider>(context, listen: false);
               // kirim data ketika selesai memilih
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => PaymentConfirmation(
-                          data: _indexPayment,
+                          data: widget.data,
+                          cardType: _indexPayment,
+                          hargaPackage: widget.hargaPackage,
+                          idPackage: widget.idPackage,
                         )),
               );
             },

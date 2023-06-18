@@ -32,6 +32,33 @@ class ButtonPay extends StatelessWidget {
   }
 }
 
+class ButtonPayDisabled extends StatelessWidget {
+  String textButton;
+
+  ButtonPayDisabled({super.key, required this.textButton});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+          alignment: Alignment.center,
+          height: 38,
+          width: 360,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 188, 187, 187),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            textButton,
+            style: GoogleFonts.josefinSans(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                color: ColorsTheme.colorLight),
+          )),
+    );
+  }
+}
+
 class ButtonFilledSmall extends StatelessWidget {
   String textButton;
   ButtonFilledSmall({super.key, required this.textButton});
@@ -44,6 +71,30 @@ class ButtonFilledSmall extends StatelessWidget {
         width: 176,
         decoration: BoxDecoration(
             color: const Color(0xffFF7F00),
+            borderRadius: BorderRadius.circular(10)),
+        child: Text(
+          textButton,
+          style: GoogleFonts.josefinSans(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            color: Colors.white,
+          ),
+        ));
+  }
+}
+
+class ButtonFilledSmallDisabled extends StatelessWidget {
+  String textButton;
+  ButtonFilledSmallDisabled({super.key, required this.textButton});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        alignment: Alignment.center,
+        height: 38,
+        width: 176,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 188, 187, 187),
             borderRadius: BorderRadius.circular(10)),
         child: Text(
           textButton,

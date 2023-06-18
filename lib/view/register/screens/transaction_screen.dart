@@ -115,10 +115,10 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
           GestureDetector(
             onTap: () {
               log('masuk ke screen pilih payment methode');
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PaymentMethod()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => PaymentMethod()),
+              // );
             },
             child: widget.data == null
                 ? CardWidget(
@@ -156,8 +156,8 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const PaymentMethod()));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => const PaymentMethod()));
               },
               child: Text(
                 'Change payment',
