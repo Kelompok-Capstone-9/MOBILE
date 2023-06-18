@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
+import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_training.dart';
 import 'package:gofit_apps/view_model/level_provider.dart';
@@ -68,8 +69,12 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                       return GestureDetector(
                         onTap: () {
                           setState(() {
+                            final prov = Provider.of<RegisterProvider>(context,
+                                    listen: false)
+                                .getLevelUser(level: Data(trainingLevel: id));
                             selectedLevelId = id!;
                           });
+
                           print('Selected Level ID: $selectedLevelId');
                         },
                         child: Card(

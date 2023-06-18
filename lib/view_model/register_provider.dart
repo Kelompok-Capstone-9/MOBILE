@@ -29,6 +29,8 @@ class RegisterProvider extends ChangeNotifier {
   Data? get weightUser => _weightUser;
   Data? _weightGoalUser;
   Data? get weightGoalUser => _weightGoalUser;
+  Data? _level;
+  Data? get level => _level;
   String? _token;
   String? get token => _token;
   int? statusCode = 0;
@@ -81,6 +83,13 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
 
     print(weightGoalUser!.goalWeight);
+  }
+
+  void getLevelUser({Data? level}) {
+    _level = level;
+    notifyListeners();
+
+    print(level!.trainingLevel);
   }
 
   // class fungsi
