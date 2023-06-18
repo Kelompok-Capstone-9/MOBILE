@@ -38,7 +38,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PlanProvider()),
         ChangeNotifierProvider(create: (_) => LevelProvider()),
       ],
-      child: const MaterialApp(debugShowCheckedModeBanner: false, home: Home()
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, home: SplashScreen()
           //SplashScreen(),
           ),
     );
