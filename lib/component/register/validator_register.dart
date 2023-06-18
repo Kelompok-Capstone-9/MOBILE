@@ -55,26 +55,26 @@ class ConfirmPasswordValidator {
 
     // Memeriksa apakah string kosong
     if (confirmPw!.isEmpty || password.isEmpty) {
-      return 'Password tidak boleh kosong';
+      return 'Password is required';
     }
     if (!confirmPw.contains(RegExp(pattern)) ||
         !password.contains(RegExp(pattern))) {
-      return 'Password harus memiliki blabla';
+      return 'one lowercase letter,special character (!@#\$&*~)';
     }
 
     // Memeriksa panjang string
     if (confirmPw.length < 8 || password.length < 8) {
-      return 'Password harus memiliki minimal 8 karakter';
+      return 'The length og password should 8 letters';
     }
 
     // Memeriksa adanya satu huruf kapital
     if (!confirmPw.contains(RegExp(r'[A-Z]')) ||
         !password.contains(RegExp(r'[A-Z]'))) {
-      return 'Password harus memiliki minimal satu huruf kapital';
+      return 'The password should be contained a uppercase letter';
     }
 
     if (password != confirmPw) {
-      return 'Password tidak sesuai';
+      return 'The password confirmation does not match';
     } else {
       return null;
     }

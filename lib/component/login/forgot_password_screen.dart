@@ -72,11 +72,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           });
                         },
                         validator: (email) {
-                          final loginProvider = Provider.of<LoginProvider>(
-                              context,
-                              listen: false);
-                          return EmailValidatorLogin.validateEmail(
-                              email, loginProvider);
+                          //TODO koment buat ke QA
+                          // final loginProvider = Provider.of<LoginProvider>(
+                          //     context,
+                          //     listen: false);
+                          // return EmailValidatorLogin.validateEmail(
+                          //     email, loginProvider);
                         },
                       ),
                       const SizedBox(height: 24),

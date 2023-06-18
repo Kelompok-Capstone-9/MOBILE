@@ -13,7 +13,7 @@ class ApiGym {
   static const String baseUrl = 'http://18.141.56.154:8000';
   static const String login = '/login';
   static const String register = '/register';
-  static const String user = '/user';
+  static const String user = '/users';
   static const String plan = '/plans/all';
   static const String joinMember = '/memberships/join/';
   static const String apiLevel =

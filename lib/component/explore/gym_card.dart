@@ -76,11 +76,13 @@ class GymCardList extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const BookingDetail()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BookingDetail(
+                                id: 1,
+                              )),
+                    );
                   },
                   child: Container(
                     alignment: Alignment.center,

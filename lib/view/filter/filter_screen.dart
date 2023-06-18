@@ -183,10 +183,12 @@ class FilterView extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     log("masuk ke detail Booking");
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const BookingDetail()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookingDetail(
+                                  id: 2,
+                                )));
                   },
                   child: Container(
                     alignment: Alignment.center,

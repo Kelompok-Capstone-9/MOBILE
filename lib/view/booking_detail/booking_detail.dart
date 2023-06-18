@@ -45,10 +45,10 @@ class _BookingDetailState extends State<BookingDetail> {
             title: Text('Detail information', style: ThemeText.heading1),
             leading: GestureDetector(
                 onTap: () {
-                  // Navigator.pop(context);
-                  Future.microtask(() =>
-                      Provider.of<BookingProvider>(context, listen: false)
-                          .bookingDetail(idBooking: widget.id));
+                  Navigator.pop(context);
+                  // Future.microtask(() =>
+                  //     Provider.of<BookingProvider>(context, listen: false)
+                  //         .bookingDetail(idBooking: widget.id));
                 },
                 child: const Icon(Icons.arrow_back, color: Colors.black)),
             backgroundColor: ColorsTheme.bgScreen),
