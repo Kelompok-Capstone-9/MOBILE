@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +16,40 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isNews = true;
+  File? _image;
+
+  void _pickFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image, // view file gambar
+      allowMultiple: false, // cuma pilih 1 image
+    );
+
+    if (result == null) return;
+
+    final file = result.files.first;
+    setState(() {
+      _image = File(file.path!);
+    });
+
+    print('Nama file: ${file.name}');
+  }
+
+  Widget _buildPreview() {
+    if (_image != null) {
+      return CircleAvatar(
+        radius: 50,
+        backgroundImage: FileImage(_image!),
+      );
+    } else {
+      return const CircleAvatar(
+        radius: 50,
+        backgroundImage: AssetImage('assets/images/default_image.jpg'),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // LoginProvider loginProvider = Provider.of<LoginProvider>(context);
-    //UserLogin? user = loginProvider.userLogin;
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -59,18 +89,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               leading: Stack(
                                 alignment: Alignment.bottomRight,
                                 children: [
-                                  const CircleAvatar(
+                                  CircleAvatar(
                                     radius: 40,
-                                    // child: Icon(
-                                    //   Icons.account_circle_outlined,
-                                    //   size: 66,
-                                    // ),
+                                    child:
+                                        _buildPreview(), // get fungsi image;)
                                   ),
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
                                     child: GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        _pickFile();
+                                      },
                                       child: Container(
                                         width: 24,
                                         height: 24,
