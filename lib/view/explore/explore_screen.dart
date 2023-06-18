@@ -7,7 +7,11 @@ import 'package:gofit_apps/component/explore/gym_card.dart';
 
 import 'package:gofit_apps/view/filter/filter_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../component/search/search_gym_screen.dart';
+import '../../component/search/search_loc_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -18,11 +22,16 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   DateTime today = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
+      selectedDate = day;
     });
   }
+
+  final DateFormat _dateFormat = DateFormat('EEEE, d MMMM yyyy');
 
   String terceklist = '';
   bool status = false;
@@ -66,7 +75,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                         const SizedBox(width: 18),
                         Text(
-                          'Sunday, 30 April 2023',
+                          _dateFormat.format(selectedDate),
                           style: ThemeText.headingCalendar,
                         ),
                       ],
@@ -166,7 +175,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         children: [
                           Wrap(
                             alignment: WrapAlignment.spaceBetween,
-                            spacing: 8.0,
+                            spacing: 12.0,
                             children: List<Widget>.generate(
                               timeSelect.length,
                               (int index) {
@@ -316,63 +325,77 @@ class SearchSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.only(right: 8, left: 8, top: 10),
-          decoration: BoxDecoration(
-            color: ColorsTheme.searchbox,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SearchLocView(),
+              ),
+            );
+          },
+          child: Container(
+            height: 54,
+            width: double.infinity,
+            padding: const EdgeInsets.only(
+              right: 16,
+              left: 16,
+            ),
+            decoration: BoxDecoration(
+              color: ColorsTheme.searchbox,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
                   'Your location',
                   style: ThemeText.headingSearchSmall,
                 ),
-              ),
-              TextField(
-                style: ThemeText.headingLocation,
-                decoration: InputDecoration(
-                  hintText: 'Enter your location',
-                  filled: true,
-                  fillColor: ColorsTheme.searchbox,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  floatingLabelStyle: ThemeText.headingSearchBlack,
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
+                SizedBox(height: 8),
+                Text(
+                  'Enter your location',
+                  style: ThemeText.headingSearchBlack,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 16),
-        Container(
-          height: 44,
-          width: double.infinity,
-          padding:
-              const EdgeInsets.only(left: 2, right: 2, top: 10, bottom: 10),
-          decoration: BoxDecoration(
-            color: ColorsTheme.searchbox,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: TextFormField(
-            style: ThemeText.headingSearchBlack,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.black,
-                size: 18,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SearchGymView(),
               ),
-              hintText: 'Search gym or virtual training',
-              hintStyle: ThemeText.headingSearchBig,
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
+            );
+          },
+          child: Container(
+            height: 54,
+            width: double.infinity,
+            padding: const EdgeInsets.only(
+              right: 16,
+              left: 16,
+            ),
+            decoration: BoxDecoration(
+              color: ColorsTheme.searchbox,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search,
+                  color: ColorsTheme.black,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  'Search gym or virtual training',
+                  style: ThemeText.headingSearchBlack,
+                ),
+              ],
             ),
           ),
         ),

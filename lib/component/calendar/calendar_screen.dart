@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -11,26 +12,33 @@ class CalendarView extends StatefulWidget {
 
 class _CalendarViewState extends State<CalendarView> {
   DateTime today = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
+      selectedDate = day;
     });
   }
+
+  final DateFormat _dateFormat = DateFormat("MMMM d'th'");
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
+      appBar: AppBar(
+          elevation: 0.8,
+          title: Text('Select Date', style: ThemeText.heading1),
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(Icons.arrow_back, color: Colors.black)),
+          backgroundColor: ColorsTheme.bgScreen),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 60),
-            child: TopBar(),
-          ),
-          const Divider(
-            color: ColorsTheme.divider,
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 12,
@@ -117,7 +125,7 @@ class _CalendarViewState extends State<CalendarView> {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      'April 30th',
+                      _dateFormat.format(selectedDate),
                       style: ThemeText.heading2,
                     ),
                   ],
@@ -141,38 +149,6 @@ class _CalendarViewState extends State<CalendarView> {
             ),
           ),
           const SizedBox(height: 8)
-        ],
-      ),
-    );
-  }
-}
-
-class TopBar extends StatelessWidget {
-  const TopBar({
-    Key? key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45,
-      child: Row(
-        children: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.black,
-              size: 18,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          const SizedBox(width: 10),
-          Text(
-            'Selected Date',
-            style: ThemeText.heading1,
-          ),
         ],
       ),
     );
