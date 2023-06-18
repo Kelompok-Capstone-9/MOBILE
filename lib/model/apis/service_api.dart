@@ -218,4 +218,49 @@ class ApiGym {
       throw Exception('Failed to connect to the server.');
     }
   }
+
+  static Future<Map<String, dynamic>> updateUser(
+    int id,
+    String newName,
+    String token,
+    String newPw,
+    String newGender,
+    int newHeight,
+    int newWeight,
+    int newGoalWeight,
+    String newLevel,
+    //String newPicture,
+  ) async {
+    final url = Uri.parse('$baseUrl$user/$id');
+    final Map<String, dynamic> requestBody = {
+      "name": newName,
+      "password": newPw,
+      "gender": newGender,
+      "height": newHeight,
+      "weight": newWeight,
+      "goal_Weight": newGoalWeight,
+      "training_level": newLevel,
+      //"profile_picture": newPicture,
+    };
+
+    final response = await http.put(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = json.decode(response.body);
+      log(responseData.toString());
+      return responseData;
+    } else {
+      print('Failed to update user');
+      print('Status Code: ${response.statusCode}');
+      log(response.body);
+      throw "Can't update the user";
+    }
+  }
 }

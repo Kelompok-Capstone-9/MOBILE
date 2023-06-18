@@ -14,8 +14,6 @@ class LoginProvider extends ChangeNotifier {
 
   int? statusCode;
   String? message;
-  String? _token;
-  String? get token => _token;
 
   String? _token;
   String? get token => _token;
