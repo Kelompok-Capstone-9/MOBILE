@@ -3,6 +3,7 @@ import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_member.dart';
+import 'package:gofit_apps/view/login/login_screen.dart';
 import 'package:gofit_apps/view_model/plan_provider.dart';
 import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:hovering/hovering.dart';
@@ -18,8 +19,15 @@ class JoinMemberScreen extends StatefulWidget {
 
 class _JoinMemberScreenState extends State<JoinMemberScreen> {
   // jumping id
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<RegisterProvider>(context, listen: false).fetchDataPlan();
+  }
+
   int selectedPlanId = 0;
   int idPlan = 0;
+
   @override
   Widget build(BuildContext context) {
     // var mediaquery = MediaQuery.of(context).size;
@@ -34,9 +42,8 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
         ),
         centerTitle: true,
         leading: GestureDetector(
-            // onTap: () => Navigator.pop(context),
-            onTap: () => Provider.of<RegisterProvider>(context, listen: false)
-                .fetchDataPlan(),
+            onTap: () => Navigator.pop(context),
+            // onTap: () =>
             child: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SafeArea(
@@ -149,6 +156,19 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 16,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const FormLogin()));
+                },
+                child: Text(
+                  'No Thanks',
+                  style: ThemeText.heading1,
+                ),
+              )
             ],
           ),
         ),

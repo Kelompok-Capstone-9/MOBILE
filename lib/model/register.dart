@@ -9,59 +9,64 @@
 import 'dart:convert';
 
 class RegisterModel {
-    RegisterModelMetadata? metadata;
-    Data? data;
+  RegisterModelMetadata? metadata;
+  Data? data;
 
-    RegisterModel({
-        this.metadata,
-        this.data,
-    });
+  RegisterModel({
+    this.metadata,
+    this.data,
+  });
 
-    factory RegisterModel.fromRawJson(String str) => RegisterModel.fromJson(json.decode(str));
+  factory RegisterModel.fromRawJson(String str) =>
+      RegisterModel.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory RegisterModel.fromJson(Map json) => RegisterModel(
-        metadata: json["metadata"] == null ? null : RegisterModelMetadata.fromJson(json["metadata"]),
+  factory RegisterModel.fromJson(Map json) => RegisterModel(
+        metadata: json["metadata"] == null
+            ? null
+            : RegisterModelMetadata.fromJson(json["metadata"]),
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "metadata": metadata?.toJson(),
         "data": data?.toJson(),
-    };
+      };
 }
 
 class Data {
-    // int? id;
-    String? name;
-    String? email;
-    String? password;
-    String? gender;
-    int? height;
-    int? goalHeight;
-    int? weight;
-    int? goalWeight;
-    DataMetadata? metadata;
+  // int? id;
+  String? name;
+  String? email;
+  String? password;
+  String? gender;
+  int? height;
+  int? goalHeight;
+  int? weight;
+  int? goalWeight;
+  String? trainingLevel;
+  DataMetadata? metadata;
 
-    Data({
-        // this.id,
-        this.name,
-        this.email,
-        this.password,
-        this.gender,
-        this.height,
-        this.goalHeight,
-        this.weight,
-        this.goalWeight,
-        this.metadata,
-    });
+  Data({
+    // this.id,
+    this.name,
+    this.email,
+    this.password,
+    this.gender,
+    this.height,
+    this.goalHeight,
+    this.weight,
+    this.goalWeight,
+    this.trainingLevel,
+    this.metadata,
+  });
 
-    factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         // id: json["id"],
         name: json["name"],
         email: json["email"],
@@ -71,10 +76,13 @@ class Data {
         goalHeight: json["goal_height"],
         weight: json["weight"],
         goalWeight: json["goal_weight"],
-        metadata: json["metadata"] == null ? null : DataMetadata.fromJson(json["metadata"]),
-    );
+        trainingLevel: json["training_level"],
+        metadata: json["metadata"] == null
+            ? null
+            : DataMetadata.fromJson(json["metadata"]),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         // "id": id,
         "name": name,
         "email": email,
@@ -84,58 +92,66 @@ class Data {
         "goal_height": goalHeight,
         "weight": weight,
         "goal_weight": goalWeight,
+        "training_level": trainingLevel,
         "metadata": metadata?.toJson(),
-    };
+      };
 }
 
 class DataMetadata {
-    DateTime? createdAt;
-    DateTime? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
-    DataMetadata({
-        this.createdAt,
-        this.updatedAt,
-    });
+  DataMetadata({
+    this.createdAt,
+    this.updatedAt,
+  });
 
-    factory DataMetadata.fromRawJson(String str) => DataMetadata.fromJson(json.decode(str));
+  factory DataMetadata.fromRawJson(String str) =>
+      DataMetadata.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory DataMetadata.fromJson(Map<String, dynamic> json) => DataMetadata(
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    );
+  factory DataMetadata.fromJson(Map<String, dynamic> json) => DataMetadata(
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
-    };
+      };
 }
 
 class RegisterModelMetadata {
-    int? statusCode;
-    String? message;
-    String? errorReason;
+  int? statusCode;
+  String? message;
+  String? errorReason;
 
-    RegisterModelMetadata({
-        this.statusCode,
-        this.message,
-        this.errorReason,
-    });
+  RegisterModelMetadata({
+    this.statusCode,
+    this.message,
+    this.errorReason,
+  });
 
-    factory RegisterModelMetadata.fromRawJson(String str) => RegisterModelMetadata.fromJson(json.decode(str));
+  factory RegisterModelMetadata.fromRawJson(String str) =>
+      RegisterModelMetadata.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory RegisterModelMetadata.fromJson(Map<String, dynamic> json) => RegisterModelMetadata(
+  factory RegisterModelMetadata.fromJson(Map<String, dynamic> json) =>
+      RegisterModelMetadata(
         statusCode: json["status_code"],
         message: json["message"],
         errorReason: json["error_reason"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "status_code": statusCode,
         "message": message,
         "error_reason": errorReason,
-    };
+      };
 }

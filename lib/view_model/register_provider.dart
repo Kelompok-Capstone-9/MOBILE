@@ -29,6 +29,8 @@ class RegisterProvider extends ChangeNotifier {
   Data? get weightUser => _weightUser;
   Data? _weightGoalUser;
   Data? get weightGoalUser => _weightGoalUser;
+  Data? _level;
+  Data? get level => _level;
   String? _token;
   String? get token => _token;
   int? statusCode = 0;
@@ -43,12 +45,14 @@ class RegisterProvider extends ChangeNotifier {
 
   List<PlanData> get planList => _planList;
   ApiGym _apiService = ApiGym();
+
   void getDataUser({Data? name, Data? email, Data? password}) {
     _name = name;
     _email = email;
     _password = password;
 
     notifyListeners();
+    
     print(name!.name);
     print(email!.email);
     print(password!.password);
@@ -83,6 +87,13 @@ class RegisterProvider extends ChangeNotifier {
     print(weightGoalUser!.goalWeight);
   }
 
+  void getLevelUser({Data? level}) {
+    _level = level;
+    notifyListeners();
+
+    print(level!.trainingLevel);
+  }
+
   // class fungsi
   Future<void> register(Data data, context) async {
     final prov = Provider.of<LoginProvider>(context, listen: false);
@@ -109,6 +120,7 @@ class RegisterProvider extends ChangeNotifier {
 // join member (plan)
   Future<void> joinMember(int idPlan, context) async {
     try {
+      print(token);
       final result = await ApiGym.joinMembership(idPlan: idPlan, token: _token);
       statusCode = result;
 

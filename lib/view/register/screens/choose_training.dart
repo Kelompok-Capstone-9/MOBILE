@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
+import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_training.dart';
 import 'package:gofit_apps/view_model/level_provider.dart';
@@ -19,7 +20,7 @@ class ChooseTrainingScreen extends StatefulWidget {
 
 class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   String _trainingLevel = "";
-  String selectedLevelId = '';
+  String selectedNameLevel = '';
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
   Widget build(BuildContext context) {
     final levelProvider = Provider.of<LevelProvider>(context);
     final levelModel = levelProvider.level;
+    final registerProv = Provider.of<RegisterProvider>(context);
 
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
@@ -61,16 +63,18 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                     itemCount: levelProvider.level.length,
                     itemBuilder: (context, index) {
                       final levTraining = levelProvider.level[index];
-                      final id = levTraining?.id;
+                      final nameLevel = levTraining?.nameLevel;
 
-                      bool isSelected = selectedLevelId == levTraining?.id;
+                      bool isSelected =
+                          selectedNameLevel == levTraining?.nameLevel;
 
                       return GestureDetector(
                         onTap: () {
                           setState(() {
-                            selectedLevelId = id!;
+                            selectedNameLevel = nameLevel!;
                           });
-                          print('Selected Level ID: $selectedLevelId');
+
+                          print('Selected Name Level: $selectedNameLevel');
                         },
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -101,18 +105,29 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
           ),
           GestureDetector(
             onTap: () {
-              // log('selesai memilih payment method');
-              // // kirim data ketika selesai memilih
-              final prov =
-                  Provider.of<RegisterProvider>(context, listen: false);
+              final prov = Provider.of<RegisterProvider>(context, listen: false)
+                  .getLevelUser(level: Data(trainingLevel: selectedNameLevel));
 
-              if (prov.token != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const JoinMemberScreen()),
-                );
-              }
+              final register = Provider.of<RegisterProvider>(context,
+                      listen: false)
+                  .register(
+                      Data(
+                          name: registerProv.name!.name,
+                          email: registerProv.email!.email,
+                          password: registerProv.password!.password,
+                          gender: registerProv.genderUser!.gender,
+                          height: registerProv.heightUser!.height,
+                          weight: registerProv.weightUser!.weight,
+                          goalWeight: registerProv.weightGoalUser!.goalWeight,
+                          trainingLevel: registerProv.level!.trainingLevel),
+                      context);
+
+              // if (registerProv.statusCode == 200) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const JoinMemberScreen()),
+              );
             },
             child: Container(
                 alignment: Alignment.center,
@@ -120,7 +135,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                 width: 360,
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 decoration: BoxDecoration(
-                  color: _trainingLevel != ""
+                  color: selectedNameLevel != ""
                       ? ColorsTheme.activeButton
                       : ColorsTheme.inActiveButton,
                   borderRadius: BorderRadius.circular(10),
@@ -130,7 +145,7 @@ class _ChooseTrainingScreenState extends State<ChooseTrainingScreen> {
                   style: GoogleFonts.josefinSans(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
-                      color: _trainingLevel != ""
+                      color: selectedNameLevel != ""
                           ? ColorsTheme.activeText
                           : const Color(0xffB5B5B5)),
                 )),
