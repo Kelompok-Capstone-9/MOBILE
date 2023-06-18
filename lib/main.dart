@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/register.dart';
+
+import 'package:gofit_apps/view/register/register_screen.dart';
 import 'package:gofit_apps/view/register/screens/choose_training.dart';
+import 'package:gofit_apps/view/register/screens/join_member_screen.dart';
+import 'package:gofit_apps/view/register/screens/payment_method_screen.dart';
+import 'package:gofit_apps/view/register/screens/transaction_screen.dart';
 import 'package:gofit_apps/view_model/booking_provider.dart';
 import 'package:gofit_apps/view_model/dashboard_provider.dart';
 import 'package:gofit_apps/view_model/level_provider.dart';
@@ -38,8 +44,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PlanProvider()),
         ChangeNotifierProvider(create: (_) => LevelProvider()),
       ],
-      child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: ChooseTrainingScreen()),
+      child:
+          MaterialApp(debugShowCheckedModeBanner: false, home: PaymentMethod()),
     );
   }
 }

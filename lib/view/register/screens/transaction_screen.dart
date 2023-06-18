@@ -5,8 +5,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
+
 import 'package:gofit_apps/component/register/card_pay.dart';
+import 'package:gofit_apps/view/register/screens/payment_method_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../component/booking_detail/card.dart';
@@ -198,18 +199,20 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                           color: ColorsTheme.activeText),
                     ),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Cancel Order',
-                        style: ThemeText.headingChangePaymentMember,
-                      ))
                 ],
               ),
             ),
           ),
+          Center(
+            child: TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Cancel Order',
+                  style: ThemeText.headingChangePaymentMember,
+                )),
+          )
         ],
       );
 

@@ -45,12 +45,14 @@ class RegisterProvider extends ChangeNotifier {
 
   List<PlanData> get planList => _planList;
   ApiGym _apiService = ApiGym();
+
   void getDataUser({Data? name, Data? email, Data? password}) {
     _name = name;
     _email = email;
     _password = password;
 
     notifyListeners();
+    
     print(name!.name);
     print(email!.email);
     print(password!.password);
@@ -118,6 +120,7 @@ class RegisterProvider extends ChangeNotifier {
 // join member (plan)
   Future<void> joinMember(int idPlan, context) async {
     try {
+      print(token);
       final result = await ApiGym.joinMembership(idPlan: idPlan, token: _token);
       statusCode = result;
 
