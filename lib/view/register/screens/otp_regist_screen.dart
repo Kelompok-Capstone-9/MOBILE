@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 
@@ -127,13 +129,13 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
               const SizedBox(height: 44),
               GestureDetector(
                 onTap: () {
-                  // log('selesai memilih payment method');
-                  // // kirim data ketika selesai memilih
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) =>  ChooseGenderScreen(name: null,)),
-                  // );
+                  log('selesai memilih payment method');
+                  // kirim data ketika selesai memilih
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChooseGenderScreen()),
+                  );
                 },
                 child: Container(
                     alignment: Alignment.center,

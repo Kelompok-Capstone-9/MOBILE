@@ -185,10 +185,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   email: Data(email: email),
                                   password: Data(password: password));
 
+                      //  tahan dulu ini bug kata QA
+                      //  Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => ChooseGenderScreen()),
+                      //   );
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChooseGenderScreen()),
+                            builder: (context) => OTPRegistScreen()),
                       );
                     }
                   },

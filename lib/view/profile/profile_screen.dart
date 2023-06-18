@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/profile/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,37 +17,37 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isNews = true;
-  File? _image;
+  // File? _image;
 
-  void _pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.image, // view file gambar
-      allowMultiple: false, // cuma pilih 1 image
-    );
+  // void _pickFile() async {
+  //   final result = await FilePicker.platform.pickFiles(
+  //     type: FileType.image, // view file gambar
+  //     allowMultiple: false, // cuma pilih 1 image
+  //   );
 
-    if (result == null) return;
+  //   if (result == null) return;
 
-    final file = result.files.first;
-    setState(() {
-      _image = File(file.path!);
-    });
+  //   final file = result.files.first;
+  //   setState(() {
+  //     _image = File(file.path!);
+  //   });
 
-    print('Nama file: ${file.name}');
-  }
+  //   print('Nama file: ${file.name}');
+  // }
 
-  Widget _buildPreview() {
-    if (_image != null) {
-      return CircleAvatar(
-        radius: 50,
-        backgroundImage: FileImage(_image!),
-      );
-    } else {
-      return const CircleAvatar(
-        radius: 50,
-        backgroundImage: AssetImage('assets/images/default_image.jpg'),
-      );
-    }
-  }
+  // Widget _buildPreview() {
+  //   if (_image != null) {
+  //     return CircleAvatar(
+  //       radius: 50,
+  //       backgroundImage: FileImage(_image!),
+  //     );
+  //   } else {
+  //     return const CircleAvatar(
+  //       radius: 50,
+  //       backgroundImage: AssetImage('assets/images/default_image.jpg'),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -91,16 +91,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 alignment: Alignment.bottomRight,
                                 children: [
                                   CircleAvatar(
-                                    radius: 40,
-                                    child:
-                                        _buildPreview(), // get fungsi image;)
-                                  ),
+                                      radius: 40,
+                                      child: Image.asset(
+                                          'assets/images/default_image.jpg') // get fungsi image;)
+                                      ),
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
                                     child: GestureDetector(
                                       onTap: () {
-                                        _pickFile();
+                                        // _pickFile();
                                       },
                                       child: Container(
                                         width: 24,

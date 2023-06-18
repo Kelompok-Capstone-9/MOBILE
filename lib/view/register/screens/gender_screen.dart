@@ -23,11 +23,18 @@ class _ChooseGenderScreenState extends State<ChooseGenderScreen> {
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<RegisterProvider>(context, listen: false);
-    
 
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
         backgroundColor: ColorsTheme.bgScreen,
         title: Text(
           'Step 1 of 6',
