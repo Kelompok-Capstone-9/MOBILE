@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../component/profile/card_membership.dart';
+import '../../component/profile/color_card_membership.dart';
 import '../../themes/color_style.dart';
+import '../../view_model/plan_member_provider.dart';
 
 class MembershipScreen extends StatefulWidget {
   const MembershipScreen({Key? key}) : super(key: key);
@@ -11,7 +14,17 @@ class MembershipScreen extends StatefulWidget {
 
 class _MembershipScreenState extends State<MembershipScreen> {
   @override
+  void initState() {
+    super.initState();
+    final planProvider = Provider.of<PlanProvider>(context, listen: false);
+    planProvider.fetchDataPlan();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final planProvider = Provider.of<PlanProvider>(context);
+    final planModel = planProvider.planMember;
+
     return Scaffold(
       backgroundColor: ColorsTheme.bgMembership,
       appBar: AppBar(
@@ -66,36 +79,31 @@ class _MembershipScreenState extends State<MembershipScreen> {
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: ListView(
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      children: const [
-                        CardItem(
-                          color: Color(0xffFF8B82),
-                          title: 'Basic Monthly',
-                          subtitle: 'Rp 49.990',
-                          trailing: '/MONTH',
-                        ),
-                        CardItem(
-                          color: Color(0xff158058),
-                          title: 'Intermediate Monthly',
-                          subtitle: 'Rp 144.990',
-                          trailing: '/3 MONTH',
-                        ),
-                        CardItem(
-                          color: Color(0xffFF7F00),
-                          title: 'Advace Monthly',
-                          subtitle: 'Rp 289,990',
-                          trailing: '/6 MONTH',
-                        ),
-                        CardItem(
-                          color: Color(0xffFFC166),
-                          title: 'Student',
-                          subtitle: 'Rp 29.990',
-                          trailing: '/MONTH',
-                        ),
-                      ],
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    child: Consumer<PlanProvider>(
+                      builder: (context, value, child) => ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: planModel.length,
+                        itemBuilder: (context, index) {
+                          final plan = planModel[index];
+                          LinearGradient randomGradient =
+                              linearGradient[index % linearGradient.length];
+                          int? duration = plan?.duration;
+                          String convert = '';
+                          if (duration != null) {
+                            convert = (duration ~/ 30).toString();
+                          }
+                          return CardItem(
+                            gradient: randomGradient,
+                            title: plan?.name ?? '',
+                            subtitle: 'Rp ${plan?.price ?? ''}',
+                            trailing: '/$convert MONTH',
+                            description: plan?.description ?? '',
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

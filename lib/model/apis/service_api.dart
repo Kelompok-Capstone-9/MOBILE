@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
+import 'package:gofit_apps/model/plan_member.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/model/news_letter.dart';
 import 'dart:developer';
@@ -23,12 +24,6 @@ class ApiGym {
 
   static const String bookingDetail = 'classes';
 
-  /*  untuk endpoints lain-lain bisa menyusul ya, keep spirit kawan :)
-      - kalau ada yang kurang, konfirmasi aja ya, PC atau di group
-      - jangan lupa di LOG ya
-      semangat tim uhuy ...
-
-  */
   /*  "email" : "mobile@email.com",
      "password" : "Mobile9_"
      */
@@ -93,20 +88,20 @@ class ApiGym {
     }
   }
 
-  Future<List<PlanData>> getAllPlans() async {
-    print("service ok");
+  // Future<List<PlanData>> getAllPlans() async {
+  //   print("service ok");
 
-    final response = await http.get(Uri.parse('$baseUrl$plan'));
+  //   final response = await http.get(Uri.parse('$baseUrl$plan'));
 
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      final responseData = json.decode(response.body);
-      final dataList = responseData['data'];
-      return dataList.map<PlanData>((data) => PlanData.fromJson(data)).toList();
-    } else {
-      throw Exception('Gagal load plans');
-    }
-  }
+  //   print(response.statusCode);
+  //   if (response.statusCode == 200) {
+  //     final responseData = json.decode(response.body);
+  //     final dataList = responseData['data'];
+  //     return dataList.map<PlanData>((data) => PlanData.fromJson(data)).toList();
+  //   } else {
+  //     throw Exception('Gagal load plans');
+  //   }
+  // }
 
   Future<List<LevelTraining>> getLevelUser() async {
     print("service ok");
@@ -261,6 +256,20 @@ class ApiGym {
       print('Status Code: ${response.statusCode}');
       log(response.body);
       throw "Can't update the user";
+    }
+  }
+
+  Future<List<PlanMember>> getAllPlans() async {
+    final response = await http.get(Uri.parse('$baseUrl$plan'));
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final dataList = responseData['data'];
+      return dataList
+          .map<PlanMember>((data) => PlanMember.fromJson(data))
+          .toList();
+    } else {
+      throw Exception('Failed to load plans');
     }
   }
 }
