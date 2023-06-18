@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gofit_apps/component/booking_detail/convert.dart';
 import 'package:gofit_apps/component/time_widget.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/ticket/ticket_screen.dart';
@@ -10,7 +11,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../component/booking_detail/button.dart';
 
 class PaymentInformation extends StatefulWidget {
-  const PaymentInformation({super.key});
+  final int hargaTotal;
+
+  const PaymentInformation({super.key, required this.hargaTotal});
 
   @override
   State<PaymentInformation> createState() => _PaymentInformationState();
@@ -126,7 +129,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                           padding:
                               const EdgeInsets.only(left: 16.0, bottom: 10),
                           child: Text(
-                            'Rp 75.000',
+                            formatCurrency(widget.hargaTotal),
                             style: ThemeText.headingPaymentMethod,
                           )),
                     ],
@@ -173,7 +176,6 @@ class _PaymentInformationState extends State<PaymentInformation> {
                               border: OutlineInputBorder(),
                               // filled: false,
                               hintText: ' 1234 1234 1234 1234',
-                              // labelText: '1234 1234 1234 1234',
                             ),
                           ),
                         ),
@@ -300,7 +302,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                 color: const Color(0xffE6E6E6),
                                 borderRadius: BorderRadius.circular(12)),
                             child: Text(
-                              ' 1. Click Pay Now \n 2.The e wallet application will automatically open \n 3. Confirmation payment in application \n 4. Payment success',
+                              ' 1. Click Pay Now \n 2. The e wallet application will automatically open \n 3. Confirmation payment in application \n 4. Payment success',
                               style: ThemeText.heading4,
                             )))
                   ],
@@ -380,7 +382,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 44.0),
                                   child: Text(
-                                    'Rp 150.000',
+                                    formatCurrency(widget.hargaTotal),
                                     style: ThemeText.headingRupiah,
                                   ),
                                 ),
@@ -410,5 +412,3 @@ class _PaymentInformationState extends State<PaymentInformation> {
     );
   }
 }
-
-// ignore: must_be_immutable

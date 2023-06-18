@@ -28,7 +28,6 @@ bool status = false;
 int _selectedIndex = 6;
 int idPackage = 0;
 
-// TODO :  kasih parameter apakah ONLINE class atau OFFLINE class;
 class _BookingDetailState extends State<BookingDetail> {
   @override
   void initState() {
@@ -96,7 +95,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    Text('${i!.classType} class',
+                                    Text('${i.classType} class',
                                         style: ThemeText.heading3),
                                     const SizedBox(height: 10),
                                     Column(
@@ -213,9 +212,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                                           ),
                                                   ),
                                                   Text(
-                                                    i.classPackages[index]
-                                                        .period
-                                                        .toString(),
+                                                    '/${i.classPackages[index].period.toString()}',
                                                     style: _selectedIndex !=
                                                             index
                                                         ? ThemeText.headingLabel
@@ -423,6 +420,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                         data: provider.dataClass,
                                         hargaPackage: terceklist,
                                         idPackage: idPackage,
+                                        cardType: null,
                                       )),
                             );
                           },

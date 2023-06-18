@@ -23,12 +23,14 @@ class PaymentConfirmation extends StatefulWidget {
 
   final int hargaPackage;
   final int idPackage;
-
-  PaymentConfirmation(
-      {super.key,
-      required this.data,
-      required this.hargaPackage,
-      required this.idPackage});
+  var cardType;
+  PaymentConfirmation({
+    super.key,
+    required this.data,
+    required this.hargaPackage,
+    required this.idPackage,
+    required this.cardType,
+  });
 
   @override
   State<PaymentConfirmation> createState() => _PaymentConfirmationState();
@@ -228,75 +230,94 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                   ],
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(
-              //       top: 20, left: 16, bottom: 10, right: 16),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'Payment methode',
-              //         style: ThemeText.heading2,
-              //       ),
-              //       const SizedBox(height: 10),
-              //       GestureDetector(
-              //         onTap: () {
-              //           log('masuk ke screen pilih payment methode');
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => const PaymentMethod()),
-              //           );
-              //         },
-              //         child: widget.data == null
-              //             ? CardWidget(
-              //                 icon: FontAwesomeIcons.wallet,
-              //                 keterangan: "Select payment")
-              //             : SizedBox(
-              //                 width: 350,
-              //                 height: 90,
-              //                 child: Card(
-              //                     shape: RoundedRectangleBorder(
-              //                       borderRadius: BorderRadius.circular(12),
-              //                       side: BorderSide(
-              //                         color: const Color(0xff919191)
-              //                             .withOpacity(0.6),
-              //                       ),
-              //                     ),
-              //                     elevation: 5,
-              //                     color: ColorsTheme.bgScreen,
-              //                     child:
-              //                     SizedBox(
-              //                       child: CardPay(
-              //                         type: paymentMethode[widget.data]['type']
-              //                             .toString(),
-              //                         desc: paymentMethode[widget.data]['desc']
-              //                             .toString(),
-              //                         image: paymentMethode[widget.data]
-              //                                 ['image']
-              //                             .toString(),
-              //                       ),
-              //                     )),
-              //               ),
-              //       )
-              //           .animate()
-              //           .saturate()
-              //           .shimmer()
-              //           .fadeIn()
-              //           .effect(duration: const Duration(seconds: 6)),
-              //       Padding(
-              //         padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
-              //         child: Align(
-              //           alignment: Alignment.centerRight,
-              //           child: Text(
-              //             'Change payment',
-              //             style: ThemeText.headingChangePayment,
-              //           ),
-              //         ),
-              //       )
-              //     ],
-              //   ),
-              // ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, left: 16, bottom: 10, right: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Payment methode',
+                      style: ThemeText.heading2,
+                    ),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () {
+                        log('masuk ke screen pilih payment methode');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentMethod(
+                                  data: widget.data,
+                                  hargaPackage: widget.hargaPackage,
+                                  idPackage: widget.idPackage,
+                                  cardType: widget.cardType)),
+                        );
+                      },
+                      child: widget.cardType == null
+                          ? CardWidget(
+                              icon: FontAwesomeIcons.wallet,
+                              keterangan: "Select payment")
+                          : SizedBox(
+                              width: 350,
+                              height: 90,
+                              child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    side: BorderSide(
+                                      color: const Color(0xff919191)
+                                          .withOpacity(0.6),
+                                    ),
+                                  ),
+                                  elevation: 5,
+                                  color: ColorsTheme.bgScreen,
+                                  child: SizedBox(
+                                    child: CardPay(
+                                      type: paymentMethode[widget.cardType]
+                                              ['type']
+                                          .toString(),
+                                      desc: paymentMethode[widget.cardType]
+                                              ['desc']
+                                          .toString(),
+                                      image: paymentMethode[widget.cardType]
+                                              ['image']
+                                          .toString(),
+                                    ),
+                                  )),
+                            ),
+                    )
+                        .animate()
+                        .saturate()
+                        .shimmer()
+                        .fadeIn()
+                        .effect(duration: const Duration(seconds: 6)),
+                    GestureDetector(
+                      onTap: () {
+                        log('masuk ke screen pilih payment methode');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentMethod(
+                                  data: widget.data,
+                                  hargaPackage: widget.hargaPackage,
+                                  idPackage: widget.idPackage,
+                                  cardType: widget.cardType)),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'Change payment',
+                            style: ThemeText.headingChangePayment,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -391,18 +412,36 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
               },
               child: ButtonOutlineSmall(textButton: 'Cancel Order'),
             ),
-            GestureDetector(
-              onTap: () {
-                log('ke proses payment');
+            widget.cardType != null
+                ? GestureDetector(
+                    onTap: () {
+                      log('ke proses payment');
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PaymentInformation()),
-                );
-              },
-              child: ButtonFilledSmall(textButton: 'Continue to payment'),
-            )
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentInformation(
+                                  hargaTotal: widget.hargaPackage,
+                                )),
+                      );
+                    },
+                    child: ButtonFilledSmall(textButton: 'Continue to payment'),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      log('ke proses payment');
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => PaymentInformation(
+                      //             hargaTotal: widget.hargaPackage,
+                      //           )),
+                      // );
+                    },
+                    child:
+                        ButtonFilledSmallDisabled(textButton: 'Continue to '),
+                  )
           ],
         ),
       ),
