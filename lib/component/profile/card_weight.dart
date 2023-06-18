@@ -1,17 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../../themes/color_style.dart';
+import '../../model/login.dart';
+import '../../view_model/login_provider.dart';
 
 class CardWeight extends StatefulWidget {
-  const CardWeight({super.key});
+  final UserLogin? user;
+  final String token;
+
+  const CardWeight({required this.user, required this.token, Key? key})
+      : super(key: key);
+
   @override
   State<CardWeight> createState() => _CardWeightState();
 }
 
 class _CardWeightState extends State<CardWeight> {
   List<bool> isSelected = [true, false];
-  double weightValue = 0.0;
+  double weightValueKg = 0.0;
+  double weightValueLb = 0.0;
   final _weightController = TextEditingController();
+  final double kilogramToPound = 2.20462;
+
+  @override
+  void initState() {
+    super.initState();
+    _weightController.text = (widget.user?.weight ?? 0).toString();
+    weightValueKg = double.tryParse(_weightController.text) ?? 0.0;
+    weightValueLb = weightValueKg * kilogramToPound;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +57,8 @@ class _CardWeightState extends State<CardWeight> {
                     ),
                     onChanged: (value) {
                       setState(() {
-                        weightValue = double.tryParse(value) ?? 0.0;
+                        weightValueKg = double.tryParse(value) ?? 0.0;
+                        weightValueLb = weightValueKg * kilogramToPound;
                       });
                     },
                   ),
@@ -58,6 +77,16 @@ class _CardWeightState extends State<CardWeight> {
                             buttonIndex < isSelected.length;
                             buttonIndex++) {
                           isSelected[buttonIndex] = (buttonIndex == index);
+                        }
+                        if (isSelected[1]) {
+                          weightValueLb = weightValueKg * kilogramToPound;
+                          _weightController.text =
+                              weightValueLb.toStringAsFixed(2);
+                        } else {
+                          weightValueKg =
+                              (weightValueLb / kilogramToPound).roundToDouble();
+                          _weightController.text =
+                              weightValueKg.toStringAsFixed(0);
                         }
                       });
                     },
@@ -129,9 +158,22 @@ class _CardWeightState extends State<CardWeight> {
         ),
         TextButton(
           onPressed: () {
-            // final selectedUnit = isSelected[0] ? 'kg' : 'lb';
-            // print('Weight: $weightValue $selectedUnit');
-            Navigator.of(context).pop();
+            if (widget.user != null) {
+              final updatedUser = UserLogin(
+                id: widget.user!.id,
+                email: widget.user!.email,
+                weight: weightValueKg.toInt(),
+              );
+              Provider.of<LoginProvider>(context, listen: false)
+                  .updateUser(updatedUser, widget.token)
+                  .then((_) {
+                Navigator.pop(context, updatedUser.weight);
+              }).catchError((error) {
+                print('Failed to update user: $error');
+              });
+            } else {
+              print('User is null');
+            }
           },
           child: Text(
             'Save',

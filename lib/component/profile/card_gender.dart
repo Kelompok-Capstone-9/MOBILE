@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../themes/color_style.dart';
+import '../../model/login.dart';
+import '../../view_model/login_provider.dart';
 
 class CardGender extends StatefulWidget {
-  const CardGender({super.key});
+  final UserLogin? user;
+  final String token;
+
+  const CardGender({required this.user, required this.token, Key? key})
+      : super(key: key);
 
   @override
   State<CardGender> createState() => _CardGenderState();
@@ -10,6 +17,12 @@ class CardGender extends StatefulWidget {
 
 class _CardGenderState extends State<CardGender> {
   String? selecGender;
+
+  @override
+  void initState() {
+    super.initState();
+    selecGender = widget.user?.gender ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +36,10 @@ class _CardGenderState extends State<CardGender> {
         children: [
           RadioListTile(
             title: Text(
-              'Male',
+              'Pria',
               style: ThemeText.heading1,
             ),
-            value: 'Male',
+            value: 'pria',
             groupValue: selecGender,
             onChanged: (value) {
               setState(() {
@@ -37,10 +50,10 @@ class _CardGenderState extends State<CardGender> {
           ),
           RadioListTile(
             title: Text(
-              'Female',
+              'Wanita',
               style: ThemeText.heading1,
             ),
-            value: 'Female',
+            value: 'wanita',
             groupValue: selecGender,
             onChanged: (value) {
               setState(() {
@@ -67,7 +80,22 @@ class _CardGenderState extends State<CardGender> {
             style: ThemeText.headingCustom,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            if (widget.user != null) {
+              final updatedUser = UserLogin(
+                id: widget.user!.id,
+                email: widget.user!.email,
+                gender: selecGender,
+              );
+              Provider.of<LoginProvider>(context, listen: false)
+                  .updateUser(updatedUser, widget.token)
+                  .then((_) {
+                Navigator.pop(context, selecGender);
+              }).catchError((error) {
+                print('Failed to update user: $error');
+              });
+            } else {
+              print('User is null');
+            }
           },
         ),
       ],

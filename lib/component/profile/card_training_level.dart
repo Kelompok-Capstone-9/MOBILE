@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../themes/color_style.dart';
+import '../../model/login.dart';
+import '../../view_model/login_provider.dart';
 
 class CardTrainingLevel extends StatefulWidget {
-  const CardTrainingLevel({super.key});
+  final UserLogin? user;
+  final String token;
+
+  const CardTrainingLevel({required this.user, required this.token, Key? key})
+      : super(key: key);
 
   @override
   State<CardTrainingLevel> createState() => _CardTrainingLevelState();
@@ -10,6 +17,12 @@ class CardTrainingLevel extends StatefulWidget {
 
 class _CardTrainingLevelState extends State<CardTrainingLevel> {
   String? selecLevel;
+
+  @override
+  void initState() {
+    super.initState();
+    selecLevel = widget.user?.training_level ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +39,7 @@ class _CardTrainingLevelState extends State<CardTrainingLevel> {
               'Beginner',
               style: ThemeText.heading1,
             ),
-            value: 'Beginner',
+            value: 'beginner',
             groupValue: selecLevel,
             onChanged: (value) {
               setState(() {
@@ -40,7 +53,7 @@ class _CardTrainingLevelState extends State<CardTrainingLevel> {
               'Intermediate',
               style: ThemeText.heading1,
             ),
-            value: 'Intermediate',
+            value: 'intermediate',
             groupValue: selecLevel,
             onChanged: (value) {
               setState(() {
@@ -51,10 +64,10 @@ class _CardTrainingLevelState extends State<CardTrainingLevel> {
           ),
           RadioListTile(
             title: Text(
-              'Advanced',
+              'Advance',
               style: ThemeText.heading1,
             ),
-            value: 'Advanced',
+            value: 'advance',
             groupValue: selecLevel,
             onChanged: (value) {
               setState(() {
@@ -81,7 +94,22 @@ class _CardTrainingLevelState extends State<CardTrainingLevel> {
             style: ThemeText.headingCustom,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            if (widget.user != null) {
+              final updatedUser = UserLogin(
+                id: widget.user!.id,
+                email: widget.user!.email,
+                training_level: selecLevel,
+              );
+              Provider.of<LoginProvider>(context, listen: false)
+                  .updateUser(updatedUser, widget.token)
+                  .then((_) {
+                Navigator.pop(context, selecLevel);
+              }).catchError((error) {
+                print('Failed to update user: $error');
+              });
+            } else {
+              print('User is null');
+            }
           },
         ),
       ],

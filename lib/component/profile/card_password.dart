@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../themes/color_style.dart';
+import '../../model/login.dart';
+import '../../view_model/login_provider.dart';
 
 class CardPassword extends StatefulWidget {
-  const CardPassword({super.key});
+  final UserLogin? user;
+  final String token;
+
+  const CardPassword({required this.user, required this.token, Key? key})
+      : super(key: key);
 
   @override
   State<CardPassword> createState() => _CardPasswordState();
@@ -16,6 +23,12 @@ class _CardPasswordState extends State<CardPassword> {
   bool hidePw = false;
   bool hideNewPw = false;
   bool hideConfirmPw = false;
+
+  @override
+  void dispose() {
+    _confirmNewPwController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +130,22 @@ class _CardPasswordState extends State<CardPassword> {
             style: ThemeText.headingCustom,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            if (widget.user != null) {
+              final updatedUser = UserLogin(
+                id: widget.user!.id,
+                email: widget.user!.email,
+                password: _confirmNewPwController.text,
+              );
+              Provider.of<LoginProvider>(context, listen: false)
+                  .updateUser(updatedUser, widget.token)
+                  .then((_) {
+                Navigator.pop(context, _confirmNewPwController.text);
+              }).catchError((error) {
+                print('Failed to update user: $error');
+              });
+            } else {
+              print('User is null');
+            }
           },
         ),
       ],

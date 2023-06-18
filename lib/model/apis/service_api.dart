@@ -5,7 +5,7 @@ import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/model/news_letter.dart';
 import 'dart:developer';
-import 'package:http/http.dart ' as http;
+import 'package:http/http.dart' as http;
 
 import '../booking.dart';
 
@@ -139,7 +139,6 @@ class ApiGym {
       url,
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer $token',
       },
       body: jsonEncode(requestBody),
     );
