@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/plan.dart';
+import '../model/plan_member.dart';
 import 'login_provider.dart';
 
 enum RequestState { empty, loading, loaded, error }
@@ -46,13 +47,17 @@ class RegisterProvider extends ChangeNotifier {
   List<PlanData> get planList => _planList;
   ApiGym _apiService = ApiGym();
 
+  List<PlanMember?> _planMember = [];
+  List<PlanMember?> get planMember => _planMember;
+  bool isLoading = false;
+  String error = '';
   void getDataUser({Data? name, Data? email, Data? password}) {
     _name = name;
     _email = email;
     _password = password;
 
     notifyListeners();
-    
+
     print(name!.name);
     print(email!.email);
     print(password!.password);
@@ -132,12 +137,12 @@ class RegisterProvider extends ChangeNotifier {
   }
 
   Future<void> fetchDataPlan() async {
-    print("prov OK");
     try {
-      _planList = await _apiService.getAllPlans();
+      _planMember = await _apiService.getAllPlans();
+
       notifyListeners();
     } catch (error) {
-      print("error data");
+      rethrow;
     }
   }
 

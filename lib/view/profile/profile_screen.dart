@@ -249,7 +249,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             style: ThemeText.headingAccount,
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MembershipScreen(),
+                                ),
+                              );
+                            },
                             icon: const Icon(
                               Icons.arrow_forward_ios_outlined,
                               size: 14,
