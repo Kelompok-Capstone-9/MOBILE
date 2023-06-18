@@ -162,7 +162,6 @@ class _CardWeightState extends State<CardWeight> {
               final updatedUser = UserLogin(
                 id: widget.user!.id,
                 email: widget.user!.email,
-                password: widget.user!.password,
                 weight: weightValueKg.toInt(),
               );
               Provider.of<LoginProvider>(context, listen: false)

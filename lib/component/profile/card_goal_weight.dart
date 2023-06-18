@@ -161,7 +161,6 @@ class _CardGoalWeightState extends State<CardGoalWeight> {
               final updatedUser = UserLogin(
                 id: widget.user!.id,
                 email: widget.user!.email,
-                password: widget.user!.password,
                 goal_weight: goalWeightKg.toInt(),
               );
 

@@ -45,6 +45,8 @@ class ApiGym {
     int newHeight,
     int newWeight,
     int newGoalWeight,
+    String newLevel,
+    //String newPicture,
   ) async {
     final url = Uri.parse('$baseUrl$user/$id');
     final Map<String, dynamic> requestBody = {
@@ -54,6 +56,8 @@ class ApiGym {
       "height": newHeight,
       "weight": newWeight,
       "goal_Weight": newGoalWeight,
+      "training_level": newLevel,
+      //"profile_picture": newPicture,
     };
 
     final response = await http.put(

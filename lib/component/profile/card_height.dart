@@ -165,7 +165,6 @@ class _CardHeightState extends State<CardHeight> {
               final updatedUser = UserLogin(
                 id: widget.user!.id,
                 email: widget.user!.email,
-                password: widget.user!.password,
                 height: heightValueCm.toInt(),
               );
 

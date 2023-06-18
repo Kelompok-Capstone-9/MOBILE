@@ -33,7 +33,7 @@ class LoginProvider extends ChangeNotifier {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', email);
         prefs.setString('password', password);
-        prefs.setString('token', _token!); // Simpan token otentikasi
+        prefs.setString('token', _token!);
         print('tokennya adalah : $token');
         notifyListeners();
       }
@@ -56,8 +56,8 @@ class LoginProvider extends ChangeNotifier {
   Future<void> logout(
       {required int params, required BuildContext context}) async {
     statusCode = 0;
-    _userLogin = null; // Hapus data model UserLogin
-    _userLoginResponse = null; // Hapus data model UserModelMetadata
+    _userLogin = null;
+    _userLoginResponse = null;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
@@ -97,6 +97,8 @@ class LoginProvider extends ChangeNotifier {
         user.height ?? 0,
         user.weight ?? 0,
         user.goal_weight ?? 0,
+        user.training_level ?? '',
+        //user.profile_picture ?? '',
       );
       _userLogin = UserLogin.fromJson(result['data']);
       _userLoginResponse = UserModelMetadata.fromJson(result['metadata']);

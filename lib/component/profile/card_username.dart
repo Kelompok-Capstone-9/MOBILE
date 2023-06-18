@@ -71,7 +71,6 @@ class _CardUsernameState extends State<CardUsername> {
               final updatedUser = UserLogin(
                 id: widget.user!.id,
                 email: widget.user!.email,
-                password: widget.user!.password,
                 name: _usernameController.text,
               );
               Provider.of<LoginProvider>(context, listen: false)

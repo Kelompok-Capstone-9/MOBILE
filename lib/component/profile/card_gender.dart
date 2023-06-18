@@ -84,7 +84,6 @@ class _CardGenderState extends State<CardGender> {
               final updatedUser = UserLogin(
                 id: widget.user!.id,
                 email: widget.user!.email,
-                password: widget.user!.password,
                 gender: selecGender,
               );
               Provider.of<LoginProvider>(context, listen: false)
