@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gofit_apps/view/profile/personal_details_screen.dart';
 import 'package:gofit_apps/view/profile/profile_screen.dart';
-import 'package:gofit_apps/view/register/register_screen.dart';
 import 'package:gofit_apps/view_model/login_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  group('profile', () {
+  group('Profile', () {
     testWidgets('Test text pada Profile', (WidgetTester tester) async {
       await tester.pumpWidget(
         ChangeNotifierProvider(
@@ -87,6 +87,33 @@ void main() {
 
       Finder newsButton = find.byType(Switch);
       expect(newsButton, findsOneWidget);
+    });
+
+    testWidgets('Test text personal', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+          create: (_) => LoginProvider(),
+          child: const MaterialApp(
+            home: PersonalDetailsScreen(),
+          ),
+        ),
+      );
+
+      Finder textField = find.byType(Text);
+      expect(textField, findsNWidgets(17));
+    });
+
+    testWidgets('Test icon button personal', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+          create: (_) => LoginProvider(),
+          child: const MaterialApp(
+            home: ProfileScreen(),
+          ),
+        ),
+      );
+      Finder icon = find.byType(IconButton);
+      expect(icon, findsNWidgets(2));
     });
   });
 }
