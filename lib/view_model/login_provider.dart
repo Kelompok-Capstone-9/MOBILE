@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gofit_apps/model/login.dart';
@@ -17,7 +19,7 @@ class LoginProvider extends ChangeNotifier {
 
   String? _token;
   String? get token => _token;
-
+  String _image = "";
   Future<void> login({required String email, required String password}) async {
     try {
       final result = await ApiGym.loginUsers(email, password);
@@ -91,19 +93,20 @@ class LoginProvider extends ChangeNotifier {
   Future<void> updateUser(UserLogin user, String token) async {
     try {
       final result = await ApiGym.updateUser(
-        user.id ?? 0,
-        user.name ?? '',
-        token,
-        user.password ?? '',
-        user.gender ?? '',
-        user.height ?? 0,
-        user.weight ?? 0,
-        user.goal_weight ?? 0,
-        user.training_level ?? '',
-        //user.profile_picture ?? '',
-      );
+          user.id ?? 0,
+          user.name ?? '',
+          token,
+          user.password ?? '',
+          user.gender ?? '',
+          user.height ?? 0,
+          user.weight ?? 0,
+          user.goal_weight ?? 0,
+          user.training_level ?? "",
+          user.profile_picture ?? "");
+
       _userLogin = UserLogin.fromJson(result['data']);
       _userLoginResponse = UserModelMetadata.fromJson(result['metadata']);
+      // upImage(userId: user.id, imageFile: , token);
       statusCode = userLoginResponse?.statusCode;
 
       if (statusCode == 200) {
@@ -124,5 +127,24 @@ class LoginProvider extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
     return _token;
+  }
+
+  // Future<String?> upImage({userId, imageFile, token}) async {
+  //   print("UO");
+  //   await ApiGym.uploadUserImage(userId, imageFile, token);
+  //   return null;
+  //   // return image;
+  // }
+  Future<void> upImage({int? userId, File? imageFile, String? token}) async {
+    try {
+      // Panggil fungsi upload file dari ApiService
+      await ApiGym.uploadUserImage(
+          userId: userId, imageFile: imageFile, token: token);
+      // Lakukan tindakan lain setelah file berhasil diunggah
+      // ...
+    } catch (error) {
+      // Tangani error jika ada
+      // ...
+    }
   }
 }

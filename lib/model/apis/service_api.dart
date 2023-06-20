@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/plan_member.dart';
@@ -15,6 +18,7 @@ class ApiGym {
   static const String login = '/login';
   static const String register = '/register';
   static const String user = '/users';
+  static const String userUploadImage = '/users/profile';
   static const String plan = '/plans/all';
   static const String joinMember = '/memberships/join/';
   static const String apiLevel =
@@ -224,7 +228,7 @@ class ApiGym {
     int newWeight,
     int newGoalWeight,
     String newLevel,
-    //String newPicture,
+    String newPicture,
   ) async {
     final url = Uri.parse('$baseUrl$user/$id');
     final Map<String, dynamic> requestBody = {
@@ -235,7 +239,7 @@ class ApiGym {
       "weight": newWeight,
       "goal_Weight": newGoalWeight,
       "training_level": newLevel,
-      //"profile_picture": newPicture,
+      "profile_picture": newPicture,
     };
 
     final response = await http.put(
@@ -271,5 +275,27 @@ class ApiGym {
     } else {
       throw Exception('Failed to load plans');
     }
+  }
+
+  static Future uploadUserImage(
+      {int? userId, File? imageFile, String? token}) async {
+    var url =
+        '$baseUrl$userUploadImage/$userId'; // Ganti dengan URL endpoint yang sesuai
+    var header = {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer $token',
+    };
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.headers.addAll(header);
+    Uint8List data = await imageFile!.readAsBytes();
+    List<int> list = data.cast();
+    request.files.add(http.MultipartFile.fromBytes("profile_picture", list,
+        filename: "my_file.png"));
+    var resp = await request.send();
+    resp.stream.bytesToString().asStream().listen((event) {
+      var a = jsonDecode(event);
+      print(a);
+      print(resp.statusCode);
+    });
   }
 }

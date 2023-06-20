@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/profile/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import '../../model/login.dart';
 import '../../themes/color_style.dart';
 import '../../view_model/login_provider.dart';
 import 'personal_details_screen.dart';
+import 'package:path/path.dart' as path;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,37 +20,31 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isNews = true;
-  // File? _image;
+  File? _image;
 
-  // void _pickFile() async {
-  //   final result = await FilePicker.platform.pickFiles(
-  //     type: FileType.image, // view file gambar
-  //     allowMultiple: false, // cuma pilih 1 image
-  //   );
+  Future<void> pickImage(UserLogin? user, tokenn) async {
+    // Mengambil gambar dari galeri
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
 
-  //   if (result == null) return;
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      String fileName = path.basename(imageFile.path);
+      String token = tokenn; // Ganti dengan token yang valid
+      // var user
+      print('this iss ${fileName}');
+      final updatedUser = UserLogin(
+          profile_picture: 'assets/img/profile/${fileName.toString()}',
+          id: user!.id,
+          email: user.email);
+      loginProvider.updateUser(updatedUser, token);
 
-  //   final file = result.files.first;
-  //   setState(() {
-  //     _image = File(file.path!);
-  //   });
-
-  //   print('Nama file: ${file.name}');
-  // }
-
-  // Widget _buildPreview() {
-  //   if (_image != null) {
-  //     return CircleAvatar(
-  //       radius: 50,
-  //       backgroundImage: FileImage(_image!),
-  //     );
-  //   } else {
-  //     return const CircleAvatar(
-  //       radius: 50,
-  //       backgroundImage: AssetImage('assets/images/default_image.jpg'),
-  //     );
-  //   }
-  // }
+      await loginProvider.upImage(
+          userId: user!.id, imageFile: imageFile, token: token);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,16 +88,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 alignment: Alignment.bottomRight,
                                 children: [
                                   CircleAvatar(
-                                      radius: 40,
-                                      child: Image.asset(
-                                          'assets/images/default_image.jpg') // get fungsi image;)
-                                      ),
+                                    radius: 40,
+                                    // child: Image.network(loginProvider
+                                    //     .userLogin!.profile_picture
+                                    //     .toString()) // get fungsi image;)
+                                  ),
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
                                     child: GestureDetector(
-                                      onTap: () {
-                                        // _pickFile();
+                                      onTap: () async {
+                                        final token =
+                                            await loginProvider.getToken();
+                                        pickImage(user, token);
                                       },
                                       child: Container(
                                         width: 24,
