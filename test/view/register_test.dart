@@ -13,7 +13,7 @@ void main() {
       expect(nameField, findsNWidgets(9));
     });
 
-    testWidgets('Text Register', (WidgetTester tester) async {
+    testWidgets('Text Form Field Register', (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
         home: RegisterScreen(),
       ));
@@ -21,7 +21,7 @@ void main() {
       expect(nameField, findsNWidgets(4));
     });
 
-    testWidgets('Test button login', (WidgetTester tester) async {
+    testWidgets('Test button register', (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
         home: RegisterScreen(),
       ));
