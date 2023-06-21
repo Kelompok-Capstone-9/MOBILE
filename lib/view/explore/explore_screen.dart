@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/component/calendar.dart';
 import 'package:gofit_apps/model/gym.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -29,15 +30,24 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   DateTime today = DateTime.now();
   DateTime selectedDate = DateTime.now();
+  String hasilConvert = '';
 
+  final DateFormat _dateFormat = DateFormat('EEEE, d MMMM yyyy');
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
-      selectedDate = day;
+      selectedDate = today;
+      String tanggalStr = DateFormat("yyyy-MM-dd").format(today);
+      hasilConvert = tanggalStr;
+
+      // print(selectedDate);
+      // print(tanggalStr);
+      widget.statusPencarian = tanggalStr;
+      print('ini tanggal${tanggalStr}');
+      Provider.of<BookingProvider>(context, listen: false)
+          .searchByName(tanggalStr);
     });
   }
-
-  final DateFormat _dateFormat = DateFormat('EEEE, d MMMM yyyy');
 
   String terceklist = '';
   bool status = false;
@@ -112,44 +122,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                         child: Column(
                           children: [
-                            TableCalendar(
-                              locale: 'en_US',
-                              daysOfWeekStyle: DaysOfWeekStyle(
-                                weekdayStyle: ThemeText.heading5,
-                                weekendStyle: ThemeText.heading5,
-                              ),
-                              headerStyle: HeaderStyle(
-                                titleTextStyle: ThemeText.heading1,
-                                formatButtonVisible: false,
-                                titleCentered: true,
-                              ),
-                              calendarStyle: CalendarStyle(
-                                isTodayHighlighted: true,
-                                todayDecoration: BoxDecoration(
-                                  color: ColorsTheme.accent.withOpacity(.45),
-                                  shape: BoxShape.circle,
-                                ),
-                                selectedDecoration: const BoxDecoration(
-                                  color: ColorsTheme.accent,
-                                  shape: BoxShape.circle,
-                                ),
-                                weekNumberTextStyle: ThemeText.heading5,
-                                weekendTextStyle: ThemeText.heading5,
-                                outsideTextStyle: ThemeText.heading5,
-                                todayTextStyle: ThemeText.heading5,
-                                defaultTextStyle: ThemeText.heading5,
-                                selectedTextStyle: ThemeText.heading5,
-                              ),
-                              headerVisible: false,
-                              availableGestures: AvailableGestures.none,
-                              calendarFormat: CalendarFormat.week,
-                              selectedDayPredicate: (day) =>
-                                  isSameDay(day, today),
-                              focusedDay: today,
-                              firstDay: DateTime.utc(2010, 10, 16),
-                              lastDay: DateTime.utc(2030, 3, 14),
-                              onDaySelected: _onDaySelected,
-                            ),
+                            Consumer<BookingProvider>(
+                                builder: (context, value, child) =>
+                                    Calendar(jumlahRowCalendar: 0)),
                             const Divider(
                               color: ColorsTheme.divider,
                             ),
@@ -159,7 +134,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const CalendarView(),
+                                    builder: (context) => CalendarView(),
                                   ),
                                 );
                               },

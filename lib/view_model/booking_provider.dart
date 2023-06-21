@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../model/booking.dart';
 
@@ -111,13 +112,17 @@ class BookingProvider extends ChangeNotifier {
     }
   }
 
-  void searchByName(String query) {
+  void searchByName(
+    String query,
+  ) {
+    print("mencari $query");
     List<DataClass> results = _alClass
-        .where((dataClass) =>
-            dataClass.name.toLowerCase().contains(query.toLowerCase()) ||
-            dataClass.classType.toLowerCase().contains(query.toLowerCase()))
+        .where((dataClass) => (dataClass.name
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            dataClass.classType.toLowerCase().contains(query.toLowerCase()) ||
+            dataClass.startedAt.toString().contains(query.toLowerCase())))
         .toList();
-
     searchResults = results;
     notifyListeners();
     print('ini lenght ${searchResults.length}');

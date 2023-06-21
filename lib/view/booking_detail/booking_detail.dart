@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/component/booking_detail/convert.dart';
-import 'package:gofit_apps/model/booking.dart';
+// import 'package:gofit_apps/model/booking.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/payment_confirmation.dart';
 import 'package:gofit_apps/view_model/booking_provider.dart';
