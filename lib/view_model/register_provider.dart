@@ -1,14 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
-
 import 'package:gofit_apps/model/register.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../model/plan.dart';
-import '../model/plan_member.dart';
 import 'login_provider.dart';
 
 enum RequestState { empty, loading, loaded, error }
@@ -47,8 +43,6 @@ class RegisterProvider extends ChangeNotifier {
   List<PlanData> get planList => _planList;
   ApiGym _apiService = ApiGym();
 
-  List<PlanMember?> _planMember = [];
-  List<PlanMember?> get planMember => _planMember;
   bool isLoading = false;
   String error = '';
   void getDataUser({Data? name, Data? email, Data? password}) {
@@ -136,9 +130,9 @@ class RegisterProvider extends ChangeNotifier {
     log(statusCode.toString());
   }
 
-  Future<void> fetchDataPlan() async {
+  Future<void> fetchDataPlanJoin() async {
     try {
-      _planMember = await _apiService.getAllPlans();
+      _planList = await _apiService.getAllPlansJoin();
 
       notifyListeners();
     } catch (error) {

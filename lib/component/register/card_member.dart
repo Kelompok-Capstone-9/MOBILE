@@ -19,18 +19,29 @@ class CardMember extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.80,
-      child: ListTile(
-        trailing: Text(
-          duration,
-          style: ThemeText.heading3,
-        ),
-        title: Text(
-          price,
-          style: ThemeText.heading3,
-        ),
-        subtitle: Text(
-          desc,
-          style: ThemeText.headingPaymentDescription,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              duration,
+              style: ThemeText.heading1,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  price,
+                  style: ThemeText.memberPaid,
+                ),
+                Text(
+                  desc,
+                  style: ThemeText.headingSub2,
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
