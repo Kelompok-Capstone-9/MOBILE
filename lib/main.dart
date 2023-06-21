@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
+
 import 'package:gofit_apps/view/training/beginner_screen.dart';
 import 'package:gofit_apps/view/training/training_kategori.dart';
 import 'package:gofit_apps/view/training/training_screen.dart';
