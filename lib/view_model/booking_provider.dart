@@ -4,8 +4,11 @@ import 'dart:math' show asin, atan2, cos, pi, pow, sin, sqrt;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
+import 'package:gofit_apps/model/list_detail_dummy.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../model/booking.dart';
@@ -19,6 +22,8 @@ class BookingProvider extends ChangeNotifier {
   List<ClassPackage> _packages = [];
   List<ClassPackage> get packages => _packages;
   // explore screen (class)
+  String statusPencarian = "";
+  String statusPencarianLokasi = "";
   List<DataClass> _alClass = [];
   List<DataClass> get allClass => _alClass;
 
@@ -26,6 +31,7 @@ class BookingProvider extends ChangeNotifier {
   RequestState get requestState => _requestState;
 
   List<DataClass> searchResults = [];
+  List<Map<String, dynamic>> filteredWaktu = [];
   //class fungsi
   Future<void> bookingDetail({idBooking}) async {
     print("ok");
@@ -86,7 +92,38 @@ class BookingProvider extends ChangeNotifier {
       // _alClass = result['data'];
 
       // _requestState = RequestState.loaded;
+      // cek waktunya hehe
 
+      /* info gaes ini buat ngecem sekaligus jumper field ke models yaitu "isWaktu"
+      patokannya adalah kalo  08:00:12 adalah pagi
+      */
+      _alClass = _alClass.map((dataClass) {
+        // Ambil waktu string dari dataClass.startedAt
+        String startedAtStr = dataClass.startedAt.toString();
+        DateTime startedAt =
+            DateFormat("yyyy-MM-dd HH:mm:ss").parse(startedAtStr);
+        String periode;
+
+        if (startedAt.hour >= 5 && startedAt.hour < 12) {
+          periode = "pagi";
+        } else if (startedAt.hour >= 12 && startedAt.hour < 18) {
+          periode = "siang";
+        } else {
+          periode = "malam";
+        }
+
+        return DataClass(
+            name: dataClass.name,
+            classType: dataClass.classType,
+            startedAt: dataClass.startedAt,
+            isWaktu: periode,
+            classPackages: dataClass.classPackages,
+            description: dataClass.description,
+            id: dataClass.id,
+            link: dataClass.link,
+            location: dataClass.location,
+            metadata: dataClass.metadata);
+      }).toList();
       print("is length pencarian : ${searchResults.length}");
       print("is length allclass : ${allClass.length}");
       _packages = _packages.map((package) {
@@ -100,6 +137,9 @@ class BookingProvider extends ChangeNotifier {
         );
       }).toList();
       notifyListeners();
+      for (var element in allClass) {
+        print('this name: ${element.name}, isWaktu: ${element.isWaktu}');
+      }
       print(allClass.length);
       for (var element in allClass) {
         print('this name : ${element.name}');
@@ -124,9 +164,36 @@ class BookingProvider extends ChangeNotifier {
             dataClass.startedAt.toString().contains(query.toLowerCase())))
         .toList();
     searchResults = results;
+    statusPencarian = query;
     notifyListeners();
     print('ini lenght ${searchResults.length}');
     for (var element in searchResults) {
+      print(
+          'kamu nyari ${element.name.toString()} \n ada di ${element.location.city.toString()}');
+    }
+  }
+
+  void searchByLoc(
+    String query,
+  ) {
+    print("mencari $query");
+    List<DataClass> results = _alClass
+        .where((dataClass) => (dataClass.location.city!
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            dataClass.location.address!
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            dataClass.location.name!
+                .toLowerCase()
+                .contains(query.toLowerCase())))
+        .toList();
+    searchResults = results;
+    statusPencarianLokasi = query;
+
+    notifyListeners();
+    print('ini lenght ${searchResults.length}');
+    for (var element in searchResults) {  
       print(
           'kamu nyari ${element.name.toString()} \n ada di ${element.location.city.toString()}');
     }
@@ -154,5 +221,22 @@ class BookingProvider extends ChangeNotifier {
 
   double _toRadians(double degree) {
     return degree * (pi / 180);
+  }
+
+  void searchByBoxChips(
+    String query,
+  ) {
+    print("mencari $query");
+    List<DataClass> results = _alClass
+        .where((dataClass) =>
+            (dataClass.isWaktu.toString().contains(query.toLowerCase())))
+        .toList();
+    searchResults = results;
+    // statusPencarian = query;
+    notifyListeners();
+    for (var element in searchResults) {
+      print(
+          'kamu mencari clas ${element.name.toString()} dengan waktu  ${element.isWaktu.toString()} ');
+    }
   }
 }

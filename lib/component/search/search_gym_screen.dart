@@ -59,6 +59,7 @@ class _SearchGymViewState extends State<SearchGymView> {
                 ),
                 child: Center(
                   child: TextField(
+                    
                     controller: searchController,
                     onChanged: (value) {
                       // widget.searchByName(value);

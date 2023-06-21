@@ -7,12 +7,9 @@ import '../themes/color_style.dart';
 import '../view_model/booking_provider.dart';
 
 class Calendar extends StatefulWidget {
-  var statusPencarian;
-
   int jumlahRowCalendar;
 
-  Calendar(
-      {super.key, this.statusPencarian = '', required this.jumlahRowCalendar});
+  Calendar({super.key, required this.jumlahRowCalendar});
 
   @override
   State<Calendar> createState() => _CalendarState();
@@ -33,7 +30,7 @@ class _CalendarState extends State<Calendar> {
       selectedDate = day;
       String tanggalStr = DateFormat("yyyy-MM-dd").format(today);
       hasilConvert = tanggalStr;
-      widget.statusPencarian = tanggalStr;
+      // widget.statusPencarian = tanggalStr;
       print('ini tanggal${tanggalStr}');
       Provider.of<BookingProvider>(context, listen: false)
           .searchByName(tanggalStr);
@@ -42,44 +39,46 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    return TableCalendar(
-      locale: 'en_US',
-      daysOfWeekStyle: DaysOfWeekStyle(
-        weekdayStyle: ThemeText.heading5,
-        weekendStyle: ThemeText.heading5,
-      ),
-      headerStyle: HeaderStyle(
-        titleTextStyle: ThemeText.heading1,
-        formatButtonVisible: false,
-        titleCentered: true,
-      ),
-      calendarStyle: CalendarStyle(
-        isTodayHighlighted: true,
-        todayDecoration: BoxDecoration(
-          color: ColorsTheme.accent.withOpacity(.45),
-          shape: BoxShape.circle,
+    return Consumer<BookingProvider>(
+      builder: (context, value, child) => TableCalendar(
+        locale: 'en_US',
+        daysOfWeekStyle: DaysOfWeekStyle(
+          weekdayStyle: ThemeText.heading5,
+          weekendStyle: ThemeText.heading5,
         ),
-        selectedDecoration: const BoxDecoration(
-          color: ColorsTheme.accent,
-          shape: BoxShape.circle,
+        headerStyle: HeaderStyle(
+          titleTextStyle: ThemeText.heading1,
+          formatButtonVisible: false,
+          titleCentered: true,
         ),
-        weekNumberTextStyle: ThemeText.heading5,
-        weekendTextStyle: ThemeText.heading5,
-        outsideTextStyle: ThemeText.heading5,
-        todayTextStyle: ThemeText.heading5,
-        defaultTextStyle: ThemeText.heading5,
-        selectedTextStyle: ThemeText.heading5,
+        calendarStyle: CalendarStyle(
+          isTodayHighlighted: true,
+          todayDecoration: BoxDecoration(
+            color: ColorsTheme.accent.withOpacity(.45),
+            shape: BoxShape.circle,
+          ),
+          selectedDecoration: const BoxDecoration(
+            color: ColorsTheme.accent,
+            shape: BoxShape.circle,
+          ),
+          weekNumberTextStyle: ThemeText.heading5,
+          weekendTextStyle: ThemeText.heading5,
+          outsideTextStyle: ThemeText.heading5,
+          todayTextStyle: ThemeText.heading5,
+          defaultTextStyle: ThemeText.heading5,
+          selectedTextStyle: ThemeText.heading5,
+        ),
+        headerVisible: false,
+        availableGestures: AvailableGestures.none,
+        calendarFormat: widget.jumlahRowCalendar == 43
+            ? CalendarFormat.month
+            : CalendarFormat.week,
+        selectedDayPredicate: (day) => isSameDay(day, selectedDate),
+        focusedDay: today,
+        firstDay: DateTime.utc(2010, 10, 16),
+        lastDay: DateTime.utc(2030, 3, 14),
+        onDaySelected: _onDaySelected,
       ),
-      headerVisible: false,
-      availableGestures: AvailableGestures.none,
-      calendarFormat: widget.jumlahRowCalendar == 43
-          ? CalendarFormat.month
-          : CalendarFormat.week,
-      selectedDayPredicate: (day) => isSameDay(day, selectedDate),
-      focusedDay: today,
-      firstDay: DateTime.utc(2010, 10, 16),
-      lastDay: DateTime.utc(2030, 3, 14),
-      onDaySelected: _onDaySelected,
     );
   }
 }

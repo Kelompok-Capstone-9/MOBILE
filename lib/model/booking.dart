@@ -39,6 +39,7 @@ class DataClass {
   List<ClassPackage> classPackages;
   Location location;
   ClassPackageMetadata metadata;
+  String isWaktu;
 
   DataClass({
     required this.id,
@@ -50,6 +51,7 @@ class DataClass {
     required this.classPackages,
     required this.location,
     required this.metadata,
+    required this.isWaktu,
   });
 
   factory DataClass.fromJson(Map<String, dynamic> json) => DataClass(
@@ -63,6 +65,7 @@ class DataClass {
             json["class_packages"].map((x) => ClassPackage.fromJson(x))),
         location: Location.fromJson(json["location"]),
         metadata: ClassPackageMetadata.fromJson(json["metadata"]),
+        isWaktu: json["is_waktu"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -76,6 +79,7 @@ class DataClass {
             List<dynamic>.from(classPackages.map((x) => x.toJson())),
         "location": location.toJson(),
         "metadata": metadata.toJson(),
+        "is_waktu": isWaktu,
       };
 }
 

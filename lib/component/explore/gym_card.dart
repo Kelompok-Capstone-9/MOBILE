@@ -14,7 +14,7 @@ import '../booking_detail/convert.dart';
 
 class GymCardList extends StatefulWidget {
   var statusPencarian;
-  
+
   GymCardList({
     Key? key,
     required this.gymData,
@@ -92,15 +92,15 @@ class _GymCardListState extends State<GymCardList> {
   Widget build(BuildContext context) {
     return Consumer<BookingProvider>(
       builder: (context, gymProv, child) {
-        print("kamu nanya ${widget.statusPencarian}");
+        print("kamu nanya ${gymProv.statusPencarian}");
         return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: widget.statusPencarian == ''
+            itemCount: gymProv.statusPencarian == ''
                 ? gymProv.allClass.length
                 : gymProv.searchResults.length,
             itemBuilder: (BuildContext context, int index) {
-              final gymDataItem = widget.statusPencarian == ''
+              final gymDataItem = gymProv.statusPencarian == ''
                   ? gymProv.allClass[index]
                   : gymProv.searchResults[index];
 

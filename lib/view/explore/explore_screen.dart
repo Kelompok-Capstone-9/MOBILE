@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/component/calendar.dart';
+import 'package:gofit_apps/component/filter_box.dart';
 import 'package:gofit_apps/model/gym.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -18,9 +19,12 @@ import '../../component/search/search_loc_screen.dart';
 class ExploreScreen extends StatefulWidget {
   var statusPencarian;
 
+  var statusPencarianLokasi;
+
   ExploreScreen({
     Key? key,
     this.statusPencarian = '',
+    this.statusPencarianLokasi = '',
   }) : super(key: key);
 
   @override
@@ -49,10 +53,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
     });
   }
 
-  String terceklist = '';
-  bool status = false;
-  int _selectedIndex = 6;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,186 +61,116 @@ class _ExploreScreenState extends State<ExploreScreen> {
           elevation: 0.8,
           title: Text('Explore', style: ThemeText.heading1),
           backgroundColor: ColorsTheme.bgScreen),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            decoration: const BoxDecoration(
-              color: ColorsTheme.bgScreen,
+      body: Consumer<BookingProvider>(
+        builder: (context, value, _) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              decoration: const BoxDecoration(
+                color: ColorsTheme.bgScreen,
+              ),
+              child: SearchSection(),
             ),
-            child: const SearchSection(),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 20,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.calendar_month_rounded,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 18),
-                        Text(
-                          _dateFormat.format(selectedDate),
-                          style: ThemeText.headingCalendar,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 23),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ColorsTheme.bgScreen,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 5,
-                            blurRadius: 12,
-                            offset: const Offset(0, 8),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 20,
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.calendar_month_rounded,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 18),
+                          Text(
+                            _dateFormat.format(selectedDate),
+                            style: ThemeText.headingCalendar,
                           ),
                         ],
                       ),
-                      child: Padding(
+                      const SizedBox(height: 23),
+                      Container(
+                        width: double.infinity,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
+                          horizontal: 16,
                           vertical: 10,
                         ),
-                        child: Column(
-                          children: [
-                            Consumer<BookingProvider>(
-                                builder: (context, value, child) =>
-                                    Calendar(jumlahRowCalendar: 0)),
-                            const Divider(
-                              color: ColorsTheme.divider,
+                        decoration: BoxDecoration(
+                          color: ColorsTheme.bgScreen,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 5,
+                              blurRadius: 12,
+                              offset: const Offset(0, 8),
                             ),
-                            const SizedBox(height: 12),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CalendarView(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Tampilkan lebih banyak',
-                                style: ThemeText.heading3.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
+                          ),
+                          child: Column(
+                            children: [
+                              Consumer<BookingProvider>(
+                                  builder: (context, value, child) =>
+                                      Calendar(jumlahRowCalendar: 0)),
+                              const Divider(
+                                color: ColorsTheme.divider,
                               ),
-                            )
+                              const SizedBox(height: 12),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CalendarView(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'Tampilkan lebih banyak',
+                                  style: ThemeText.heading3.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 23),
+                      SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FilterBox(),
                           ],
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 23),
-                    SizedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Wrap(
-                            alignment: WrapAlignment.spaceBetween,
-                            spacing: 12.0,
-                            children: List<Widget>.generate(
-                              timeSelect.length,
-                              (int index) {
-                                return ChoiceChip(
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                      side:
-                                          BorderSide(color: Color(0xffFF7F00)),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(12))),
-                                  label: SizedBox(
-                                    height: 42,
-                                    width: 80,
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          timeSelect[index]['icon'].toString(),
-                                          height: 16,
-                                        ),
-                                        SizedBox(width: 12),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                                timeSelect[index]['time']
-                                                    .toString(),
-                                                style: ThemeText
-                                                    .headingTimeCategory),
-                                            SizedBox(height: 5),
-                                            Text(
-                                                timeSelect[index]['clock']
-                                                    .toString(),
-                                                style: ThemeText
-                                                    .subheadingTimeCategory),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  selected: _selectedIndex == index,
-                                  selectedColor:
-                                      const Color(0xffFF7F00).withOpacity(.45),
-                                  onSelected: (bool selected) {
-                                    setState(
-                                      () {
-                                        if (selected) {
-                                          timeSelect[index]['status'] = true;
-                                          _selectedIndex =
-                                              (selected ? index : 5);
-                                          terceklist = timeSelect[index]['time']
-                                              .toString();
-                                          status = true;
-                                        } else if (!selected) {
-                                          timeSelect[index]['status'] = false;
-                                          _selectedIndex = 5;
-                                          terceklist = '';
-                                          status = false;
-
-                                          setState(() {});
-                                        }
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                            ).toList(),
-                          )
-                        ],
+                      const SizedBox(height: 16),
+                      GymCardList(
+                        gymData: gymData,
+                        statusPencarian: widget.statusPencarian,
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    GymCardList(
-                      gymData: gymData,
-                      statusPencarian: widget.statusPencarian,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -300,9 +230,7 @@ class DatePicker extends StatelessWidget {
 }
 
 class SearchSection extends StatefulWidget {
-  const SearchSection({
-    super.key,
-  });
+  SearchSection({super.key});
 
   @override
   State<SearchSection> createState() => _SearchSectionState();
@@ -322,13 +250,13 @@ class _SearchSectionState extends State<SearchSection> {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+      children: [
         GestureDetector(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SearchLocView(),
+                builder: (context) => SearchLocView(),
               ),
             );
           },
@@ -353,7 +281,9 @@ class _SearchSectionState extends State<SearchSection> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Enter your location',
+                  prov.statusPencarianLokasi == ""
+                      ? 'Enter your location'
+                      : prov.statusPencarianLokasi,
                   style: ThemeText.headingSearchBlack,
                 ),
               ],
@@ -393,7 +323,9 @@ class _SearchSectionState extends State<SearchSection> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  'Search gym or virtual training',
+                  prov.statusPencarian == ""
+                      ? 'Search gym or virtual training'
+                      : prov.statusPencarian,
                   style: ThemeText.headingSearchBlack,
                 ),
               ],
