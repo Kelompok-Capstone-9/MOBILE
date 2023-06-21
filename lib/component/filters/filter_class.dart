@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/booking_provider.dart';
 
 class ClassFilter extends StatefulWidget {
   const ClassFilter({

@@ -126,7 +126,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                             // online class
                                             Text(
                                               i.classType == 'offline'
-                                                  ? i.location.name
+                                                  ? i.location.name.toString()
                                                   : "Via Zoom",
                                               style: ThemeText.heading4,
                                             ),

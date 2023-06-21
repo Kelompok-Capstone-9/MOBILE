@@ -111,11 +111,11 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Open Gym',
+                                    widget.data!.name.toString(),
                                     style: ThemeText.heading2,
                                   ),
                                   Text(
-                                    widget.data!.location.name,
+                                    '${widget.data!.location.name.toString()}, ${widget.data!.location.address.toString()}',
                                     style: ThemeText.headingPaymentDescription,
                                   ),
                                   Text(

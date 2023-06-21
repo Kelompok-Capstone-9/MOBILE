@@ -6,15 +6,21 @@ import 'package:gofit_apps/component/calendar/calendar_screen.dart';
 import 'package:gofit_apps/component/explore/gym_card.dart';
 
 import 'package:gofit_apps/view/filter/filter_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gofit_apps/view_model/booking_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../component/search/search_gym_screen.dart';
 import '../../component/search/search_loc_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
+  var statusPencarian;
+
+  ExploreScreen({
+    Key? key,
+    this.statusPencarian = '',
+  }) : super(key: key);
 
   @override
   State<ExploreScreen> createState() => _ExploreScreenState();
@@ -250,7 +256,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    GymCardList(gymData: gymData),
+                    GymCardList(
+                      gymData: gymData,
+                      statusPencarian: widget.statusPencarian,
+                    ),
                   ],
                 ),
               ),
@@ -315,13 +324,27 @@ class DatePicker extends StatelessWidget {
   }
 }
 
-class SearchSection extends StatelessWidget {
+class SearchSection extends StatefulWidget {
   const SearchSection({
     super.key,
   });
 
   @override
+  State<SearchSection> createState() => _SearchSectionState();
+}
+
+class _SearchSectionState extends State<SearchSection> {
+  // @override
+  // void dispose() {
+  //   searchController.dispose();
+  //   super.dispose();
+  // }
+
+  @override
   Widget build(BuildContext context) {
+    final prov = Provider.of<BookingProvider>(context, listen: false);
+    final TextEditingController searchController = TextEditingController();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -365,10 +388,13 @@ class SearchSection extends StatelessWidget {
         const SizedBox(height: 16),
         GestureDetector(
           onTap: () {
+            final prov = Provider.of<BookingProvider>(context, listen: false);
+
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SearchGymView(),
+                builder: (context) =>
+                    SearchGymView(searchByName: searchController, prov: prov),
               ),
             );
           },

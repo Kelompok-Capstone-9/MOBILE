@@ -35,9 +35,11 @@ dependencies:
   flutter_animate: ^4.1.1+1
   flutter_countdown_timer: ^4.1.0
   font_awesome_flutter: ^10.4.0
+  geolocator: ^9.0.2
   google_fonts: ^4.0.4
   hovering: ^1.0.4
   http: ^1.0.0
+  intl: ^0.18.1
   pinput: ^2.2.31
   provider: ^6.0.5
   readmore: ^2.2.0
@@ -47,11 +49,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   table_calendar: ^3.0.9
   toggle_switch: ^2.1.0
-  intl: ^0.18.1
 
-  # open_file: ^3.2.1
-  # file_picker: ^4.3.3
-  
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
