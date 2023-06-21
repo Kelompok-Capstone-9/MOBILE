@@ -9,8 +9,8 @@ void main() {
         home: Artikel(),
       ));
 
-      Finder textArticles = find.text("ARTICLES");
-      expect(textArticles, findsOneWidget);
+      Finder textArticles = find.byType(Text);
+      expect(textArticles, findsNWidgets(4));
     });
   });
 }
