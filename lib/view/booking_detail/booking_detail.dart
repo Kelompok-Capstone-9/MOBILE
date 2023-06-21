@@ -90,8 +90,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Mr. Jhons',
-                                        style: ThemeText.heading2),
+                                    Text(i.name, style: ThemeText.heading2),
                                     const SizedBox(
                                       height: 4,
                                     ),

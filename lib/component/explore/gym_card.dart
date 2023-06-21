@@ -206,7 +206,11 @@ class _GymCardListState extends State<GymCardList> {
                               // "jarak ${gymDataItem.location.latitude} ${gymDataItem.location.name}",
                               // " ${gymDataItem.location.convertJarak.toString()}",
                               // "2 Km",
-                              '${gymDataItem.location.distance!.toStringAsFixed(2).toString() ?? ""} km',
+
+                              gymDataItem.classType == "online"
+                                  ? "Zoom, Google Meet"
+                                  : '${gymDataItem.location.distance!.toStringAsFixed(1).toString()} km',
+
                               style: ThemeText.heading4.copyWith(
                                   color: const Color.fromARGB(255, 0, 0, 0),
                                   overflow: TextOverflow.clip),
