@@ -1,16 +1,13 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/login/login_screen.dart';
 import 'package:gofit_apps/component/register/decoration_form.dart';
 import 'package:gofit_apps/component/register/validator_register.dart';
-import 'package:gofit_apps/view/register/screens/gender_screen.dart';
 import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import 'screens/otp_regist_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -28,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isFormFilled = false;
   bool hidePw = false;
   bool hideConfirmPw = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,30 +169,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? const Color(0xffFF7F00)
                         : const Color(0xffDFDFDF),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     final isValidForm = formKey.currentState!.validate();
+                    final registerProvider =
+                        Provider.of<RegisterProvider>(context, listen: false);
+                    String otp = registerProvider.generateOTP();
+                    await registerProvider.saveOTPToSharedPreferences(otp);
+                    print('Kode OTP: $otp');
+                    registerProvider.sendOTPByEmail(_emailController.text, otp);
                     if (isValidForm) {
                       var name = _nameController.text;
                       var email = _emailController.text;
                       var password = _passwordController.text;
 
-                      final prov =
-                          Provider.of<RegisterProvider>(context, listen: false)
-                              .getDataUser(
-                                  name: Data(name: name),
-                                  email: Data(email: email),
-                                  password: Data(password: password));
-
-                      //  tahan dulu ini bug kata QA
-                      //  Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => ChooseGenderScreen()),
-                      //   );
+                      // ignore: use_build_context_synchronously
+                      Provider.of<RegisterProvider>(context, listen: false)
+                          .getDataUser(
+                              name: Data(name: name),
+                              email: Data(email: email),
+                              password: Data(password: password));
+                      // ignore: use_build_context_synchronously
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => OTPRegistScreen()),
+                          builder: (context) => OTPRegistScreen(
+                            email: email,
+                          ),
+                        ),
                       );
                     }
                   },
@@ -226,11 +227,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      log('masuk ke halaman sign in email');
+                      log('masuk ke halaman login');
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const FormLogin()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FormLogin(),
+                        ),
+                      );
                     },
                     child: Text(
                       'Login',

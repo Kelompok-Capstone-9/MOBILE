@@ -1,16 +1,17 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/index.dart';
-
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-
+import 'package:provider/provider.dart';
+import '../../../component/time_widget.dart';
+import '../../../view_model/register_provider.dart';
 import 'gender_screen.dart';
 
 class OTPRegistScreen extends StatefulWidget {
-  const OTPRegistScreen({Key? key}) : super(key: key);
+  final String email;
+  const OTPRegistScreen({super.key, required this.email});
+
   @override
   State<OTPRegistScreen> createState() => _OTPRegistScreenState();
 }
@@ -21,12 +22,29 @@ final focusNode = FocusNode();
 bool isOTPFilled = false;
 
 class _OTPRegistScreenState extends State<OTPRegistScreen> {
-  // @override
-  // void dispose() {
-  //   pinController.dispose();
-  //   focusNode.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    pinController.dispose();
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 5), () {
+      _loadOTPFromSharedPreferences();
+    });
+  }
+
+  Future<void> _loadOTPFromSharedPreferences() async {
+    final registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+    String? otp = await registerProvider.getOTPFromSharedPreferences();
+    if (otp != null) {
+      pinController.text = otp;
+    }
+  }
 
   Widget build(BuildContext context) {
     const focusedBorderColor = Color(0xffFF7F00);
@@ -82,7 +100,7 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'email@gmail.com',
+                      widget.email,
                       style: ThemeText.headingSub3,
                     ),
                   ),
@@ -121,7 +139,18 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final registerProvider =
+                          Provider.of<RegisterProvider>(context, listen: false);
+                      pinController.clear();
+                      String otp = registerProvider.generateOTP();
+                      await registerProvider.saveOTPToSharedPreferences(otp);
+                      Future.delayed(const Duration(seconds: 5), () {
+                        _loadOTPFromSharedPreferences();
+                      });
+                      print('Kode OTP: $otp');
+                      setState(() {});
+                    },
                     child: Text('Resend', style: ThemeText.headingText),
                   ),
                 ],
@@ -129,12 +158,12 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
               const SizedBox(height: 44),
               GestureDetector(
                 onTap: () {
-                  log('selesai memilih payment method');
+                  log('selesai verifikasi');
                   // kirim data ketika selesai memilih
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChooseGenderScreen()),
+                        builder: (context) => const ChooseGenderScreen()),
                   );
                 },
                 child: Container(
@@ -231,34 +260,8 @@ class _OTPRegistScreenState extends State<OTPRegistScreen> {
             ],
           ),
         ),
-        const SizedBox(
-          width: 5,
-        ),
-        CountdownTimer(
-          endTime: DateTime.now().millisecondsSinceEpoch + (10 * 60 * 1000),
-          onEnd: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text(
-                'Time Out',
-                style: ThemeText.headingInput,
-              )),
-            );
-          },
-          widgetBuilder: (_, CurrentRemainingTime? time) {
-            if (time == null) {
-              return const Text('00:00');
-            }
-            int remainingTime =
-                (time.min ?? 0).toInt() * 60 + (time.sec ?? 0).toInt();
-            final minutes =
-                ((remainingTime - 1) ~/ 60).toString().padLeft(2, '0');
-            final seconds =
-                ((remainingTime - 1) % 60).toString().padLeft(2, '0');
-            final timeFormat = '$minutes:$seconds';
-            return Text(timeFormat);
-          },
-        ),
+        const SizedBox(width: 5),
+        TimeWidget(waktu: '300', typeWaktu: 2, styleText: ThemeText.heading3)
       ],
     );
   }
