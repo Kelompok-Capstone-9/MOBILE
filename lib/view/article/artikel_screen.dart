@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view_model/artikel_provider.dart';
 import 'package:gofit_apps/view_model/newsLetter_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -23,13 +24,12 @@ class _ArtikelState extends State<Artikel> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<NewsLetterProvider>(context, listen: false)
-            .fetchNewsLetter());
+        Provider.of<ArtikelProvider>(context, listen: false).fetchArtikel());
   }
 
   @override
   Widget build(BuildContext context) {
-    final newsProv = Provider.of<NewsLetterProvider>(context);
+    final newsProv = Provider.of<ArtikelProvider>(context);
 
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -103,13 +103,13 @@ class _ArtikelState extends State<Artikel> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => HealtyTips(
-                                            desc: newsletter.descArtikel
-                                                .toString(),
-                                            imgurl:
-                                                newsletter.imageUrl.toString(),
-                                            judulDesc: newsletter.judulArtikel
-                                                .toString()),
+                                        builder: (context) => HealthTips(
+                                            title:
+                                                newsletter.articles.toString(),
+                                            content:
+                                                newsletter.articles.toString(),
+                                            urlToImage:
+                                                newsletter.articles.toString()),
                                       ),
                                     );
                                   },
@@ -120,7 +120,7 @@ class _ArtikelState extends State<Artikel> {
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
-                                          newsletter.imageUrl.toString(),
+                                          newsletter.articles.toString(),
                                         ),
                                       ),
                                     ),
@@ -134,7 +134,7 @@ class _ArtikelState extends State<Artikel> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              newsletter.category.toString(),
+                                              newsletter.articles.toString(),
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.white,

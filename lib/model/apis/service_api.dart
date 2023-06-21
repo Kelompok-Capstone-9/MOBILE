@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/plan_member.dart';
+import 'package:gofit_apps/model/public_api.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/model/news_letter.dart';
 import 'dart:developer';
@@ -21,6 +22,8 @@ class ApiGym {
       'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
   static const String apiNews =
       'https://648cad3e8620b8bae7ed3c9b.mockapi.io/health_tips';
+  static const String publicApi =
+      'https://newsapi.org/v2/everything?q=keyword&apiKey=c4a45e8b76304492a97dc41b3a601c20';
 
   static const String bookingDetail = 'classes';
 
@@ -205,6 +208,25 @@ class ApiGym {
         final artikel = json.decode(response.body);
         return artikel
             .map<NewsLetter>((artikel) => NewsLetter.fromJson(artikel))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch news letters.');
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
+
+  Future<List<PublicApi>> getArtikel() async {
+    final url = Uri.parse(publicApi);
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final artikel = json.decode(response.body);
+        return artikel
+            .map<PublicApi>((artikel) => PublicApi.fromJson(artikel))
             .toList();
       } else {
         throw Exception('Failed to fetch news letters.');

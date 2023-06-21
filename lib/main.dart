@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view/article/artikel_screen.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
 import 'package:gofit_apps/view/training/beginner_screen.dart';
 import 'package:gofit_apps/view/training/training_kategori.dart';
 import 'package:gofit_apps/view/training/training_screen.dart';
+import 'package:gofit_apps/view_model/artikel_provider.dart';
 import 'package:gofit_apps/view_model/booking_provider.dart';
 import 'package:gofit_apps/view_model/dashboard_provider.dart';
 import 'package:gofit_apps/view_model/forgot_provider.dart';
@@ -41,9 +43,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NewsLetterProvider()),
         ChangeNotifierProvider(create: (_) => PlanProvider()),
         ChangeNotifierProvider(create: (_) => ForgotPasswordProvider()),
+        ChangeNotifierProvider(create: (_) => ArtikelProvider()),
       ],
-      child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: SplashScreen()),
+      child:
+          const MaterialApp(debugShowCheckedModeBanner: false, home: Artikel()),
     );
   }
 }
