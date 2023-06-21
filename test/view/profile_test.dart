@@ -20,7 +20,7 @@ void main() {
       expect(nameField, findsNWidgets(12));
     });
 
-    testWidgets('Test icon', (WidgetTester tester) async {
+    testWidgets('Test icon button profil', (WidgetTester tester) async {
       await tester.pumpWidget(
         ChangeNotifierProvider(
           create: (_) => LoginProvider(),
@@ -29,8 +29,8 @@ void main() {
           ),
         ),
       );
-      Finder icon = find.byType(Icon);
-      expect(icon, findsNWidgets(3));
+      Finder icon = find.byType(IconButton);
+      expect(icon, findsNWidgets(2));
     });
 
     testWidgets('Test button logout', (WidgetTester tester) async {
@@ -108,12 +108,12 @@ void main() {
         ChangeNotifierProvider(
           create: (_) => LoginProvider(),
           child: const MaterialApp(
-            home: ProfileScreen(),
+            home: PersonalDetailsScreen(),
           ),
         ),
       );
       Finder icon = find.byType(IconButton);
-      expect(icon, findsNWidgets(2));
+      expect(icon, findsNWidgets(7));
     });
   });
 }
