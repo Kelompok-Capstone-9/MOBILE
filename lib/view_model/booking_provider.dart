@@ -193,7 +193,7 @@ class BookingProvider extends ChangeNotifier {
 
     notifyListeners();
     print('ini lenght ${searchResults.length}');
-    for (var element in searchResults) {  
+    for (var element in searchResults) {
       print(
           'kamu nyari ${element.name.toString()} \n ada di ${element.location.city.toString()}');
     }
@@ -223,9 +223,7 @@ class BookingProvider extends ChangeNotifier {
     return degree * (pi / 180);
   }
 
-  void searchByBoxChips(
-    String query,
-  ) {
+  void searchByBoxChips(String query) {
     print("mencari $query");
     List<DataClass> results = _alClass
         .where((dataClass) =>

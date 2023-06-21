@@ -148,6 +148,7 @@ class _GymCardListState extends State<GymCardList> {
               String pricesText = prices.join(', ');
               print(
                   'lokasi anda saat ini ${gymDataItem.location.distance.toString()}');
+
               return Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(vertical: 8),
@@ -257,7 +258,9 @@ class _GymCardListState extends State<GymCardList> {
                 ),
               );
             });
+            
       },
+      
     );
   }
 }
