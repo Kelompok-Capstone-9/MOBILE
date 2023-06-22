@@ -217,21 +217,20 @@ class ApiGym {
     }
   }
 
-  Future<List<PublicApi>> getArtikel() async {
+  Future<List<Article>> getArtikel() async {
     final url = Uri.parse(publicApi);
 
     try {
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        final artikel = json.decode(response.body);
-        return artikel
-            .map<PublicApi>((artikel) => PublicApi.fromJson(artikel))
-            .toList();
+        final data = fromJson(response.body);
+        return data.articles;
       } else {
         throw Exception('Failed to fetch news letters.');
       }
     } catch (e) {
+      print(e);
       throw Exception('Failed to connect to the server.');
     }
   }

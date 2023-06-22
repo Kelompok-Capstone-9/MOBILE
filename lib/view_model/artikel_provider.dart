@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:gofit_apps/model/news_letter.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
 import 'package:gofit_apps/model/public_api.dart';
 
 class ArtikelProvider extends ChangeNotifier {
   final ApiGym apiNews = ApiGym();
-  List<PublicApi> _artikel = [];
-  List<PublicApi> get artikel => _artikel;
+  List<Article> _artikel = [];
+  List<Article> get artikel => _artikel;
   bool isLoading = false;
   String error = '';
 
@@ -18,10 +17,10 @@ class ArtikelProvider extends ChangeNotifier {
       _artikel = await apiNews.getArtikel();
       // isLoading = false;
       error = '';
-      print(_artikel.length);
-      for (var element in _artikel) {
-        print(element.articles);
-      }
+      // print(_artikel.length);
+      // for (var element in _artikel) {
+      //   print(element.title);
+      // }
       notifyListeners();
     } catch (e) {
       error = 'Failed to fetch news letters.';

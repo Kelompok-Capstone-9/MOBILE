@@ -1,8 +1,8 @@
-// To parse this JSON data, do
-//
-//     final publicApi = publicApiFromJson(jsonString);
-
 import 'dart:convert';
+
+PublicApi fromJson(String str) => PublicApi.fromJson(json.decode(str));
+
+String toJson(PublicApi data) => json.encode(data.toJson());
 
 class PublicApi {
   String status;
@@ -14,11 +14,6 @@ class PublicApi {
     required this.totalResults,
     required this.articles,
   });
-
-  factory PublicApi.fromRawJson(String str) =>
-      PublicApi.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory PublicApi.fromJson(Map<String, dynamic> json) => PublicApi(
         status: json["status"],
@@ -38,7 +33,7 @@ class Article {
   Source source;
   String? author;
   String title;
-
+  String description;
   String url;
   String? urlToImage;
   DateTime publishedAt;
@@ -48,20 +43,18 @@ class Article {
     required this.source,
     this.author,
     required this.title,
+    required this.description,
     required this.url,
     this.urlToImage,
     required this.publishedAt,
     required this.content,
   });
 
-  factory Article.fromRawJson(String str) => Article.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),
         author: json["author"],
         title: json["title"],
+        description: json["description"],
         url: json["url"],
         urlToImage: json["urlToImage"],
         publishedAt: DateTime.parse(json["publishedAt"]),
@@ -72,6 +65,7 @@ class Article {
         "source": source.toJson(),
         "author": author,
         "title": title,
+        "description": description,
         "url": url,
         "urlToImage": urlToImage,
         "publishedAt": publishedAt.toIso8601String(),
@@ -87,10 +81,6 @@ class Source {
     this.id,
     required this.name,
   });
-
-  factory Source.fromRawJson(String str) => Source.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory Source.fromJson(Map<String, dynamic> json) => Source(
         id: json["id"],

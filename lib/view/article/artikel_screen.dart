@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view_model/artikel_provider.dart';
-import 'package:gofit_apps/view_model/newsLetter_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/color_style.dart';
@@ -30,7 +29,6 @@ class _ArtikelState extends State<Artikel> {
   @override
   Widget build(BuildContext context) {
     final newsProv = Provider.of<ArtikelProvider>(context);
-
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -99,17 +97,15 @@ class _ArtikelState extends State<Artikel> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    log('kehalaman detail');
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => HealthTips(
-                                            title:
-                                                newsletter.articles.toString(),
+                                            title: newsletter.title.toString(),
                                             content:
-                                                newsletter.articles.toString(),
-                                            urlToImage:
-                                                newsletter.articles.toString()),
+                                                newsletter.content.toString(),
+                                            urlToImage: newsletter.urlToImage
+                                                .toString()),
                                       ),
                                     );
                                   },
@@ -120,7 +116,7 @@ class _ArtikelState extends State<Artikel> {
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
-                                          newsletter.articles.toString(),
+                                          newsletter.urlToImage.toString(),
                                         ),
                                       ),
                                     ),
@@ -134,7 +130,7 @@ class _ArtikelState extends State<Artikel> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              newsletter.articles.toString(),
+                                              newsletter.source.name,
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.white,
