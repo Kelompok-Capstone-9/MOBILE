@@ -62,7 +62,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           title: Text('Explore', style: ThemeText.heading1),
           backgroundColor: ColorsTheme.bgScreen),
       body: Consumer<BookingProvider>(
-        builder: (context, value, _) => Column(
+        builder: (context, gympProvider, _) => Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
@@ -164,6 +164,42 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         gymData: gymData,
                         statusPencarian: widget.statusPencarian,
                       ),
+
+                      // print("kosong");
+
+                      SizedBox(height: 45),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          if (gympProvider.searchResults.length == 0 ||
+                              gympProvider.filteredWaktu == 0 ||
+                              gympProvider.allClass == 0)
+                            SizedBox(
+                                width: 130,
+                                // height: 180,
+                                child: Image.asset(
+                                  'assets/images/not-found.png',
+                                  fit: BoxFit.contain,
+                                )),
+                          if (gympProvider.searchResults.length == 0 ||
+                              gympProvider.filteredWaktu == 0 ||
+                              gympProvider.allClass == 0)
+                            Text(
+                              "Search not found ",
+                              style: ThemeText.heading4.copyWith(
+                                  fontWeight: FontWeight.w600, height: 0),
+                            ),
+                          if (gympProvider.searchResults.length == 0 ||
+                              gympProvider.filteredWaktu == 0 ||
+                              gympProvider.allClass == 0)
+                            Center(
+                                child: Text("Please try another search term",
+                                    style: ThemeText.heading4.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 10,
+                                        color: Color(0xff919191))))
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -176,7 +212,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const FilterView()),
+            MaterialPageRoute(builder: (context) => FilterView()),
           );
         },
         label: const Text('Filter'),

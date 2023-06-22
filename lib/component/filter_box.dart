@@ -78,6 +78,8 @@ class _FilterBoxState extends State<FilterBox> {
                     _onSelectedWaktu(a);
                   } else if (!selected) {
                     timeSelect[index]['status'] = false;
+                    _onSelectedWaktu("");
+
                     _selectedIndex = 5;
                     terceklist = '';
                     status = false;

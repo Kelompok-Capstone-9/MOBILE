@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:math' show asin, atan2, cos, pi, pow, sin, sqrt;
+import 'dart:math' show asin, atan2, cos, min, pi, pow, sin, sqrt;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -111,18 +111,44 @@ class BookingProvider extends ChangeNotifier {
         } else {
           periode = "malam";
         }
+        List<ClassPackage> updatedClassPackages =
+            dataClass.classPackages.map((package) {
+          return ClassPackage(
+            id: package.id,
+            period: package.period,
+            price: package.price,
+            classId: package.classId,
+            status: "false",
+            metadata: package.metadata,
+          );
+        }).toList();
+
+        int minPrice = updatedClassPackages.isNotEmpty
+            ? updatedClassPackages.first.price ?? 0
+            : 0;
+        int maxPrice = updatedClassPackages.isNotEmpty
+            ? updatedClassPackages.first.price ?? 0
+            : 0;
+
+        for (var package in updatedClassPackages) {
+          int price = package.price ?? 0;
+          minPrice = price < minPrice ? price : minPrice;
+          maxPrice = price > maxPrice ? price : maxPrice;
+        }
 
         return DataClass(
-            name: dataClass.name,
-            classType: dataClass.classType,
-            startedAt: dataClass.startedAt,
-            isWaktu: periode,
-            classPackages: dataClass.classPackages,
-            description: dataClass.description,
-            id: dataClass.id,
-            link: dataClass.link,
-            location: dataClass.location,
-            metadata: dataClass.metadata);
+          name: dataClass.name,
+          classType: dataClass.classType,
+          startedAt: dataClass.startedAt,
+          isWaktu: periode,
+          classPackages: dataClass.classPackages,
+          description: dataClass.description,
+          id: dataClass.id,
+          link: dataClass.link,
+          location: dataClass.location,
+          metadata: dataClass.metadata,
+          priceRange: maxPrice - minPrice,
+        );
       }).toList();
       print("is length pencarian : ${searchResults.length}");
       print("is length allclass : ${allClass.length}");
@@ -138,7 +164,8 @@ class BookingProvider extends ChangeNotifier {
       }).toList();
       notifyListeners();
       for (var element in allClass) {
-        print('this name: ${element.name}, isWaktu: ${element.isWaktu}');
+        print(
+            'this name: ${element.name}, isWaktu: ${element.isWaktu} ihRange: ${element.priceRange}');
       }
       print(allClass.length);
       for (var element in allClass) {
@@ -193,7 +220,7 @@ class BookingProvider extends ChangeNotifier {
 
     notifyListeners();
     print('ini lenght ${searchResults.length}');
-    for (var element in searchResults) {  
+    for (var element in searchResults) {
       print(
           'kamu nyari ${element.name.toString()} \n ada di ${element.location.city.toString()}');
     }
@@ -223,9 +250,7 @@ class BookingProvider extends ChangeNotifier {
     return degree * (pi / 180);
   }
 
-  void searchByBoxChips(
-    String query,
-  ) {
+  void searchByBoxChips(String query) {
     print("mencari $query");
     List<DataClass> results = _alClass
         .where((dataClass) =>
@@ -237,6 +262,68 @@ class BookingProvider extends ChangeNotifier {
     for (var element in searchResults) {
       print(
           'kamu mencari clas ${element.name.toString()} dengan waktu  ${element.isWaktu.toString()} ');
+    }
+  }
+
+  // filter page
+
+  List<DataClass> searchByPriceRange(minPrice, maxPrice) {
+    //
+    var hasilKurang = maxPrice - minPrice;
+    print('adalah $hasilKurang');
+
+    print("Kelas dalam rentang harga $minPrice - $maxPrice:");
+
+    searchResults = allClass
+        .where((dataClass) =>
+            dataClass.priceRange <= hasilKurang ||
+            dataClass.priceRange == hasilKurang ||
+            dataClass.classPackages[0].price! == hasilKurang ||
+            dataClass.classPackages[1].price! == hasilKurang ||
+            dataClass.classPackages[2].price! == hasilKurang ||
+            dataClass.classPackages[0].price! == minPrice ||
+            dataClass.classPackages[1].price! == minPrice ||
+            dataClass.classPackages[2].price! == minPrice)
+        .toList();
+    for (var dataClass in searchResults) {
+      print('Kelas: ${dataClass.name}, Price Range: ${dataClass.priceRange}');
+    }
+    return searchResults;
+
+//
+  }
+
+  void searchChip(String query) {
+    print("mencari $query");
+    if (query != "All") {
+      List<DataClass> results = _alClass
+          .where((dataClass) =>
+              (dataClass.classType.toString().contains(query.toLowerCase()) ||
+                  dataClass.location.city.toString().contains(query)))
+          .toList();
+      searchResults = results;
+      // statusPencarian = query;
+      notifyListeners();
+      for (var element in searchResults) {
+        print(
+            'kamu mencari clas ${element.name.toString()} dengan waktu  ${element.isWaktu.toString()} ');
+      }
+    } else {
+      List<DataClass> onlineResults = _alClass
+          .where((dataClass) => dataClass.classType.toLowerCase() == "online")
+          .toList();
+
+      List<DataClass> offlineResults = _alClass
+          .where((dataClass) => dataClass.classType.toLowerCase() == "offline")
+          .toList();
+
+      searchResults = [...onlineResults, ...offlineResults];
+      notifyListeners();
+
+      for (var element in searchResults) {
+        print(
+            'kamu mencari clas ${element.name.toString()} dengan waktu  ${element.isWaktu.toString()}');
+      }
     }
   }
 }

@@ -25,6 +25,9 @@ class _ClassFilterState extends State<ClassFilter> {
       onTap: () {
         setState(() {
           _isTapped = !_isTapped;
+          // print(widget.classtype);
+          Provider.of<BookingProvider>(context, listen: false)
+              .searchChip(widget.classtype.toString());
         });
       },
       child: Container(
