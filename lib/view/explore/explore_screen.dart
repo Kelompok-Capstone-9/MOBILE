@@ -167,7 +167,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
                       // print("kosong");
 
-                      SizedBox(height: 50),
+                      SizedBox(height: 45),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -175,7 +175,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               gympProvider.filteredWaktu == 0 ||
                               gympProvider.allClass == 0)
                             SizedBox(
-                                width: 150,
+                                width: 130,
                                 // height: 180,
                                 child: Image.asset(
                                   'assets/images/not-found.png',
@@ -186,8 +186,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               gympProvider.allClass == 0)
                             Text(
                               "Search not found ",
-                              style: ThemeText.heading4
-                                  .copyWith(fontWeight: FontWeight.w600),
+                              style: ThemeText.heading4.copyWith(
+                                  fontWeight: FontWeight.w600, height: 0),
                             ),
                           if (gympProvider.searchResults.length == 0 ||
                               gympProvider.filteredWaktu == 0 ||
@@ -212,7 +212,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const FilterView()),
+            MaterialPageRoute(builder: (context) => FilterView()),
           );
         },
         label: const Text('Filter'),
