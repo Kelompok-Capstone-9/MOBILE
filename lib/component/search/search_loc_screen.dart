@@ -73,7 +73,7 @@ class _SearchLocViewState extends State<SearchLocView> {
                     style: ThemeText.headingLocation,
                     decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                        floatingLabelStyle: ThemeText.headingSearchBlack,
+                        floatingLabelStyle: ThemeText.headingSearchBig,
                         border: InputBorder.none,
                         hintStyle: ThemeText.headingSearchBig,
                         prefixIcon: const Icon(
@@ -128,11 +128,18 @@ class _SearchLocViewState extends State<SearchLocView> {
                                   },
                                   child: ListTile(
                                     minLeadingWidth: 2,
-                                    leading: Icon(Icons.info),
+                                    leading: CircleAvatar(
+                                      backgroundColor: const Color(0xffD9D9D9),
+                                      child: Icon(
+                                        Icons.maps_home_work_outlined,
+                                        color: ColorsTheme.colorButton,
+                                        size: 14,
+                                      ),
+                                    ),
                                     title:
-                                        Text(data.location.address.toString()),
+                                        Text(data.location.address.toString(), style: ThemeText.heading3,),
                                     subtitle:
-                                        Text(data.location.city.toString()),
+                                        Text(data.location.city.toString(), style: ThemeText.headingPaymentDescription),
                                   ),
                                 );
                               },

@@ -11,7 +11,7 @@ List<Map<String, dynamic>> timeSelect = [
   {
     'icon': 'assets/icons/sun.png',
     'time': 'Siang',
-    'clock': '12AM - 5PM',
+    'clock': '12PM - 5PM',
     'status': false,
   },
   {

@@ -59,7 +59,6 @@ class _SearchGymViewState extends State<SearchGymView> {
                 ),
                 child: Center(
                   child: TextField(
-                    
                     controller: searchController,
                     onChanged: (value) {
                       // widget.searchByName(value);
@@ -75,7 +74,7 @@ class _SearchGymViewState extends State<SearchGymView> {
                     style: ThemeText.headingLocation,
                     decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                        floatingLabelStyle: ThemeText.headingSearchBlack,
+                        floatingLabelStyle: ThemeText.headingSearchBig,
                         border: InputBorder.none,
                         hintStyle: ThemeText.headingSearchBig,
                         prefixIcon: const Icon(
@@ -132,9 +131,20 @@ class _SearchGymViewState extends State<SearchGymView> {
                                   },
                                   child: ListTile(
                                     minLeadingWidth: 2,
-                                    leading: Icon(Icons.search),
-                                    title: Text(data.name),
-                                    subtitle: Text(data.classType),
+                                    leading: const CircleAvatar(
+                                      backgroundColor: Color(0xffD9D9D9),
+                                      child: Icon(
+                                        Icons.search,
+                                        color: Colors.black,
+                                        size: 14,
+                                      ),
+                                    ),
+                                    title: Text(
+                                      data.name,
+                                      style: ThemeText.headingAmountPaid,
+                                    ),
+                                    subtitle: Text(data.classType,
+                                        style: ThemeText.headingImage),
                                   ),
                                 );
                               },

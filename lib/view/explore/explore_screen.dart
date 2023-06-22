@@ -284,7 +284,9 @@ class _SearchSectionState extends State<SearchSection> {
                   prov.statusPencarianLokasi == ""
                       ? 'Enter your location'
                       : prov.statusPencarianLokasi,
-                  style: ThemeText.headingSearchBlack,
+                  style: prov.statusPencarianLokasi == ""
+                      ? ThemeText.headingSearchBig
+                      : ThemeText.headingLocation,
                 ),
               ],
             ),
@@ -326,7 +328,9 @@ class _SearchSectionState extends State<SearchSection> {
                   prov.statusPencarian == ""
                       ? 'Search gym or virtual training'
                       : prov.statusPencarian,
-                  style: ThemeText.headingSearchBlack,
+                  style: prov.statusPencarian == ""
+                      ? ThemeText.headingSearchBig
+                      : ThemeText.headingLocation,
                 ),
               ],
             ),
