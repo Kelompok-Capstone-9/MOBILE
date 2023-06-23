@@ -26,6 +26,7 @@ class ApiGym {
       'https://newsapi.org/v2/everything?q=keyword&apiKey=c4a45e8b76304492a97dc41b3a601c20';
 
   static const String bookingDetail = 'classes';
+  static const String payEP = 'transactions/pay/';
 
   /*  "email" : "mobile@email.com",
      "password" : "Mobile9_"
@@ -64,9 +65,8 @@ class ApiGym {
     print(response.statusCode);
 
     if (response.statusCode == 201) {
-      print("success daftar plan id $idPlan");
-      // var responData = response.statusCode == 201;
-      return response.statusCode;
+      Map<String, dynamic> responseData = json.decode(response.body);
+      return responseData;
     } else {
       print(response.statusCode);
       throw "Can't add plan";
@@ -291,6 +291,52 @@ class ApiGym {
           .toList();
     } else {
       throw Exception('Failed to load plans');
+    }
+  }
+
+  // transaksi
+
+  static Future<Map<String, dynamic>> getPlanById(
+      {int? id, String? token}) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/plans/$id'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = json.decode(response.body);
+      print(response.body);
+      return responseData;
+    } else {
+      print(response.statusCode);
+      throw "Can't get plandata";
+    }
+  }
+
+  static Future<dynamic> payPlan(urlLinktoBookingPlan, token) async {
+    final dataCard = {
+      "payment_method": {"name": "credit_card"},
+      "credit_card": {
+        "number": "4811 1111 1111 1114",
+        "expire_month": 2,
+        "expire_year": 2025,
+        "cvv": "123"
+      }
+    };
+    final response = await http.post(
+      Uri.parse('$baseUrl$urlLinktoBookingPlan'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(dataCard),
+    );
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+      print("sukses Pay $urlLinktoBookingPlan");
+      return response.statusCode;
+    } else {
+      print(response.statusCode);
+      throw "Can't pay the $urlLinktoBookingPlan";
     }
   }
 }

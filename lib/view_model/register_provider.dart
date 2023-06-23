@@ -1,7 +1,11 @@
+import 'dart:developer';
 import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
+import 'package:gofit_apps/model/memberships_models.dart';
 import 'package:gofit_apps/model/register.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/plan.dart';
@@ -42,7 +46,11 @@ class RegisterProvider extends ChangeNotifier {
 
   List<PlanData> get planList => _planList;
   ApiGym _apiService = ApiGym();
-
+  PlanData? _dataPlan;
+  PlanData? get dataPlan => _dataPlan;
+  String getLinkPay = '';
+  // single pay
+  String transactionInfo = '';
   bool isLoading = false;
   String error = '';
   void getDataUser({Data? name, Data? email, Data? password}) {
@@ -116,20 +124,6 @@ class RegisterProvider extends ChangeNotifier {
     hati hati dan semangat */
   }
 
-// join member (plan)
-  Future<void> joinMember(int idPlan, context) async {
-    try {
-      print(token);
-      final result = await ApiGym.joinMembership(idPlan: idPlan, token: _token);
-      statusCode = result;
-
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
-    print(statusCode.toString());
-  }
-
   Future<void> fetchDataPlanJoin() async {
     try {
       _planList = await _apiService.getAllPlansJoin();
@@ -138,6 +132,54 @@ class RegisterProvider extends ChangeNotifier {
     } catch (error) {
       rethrow;
     }
+    notifyListeners();
+  }
+
+  // join member (plan)
+  Future<void> joinMember({int? idPlan, context}) async {
+    try {
+      print(token);
+      final result = await ApiGym.joinMembership(idPlan: idPlan, token: _token);
+      statusCode = result['metadata']['status_code'];
+      print("status kode saat ini adalah $statusCode");
+
+      print("Transaction Code: $statusCode");
+      // print(transactionInfo);
+
+      notifyListeners();
+
+      if (statusCode == 201) {
+        // setLink = result['transaction_info']['transaction_code'];
+        getLinkPay = result['transaction_info']['transaction_link'];
+        print("Transaction Link: $getLinkPay");
+        // print("ini linknya $setLink");
+        // final res = await ApiGym.payPlan(setLink, token);
+        // /transactions/pay/TM52
+      } else {}
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+    print(statusCode.toString());
+  }
+
+  Future<void> payPlan({String? linkPay}) async {
+    try {
+      if (statusCode == 201) {
+        // /transactions/pay/TM52
+        final res = await ApiGym.payPlan(linkPay, token);
+        if (res == 200) {
+          statusCode = 200;
+          notifyListeners();
+        }
+      } else {}
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
   }
 
   Future<String?> getToken() async {
@@ -164,7 +206,7 @@ class RegisterProvider extends ChangeNotifier {
     await prefs.setString('otp', otp);
   }
 
-// ambil OTP 
+// ambil OTP
   Future<String?> getOTPFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('otp');
@@ -177,5 +219,41 @@ class RegisterProvider extends ChangeNotifier {
     } catch (e) {
       print('Error sending email: $e');
     }
+  }
+
+  Future<void> getPlanDetail({int? idPlan}) async {
+    print("ok");
+    /* mas abet & rouf 
+    kita nyusun startegi dulu, soalnya dari BE untuk bagian ini masih ngambang
+    */
+    // _requestState = RequestState.loading;
+    // notifyListeners();
+    var token = "ok";
+    try {
+      final result = await ApiGym.getPlanById(id: idPlan);
+      _dataPlan = PlanData.fromJson(result['data']);
+
+      print('plan diambil $idPlan');
+      // _requestState = RequestState.loaded;
+      notifyListeners();
+    } catch (e) {
+      // _requestState = RequestState.error;
+      notifyListeners();
+      print(e);
+      throw "Cant get data Plan";
+    }
+  }
+
+  String getCurrentDate() {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('MMMM dd, yyyy').format(now);
+    return formattedDate;
+  }
+
+  String getTanggalPlus({required int ditambah}) {
+    DateTime now = DateTime.now();
+    DateTime newDate = now.add(Duration(days: ditambah));
+    String formattedDate = DateFormat('MMMM dd, yyyy').format(newDate);
+    return formattedDate;
   }
 }

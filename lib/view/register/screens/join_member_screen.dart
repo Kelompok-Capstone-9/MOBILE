@@ -4,6 +4,7 @@ import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/register/card_member.dart';
 import 'package:gofit_apps/view/login/login_screen.dart';
+import 'package:gofit_apps/view_model/login_provider.dart';
 import 'package:gofit_apps/view_model/plan_provider.dart';
 import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:provider/provider.dart';
@@ -143,14 +144,13 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                     ),
                     onPressed: () {
                       idPlan = selectedPlanId;
-                      final prov = Provider.of<RegisterProvider>(
-                        context,
-                        listen: false,
-                      ).joinMember(idPlan, context);
-                      if (registerProv.statusCode == 201) {
+                      final providerLogin =
+                          Provider.of<LoginProvider>(context, listen: false);
+
+                      if (providerLogin.statusCode == 200) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const PaymentMethod(),
+                            builder: (context) => PaymentMethod(idPlan: idPlan),
                           ),
                         );
                       }
@@ -168,11 +168,9 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
               const SizedBox(height: 16),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const FormLogin(),
-                    ),
-                  );
+                  LoginProvider loginProvider =
+                      Provider.of<LoginProvider>(context, listen: false);
+                  loginProvider.logout(params: 0, context: context);
                 },
                 child: Text(
                   'No Thanks',
