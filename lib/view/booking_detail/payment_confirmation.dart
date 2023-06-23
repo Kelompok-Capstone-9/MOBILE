@@ -58,6 +58,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
               child: const Icon(Icons.arrow_back, color: Colors.black)),
           backgroundColor: ColorsTheme.bgScreen),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: SizedBox(
           width: mediaquery.width,

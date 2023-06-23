@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/view/training/start_training/start_training.dart';
 
 import '../../component/booking_detail/button.dart';
@@ -36,7 +37,7 @@ class _TrainingDetailState extends State<TrainingDetail> {
                 child: Image.asset(
                   'assets/images/05.jpg',
                   fit: BoxFit.cover,
-                )),
+                )).animate().fadeIn().shimmer(duration: Duration(seconds: 2)),
             Padding(
               padding: const EdgeInsets.only(top: 16.0, left: 16, bottom: 16),
               child: SizedBox(
@@ -186,7 +187,7 @@ class _TrainingDetailState extends State<TrainingDetail> {
               // data type training,
               // this.rekomended training <== ceritanya
               // String data = 'introduction/beginner';
-              String data = 'content';
+              String data = '';
 
               Navigator.push(
                 context,

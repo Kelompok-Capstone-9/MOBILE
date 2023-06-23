@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:gofit_apps/model/levels.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -41,7 +42,7 @@ class LevelsSection extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          ).animate().fadeIn().shimmer(duration: Duration(seconds: 2)),
         );
       },
     );

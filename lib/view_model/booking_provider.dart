@@ -148,6 +148,7 @@ class BookingProvider extends ChangeNotifier {
           location: dataClass.location,
           metadata: dataClass.metadata,
           priceRange: maxPrice - minPrice,
+          imageBanner: dataClass.imageBanner,
         );
       }).toList();
       print("is length pencarian : ${searchResults.length}");

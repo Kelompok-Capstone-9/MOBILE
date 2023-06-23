@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/component/training/levels_section.dart';
 import 'package:gofit_apps/component/training/ontrending_section.dart';
@@ -32,7 +33,7 @@ class TrainingScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            const OnTrendingSection(),
+            const OnTrendingSection().animate().fadeIn().shimmer(),
             Padding(
               padding: const EdgeInsets.only(
                   top: 24, right: 16, bottom: 8, left: 16),
@@ -41,7 +42,10 @@ class TrainingScreen extends StatelessWidget {
                 style: ThemeText.headingg,
               ),
             ),
-            RecommendSection(),
+            RecommendSection()
+                .animate()
+                .fadeIn()
+                .shimmer(duration: Duration(seconds: 2)),
             Padding(
               padding: const EdgeInsets.only(
                   top: 24, right: 16, bottom: 8, left: 16),
@@ -50,7 +54,7 @@ class TrainingScreen extends StatelessWidget {
                 style: ThemeText.headingg,
               ),
             ),
-            const LevelsSection(),
+            const LevelsSection()
           ],
         ),
       ),

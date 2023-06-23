@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gofit_apps/model/gym.dart';
 import 'package:gofit_apps/themes/color_style.dart';
@@ -92,7 +93,37 @@ class _GymCardListState extends State<GymCardList> {
   Widget build(BuildContext context) {
     return Consumer<BookingProvider>(
       builder: (context, gymProv, child) {
-        print("kamu nanya ${gymProv.statusPencarian}");
+        print("Status Pencarian ${gymProv.statusPencarian}");
+        // ignore: prefer_is_empty
+        if (gymProv.searchResults.length == 0) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 45),
+              SizedBox(
+                  width: 130,
+                  // height: 180,
+                  child: Image.asset(
+                    'assets/images/not-found.png',
+                    fit: BoxFit.contain,
+                  )).animate().fadeIn(),
+              Text(
+                "Search not found ",
+                style: ThemeText.heading4
+                    .copyWith(fontWeight: FontWeight.w600, height: 0),
+              ).animate().fadeIn(),
+              Center( 
+                      child: Text("Please try another search term",
+                          style: ThemeText.heading4.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10,
+                              color: const Color(0xff919191))))
+                  .animate()
+                  .fadeIn()
+            ],
+          );
+        }
+
         return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -167,8 +198,16 @@ class _GymCardListState extends State<GymCardList> {
                 ),
                 child: ListTile(
                   minVerticalPadding: 10,
-                  leading: Image.asset(
-                    'assets/images/open-gym.png',
+                  leading: Container(
+                    height: 60,
+                    width: 60,
+                    child: Image.network(
+                      'http://18.141.56.154:8000/${gymDataItem.imageBanner}',
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return Image.asset('assets/images/ShopeePay.png');
+                      },
+                    ),
                   ),
                   title: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -256,11 +295,9 @@ class _GymCardListState extends State<GymCardList> {
                     ],
                   ),
                 ),
-              );
-            });
-            
+              ).animate().fadeIn();
+            }).animate().fadeIn();
       },
-      
     );
   }
 }
