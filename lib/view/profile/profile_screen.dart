@@ -35,13 +35,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
       String token = tokenn; // Ganti dengan token yang valid
       // var user
       print('this iss ${fileName}');
-      final updatedUser = UserLogin(
-          profile_picture: 'assets/img/profile/${fileName.toString()}',
-          id: user!.id,
-          email: user.email);
-      loginProvider.updateUser(updatedUser, token);
+      // final updatedUser = UserLogin(
+      //     profile_picture: '$fileName', id: user!.id, email: user.email);
+      // loginProvider.updateUser(updatedUser, token);
 
-      await loginProvider.upImage(
+      // loginProvider.upImage(
+      //   userId: user.id,
+      //   imageFile: imageFile,
+      //   token: token,
+      // );
+
+      loginProvider.upImage(
           userId: user!.id, imageFile: imageFile, token: token);
     }
   }
@@ -58,6 +62,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SingleChildScrollView(
         child: Consumer<LoginProvider>(
           builder: (context, loginProvider, _) {
+            // print(loginProvider.userLogin!.profile_picture.toString());
+            loginProvider.getUserById(id: loginProvider.userLogin!.id);
             final user = loginProvider.userLogin;
             return Column(
               children: [
@@ -88,11 +94,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 alignment: Alignment.bottomRight,
                                 children: [
                                   CircleAvatar(
-                                    radius: 40,
-                                    // child: Image.network(loginProvider
-                                    //     .userLogin!.profile_picture
-                                    //     .toString()) // get fungsi image;)
-                                  ),
+                                      radius: 40,
+                                      child: Image.network(
+                                          'http://18.141.56.154:8000/${user!.profile_picture}') // get fungsi image;)
+                                      ),
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
@@ -120,11 +125,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ],
                               ),
                               title: Text(
-                                user?.name ?? '',
+                                user.name ?? '',
                                 style: ThemeText.headingName,
                               ),
                               subtitle: Text(
-                                user?.email ?? '',
+                                user.email ?? '',
                                 style: ThemeText.headingOld,
                               ),
                             ),
@@ -149,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: ThemeText.headingOld,
                                 ),
                                 Text(
-                                  (user?.weight ?? 0).toString(),
+                                  (user.weight ?? 0).toString(),
                                   style: ThemeText.headingOld,
                                 ),
                               ],
@@ -165,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: ThemeText.headingOld,
                                 ),
                                 Text(
-                                  (user?.goal_weight ?? 0).toString(),
+                                  (user.goal_weight ?? 0).toString(),
                                   style: ThemeText.headingOld,
                                 ),
                               ],

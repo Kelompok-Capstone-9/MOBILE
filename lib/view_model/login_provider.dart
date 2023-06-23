@@ -49,6 +49,33 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> getUserById({required int? id}) async {
+    try {
+      final token = await getToken();
+      final result = await ApiGym.getUserById(idUser: id, token: token);
+
+      _userLogin = UserLogin.fromJson(result['data']);
+      _userLoginResponse = UserModelMetadata.fromJson(result['metadata']);
+      statusCode = getStatusCode(result);
+
+      if (userLoginResponse!.statusCode == 200) {
+        statusCode = 200;
+        message = userLoginResponse!.message;
+
+        notifyListeners();
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+      }
+      notifyListeners();
+
+      print('Status code: ${userLoginResponse!.statusCode}');
+      print('Status global: $message');
+      print('message global: $message');
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
+  }
+
   int getStatusCode(Map<String, dynamic> response) {
     if (response.containsKey('status_code')) {
       return response['status_code'];
@@ -136,15 +163,13 @@ class LoginProvider extends ChangeNotifier {
   //   // return image;
   // }
   Future<void> upImage({int? userId, File? imageFile, String? token}) async {
+    print("oj");
     try {
-      // Panggil fungsi upload file dari ApiService
-      await ApiGym.uploadUserImage(
+      final res = ApiGym.uploadUserImage(
           userId: userId, imageFile: imageFile, token: token);
-      // Lakukan tindakan lain setelah file berhasil diunggah
-      // ...
+      notifyListeners();
     } catch (error) {
-      // Tangani error jika ada
-      // ...
+      notifyListeners();
     }
   }
 }
