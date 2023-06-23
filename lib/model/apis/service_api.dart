@@ -91,20 +91,20 @@ class ApiGym {
     }
   }
 
-  // Future<List<PlanData>> getAllPlans() async {
-  //   print("service ok");
+  Future<List<PlanData>> getAllPlansJoin() async {
+    print("service ok");
 
-  //   final response = await http.get(Uri.parse('$baseUrl$plan'));
+    final response = await http.get(Uri.parse('$baseUrl$plan'));
 
-  //   print(response.statusCode);
-  //   if (response.statusCode == 200) {
-  //     final responseData = json.decode(response.body);
-  //     final dataList = responseData['data'];
-  //     return dataList.map<PlanData>((data) => PlanData.fromJson(data)).toList();
-  //   } else {
-  //     throw Exception('Gagal load plans');
-  //   }
-  // }
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final dataList = responseData['data'];
+      return dataList.map<PlanData>((data) => PlanData.fromJson(data)).toList();
+    } else {
+      throw Exception('Gagal load plans');
+    }
+  }
 
   Future<List<LevelTraining>> getLevelUser() async {
     print("service ok");

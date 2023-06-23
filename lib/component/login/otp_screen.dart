@@ -104,7 +104,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'mervin.km@gmail.com',
+                        widget.email,
                         style: ThemeText.headingSub2,
                       ),
                     ),
@@ -275,8 +275,6 @@ class _OTPScreenState extends State<OTPScreen> {
           ),
         ),
         const SizedBox(width: 5),
-        // 5 menit aja, 5 menit = 300 detik
-        // type waktu 2 adalah biar (00:00)
         TimeWidget(waktu: '300', typeWaktu: 2, styleText: ThemeText.heading3)
       ],
     );

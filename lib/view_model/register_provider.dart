@@ -1,14 +1,10 @@
-import 'dart:developer';
-
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
-
 import 'package:gofit_apps/model/register.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../model/plan.dart';
-import '../model/plan_member.dart';
 import 'login_provider.dart';
 
 enum RequestState { empty, loading, loaded, error }
@@ -47,8 +43,6 @@ class RegisterProvider extends ChangeNotifier {
   List<PlanData> get planList => _planList;
   ApiGym _apiService = ApiGym();
 
-  List<PlanMember?> _planMember = [];
-  List<PlanMember?> get planMember => _planMember;
   bool isLoading = false;
   String error = '';
   void getDataUser({Data? name, Data? email, Data? password}) {
@@ -104,7 +98,7 @@ class RegisterProvider extends ChangeNotifier {
     final prov = Provider.of<LoginProvider>(context, listen: false);
     try {
       final result = await ApiGym.registerUser(data);
-      log("login proses");
+      print("login proses");
       final res = await prov.login(
           email: data.email.toString(), password: data.password.toString());
       _token = prov.token;
@@ -133,12 +127,12 @@ class RegisterProvider extends ChangeNotifier {
     } catch (e) {
       print(e);
     }
-    log(statusCode.toString());
+    print(statusCode.toString());
   }
 
-  Future<void> fetchDataPlan() async {
+  Future<void> fetchDataPlanJoin() async {
     try {
-      _planMember = await _apiService.getAllPlans();
+      _planList = await _apiService.getAllPlansJoin();
 
       notifyListeners();
     } catch (error) {
@@ -150,5 +144,38 @@ class RegisterProvider extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
     return _token;
+  }
+
+  String generateOTP() {
+    Random random = Random();
+    int otpLength = 4;
+    String otp = '';
+
+    for (int i = 0; i < otpLength; i++) {
+      otp += random.nextInt(10).toString();
+    }
+
+    return otp;
+  }
+
+// save OTP
+  Future<void> saveOTPToSharedPreferences(String otp) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('otp', otp);
+  }
+
+// ambil OTP 
+  Future<String?> getOTPFromSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('otp');
+  }
+
+  void sendOTPByEmail(String email, String otp) async {
+    try {
+      final sendReport = await _apiService.sendOTP(email, otp);
+      print('Message sent: ${sendReport.sent}');
+    } catch (e) {
+      print('Error sending email: $e');
+    }
   }
 }
