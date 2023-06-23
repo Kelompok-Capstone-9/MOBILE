@@ -1,11 +1,9 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view_model/artikel_provider.dart';
 import 'package:provider/provider.dart';
-
+import '../../model/news_letter.dart';
 import '../../themes/color_style.dart';
-import '../../component/login/decoration_form.dart';
 import '../../component/register/decoration_form.dart';
 import 'healty_tips_screen.dart';
 
@@ -17,18 +15,47 @@ class Artikel extends StatefulWidget {
 }
 
 class _ArtikelState extends State<Artikel> {
-  TextEditingController username = TextEditingController();
+  TextEditingController searchController = TextEditingController();
+  List<NewsLetter> filteredArtikel = [];
 
   @override
   void initState() {
     super.initState();
+//  HEAD
     Future.microtask(() =>
         Provider.of<ArtikelProvider>(context, listen: false).fetchArtikel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<NewsLetterProvider>(context, listen: false).fetchNewsLetter();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+>>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final newsProv = Provider.of<ArtikelProvider>(context);
+=======
+    final newsProv = Provider.of<NewsLetterProvider>(context);
+    filteredArtikel = searchController.text.isEmpty
+        ? newsProv.artikel
+        : newsProv.artikel
+            .where((artikel) =>
+                artikel.category!
+                    .toLowerCase()
+                    .contains(searchController.text.toLowerCase()) ||
+                artikel.judulArtikel!
+                    .toLowerCase()
+                    .contains(searchController.text.toLowerCase()))
+            .toList();
+
+>>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -46,55 +73,82 @@ class _ArtikelState extends State<Artikel> {
           'ARTICLES',
           style: ThemeText.heading1,
         ),
+        elevation: 0.2,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             TextFormField(
-              // controller: _emailController,
+              controller: searchController,
               decoration: DecorationFormStyle.decorationForm(
-                labelText: 'Cari Gym atau kelas online',
+                labelText: 'Cari Articles',
                 prefixIcon: const Icon(
                   Icons.search,
                   color: Color(0xFFB5B5B5),
                   size: 16,
                 ),
               ),
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {});
+              },
             ),
             const SizedBox(
               height: 14,
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Display all',
-                    style: TextStyle(),
-                  ),
+                  Text('Display all', style: ThemeText.labelDay),
                 ],
               ),
             ),
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: 0.75),
-                itemCount: newsProv.artikel.length,
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.75,
+                ),
+                itemCount: filteredArtikel.length,
                 itemBuilder: (context, index) {
-                  final newsletter = newsProv.artikel[index];
+                  final newsletter = filteredArtikel[index];
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
+                    child: GestureDetector(
+                      onTap: () {
+                        log('kehalaman detail');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HealtyTips(
+                              desc: newsletter.descArtikel.toString(),
+                              imgurl: newsletter.imageUrl.toString(),
+                              judulDesc: newsletter.judulArtikel.toString(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: width / 2 - (5 / 100 * width),
+                            height: 200,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  newsletter.imageUrl.toString(),
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+<<<<<<< HEAD
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -139,14 +193,40 @@ class _ArtikelState extends State<Artikel> {
                                           ),
                                         )
                                       ],
+=======
+                                Container(
+                                  color: Colors.orange,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      newsletter.category.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+>>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          const SizedBox(height: 8),
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              child: Text(
+                                newsletter.judulArtikel.toString(),
+                                style: ThemeText.heading4,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
