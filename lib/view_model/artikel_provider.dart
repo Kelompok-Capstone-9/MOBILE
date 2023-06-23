@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
 import 'package:gofit_apps/model/public_api.dart';
+import 'package:gofit_apps/view/article/artikel_screen.dart';
 
 class ArtikelProvider extends ChangeNotifier {
   final ApiGym apiNews = ApiGym();
   List<Article> _artikel = [];
   List<Article> get artikel => _artikel;
-  final List<Article> _filteredArtikel = [];
+  List<Article> _filteredArtikel = [];
   List<Article> get filteredArtikel => _filteredArtikel;
   bool isLoading = false;
   String error = '';
@@ -16,7 +19,9 @@ class ArtikelProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _artikel = await apiNews.getArtikel();
+      var res = await apiNews.getArtikel();
+      PublicApi publicApi = PublicApi.fromJson(res);
+      _artikel = publicApi.articles;
       // isLoading = false;
       error = '';
       // print(_artikel.length);
@@ -30,5 +35,13 @@ class ArtikelProvider extends ChangeNotifier {
     }
   }
 
-  void search(String text) {}
+  void search(pencarian) {
+    _filteredArtikel = artikel
+        .where((article) =>
+            article.title.toLowerCase().contains(pencarian.toLowerCase()) ||
+            article.description.toLowerCase().contains(pencarian.toLowerCase()))
+        .toList();
+
+    notifyListeners();
+  }
 }

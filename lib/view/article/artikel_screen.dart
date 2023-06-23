@@ -126,7 +126,7 @@ class _ArtikelState extends State<Artikel> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => HealthTips(
-                                  content: newsletter!.content,
+                                  content: newsletter.content,
                                   urlToImage: newsletter.urlToImage.toString(),
                                   title: newsletter.title.toString(),
                                 ),
@@ -143,7 +143,7 @@ class _ArtikelState extends State<Artikel> {
                                     image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
-                                        newsletter!.urlToImage.toString(),
+                                        newsletter.urlToImage.toString(),
                                       ),
                                     ),
                                   ),
@@ -187,6 +187,8 @@ class _ArtikelState extends State<Artikel> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Container(
+                                                width: width / 2 -
+                                                    (5 / 100 * width),
                                                 color: Colors.orange,
                                                 child: Padding(
                                                   padding:
@@ -196,6 +198,8 @@ class _ArtikelState extends State<Artikel> {
                                                     style: const TextStyle(
                                                       fontSize: 18,
                                                       color: Colors.white,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
                                                   ),
                                                 ),
