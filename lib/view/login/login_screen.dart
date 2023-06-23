@@ -10,6 +10,7 @@ import '../../component/navbar/home.dart';
 import '../../themes/color_style.dart';
 import '../../component/login/validator.dart';
 import '../../component/register/decoration_form.dart';
+import '../../view_model/connection.dart';
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);
@@ -21,14 +22,6 @@ class FormLogin extends StatefulWidget {
 }
 
 class FormLoginState extends State<FormLogin> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Future.microtask(
-  //     () => Provider.of<LoginProvider>(context, listen: false)
-  //         .login(email: "erorr@gmail.com", password: "errorterus"),
-  //   );
-  // }
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -36,6 +29,13 @@ class FormLoginState extends State<FormLogin> {
   bool hidePw = false;
   bool isFormFilled = false;
   String appName = 'GoFit';
+
+  @override
+  void initState() {
+    super.initState();
+    checkInternetConnection(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

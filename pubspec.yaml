@@ -48,6 +48,7 @@ dependencies:
   table_calendar: ^3.0.9
   toggle_switch: ^2.1.0
   intl: ^0.18.1
+  internet_connection_checker: ^1.0.0+1
 
   # open_file: ^3.2.1
   # file_picker: ^4.3.3
