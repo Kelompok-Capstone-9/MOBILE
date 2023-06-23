@@ -47,91 +47,93 @@ class _Home_Screen extends State<Home_Screen> {
             style: ThemeText.headingDashboard,
           ),
         ),
-        body: Center(
-          child: Column(
-            children: [
-              CarouselSlider.builder(
-                  itemCount: imageSlinder.length,
-                  itemBuilder: (context, index, realIndex) {
-                    final imageSlinders = imageSlinder[index];
-                    return buiildImage(imageSlinders, index);
-                  },
-                  options: CarouselOptions(
-                      height: 320,
-                      viewportFraction: 1,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 4),
-                      onPageChanged: (index, reason) =>
-                          setState(() => activeIndex = index))),
-              SizedBox(
-                height: 24,
-                child: buildIndicator(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'NEW ARTICLES',
-                      style: ThemeText.heading4,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        log('ke artikel screen');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Artikel(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'View all',
-                        style: ThemeText.headingView,
-                      ),
-                    ),
-                  ],
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                CarouselSlider.builder(
+                    itemCount: imageSlinder.length,
+                    itemBuilder: (context, index, realIndex) {
+                      final imageSlinders = imageSlinder[index];
+                      return buiildImage(imageSlinders, index);
+                    },
+                    options: CarouselOptions(
+                        height: 320,
+                        viewportFraction: 1,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 4),
+                        onPageChanged: (index, reason) =>
+                            setState(() => activeIndex = index))),
+                SizedBox(
+                  height: 24,
+                  child: buildIndicator(),
                 ),
-              ),
-              SizedBox(
-                height: 300,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: imagesArtikel.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: SizedBox(
-                        width: 400,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            imagesArtikel[index],
-                            fit: BoxFit.cover,
-                          ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'NEW ARTICLES',
+                        style: ThemeText.heading4,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          log('ke artikel screen');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Artikel(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'View all',
+                          style: ThemeText.headingView,
                         ),
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Save time in the kitchen with GoFit',
-                      style: ThemeText.headingImage,
-                    ),
-                  ],
+                SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: imagesArtikel.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: SizedBox(
+                          width: 400,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.asset(
+                              imagesArtikel[index],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Save time in the kitchen with GoFit',
+                        style: ThemeText.headingImage,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
