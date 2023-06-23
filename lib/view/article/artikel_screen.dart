@@ -1,13 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/public_api.dart';
 import 'package:gofit_apps/view_model/artikel_provider.dart';
-import 'package:gofit_apps/view_model/newsLetter_provider.dart';
 import 'package:provider/provider.dart';
-import '../../model/news_letter.dart';
 import '../../themes/color_style.dart';
 import '../../component/register/decoration_form.dart';
 import 'healty_tips_screen.dart';
-
 
 class Artikel extends StatefulWidget {
   const Artikel({Key? key}) : super(key: key);
@@ -18,7 +16,9 @@ class Artikel extends StatefulWidget {
 
 class _ArtikelState extends State<Artikel> {
   TextEditingController searchController = TextEditingController();
-  List<NewsLetter> filteredArtikel = [];
+  List<Article> filteredArtikel = [];
+  final List<Article> _artikel = [];
+  List<Article> get artikel => _artikel;
 
   @override
   void initState() {
@@ -27,36 +27,33 @@ class _ArtikelState extends State<Artikel> {
     Future.microtask(() =>
         Provider.of<ArtikelProvider>(context, listen: false).fetchArtikel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<NewsLetterProvider>(context, listen: false).fetchNewsLetter();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Provider.of<NewsLetterProvider>(context, listen: false).fetchNewsLetter();
+    // });
   }
 
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     final prov = Provider.of<ArtikelProvider>(context);
 
-    final newsProv = Provider.of<NewsLetterProvider>(context);
+    final newsProv = Provider.of<ArtikelProvider>(context);
     filteredArtikel = searchController.text.isEmpty
         ? newsProv.artikel
         : newsProv.artikel
             .where((artikel) =>
-                artikel.category!
+                artikel.title
                     .toLowerCase()
                     .contains(searchController.text.toLowerCase()) ||
-                artikel.judulArtikel!
+                artikel.title
                     .toLowerCase()
                     .contains(searchController.text.toLowerCase()))
             .toList();
-
 
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -92,7 +89,9 @@ class _ArtikelState extends State<Artikel> {
                 ),
               ),
               onChanged: (value) {
-                setState(() {});
+                setState(() {
+                  prov.search(searchController.text);
+                });
               },
             ),
             const SizedBox(
@@ -113,112 +112,116 @@ class _ArtikelState extends State<Artikel> {
                   crossAxisCount: 2,
                   childAspectRatio: 0.75,
                 ),
-                itemCount: filteredArtikel.length,
+                itemCount: searchController.text.isEmpty
+                    ? newsProv.artikel.length
+                    : newsProv.filteredArtikel.length,
                 itemBuilder: (context, index) {
-                  final newsletter = filteredArtikel[index];
+                  final newsletter = newsProv.artikel[index];
                   return Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: GestureDetector(
-                      onTap: () {
-                        log('kehalaman detail');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HealtyTips(
-                              desc: newsletter.descArtikel(),
-                              imgurl: newsletter.imageUrl.toString(),
-                              judulDesc: newsletter.judulArtikel.toString(),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: width / 2 - (5 / 100 * width),
-                            height: 200,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  newsletter.imageUrl.toString(),
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                      child: GestureDetector(
+                          onTap: () {
+                            log('kehalaman detail');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HealthTips(
+                                  content: newsletter!.content,
+                                  urlToImage: newsletter.urlToImage.toString(),
+                                  title: newsletter.title.toString(),
                                 ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                            );
+                          },
+                          child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => HealthTips(
-                                            title: newsletter.title.toString(),
-                                            content:
-                                                newsletter.content.toString(),
-                                            urlToImage: newsletter.urlToImage
-                                                .toString()),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    width: width / 2 - (5 / 100 * width),
-                                    height: 200,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                          newsletter.urlToImage.toString(),
-                                        ),
+                                Container(
+                                  width: width / 2 - (5 / 100 * width),
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        newsletter!.urlToImage.toString(),
                                       ),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          color: Colors.orange,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              newsletter.source.name,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.white,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => HealthTips(
+                                                  title: newsletter.title
+                                                      .toString(),
+                                                  content: newsletter.content
+                                                      .toString(),
+                                                  urlToImage: newsletter
+                                                      .urlToImage
+                                                      .toString()),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          width: width / 2 - (5 / 100 * width),
+                                          height: 200,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                newsletter.urlToImage
+                                                    .toString(),
                                               ),
                                             ),
                                           ),
-                                        )
-                                      
-
-                                
-                              ],
-                            ),
-                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                color: Colors.orange,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    newsletter.source.name,
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Flexible(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          child: Text(
+                                            newsletter.content.toString(),
+                                            style: ThemeText.heading4,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                          const SizedBox(height: 8),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                              ),
-                              child: Text(
-                                newsletter.judulArtikel.toString(),
-                                style: ThemeText.heading4,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                              ])));
                 },
               ),
             ),

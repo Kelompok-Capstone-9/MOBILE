@@ -6,6 +6,8 @@ class ArtikelProvider extends ChangeNotifier {
   final ApiGym apiNews = ApiGym();
   List<Article> _artikel = [];
   List<Article> get artikel => _artikel;
+  final List<Article> _filteredArtikel = [];
+  List<Article> get filteredArtikel => _filteredArtikel;
   bool isLoading = false;
   String error = '';
 
@@ -27,4 +29,6 @@ class ArtikelProvider extends ChangeNotifier {
       isLoading = false;
     }
   }
+
+  void search(String text) {}
 }

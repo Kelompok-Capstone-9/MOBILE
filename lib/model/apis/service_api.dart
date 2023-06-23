@@ -217,15 +217,16 @@ class ApiGym {
     }
   }
 
-  Future<List<Article>> getArtikel() async {
+  Future<dynamic> getArtikel() async {
     final url = Uri.parse(publicApi);
 
     try {
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        final data = fromJson(response.body);
-        return data.articles;
+        // final data = fromJson(response.body);
+        final artikel = json.decode(response.body);
+        return json.decode(response.body);
       } else {
         throw Exception('Failed to fetch news letters.');
       }
