@@ -1,11 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
-<<<<<<< HEAD
-import 'package:google_fonts/google_fonts.dart';
-import 'package:readmore/readmore.dart';
-=======
->>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
 
 class HealthTips extends StatefulWidget {
   final String? author;
@@ -37,11 +32,7 @@ class HealthTips extends StatefulWidget {
   State<HealthTips> createState() => _HealthTipsState();
 }
 
-<<<<<<< HEAD
 class _HealthTipsState extends State<HealthTips> {
-=======
-class _HealtyTipsState extends State<HealtyTips> {
->>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
@@ -87,15 +78,6 @@ class _HealtyTipsState extends State<HealtyTips> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
-<<<<<<< HEAD
-                          child: ReadMoreText(widget.getItemDesc(),
-                              trimLines: 2,
-                              textAlign: TextAlign.justify,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: "Show More",
-                              trimExpandedText: "Show Less",
-                              style: ThemeText.headingCoustomHealtyTips))
-=======
                         child: Text(
                           widget.getItemDesc(),
                           textAlign: TextAlign.justify,
@@ -104,7 +86,6 @@ class _HealtyTipsState extends State<HealtyTips> {
                           ),
                         ),
                       ),
->>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
                     ],
                   ),
                 ),

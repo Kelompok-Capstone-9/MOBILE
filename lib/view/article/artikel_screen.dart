@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view_model/artikel_provider.dart';
+import 'package:gofit_apps/view_model/newsLetter_provider.dart';
 import 'package:provider/provider.dart';
 import '../../model/news_letter.dart';
 import '../../themes/color_style.dart';
 import '../../component/register/decoration_form.dart';
 import 'healty_tips_screen.dart';
+
 
 class Artikel extends StatefulWidget {
   const Artikel({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class _ArtikelState extends State<Artikel> {
   @override
   void initState() {
     super.initState();
-//  HEAD
+
     Future.microtask(() =>
         Provider.of<ArtikelProvider>(context, listen: false).fetchArtikel());
 
@@ -34,14 +36,14 @@ class _ArtikelState extends State<Artikel> {
   void dispose() {
     searchController.dispose();
     super.dispose();
->>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
+
   }
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    final newsProv = Provider.of<ArtikelProvider>(context);
-=======
+
+    final prov = Provider.of<ArtikelProvider>(context);
+
     final newsProv = Provider.of<NewsLetterProvider>(context);
     filteredArtikel = searchController.text.isEmpty
         ? newsProv.artikel
@@ -55,7 +57,7 @@ class _ArtikelState extends State<Artikel> {
                     .contains(searchController.text.toLowerCase()))
             .toList();
 
->>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
+
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -123,7 +125,7 @@ class _ArtikelState extends State<Artikel> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => HealtyTips(
-                              desc: newsletter.descArtikel.toString(),
+                              desc: newsletter.descArtikel(),
                               imgurl: newsletter.imageUrl.toString(),
                               judulDesc: newsletter.judulArtikel.toString(),
                             ),
@@ -148,7 +150,7 @@ class _ArtikelState extends State<Artikel> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-<<<<<<< HEAD
+
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -192,25 +194,13 @@ class _ArtikelState extends State<Artikel> {
                                             ),
                                           ),
                                         )
-                                      ],
-=======
-                                Container(
-                                  color: Colors.orange,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      newsletter.category.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
->>>>>>> 64fbe64fdb2a86490901df2eae6eb56b76b3c6d4
-                                    ),
-                                  ),
-                                ),
+                                      
+
+                                
                               ],
                             ),
                           ),
+                                ),
                           const SizedBox(height: 8),
                           Flexible(
                             child: Padding(
