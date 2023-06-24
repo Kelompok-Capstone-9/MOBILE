@@ -28,11 +28,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     namespace "com.example.gofit_apps"
     compileSdkVersion flutter.compileSdkVersion
-<<<<<<< HEAD
     // compileSdkVersion 
-=======
-    // compileSdkVersion 33
->>>>>>> origin/upload-pict
+    compileSdkVersion 33
 
     ndkVersion flutter.ndkVersion
 
