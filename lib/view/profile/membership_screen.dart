@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../../component/profile/card_membership.dart';
 import '../../component/profile/color_card_membership.dart';
@@ -101,7 +102,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
                             subtitle: 'Rp ${plan?.price ?? ''}',
                             trailing: '/$convert MONTH',
                             description: plan?.description ?? '',
-                          );
+                          ).animate().fadeIn().slideY();
                         },
                       ),
                     ),

@@ -39,6 +39,9 @@ class DataClass {
   List<ClassPackage> classPackages;
   Location location;
   ClassPackageMetadata metadata;
+  String isWaktu;
+  int priceRange;
+  String imageBanner;
 
   DataClass({
     required this.id,
@@ -50,6 +53,9 @@ class DataClass {
     required this.classPackages,
     required this.location,
     required this.metadata,
+    required this.isWaktu,
+    required this.priceRange,
+    required this.imageBanner,
   });
 
   factory DataClass.fromJson(Map<String, dynamic> json) => DataClass(
@@ -63,6 +69,9 @@ class DataClass {
             json["class_packages"].map((x) => ClassPackage.fromJson(x))),
         location: Location.fromJson(json["location"]),
         metadata: ClassPackageMetadata.fromJson(json["metadata"]),
+        isWaktu: json["is_waktu"] ?? "",
+        priceRange: json["priceRange"] ?? 0,
+        imageBanner: json["image_banner"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -76,6 +85,9 @@ class DataClass {
             List<dynamic>.from(classPackages.map((x) => x.toJson())),
         "location": location.toJson(),
         "metadata": metadata.toJson(),
+        "is_waktu": isWaktu,
+        "priceRange": priceRange,
+        "image_banner": imageBanner,
       };
 }
 
@@ -99,8 +111,8 @@ class ClassPackage {
   factory ClassPackage.fromJson(Map<String, dynamic> json) => ClassPackage(
         id: json["id"],
         period: json["period"],
-        price: json["price"],
-        classId: json["class_id"],
+        price: json["price"] ?? 0,
+        classId: json["class_id"] ?? 0,
         status: json["status"] ?? "false",
         metadata: ClassPackageMetadata.fromJson(json["metadata"]),
       );
@@ -113,6 +125,8 @@ class ClassPackage {
         "status": status ?? "false",
         "metadata": metadata?.toJson(),
       };
+
+  static reduce(Function(dynamic value, dynamic element) param0) {}
 }
 
 class ClassPackageMetadata {
@@ -137,22 +151,24 @@ class ClassPackageMetadata {
 }
 
 class Location {
-  int id;
-  String name;
-  String address;
-  String city;
-  String latitude;
-  String longitude;
-  ClassPackageMetadata metadata;
+  int? id;
+  String? name;
+  String? address;
+  String? city;
+  String? latitude;
+  String? longitude;
+  double? distance;
+  ClassPackageMetadata? metadata;
 
   Location({
-    required this.id,
-    required this.name,
-    required this.address,
-    required this.city,
-    required this.latitude,
-    required this.longitude,
-    required this.metadata,
+    this.id,
+    this.name,
+    this.address,
+    this.city,
+    this.latitude,
+    this.longitude,
+    this.distance,
+    this.metadata,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
@@ -162,7 +178,8 @@ class Location {
         city: json["city"],
         latitude: json["latitude"],
         longitude: json["longitude"],
-        metadata: ClassPackageMetadata.fromJson(json["metadata"]),
+        distance: json["distance"] ?? 0.0,
+        metadata: ClassPackageMetadata.fromJson(json["metadata"] ?? []),
       );
 
   Map<String, dynamic> toJson() => {
@@ -172,7 +189,8 @@ class Location {
         "city": city,
         "latitude": latitude,
         "longitude": longitude,
-        "metadata": metadata.toJson(),
+        "distance": distance ?? 0.0,
+        "metadata": metadata!.toJson(),
       };
 }
 

@@ -24,12 +24,14 @@ String formatDateOnly(String dateTimeString) {
 
 String formatCurrency(int amount) {
   final currencyFormat = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ');
-  return currencyFormat.format(amount);
+  final formattedAmount = currencyFormat.format(amount).toString();
+  return formattedAmount.substring(0, formattedAmount.length - 3);
 }
 
 String formatCurrencyNonLabel(int amount) {
   final currencyFormat = NumberFormat.currency(locale: 'id_ID', symbol: '');
-  return currencyFormat.format(amount);
+  final formattedAmount = currencyFormat.format(amount);
+  return formattedAmount.substring(0, formattedAmount.length - 3);
 }
 
 String formatTimeOnly(String dateTimeString) {

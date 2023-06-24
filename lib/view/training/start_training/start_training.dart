@@ -32,6 +32,12 @@ class StartTrainingScren extends StatefulWidget {
 
 class _StartTrainingScrenState extends State<StartTrainingScren> {
   @override
+  void dispose() {
+    waktu(context, waktu).endTime;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
     var a = widget.data_training;
@@ -43,8 +49,8 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
       body: Column(
         // img
         children: [
-          Text(widget.data_training),
-          if (widget.data_training == 'content' && _indexPage == 0)
+          // Text(widget.data_training),
+          if (widget.data_training == '' && _indexPage == 0)
             SizedBox(
                 width: mediaquery.width,
                 height: 400,
@@ -52,7 +58,7 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                   content[0]['gifImage'].toString(),
                   fit: BoxFit.cover,
                 ))
-          else if (widget.data_training == 'content' && _indexPage == 1)
+          else if (widget.data_training == '' && _indexPage == 1)
             SizedBox(
                 width: mediaquery.width,
                 height: 400,
@@ -95,7 +101,7 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
           ),
           // text
           const SizedBox(height: 48),
-          if (widget.data_training == 'content' && _indexPage == 0)
+          if (widget.data_training == '' && _indexPage == 0)
             Column(
               children: [
                 Text(
@@ -217,6 +223,7 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TrainingDoneScreen()));
+                        _indexPage = 0;
                       } else {
                         log(_indexPage.toString());
 
@@ -228,6 +235,7 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
                                       index_page: _indexPage,
                                       widhtIsLoading: widget.widgetIsLoading,
                                     )));
+                        waktu(context, '0');
 
                         // _widthIsLoading += mediaquery.width * 0.45;
                         // _indexPage += 1;
@@ -271,7 +279,8 @@ class _StartTrainingScrenState extends State<StartTrainingScren> {
 
   CountdownTimer waktu(BuildContext context, waktu) {
     return CountdownTimer(
-      endTime:
+      // endWidget: ,
+      endTime :
           DateTime.now().millisecondsSinceEpoch + (1 * int.parse(waktu) * 1000),
       onEnd: () {},
       widgetBuilder: (_, CurrentRemainingTime? time) {

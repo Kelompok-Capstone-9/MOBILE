@@ -27,8 +27,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.example.gofit_apps"
-    // compileSdkVersion flutter.compileSdkVersion
-    compileSdkVersion 31
+    compileSdkVersion flutter.compileSdkVersion
+    // compileSdkVersion 
 
     ndkVersion flutter.ndkVersion
 
@@ -71,4 +71,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    
 }

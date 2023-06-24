@@ -5,12 +5,39 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 
 import '../../component/filters/filter_class.dart';
+import '../../view_model/booking_provider.dart';
+import 'package:provider/provider.dart';
 
-class FilterView extends StatelessWidget {
-  const FilterView({super.key});
+class FilterView extends StatefulWidget {
+  FilterView({super.key});
+
+  @override
+  State<FilterView> createState() => _FilterViewState();
+}
+
+TextEditingController minPriceController = TextEditingController();
+TextEditingController maxPriceController = TextEditingController();
+int minimumHarga = 0;
+int maximumHarga = 0;
+
+class _FilterViewState extends State<FilterView> {
+  @override
+  void filterRangeHarga() {
+    setState(() {
+      var _minimumHarga = maximumHarga;
+      var _maximumHarga = maximumHarga;
+      var _typeClass = maximumHarga;
+      print('ini adalah ${minimumHarga}');
+      print('ini adalah ${maximumHarga}');
+      Provider.of<BookingProvider>(context, listen: false)
+          .searchByPriceRange(minimumHarga, maximumHarga);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final prov = Provider.of<BookingProvider>(context, listen: false);
+
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -48,6 +75,13 @@ class FilterView extends StatelessWidget {
                           children: [
                             Expanded(
                               child: TextField(
+                                controller: minPriceController,
+                                onChanged: (value) {
+                                  minimumHarga = int.parse(value);
+                                },
+                                onEditingComplete: () {
+                                  filterRangeHarga();
+                                },
                                 textAlign: TextAlign.center,
                                 textAlignVertical: TextAlignVertical.center,
                                 keyboardType: TextInputType.number,
@@ -65,6 +99,13 @@ class FilterView extends StatelessWidget {
                             const SizedBox(width: 47),
                             Expanded(
                               child: TextField(
+                                controller: maxPriceController,
+                                onChanged: (value) {
+                                  maximumHarga = int.parse(value);
+                                },
+                                onEditingComplete: () {
+                                  filterRangeHarga();
+                                },
                                 textAlign: TextAlign.center,
                                 textAlignVertical: TextAlignVertical.center,
                                 keyboardType: TextInputType.number,
@@ -105,11 +146,13 @@ class FilterView extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Row(
                       children: [
-                        ClassFilter(classtype: 'All'),
+                        ClassFilter(
+                          classtype: 'All',
+                        ),
                         SizedBox(width: 10),
-                        ClassFilter(classtype: 'Online'),
+                        ClassFilter(classtype: 'online'),
                         SizedBox(width: 10),
-                        ClassFilter(classtype: 'Onsite'),
+                        ClassFilter(classtype: 'offline'),
                       ],
                     ),
                   ],
@@ -132,9 +175,9 @@ class FilterView extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            ClassFilter(classtype: 'DKI Jakarta'),
+                            ClassFilter(classtype: 'Jakarta'),
                             SizedBox(width: 10),
-                            ClassFilter(classtype: 'Jawa Barat'),
+                            ClassFilter(classtype: 'Depok'),
                             SizedBox(width: 10),
                             ClassFilter(classtype: 'Jawa Tengah'),
                           ],
@@ -183,12 +226,7 @@ class FilterView extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     log("masuk ke detail Booking");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BookingDetail(
-                                  id: 2,
-                                )));
+                    Navigator.pop(context);
                   },
                   child: Container(
                     alignment: Alignment.center,

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-var timeSelect = [
+List<Map<String, dynamic>> timeSelect = [
   {
     'icon': 'assets/icons/cloud.png',
     'time': 'Pagi',
     'clock': '5AM - 12PM',
     'status': false,
+    'status': false,
   },
   {
     'icon': 'assets/icons/sun.png',
     'time': 'Siang',
-    'clock': '12AM - 5PM',
+    'clock': '12PM - 5PM',
     'status': false,
   },
   {

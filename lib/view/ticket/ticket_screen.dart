@@ -197,7 +197,7 @@ class TopBar extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ExploreScreen(),
+                  builder: (context) => ExploreScreen(),
                 ),
               );
             },

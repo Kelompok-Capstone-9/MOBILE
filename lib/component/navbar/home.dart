@@ -34,9 +34,9 @@ class _HomeState extends State<Home> {
   void updateView(int index) {
     setState(() {
       currentIndex = index;
-      _pages = const [
+      _pages = [
         Home_Screen(),
-        ExploreScreen(),
+        ExploreScreen(statusPencarian: ""),
         TrainingScreen(),
         // Artikel(),
         ActivitiesScreen(),

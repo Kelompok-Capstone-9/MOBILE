@@ -4,6 +4,8 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/training/training_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../component/navbar/home.dart';
+
 class TrainingDoneScreen extends StatefulWidget {
   const TrainingDoneScreen({super.key});
 
@@ -58,38 +60,39 @@ class _TrainingDoneScreenState extends State<TrainingDoneScreen> {
                           ),
                           Column(
                             children: [
-                              CountdownTimer(
-                                endTime: DateTime.now().millisecondsSinceEpoch +
-                                    (2 * 60 * 1000),
-                                onEnd: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Time Out',
-                                          style: ThemeText.heading2),
-                                      backgroundColor: ColorsTheme.activeButton,
-                                    ),
-                                  );
-                                },
-                                widgetBuilder: (_, CurrentRemainingTime? time) {
-                                  if (time == null) {
-                                    return const Text('00:00');
-                                  }
-                                  int remainingTime =
-                                      (time.min ?? 0).toInt() * 60 +
-                                          (time.sec ?? 0).toInt();
-                                  final minutes = ((remainingTime - 1) ~/ 60)
-                                      .toString()
-                                      .padLeft(2, '0');
-                                  final seconds = ((remainingTime - 1) % 60)
-                                      .toString()
-                                      .padLeft(2, '0');
-                                  final timeFormat = '$minutes:$seconds';
-                                  return Text(
-                                    timeFormat,
-                                    style: ThemeText.headingTextDone,
-                                  );
-                                },
-                              ),
+                              // CountdownTimer(
+                              //   endTime: DateTime.now().millisecondsSinceEpoch +
+                              //       (2 * 60 * 1000),
+                              //   onEnd: () {
+                              //     return true;
+                              //     // ScaffoldMessenger.of(context).showSnackBar(
+                              //     //   SnackBar(
+                              //     //     content: Text('Time Out',
+                              //     //         style: ThemeText.heading2),
+                              //     //     backgroundColor: ColorsTheme.activeButton,
+                              //     //   ),
+                              //     // );
+                              //   },
+                              //   widgetBuilder: (_, CurrentRemainingTime? time) {
+                              //     if (time == null) {
+                              //       return const Text('00:00');
+                              //     }
+                              //     int remainingTime =
+                              //         (time.min ?? 0).toInt() * 60 +
+                              //             (time.sec ?? 0).toInt();
+                              //     final minutes = ((remainingTime - 1) ~/ 60)
+                              //         .toString()
+                              //         .padLeft(2, '0');
+                              //     final seconds = ((remainingTime - 1) % 60)
+                              //         .toString()
+                              //         .padLeft(2, '0');
+                              //     final timeFormat = '$minutes:$seconds';
+                              //     return Text(
+                              //       timeFormat,
+                              //       style: ThemeText.headingTextDone,
+                              //     );
+                              //   },
+                              // ),
                               Text('Duration', style: ThemeText.headingTextDone)
                             ],
                           )
@@ -157,10 +160,10 @@ class _TrainingDoneScreenState extends State<TrainingDoneScreen> {
                           if (selectedValue != null) {
                             setState(() {
                               isFormFilled = true;
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => TrainingScreen()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Home(),
+                                  maintainState: false));
+                              // _countdownTimer.();
                             });
                           }
                         },

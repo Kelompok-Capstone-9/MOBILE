@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/training/training_detail.dart';
 import 'package:gofit_apps/component/training/levels_section.dart';
@@ -92,7 +93,7 @@ class _TrainingKategoriState extends State<TrainingKategori> {
                 ),
               );
             },
-          ),
+          ).animate().fadeIn().shimmer(duration: Duration(seconds: 2)),
         ),
       ),
     );
