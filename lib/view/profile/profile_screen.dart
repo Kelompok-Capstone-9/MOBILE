@@ -1,5 +1,4 @@
 import 'dart:io';
-// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/profile/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,21 +31,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
       String fileName = path.basename(imageFile.path);
-      String token = tokenn; // Ganti dengan token yang valid
+      String token = tokenn;
       // var user
       print('this iss ${fileName}');
-      // final updatedUser = UserLogin(
-      //     profile_picture: '$fileName', id: user!.id, email: user.email);
-      // loginProvider.updateUser(updatedUser, token);
-
-      // loginProvider.upImage(
-      //   userId: user.id,
-      //   imageFile: imageFile,
-      //   token: token,
-      // );
 
       loginProvider.upImage(
           userId: user!.id, imageFile: imageFile, token: token);
+      setState(() {
+        _image = imageFile;
+      });
+    }
+  }
+
+  Widget _buildPreview(UserLogin? user) {
+    if (_image != null) {
+      return CircleAvatar(
+        radius: 40,
+        backgroundImage: FileImage(_image!),
+      );
+    } else if (user?.profile_picture != null) {
+      return CircleAvatar(
+        radius: 40,
+         backgroundImage: NetworkImage(
+          'http://18.141.56.154:8000/${user!.profile_picture}',
+        ),
+      );
+    } else {
+      return const CircleAvatar(
+        radius: 40,
+        backgroundImage: AssetImage('assets/images/default_image.jpg'),
+       
+      );
     }
   }
 
@@ -62,8 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SingleChildScrollView(
         child: Consumer<LoginProvider>(
           builder: (context, loginProvider, _) {
-            // print(loginProvider.userLogin!.profile_picture.toString());
-            loginProvider.getUserById(id: loginProvider.userLogin!.id);
+            //loginProvider.getUserById(id: loginProvider.userLogin?.id);
             final user = loginProvider.userLogin;
             return Column(
               children: [
@@ -93,11 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               leading: Stack(
                                 alignment: Alignment.bottomRight,
                                 children: [
-                                  CircleAvatar(
-                                      radius: 40,
-                                      child: Image.network(
-                                          'http://18.141.56.154:8000/${user!.profile_picture}') // get fungsi image;)
-                                      ),
+                                  _buildPreview(user),
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
@@ -125,11 +135,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ],
                               ),
                               title: Text(
-                                user.name ?? '',
+                                user?.name ?? '',
                                 style: ThemeText.headingName,
                               ),
                               subtitle: Text(
-                                user.email ?? '',
+                                user?.email ?? '',
                                 style: ThemeText.headingOld,
                               ),
                             ),
@@ -154,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: ThemeText.headingOld,
                                 ),
                                 Text(
-                                  (user.weight ?? 0).toString(),
+                                  (user?.weight ?? 0).toString(),
                                   style: ThemeText.headingOld,
                                 ),
                               ],
@@ -170,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: ThemeText.headingOld,
                                 ),
                                 Text(
-                                  (user.goal_weight ?? 0).toString(),
+                                  (user?.goal_weight ?? 0).toString(),
                                   style: ThemeText.headingOld,
                                 ),
                               ],

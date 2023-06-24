@@ -156,12 +156,6 @@ class LoginProvider extends ChangeNotifier {
     return _token;
   }
 
-  // Future<String?> upImage({userId, imageFile, token}) async {
-  //   print("UO");
-  //   await ApiGym.uploadUserImage(userId, imageFile, token);
-  //   return null;
-  //   // return image;
-  // }
   Future<void> upImage({int? userId, File? imageFile, String? token}) async {
     print("oj");
     try {
