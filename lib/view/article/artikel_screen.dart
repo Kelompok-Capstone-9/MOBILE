@@ -43,17 +43,17 @@ class _ArtikelState extends State<Artikel> {
     final prov = Provider.of<ArtikelProvider>(context);
 
     final newsProv = Provider.of<ArtikelProvider>(context);
-    filteredArtikel = searchController.text.isEmpty
-        ? newsProv.artikel
-        : newsProv.artikel
-            .where((artikel) =>
-                artikel.title
-                    .toLowerCase()
-                    .contains(searchController.text.toLowerCase()) ||
-                artikel.title
-                    .toLowerCase()
-                    .contains(searchController.text.toLowerCase()))
-            .toList();
+    // filteredArtikel = searchController.text.isEmpty
+    //     ? newsProv.artikel
+    //     : newsProv.artikel
+    //         .where((artikel) =>
+    //             artikel.title
+    //                 .toLowerCase()
+    //                 .contains(searchController.text.toLowerCase()) ||
+    //             artikel.title
+    //                 .toLowerCase()
+    //                 .contains(searchController.text.toLowerCase()))
+    //         .toList();
 
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
