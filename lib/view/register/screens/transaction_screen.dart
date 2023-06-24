@@ -3,21 +3,28 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gofit_apps/component/booking_detail/convert.dart';
 import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 
 import 'package:gofit_apps/component/register/card_pay.dart';
 import 'package:gofit_apps/view/register/screens/payment_method_screen.dart';
+import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../component/booking_detail/card.dart';
+import '../../../view_model/newsLetter_provider.dart';
 import '../../login/login_screen.dart';
 
 // ignore: must_be_immutable
 class TransactionDetailScreen extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
-  var data;
-  TransactionDetailScreen({super.key, required this.data});
+  var methodPay;
+
+  int planId;
+  TransactionDetailScreen(
+      {super.key, required this.methodPay, required this.planId});
   @override
   State<TransactionDetailScreen> createState() =>
       _TransactionDetailScreenState();
@@ -25,7 +32,17 @@ class TransactionDetailScreen extends StatefulWidget {
 
 class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
+  void initState() {
+    super.initState();
+    final prov = Provider.of<RegisterProvider>(context, listen: false);
+    Future.microtask(() => Provider.of<RegisterProvider>(context, listen: false)
+        .getPlanDetail(idPlan: widget.planId));
+    prov.joinMember(idPlan: widget.planId);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<RegisterProvider>(context, listen: false);
     var mediaquery = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -75,7 +92,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                         ),
                       ),
                     ),
-                    child: _detailPayment()),
+                    child: _detailPayment(provider)),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 24),
@@ -88,12 +105,12 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                       ),
                     ),
                   ),
-                  child: _totalPayment(),
+                  child: _totalPayment(provider),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 24),
-                child: _paymentMethod(mediaquery),
+                child: _paymentMethod(mediaquery, provider),
               ),
             ],
           ),
@@ -102,7 +119,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     );
   }
 
-  Column _paymentMethod(mediaquery) => Column(
+  Column _paymentMethod(mediaquery, provider) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -120,7 +137,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
               //   MaterialPageRoute(builder: (context) => PaymentMethod()),
               // );
             },
-            child: widget.data == null
+            child: widget.methodPay == null
                 ? CardWidget(
                     icon: FontAwesomeIcons.wallet, keterangan: "Select payment")
                 : SizedBox(
@@ -137,12 +154,12 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                         color: ColorsTheme.bgScreen,
                         child: SizedBox(
                           child: CardPay(
-                            type:
-                                paymentMethode[widget.data]['type'].toString(),
-                            desc:
-                                paymentMethode[widget.data]['desc'].toString(),
-                            image:
-                                paymentMethode[widget.data]['image'].toString(),
+                            type: paymentMethode[widget.methodPay]['type']
+                                .toString(),
+                            desc: paymentMethode[widget.methodPay]['desc']
+                                .toString(),
+                            image: paymentMethode[widget.methodPay]['image']
+                                .toString(),
                           ),
                         )),
                   ),
@@ -156,8 +173,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => const PaymentMethod()));
+                Navigator.pop(context);
               },
               child: Text(
                 'Change payment',
@@ -173,13 +189,23 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             // height: 150,
             child: GestureDetector(
               onTap: () {
+                final prov =
+                    Provider.of<RegisterProvider>(context, listen: false);
+
+                if (prov.statusCode == 201) {
+                  // var pay = prov/
+                  print('ini transaksi infomu ${prov.getLinkPay}');
+                  prov.payPlan(linkPay: prov.getLinkPay);
+                }
+                if (prov.statusCode == 200) {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return successDialog(mediaquery, provider);
+                      });
+                } else {}
                 setState(() {});
-                showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return successDialog(mediaquery);
-                    });
               },
               child: Column(
                 children: [
@@ -216,7 +242,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
         ],
       );
 
-  AlertDialog successDialog(mediaquery) {
+  AlertDialog successDialog(mediaquery, provider) {
     return AlertDialog(
       backgroundColor: ColorsTheme.bgScreen,
       insetPadding: const EdgeInsets.all(0),
@@ -246,7 +272,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: Text(
-                'Payment Successful!',
+                'Payment Successful! ${provider.getLinkPay}',
                 style: ThemeText.headingpaymentSucces,
               ),
             ),
@@ -264,7 +290,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(bottom: 44.0),
               child: Text(
-                'Rp 99.000',
+                formatCurrency(provider.dataPlan.price),
                 style: ThemeText.headingRupiah,
               ),
             ),
@@ -296,7 +322,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     );
   }
 
-  Column _totalPayment() {
+  Column _totalPayment(provider) {
     return Column(
       children: [
         Row(
@@ -307,7 +333,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             ),
             const Spacer(),
             Text(
-              'Rp 99.000',
+              formatCurrency(provider.dataPlan.price),
               style: ThemeText.heading2,
             )
           ],
@@ -319,7 +345,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     );
   }
 
-  Column _detailPayment() {
+  Column _detailPayment(provider) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -342,7 +368,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  'Rp 99.000',
+                  formatCurrency(provider.dataPlan.price),
                   style: ThemeText.heading2,
                 )
               ],
@@ -358,7 +384,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  '- Rp 0',
+                  formatCurrency(0),
                   style: ThemeText.heading2,
                 )
               ],
@@ -372,58 +398,72 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     );
   }
 
-  Column listMembership() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                'Subscription',
-                style: ThemeText.heading2,
-              ),
-              const Spacer(),
-              Text(
-                '1 Month',
-                style: ThemeText.heading2,
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              Text(
-                'StartingDate',
-                style: ThemeText.heading2,
-              ),
-              const Spacer(),
-              Text(
-                'April 27, 2023',
-                style: ThemeText.heading2,
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              Text(
-                'Ending Date',
-                style: ThemeText.heading2,
-              ),
-              const Spacer(),
-              Text(
-                'May 27, 2023',
-                style: ThemeText.heading2,
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      );
+  Column listMembership() {
+    final provider = Provider.of<RegisterProvider>(context, listen: false);
+
+    var duartion = provider.dataPlan?.duration;
+    int convert = 0;
+    if (duartion == 30) {
+      convert = 3;
+    } else if (duartion == 180) {
+      convert = 6;
+    } else if (duartion == 90) {
+      convert = 3;
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              'Subscription',
+              style: ThemeText.heading2,
+            ),
+            const Spacer(),
+            Text(
+              '$convert Month',
+              style: ThemeText.heading2,
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          children: [
+            Text(
+              'StartingDate',
+              style: ThemeText.heading2,
+            ),
+            const Spacer(),
+            Text(
+              provider.getCurrentDate(),
+              style: ThemeText.heading2,
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          children: [
+            Text(
+              'Ending Date',
+              style: ThemeText.heading2,
+            ),
+            const Spacer(),
+            Text(
+              provider.getTanggalPlus(
+                  ditambah: int.parse(provider.dataPlan!.duration.toString())),
+              style: ThemeText.heading2,
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+      ],
+    );
+  }
 }

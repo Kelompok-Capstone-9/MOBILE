@@ -6,12 +6,16 @@ import 'dart:developer';
 
 import 'package:gofit_apps/component/register/card_pay.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../../../view_model/register_provider.dart';
 import 'transaction_screen.dart';
 
 @immutable
 class PaymentMethod extends StatefulWidget {
-  const PaymentMethod({super.key});
+  int idPlan;
+
+  PaymentMethod({super.key, required this.idPlan});
 
   @override
   State<PaymentMethod> createState() => _PaymentMethodState();
@@ -97,13 +101,16 @@ class _PaymentMethodState extends State<PaymentMethod> {
             onTap: () {
               // log('selesai memilih payment method');
               // // kirim data ketika selesai memilih
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => TransactionDetailScreen(
-                          data: _indexPayment,
+                          methodPay: _indexPayment,
+                          planId: widget.idPlan,
                         )),
               );
+              log('method payment id ${_indexPayment}\n id plan :${widget.idPlan}');
             },
             child: Container(
                 alignment: Alignment.center,
