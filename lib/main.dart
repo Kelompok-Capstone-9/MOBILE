@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LevelProvider()),
         ChangeNotifierProvider(create: (_) => ArtikelProvider()),
       ],
+      //merge transaksi
       child: const MaterialApp(debugShowCheckedModeBanner: false, home: Home()),
     );
   }
