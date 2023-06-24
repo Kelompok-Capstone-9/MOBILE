@@ -339,4 +339,22 @@ class ApiGym {
       throw "Can't pay the $urlLinktoBookingPlan";
     }
   }
+
+  static Future<List<DataClass>> getAllClass() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/$bookingDetail'), //class all
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final dataList = responseData['data'];
+      print(response.statusCode);
+      // print(dataList.length);
+      return dataList
+          .map<DataClass>((data) => DataClass.fromJson(data))
+          .toList();
+    } else {
+      throw Exception('Failed to load plans');
+    }
+  }
 }
