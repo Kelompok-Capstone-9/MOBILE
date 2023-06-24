@@ -9,6 +9,7 @@ import '../../component/register/decoration_form.dart';
 import 'healty_tips_screen.dart';
 
 class Artikel extends StatefulWidget {
+  
   const Artikel({Key? key}) : super(key: key);
 
   @override
