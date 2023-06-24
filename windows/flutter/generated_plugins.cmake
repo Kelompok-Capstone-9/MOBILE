@@ -3,7 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
   geolocator_windows
+=======
+  file_selector_windows
+>>>>>>> origin/upload-pict
   smart_auth
 )
 

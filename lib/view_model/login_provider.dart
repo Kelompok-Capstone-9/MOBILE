@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gofit_apps/model/login.dart';
@@ -17,7 +19,7 @@ class LoginProvider extends ChangeNotifier {
 
   String? _token;
   String? get token => _token;
-
+  String _image = "";
   Future<void> login({required String email, required String password}) async {
     try {
       final result = await ApiGym.loginUsers(email, password);
@@ -45,6 +47,33 @@ class LoginProvider extends ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void> getUserById({required int? id}) async {
+    try {
+      final token = await getToken();
+      final result = await ApiGym.getUserById(idUser: id, token: token);
+
+      _userLogin = UserLogin.fromJson(result['data']);
+      _userLoginResponse = UserModelMetadata.fromJson(result['metadata']);
+      statusCode = getStatusCode(result);
+
+      if (userLoginResponse!.statusCode == 200) {
+        statusCode = 200;
+        message = userLoginResponse!.message;
+
+        notifyListeners();
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+      }
+      notifyListeners();
+
+      print('Status code: ${userLoginResponse!.statusCode}');
+      print('Status global: $message');
+      print('message global: $message');
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
   }
 
   int getStatusCode(Map<String, dynamic> response) {
@@ -91,19 +120,20 @@ class LoginProvider extends ChangeNotifier {
   Future<void> updateUser(UserLogin user, String token) async {
     try {
       final result = await ApiGym.updateUser(
-        user.id ?? 0,
-        user.name ?? '',
-        token,
-        user.password ?? '',
-        user.gender ?? '',
-        user.height ?? 0,
-        user.weight ?? 0,
-        user.goal_weight ?? 0,
-        user.training_level ?? '',
-        //user.profile_picture ?? '',
-      );
+          user.id ?? 0,
+          user.name ?? '',
+          token,
+          user.password ?? '',
+          user.gender ?? '',
+          user.height ?? 0,
+          user.weight ?? 0,
+          user.goal_weight ?? 0,
+          user.training_level ?? "",
+          user.profile_picture ?? "");
+
       _userLogin = UserLogin.fromJson(result['data']);
       _userLoginResponse = UserModelMetadata.fromJson(result['metadata']);
+      // upImage(userId: user.id, imageFile: , token);
       statusCode = userLoginResponse?.statusCode;
 
       if (statusCode == 200) {
@@ -124,5 +154,16 @@ class LoginProvider extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
     return _token;
+  }
+
+  Future<void> upImage({int? userId, File? imageFile, String? token}) async {
+    print("oj");
+    try {
+      final res = ApiGym.uploadUserImage(
+          userId: userId, imageFile: imageFile, token: token);
+      notifyListeners();
+    } catch (error) {
+      notifyListeners();
+    }
   }
 }

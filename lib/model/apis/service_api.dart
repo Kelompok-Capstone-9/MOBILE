@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/plan_member.dart';
@@ -8,14 +11,16 @@ import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/model/news_letter.dart';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-
+import 'package:mime/mime.dart';
 import '../booking.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiGym {
   static const String baseUrl = 'http://18.141.56.154:8000';
   static const String login = '/login';
   static const String register = '/register';
   static const String user = '/users';
+  static const String userUploadImage = '/users/profile';
   static const String plan = '/plans/all';
   static const String joinMember = '/memberships/join/';
   static const String apiLevel =
@@ -153,6 +158,64 @@ class ApiGym {
     }
   }
 
+  static Future getUserById({int? idUser, String? token}) async {
+    log('service OK');
+    final response = await http.get(
+      Uri.parse('$baseUrl/users/$idUser'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+
+      // body: null,
+    );
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = json.decode(response.body);
+      print(response.body);
+      return responseData;
+    } else {
+      // print(planData);
+      print(response.statusCode);
+      throw "Can't get data";
+    }
+  }
+
+  static Future uploadUserImage(
+      {int? userId, File? imageFile, String? token}) async {
+    var url =
+        '$baseUrl$userUploadImage/$userId'; // Ganti dengan URL endpoint yang sesuai
+    var headers = {
+      "Content-Type": "multipart/form-data",
+      'Authorization': 'Bearer $token',
+    };
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.headers.addAll(headers);
+
+    var fileField = await http.MultipartFile.fromPath(
+      'file',
+      imageFile!.path,
+    );
+
+    request.files.add(fileField);
+
+    try {
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+      var parsedResponse = jsonDecode(responseBody);
+      var jsonResponse = jsonDecode(responseBody);
+      Map<String, dynamic> responseData = json.decode(responseBody);
+
+      print(parsedResponse);
+      print('beda ${responseData}');
+      return parsedResponse;
+    } catch (error) {
+      print('Error: $error');
+      // Tangani error jika ada
+    }
+  }
+
   static Future<Map<String, dynamic>> detailBooking(
       {int? id, String? token}) async {
     final response = await http.get(
@@ -246,7 +309,7 @@ class ApiGym {
     int newWeight,
     int newGoalWeight,
     String newLevel,
-    //String newPicture,
+    String newPicture,
   ) async {
     final url = Uri.parse('$baseUrl$user/$id');
     final Map<String, dynamic> requestBody = {
@@ -257,7 +320,7 @@ class ApiGym {
       "weight": newWeight,
       "goal_Weight": newGoalWeight,
       "training_level": newLevel,
-      //"profile_picture": newPicture,
+      "profile_picture": newPicture,
     };
 
     final response = await http.put(

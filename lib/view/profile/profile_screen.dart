@@ -1,12 +1,14 @@
 import 'dart:io';
-// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/profile/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import '../../model/login.dart';
 import '../../themes/color_style.dart';
 import '../../view_model/login_provider.dart';
 import 'personal_details_screen.dart';
+import 'package:path/path.dart' as path;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,37 +19,51 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isNews = true;
-  // File? _image;
+  File? _image;
 
-  // void _pickFile() async {
-  //   final result = await FilePicker.platform.pickFiles(
-  //     type: FileType.image, // view file gambar
-  //     allowMultiple: false, // cuma pilih 1 image
-  //   );
+  Future<void> pickImage(UserLogin? user, tokenn) async {
+    // Mengambil gambar dari galeri
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
 
-  //   if (result == null) return;
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      String fileName = path.basename(imageFile.path);
+      String token = tokenn;
+      // var user
+      print('this iss ${fileName}');
 
-  //   final file = result.files.first;
-  //   setState(() {
-  //     _image = File(file.path!);
-  //   });
+      loginProvider.upImage(
+          userId: user!.id, imageFile: imageFile, token: token);
+      setState(() {
+        _image = imageFile;
+      });
+    }
+  }
 
-  //   print('Nama file: ${file.name}');
-  // }
-
-  // Widget _buildPreview() {
-  //   if (_image != null) {
-  //     return CircleAvatar(
-  //       radius: 50,
-  //       backgroundImage: FileImage(_image!),
-  //     );
-  //   } else {
-  //     return const CircleAvatar(
-  //       radius: 50,
-  //       backgroundImage: AssetImage('assets/images/default_image.jpg'),
-  //     );
-  //   }
-  // }
+  Widget _buildPreview(UserLogin? user) {
+    if (_image != null) {
+      return CircleAvatar(
+        radius: 40,
+        backgroundImage: FileImage(_image!),
+      );
+    } else if (user?.profile_picture != null) {
+      return CircleAvatar(
+        radius: 40,
+         backgroundImage: NetworkImage(
+          'http://18.141.56.154:8000/${user!.profile_picture}',
+        ),
+      );
+    } else {
+      return const CircleAvatar(
+        radius: 40,
+        backgroundImage: AssetImage('assets/images/default_image.jpg'),
+       
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SingleChildScrollView(
         child: Consumer<LoginProvider>(
           builder: (context, loginProvider, _) {
+            //loginProvider.getUserById(id: loginProvider.userLogin?.id);
             final user = loginProvider.userLogin;
             return Column(
               children: [
@@ -90,17 +107,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               leading: Stack(
                                 alignment: Alignment.bottomRight,
                                 children: [
-                                  CircleAvatar(
-                                      radius: 40,
-                                      child: Image.asset(
-                                          'assets/images/default_image.jpg') // get fungsi image;)
-                                      ),
+                                  _buildPreview(user),
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
                                     child: GestureDetector(
-                                      onTap: () {
-                                        // _pickFile();
+                                      onTap: () async {
+                                        final token =
+                                            await loginProvider.getToken();
+                                        pickImage(user, token);
                                       },
                                       child: Container(
                                         width: 24,

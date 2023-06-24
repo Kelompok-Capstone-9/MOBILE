@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/view/register/register_screen.dart';
 import 'package:gofit_apps/view_model/login_provider.dart';
@@ -7,9 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../component/login/forgot_password_screen.dart';
 import '../../component/navbar/home.dart';
-import '../../themes/color_style.dart';
-import '../../component/login/validator.dart';
 import '../../component/register/decoration_form.dart';
+import '../../themes/color_style.dart';
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);
@@ -21,14 +19,6 @@ class FormLogin extends StatefulWidget {
 }
 
 class FormLoginState extends State<FormLogin> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Future.microtask(
-  //     () => Provider.of<LoginProvider>(context, listen: false)
-  //         .login(email: "erorr@gmail.com", password: "errorterus"),
-  //   );
-  // }
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -77,12 +67,6 @@ class FormLoginState extends State<FormLogin> {
                               _passwordController.text.isNotEmpty;
                         });
                       },
-                      validator: (email) {
-                        final loginProvider =
-                            Provider.of<LoginProvider>(context, listen: false);
-                        return EmailValidatorLogin.validateEmail(
-                            email, loginProvider);
-                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -115,12 +99,6 @@ class FormLoginState extends State<FormLogin> {
                           isFormFilled = _emailController.text.isNotEmpty &&
                               _passwordController.text.isNotEmpty;
                         });
-                      },
-                      validator: (password) {
-                        final loginProvider =
-                            Provider.of<LoginProvider>(context, listen: false);
-                        return PasswordValidatorLogin.validatePassword(
-                            password, loginProvider);
                       },
                     ),
                   ],
@@ -158,7 +136,7 @@ class FormLoginState extends State<FormLogin> {
                     backgroundColor: isFormFilled
                         ? ColorsTheme.activeButton
                         : ColorsTheme.inActiveButton),
-                onPressed: () {
+                onPressed: () async {
                   final isValidForm = _formKey.currentState!.validate();
                   if (isValidForm) {
                     final email = _emailController.text;
@@ -166,45 +144,41 @@ class FormLoginState extends State<FormLogin> {
                     final loginProvider =
                         Provider.of<LoginProvider>(context, listen: false);
 
-                    final emailError =
-                        EmailValidatorLogin.validateEmail(email, loginProvider);
-                    final passwordError =
-                        PasswordValidatorLogin.validatePassword(
-                            password, loginProvider);
+                    try {
+                      await loginProvider.login(
+                          email: email, password: password);
 
-                    if (emailError != null || passwordError != null) {
+                      if (loginProvider.userLogin != null) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Home(),
+                          ),
+                        );
+                      } else {
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Email or password is incorrect.',
+                              style: ThemeText.heading2,
+                            ),
+                            backgroundColor: ColorsTheme.activeButton,
+                          ),
+                        );
+                      }
+                    } catch (error) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            emailError ?? passwordError ?? 'An error occurred.',
+                            'An error occurred: $error',
+                            style: ThemeText.heading2,
                           ),
+                          backgroundColor: ColorsTheme.activeButton,
                         ),
                       );
-                      return;
                     }
-
-                    loginProvider.login(email: email, password: password).then(
-                      (_) {
-                        if (loginProvider.userLogin != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Home(),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Email or password is incorrect.',
-                                style: ThemeText.heading2,
-                              ),
-                              backgroundColor: ColorsTheme.activeButton,
-                            ),
-                          );
-                        }
-                      },
-                    );
                   }
                 },
                 child: Padding(
