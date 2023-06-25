@@ -9,13 +9,12 @@ class ArtikelProvider extends ChangeNotifier {
   final ApiGym apiNews = ApiGym();
   List<Article> _artikel = [];
   List<Article> get artikel => _artikel;
-  List<Article> _filteredArtikel = [];
-  List<Article> get filteredArtikel => _filteredArtikel;
+  List<Article> filteredArtikel = [];
   bool isLoading = false;
   String error = '';
 
   Future<void> fetchArtikel() async {
-    isLoading = true;
+    //isLoading = true;
     notifyListeners();
 
     try {
@@ -35,12 +34,17 @@ class ArtikelProvider extends ChangeNotifier {
     }
   }
 
-  void search(pencarian) {
-    _filteredArtikel = artikel
-        .where((article) =>
-            article.title.toLowerCase().contains(pencarian.toLowerCase()) ||
-            article.description.toLowerCase().contains(pencarian.toLowerCase()))
-        .toList();
+  void search(String keyword) {
+    filteredArtikel = keyword.isEmpty
+        ? artikel
+        : artikel
+            .where((artikel) =>
+                artikel.source.name
+                    .toString()
+                    .toLowerCase()
+                    .contains(keyword.toLowerCase()) ||
+                artikel.title.toLowerCase().contains(keyword.toLowerCase()))
+            .toList();
 
     notifyListeners();
   }
