@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/view_model/plan_member_provider.dart';
+import 'package:provider/provider.dart';
 import '../../themes/color_style.dart';
+import '../../view/register/screens/payment_method_screen.dart';
 
 class CardItem extends StatelessWidget {
   final Gradient gradient;
@@ -19,6 +22,10 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final planProvider = Provider.of<PlanProvider>(context);
+    final planModel = planProvider.planMember;
+    int selectedPlanId = 0;
+    int idPlan = 0;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -73,7 +80,16 @@ class CardItem extends StatelessWidget {
                     ),
                     backgroundColor: ColorsTheme.colorButton,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PaymentMethod(idPlan: planProvider.plan!.id!),
+                        ),
+                      );
+                    };
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Text(
