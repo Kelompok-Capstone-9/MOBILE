@@ -63,6 +63,10 @@ class UserLogin {
   factory UserLogin.fromRawJson(String str) =>
       UserLogin.fromJson(json.decode(str));
 
+  get isMember => null;
+
+  
+
   String toRawJson() => json.encode(toJson());
 
   factory UserLogin.fromJson(Map<String, dynamic> json) => UserLogin(

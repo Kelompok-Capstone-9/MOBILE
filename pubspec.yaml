@@ -42,6 +42,7 @@ dependencies:
   http: ^1.0.0
   image_picker: ^0.8.9
   intl: ^0.18.1
+  jwt_decoder: ^2.0.1
   pinput: ^2.2.31
   provider: ^6.0.5
   readmore: ^2.2.0

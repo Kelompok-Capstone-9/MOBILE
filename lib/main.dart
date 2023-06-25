@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/component/navbar/home.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
+import 'package:gofit_apps/view/login/login_screen.dart';
+import 'package:gofit_apps/view/register/screens/join_member_screen.dart';
 
 import 'package:gofit_apps/view/training/beginner_screen.dart';
 import 'package:gofit_apps/view/training/training_kategori.dart';
@@ -46,7 +48,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ArtikelProvider()),
       ],
       //merge transaksi
-      child: const MaterialApp(debugShowCheckedModeBanner: false, home: Home()),
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, home: FormLogin()),
     );
   }
 }

@@ -132,9 +132,10 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
           GestureDetector(
             onTap: () {
               log('masuk ke screen pilih payment methode');
+              print(provider['idPlan']);
               // Navigator.push(
               //   context,
-              //   MaterialPageRoute(builder: (context) => PaymentMethod()),
+              //   MaterialPageRoute(builder: (context) => PaymentMethod(pro)),
               // );
             },
             child: widget.methodPay == null

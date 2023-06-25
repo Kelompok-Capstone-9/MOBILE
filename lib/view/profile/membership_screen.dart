@@ -5,6 +5,7 @@ import '../../component/profile/card_membership.dart';
 import '../../component/profile/color_card_membership.dart';
 import '../../themes/color_style.dart';
 import '../../view_model/plan_member_provider.dart';
+import '../register/screens/payment_method_screen.dart';
 
 class MembershipScreen extends StatefulWidget {
   const MembershipScreen({Key? key}) : super(key: key);
@@ -25,6 +26,8 @@ class _MembershipScreenState extends State<MembershipScreen> {
   Widget build(BuildContext context) {
     final planProvider = Provider.of<PlanProvider>(context);
     final planModel = planProvider.planMember;
+    int selectedPlanId = 0;
+    int idPlan = 0;
 
     return Scaffold(
       backgroundColor: ColorsTheme.bgMembership,
@@ -96,13 +99,23 @@ class _MembershipScreenState extends State<MembershipScreen> {
                           if (duration != null) {
                             convert = (duration ~/ 30).toString();
                           }
-                          return CardItem(
-                            gradient: randomGradient,
-                            title: plan?.name ?? '',
-                            subtitle: 'Rp ${plan?.price ?? ''}',
-                            trailing: '/$convert MONTH',
-                            description: plan?.description ?? '',
-                          ).animate().fadeIn().slideY();
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PaymentMethod(idPlan: plan.id!),
+                                ),
+                              );
+                            },
+                            child: CardItem(
+                              gradient: randomGradient,
+                              title: plan?.name ?? '',
+                              subtitle: 'Rp ${plan?.price ?? ''}',
+                              trailing: '/$convert MONTH',
+                              description: plan?.description ?? '',
+                            ).animate().fadeIn().slideY(),
+                          );
                         },
                       ),
                     ),
