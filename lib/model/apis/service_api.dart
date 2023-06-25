@@ -423,8 +423,7 @@ class ApiGym {
     }
   }
 
-  static Future<dynamic> createClassBooking(
-      {classId, userId, packageId, token}) async {
+  static Future createClassBooking({classId, userId, packageId, token}) async {
     print(
       'classId: ${classId}, packageId: ${packageId}',
     );

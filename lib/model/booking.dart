@@ -99,7 +99,7 @@ class ClassPackage {
   String? status;
   ClassPackageMetadata? metadata;
 
-  ClassPackage({
+    ClassPackage({
     this.id,
     this.period,
     this.price,

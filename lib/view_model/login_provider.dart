@@ -19,6 +19,11 @@ class LoginProvider extends ChangeNotifier {
 
   String? _token;
   String? get token => _token;
+
+  String? _userId;
+
+  String? get userId => _userId;
+
   String _image = "";
   Future<void> login({required String email, required String password}) async {
     try {
@@ -32,9 +37,11 @@ class LoginProvider extends ChangeNotifier {
       if (userLoginResponse!.statusCode == 200) {
         statusCode = 200;
         message = userLoginResponse!.message;
+        notifyListeners();
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
         _token = result['token'];
+        prefs.setInt('userId', int.parse(userLogin!.id.toString()));
         prefs.setString('email', email);
         prefs.setString('password', password);
         prefs.setString('token', _token!);
@@ -154,6 +161,12 @@ class LoginProvider extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
     return _token;
+  }
+
+  Future<String?> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _userId = prefs.getString('userId');
+    return _userId;
   }
 
   Future<void> upImage({int? userId, File? imageFile, String? token}) async {

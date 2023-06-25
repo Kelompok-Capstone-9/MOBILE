@@ -53,6 +53,8 @@ class RegisterProvider extends ChangeNotifier {
   String transactionInfo = '';
   bool isLoading = false;
   String error = '';
+  
+
   void getDataUser({Data? name, Data? email, Data? password}) {
     _name = name;
     _email = email;
@@ -110,6 +112,8 @@ class RegisterProvider extends ChangeNotifier {
       final res = await prov.login(
           email: data.email.toString(), password: data.password.toString());
       _token = prov.token;
+
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       print('tokennya adalah : $token');
 
@@ -127,7 +131,7 @@ class RegisterProvider extends ChangeNotifier {
   Future<void> fetchDataPlanJoin() async {
     try {
       _planList = await _apiService.getAllPlansJoin();
-
+  
       notifyListeners();
     } catch (error) {
       rethrow;

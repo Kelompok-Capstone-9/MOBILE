@@ -17,9 +17,7 @@ class _TicketCardState extends State<TicketCard> {
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<BookingProvider>(context, listen: false);
-
-    final detail = prov.classTiketById!.data.classPackage;
-
+    final detail = prov.tiketDetail!;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(10),
@@ -37,7 +35,7 @@ class _TicketCardState extends State<TicketCard> {
       ),
       child: ListTile(
         leading: Image.network(
-          'http://18.141.56.154:8000/${detail.classPackageClass.imageBanner}',
+          'http://18.141.56.154:8000/${detail.data.classPackage!.classInfo?.imageBanner}',
           errorBuilder:
               (BuildContext context, Object exception, StackTrace? stackTrace) {
             return Image.asset('assets/images/open-gym.png');
@@ -51,19 +49,19 @@ class _TicketCardState extends State<TicketCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  detail.classPackageClass.location.name,
+                  detail.data.classPackage!.classInfo!.name.toString(),
                   style: ThemeText.heading2,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '${detail.classPackageClass.classType} class',
+                  '${detail.data.classPackage!.classInfo!.classType} class',
                   style: ThemeText.heading4.copyWith(
                     color: ColorsTheme.grey,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  detail.classPackageClass.location.address,
+                  '${detail.data.classPackage!.classInfo!.location!.address.toString()}, ${detail.data.classPackage!.classInfo!.location!.city.toString()} ',
                   style: ThemeText.heading4.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
@@ -75,13 +73,15 @@ class _TicketCardState extends State<TicketCard> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: ColorsTheme.success,
+                    color: detail.data.status == "booked"
+                        ? ColorsTheme.success
+                        : Color(0xffB72C47),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    prov.classTiketById!.data.status == "booked"
+                    detail.data.status == "booked"
                         ? 'Booked'
-                        : "Pending",
+                        : "Booking Canceled",
                     style: ThemeText.heading4.copyWith(
                       color: ColorsTheme.white,
                     ),

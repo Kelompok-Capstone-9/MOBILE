@@ -1,19 +1,13 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:math' show asin, atan2, cos, min, pi, pow, sin, sqrt;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
-import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:table_calendar/table_calendar.dart';
-
 import '../model/apis/tiket_class_models.dart';
 import '../model/booking.dart';
+import '../model/detail_tiket_models.dart';
 import '../model/tiket_class_booking.dart';
 
 enum RequestState { empty, loading, loaded, error }
@@ -35,10 +29,12 @@ class BookingProvider extends ChangeNotifier {
   String getLinkPay = '';
 // single class pakcage sukses
   Response? _tiketClass;
-  Response? get tiketClass => _tiketClass;
+  // Response? get tiketClass => _tiketClass;
 
-  BookingClassById? _classTiketById;
-  BookingClassById? get classTiketById => _classTiketById;
+  Ticket? _tiket;
+  Ticket? get tiket => _tiket;
+  ClassTicketDetail? _tiketDetail;
+  ClassTicketDetail? get tiketDetail => _tiketDetail;
 
   RequestState _requestState = RequestState.empty;
   RequestState get requestState => _requestState;
@@ -60,7 +56,9 @@ class BookingProvider extends ChangeNotifier {
       final result = await ApiGym.createClassBooking(
           classId: classId, userId: userId, packageId: packageId, token: token);
       statusCode = result['metadata']['status_code'];
-      notifyListeners();
+      _tiket = Ticket.fromJson(result);
+      print('ini tiket id ${tiket!.data?.id}}');
+      print('ini pay nya ${tiket!.transactionInfo!.transactionLink}}');
 
       print("status kode saat ini adalah $statusCode");
 
@@ -69,11 +67,8 @@ class BookingProvider extends ChangeNotifier {
       notifyListeners();
 
       if (statusCode == 201) {
-        getLinkPay = result['transaction_info']['transaction_link'];
         print("Transaction Link: $getLinkPay");
         notifyListeners();
-
-        // /transactions/pay/TM52
       } else {}
 
       notifyListeners();
@@ -81,6 +76,7 @@ class BookingProvider extends ChangeNotifier {
       print(e);
     }
     print(statusCode.toString());
+    notifyListeners();
   }
 
   Future<void> payTiketClass(
@@ -89,30 +85,21 @@ class BookingProvider extends ChangeNotifier {
       String? expiredMonth,
       String? cvv,
       String? typePembayaran}) async {
-    String hapusSpasiCardType = typePembayaran!.replaceAll(' ', '_');
-
     try {
       if (statusCode == 201) {
         // /transactions/pay/TM52
         print(
             "linkPay : $linkPay, numberCard : $numberCard, exp: $expiredMonth, cvv: $cvv, typePem : $typePembayaran");
         final res = await ApiGym.payTransaksiClass(
-          urlLinktoBookingPlan: linkPay.toString(),
-          token: token.toString(),
-          typePembayaran: "credit_card",
-          // typePembayaran: hapusSpasiCard,
-          expireMonth: int.parse(expiredMonth.toString()),
-          numberCard: int.parse(numberCard.toString()),
-          cvv: int.parse(cvv.toString()),
-        );
-        print("response is $res");
+            urlLinktoBookingPlan: linkPay.toString(),
+            token: token.toString(),
+            typePembayaran: "credit_card",
+            // typePembayaran: hapusSpasiCard,
+            expireMonth: int.parse(expiredMonth.toString()),
+            numberCard: int.parse(numberCard.toString()),
+            cvv: int.parse(cvv.toString()));
+        notifyListeners();
 
-        if (res['data'] != null) {
-          print("object");
-          _tiketClass = Response.fromJson(res);
-        } else {
-          throw Exception('Data is null');
-        }
         // print('tiket class id payyed ${tiketClass?.id}');
         print('is ${_tiketClass!.data!.amount}');
         notifyListeners();
@@ -126,26 +113,29 @@ class BookingProvider extends ChangeNotifier {
   }
 
   Future<void> getClassTiketById({int? classPackageIdBooked}) async {
-    // _requestState = RequestState.loading;
-    // notifyListeners();
+    _requestState = RequestState.loading;
+    notifyListeners();
     print(classPackageIdBooked);
     print('is token ; ${token.toString()}');
 
     try {
       final res = await ApiGym.getTiketClassBooked(
           classPackageIdBooked: classPackageIdBooked, token: token);
-      _classTiketById = BookingClassById.fromJson(res);
+      _tiketDetail = ClassTicketDetail.fromJson(res);
 
-      log(classTiketById!.data.classPackage.classPackageClass.classType);
+      log('id class: ${classPackageIdBooked.toString()}');
+      log('tiketDetail: ${tiketDetail!.data.classPackage!.classInfo!.classType}');
+      log('tiketDetail: ${tiketDetail!.data.classPackage!.classInfo!.imageBanner}');
 
-      // _requestState = RequestState.loaded;
+      _requestState = RequestState.loaded;
       notifyListeners();
     } catch (e) {
-      // _requestState = RequestState.error;
+      _requestState = RequestState.error;
       notifyListeners();
       print(e);
       throw "Cant get tike by Id";
     }
+    notifyListeners();
   }
 
   Future<String?> getToken() async {

@@ -344,7 +344,8 @@ class _PaymentInformationState extends State<PaymentInformation> {
                   if (provBooking.statusCode == 201) {
                     final cardType = widget.paymentType;
                     provBooking.payTiketClass(
-                        linkPay: provBooking.getLinkPay,
+                        linkPay:
+                            provBooking.tiket?.transactionInfo?.transactionLink,
                         numberCard: cardNumberController.text,
                         cvv: cvvController.text,
                         expiredMonth: bbController.text,
@@ -418,16 +419,17 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                       onTap: () {
                                         log("masuk ke detail tiket (success page)");
                                         // kirim id ke classId bookng
+                                        log(provBooking.tiket!.data!.id
+                                            .toString());
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   TicketScreen(
-                                                      classIdBooking:
+                                                      classIdBooking: int.parse(
                                                           provBooking
-                                                              .tiketClass!
-                                                              .data!
-                                                              .productId)),
+                                                              .tiket!.data!.id
+                                                              .toString()))),
                                         );
                                       },
                                       child: ButtonPayWithDetail(
