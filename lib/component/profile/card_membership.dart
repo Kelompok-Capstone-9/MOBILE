@@ -81,14 +81,13 @@ class CardItem extends StatelessWidget {
                     backgroundColor: ColorsTheme.colorButton,
                   ),
                   onPressed: () {
-                    () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              PaymentMethod(idPlan: planProvider.plan!.id!),
-                        ),
-                      );
-                    };
+                    idPlan = selectedPlanId;
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PaymentMethod(idPlan: idPlan),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),

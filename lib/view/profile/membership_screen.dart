@@ -94,28 +94,18 @@ class _MembershipScreenState extends State<MembershipScreen> {
                           final plan = planModel[index];
                           LinearGradient randomGradient =
                               linearGradient[index % linearGradient.length];
-                          int? duration = plan?.duration;
+                          int? duration = plan.duration;
                           String convert = '';
                           if (duration != null) {
                             convert = (duration ~/ 30).toString();
                           }
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      PaymentMethod(idPlan: plan.id!),
-                                ),
-                              );
-                            },
-                            child: CardItem(
-                              gradient: randomGradient,
-                              title: plan?.name ?? '',
-                              subtitle: 'Rp ${plan?.price ?? ''}',
-                              trailing: '/$convert MONTH',
-                              description: plan?.description ?? '',
-                            ).animate().fadeIn().slideY(),
-                          );
+                          return CardItem(
+                            gradient: randomGradient,
+                            title: plan?.name ?? '',
+                            subtitle: 'Rp ${plan?.price ?? ''}',
+                            trailing: '/$convert MONTH',
+                            description: plan?.description ?? '',
+                          ).animate().fadeIn().slideY();
                         },
                       ),
                     ),
