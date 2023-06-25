@@ -103,7 +103,8 @@ class _GymCardListState extends State<GymCardList> {
               SizedBox(
                   width: 130,
                   // height: 180,
-                  child: Image.asset(
+                  child: 
+                  Image.asset(
                     'assets/images/not-found.png',
                     fit: BoxFit.contain,
                   )).animate().fadeIn(),

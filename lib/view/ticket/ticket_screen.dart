@@ -2,29 +2,73 @@ import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/explore/explore_screen.dart';
 import 'package:gofit_apps/component/ticket_card.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
-class TicketScreen extends StatelessWidget {
-  const TicketScreen({super.key});
+import '../../component/booking_detail/convert.dart';
+import '../../view_model/booking_provider.dart';
+
+class TicketScreen extends StatefulWidget {
+  int classIdBooking;
+
+  TicketScreen({super.key, required this.classIdBooking});
+
+  @override
+  State<TicketScreen> createState() => _TicketScreenState();
+}
+
+class _TicketScreenState extends State<TicketScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        Provider.of<BookingProvider>(context, listen: false).getClassTiketById(
+          classPackageIdBooked: widget.classIdBooking,
+        ));
+  }
+
+  final LatLng _center = const LatLng(106.81676627549479, -6.199986593324147);
+  GoogleMapController? mapController;
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final prov = Provider.of<BookingProvider>(context, listen: false);
+    final detail = prov.classTiketById!.data.classPackage;
+
     return Scaffold(
+      appBar: AppBar(
+          elevation: 0.8,
+          title: Text('Details ticket', style: ThemeText.heading1),
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ExploreScreen(),
+                  ),
+                );
+              },
+              child: const Icon(Icons.arrow_back, color: Colors.black)),
+          backgroundColor: ColorsTheme.bgScreen),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 60),
-            child: TopBar(),
-          ),
-          const Divider(
-            color: ColorsTheme.divider,
-          ),
+          // const Padding(
+          //   padding: EdgeInsets.only(top: 60),
+          //   child: TopBar(),
+          // ),
+          // const Divider(
+          //   color: ColorsTheme.divider,
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TicketCard(),
+                TicketCard(context: context),
                 const SizedBox(height: 20),
                 Text(
                   'Booking Detail',
@@ -47,7 +91,7 @@ class TicketScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Daily',
+                      detail.period,
                       style: ThemeText.heading3,
                     )
                   ],
@@ -69,7 +113,7 @@ class TicketScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Offline mentoring',
+                      '${detail.classPackageClass.classType} mentoring',
                       style: ThemeText.heading3,
                     )
                   ],
@@ -91,7 +135,8 @@ class TicketScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '1 March 2023',
+                      formatDateOnly(
+                          detail.classPackageClass.startedAt.toString()),
                       style: ThemeText.heading3,
                     )
                   ],
@@ -113,7 +158,8 @@ class TicketScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '5AM - 12PM',
+                      formatTimeOnly(
+                          detail.classPackageClass.startedAt.toString()),
                       style: ThemeText.heading3,
                     )
                   ],
@@ -157,7 +203,7 @@ class TicketScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Rp. 150.000',
+                      formatCurrency(detail.price),
                       style: ThemeText.heading3,
                     )
                   ],
@@ -167,6 +213,9 @@ class TicketScreen extends StatelessWidget {
                   'Location',
                   style: ThemeText.heading1,
                 ),
+                detail.classPackageClass.classType == "offline"
+                    ? Text("ini clas ofline")
+                    : Text("ini clas online")
               ],
             ),
           ),
@@ -176,39 +225,40 @@ class TicketScreen extends StatelessWidget {
   }
 }
 
-class TopBar extends StatelessWidget {
-  const TopBar({
-    super.key,
-    // Key? key,
-  });
+// class TopBar extends StatelessWidget {
+//   const TopBar({
+//     super.key,
+//     // Key? key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: Row(
-        children: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.black,
-              size: 18,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ExploreScreen(),
-                ),
-              );
-            },
-          ),
-          const SizedBox(width: 10),
-          Text(
-            'Details Ticket',
-            style: ThemeText.heading1,
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 0,
+//       child: Row(
+//         children: <Widget>[
+//           IconButton(
+//             icon: const Icon(
+//               Icons.arrow_back_rounded,
+//               color: Colors.black,
+//               size: 18,
+//             ),
+//             onPressed: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => ExploreScreen(),
+//                 ),
+//               );
+//             },
+//           ),
+//           const SizedBox(width: 10),
+//           Text(
+//             'Details Ticket',
+//             style: ThemeText.heading1,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

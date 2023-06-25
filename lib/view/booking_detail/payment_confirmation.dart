@@ -7,8 +7,11 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 import 'package:gofit_apps/view/booking_detail/payment_information.dart';
 import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
+import 'package:gofit_apps/view_model/booking_provider.dart';
+import 'package:gofit_apps/view_model/login_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../component/booking_detail/button.dart';
 import '../../component/booking_detail/card.dart';
@@ -417,14 +420,29 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                 ? GestureDetector(
                     onTap: () {
                       log('ke proses payment');
+                      // jalan -jalan
+                      //proses request payment
+                      final provBooking =
+                          Provider.of<BookingProvider>(context, listen: false);
+                      final provGetUser =
+                          Provider.of<LoginProvider>(context, listen: false);
+                      final packageId =
+                          widget.data!.classPackages[widget.idPackage].id;
+                      final userId = provGetUser.userLogin?.id;
 
+                      provBooking.createBookingClass(
+                          classId: provBooking.dataClass!.id,
+                          packageId: packageId,
+                          userId: userId);
+
+                      // if (provBooking.statusCode == 201){}
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PaymentInformation(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentInformation(
                                   hargaTotal: widget.hargaPackage,
-                                )),
-                      );
+                                  paymentType: paymentMethode[widget.cardType]
+                                      ['type'])));
                     },
                     child: ButtonFilledSmall(textButton: 'Continue to payment'),
                   )

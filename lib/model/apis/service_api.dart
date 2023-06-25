@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:gofit_apps/model/apis/tiket_class_models.dart';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/plan_member.dart';
@@ -216,7 +217,7 @@ class ApiGym {
     }
   }
 
-  static Future<Map<String, dynamic>> detailBooking(
+  static Future<Map<String, dynamic>> detailBookingById(
       {int? id, String? token}) async {
     final response = await http.get(
       Uri.parse('$baseUrl/$bookingDetail/$id'),
@@ -419,6 +420,110 @@ class ApiGym {
           .toList();
     } else {
       throw Exception('Failed to load plans');
+    }
+  }
+
+  static Future<dynamic> createClassBooking(
+      {classId, userId, packageId, token}) async {
+    print(
+      'classId: ${classId}, packageId: ${packageId}',
+    );
+    final dataCard = {
+      "user": {
+        "id": userId,
+      },
+      "class_package": {
+        "id": classId,
+      }
+    };
+    final response = await http.post(
+      Uri.parse('$baseUrl/classes/tickets/$packageId'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(dataCard),
+    );
+    if (response.statusCode == 201) {
+      print("sukses create tiket class $classId");
+      Map<String, dynamic> responseData = json.decode(response.body);
+      return responseData;
+    } else {
+      print(response.statusCode);
+      throw "Can't pay the $classId";
+    }
+  }
+
+  static Future payTransaksiClass(
+      {urlLinktoBookingPlan,
+      token,
+      creditCard,
+      numberCard,
+      expireMonth,
+      typePembayaran,
+      cvv}) async {
+    print(
+        "linkPay : $urlLinktoBookingPlan, numberCard : $numberCard, exp: $expireMonth, cvv: $cvv, typePem : $typePembayaran");
+
+    // var dataCard = {
+    //   "payment_method": {"name": "credit_card"},
+    //   "credit_card": {
+    //     "number": numberCard,
+    //     "expire_month": expireMonth,
+    //     "expire_year": 2025,
+    //     "cvv": cvv
+    //   }
+    // };
+    final dataCard = {
+      "payment_method": {"name": "credit_card"},
+      "credit_card": {
+        "number": "4811 1111 1111 1114",
+        "expire_month": 2,
+        "expire_year": 2025,
+        "cvv": "123"
+      }
+    };
+
+    final response = await http.post(
+      Uri.parse('$baseUrl$urlLinktoBookingPlan'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(dataCard),
+    );
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+      print("sukses Pay $urlLinktoBookingPlan");
+      Map<String, dynamic> responseData = json.decode(response.body);
+      // return BookingClass.fromJson(jsonDecode(response.body));
+      print(responseData);
+      return responseData;
+    } else {
+      print(response.statusCode);
+      throw "Can't pay the $urlLinktoBookingPlan";
+    }
+  }
+
+  static Future getTiketClassBooked(
+      {int? classPackageIdBooked, String? token}) async {
+    log('service OK');
+    final response = await http.get(
+      Uri.parse('$baseUrl/classes/tickets/mytickets/$classPackageIdBooked'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = json.decode(response.body);
+      print(response.body);
+      return responseData;
+    } else {
+      // print(planData);
+      print(response.statusCode);
+      throw "Can't get data";
     }
   }
 }

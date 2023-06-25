@@ -3,11 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-<<<<<<< HEAD
-  geolocator_windows
-=======
   file_selector_windows
->>>>>>> origin/upload-pict
+  geolocator_windows
+  permission_handler_windows
   smart_auth
 )
 

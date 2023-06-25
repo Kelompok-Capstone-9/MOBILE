@@ -144,18 +144,13 @@ class RegisterProvider extends ChangeNotifier {
       print("status kode saat ini adalah $statusCode");
 
       print("Transaction Code: $statusCode");
-      // print(transactionInfo);
 
       notifyListeners();
 
       if (statusCode == 201) {
-        // setLink = result['transaction_info']['transaction_code'];
         getLinkPay = result['transaction_info']['transaction_link'];
         print("Transaction Link: $getLinkPay");
-        // print("ini linknya $setLink");
-        // final res = await ApiGym.payPlan(setLink, token);
-        // /transactions/pay/TM52
-      } else {}
+      }
 
       notifyListeners();
     } catch (e) {
