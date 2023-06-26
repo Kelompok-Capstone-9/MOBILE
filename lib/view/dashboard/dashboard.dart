@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/article/artikel_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../view_model/connection.dart';
+
 // ignore: camel_case_types
 class Home_Screen extends StatefulWidget {
   const Home_Screen({super.key});
@@ -45,30 +47,32 @@ class _Home_Screen extends State<Home_Screen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: const Color(0xFFF6F6F6),
-          title: Text(
-            'GoFit',
-            style: ThemeText.headingDashboard,
-          ),
-        ),
+            automaticallyImplyLeading: false,
+            backgroundColor: const Color(0xFFF6F6F6),
+            title: Text(
+              'GoFit',
+              style: ThemeText.headingDashboard,
+            )),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
                 CarouselSlider.builder(
-                    itemCount: imageSlinder.length,
-                    itemBuilder: (context, index, realIndex) {
-                      final imageSlinders = imageSlinder[index];
-                      return buiildImage(imageSlinders, index);
-                    },
-                    options: CarouselOptions(
-                        height: 320,
-                        viewportFraction: 1,
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 4),
-                        onPageChanged: (index, reason) =>
-                            setState(() => activeIndex = index))),
+                        itemCount: imageSlinder.length,
+                        itemBuilder: (context, index, realIndex) {
+                          final imageSlinders = imageSlinder[index];
+                          return buiildImage(imageSlinders, index);
+                        },
+                        options: CarouselOptions(
+                            height: 320,
+                            viewportFraction: 1,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 4),
+                            onPageChanged: (index, reason) =>
+                                setState(() => activeIndex = index)))
+                    .animate()
+                    .fadeIn()
+                    .shimmer(duration: Duration(seconds: 2)),
                 SizedBox(
                   height: 24,
                   child: buildIndicator(),
@@ -115,7 +119,7 @@ class _Home_Screen extends State<Home_Screen> {
                             child: Image.asset(
                               imagesArtikel[index],
                               fit: BoxFit.cover,
-                            ),
+                            ).animate().fadeIn(duration: Duration(seconds: 2)),
                           ),
                         ),
                       );

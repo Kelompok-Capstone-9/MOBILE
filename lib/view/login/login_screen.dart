@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/view/register/register_screen.dart';
 import 'package:gofit_apps/view_model/login_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,7 +45,7 @@ class FormLoginState extends State<FormLogin> {
               child: Text(
                 appName,
                 style: ThemeText.headingLabelGofit,
-              ),
+              ).animate().slideX(),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),

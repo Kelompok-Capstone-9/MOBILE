@@ -16,13 +16,6 @@ class MembershipScreen extends StatefulWidget {
 
 class _MembershipScreenState extends State<MembershipScreen> {
   @override
-  void initState() {
-    super.initState();
-    final planProvider = Provider.of<PlanProvider>(context, listen: false);
-    planProvider.fetchDataPlan();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final planProvider = Provider.of<PlanProvider>(context);
     final planModel = planProvider.planMember;
@@ -86,29 +79,47 @@ class _MembershipScreenState extends State<MembershipScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     child: Consumer<PlanProvider>(
-                      builder: (context, value, child) => ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: planModel.length,
-                        itemBuilder: (context, index) {
-                          final plan = planModel[index];
-                          LinearGradient randomGradient =
-                              linearGradient[index % linearGradient.length];
-                          int? duration = plan.duration;
-                          String convert = '';
-                          if (duration != null) {
-                            convert = (duration ~/ 30).toString();
-                          }
-                          return CardItem(
-                            gradient: randomGradient,
-                            title: plan?.name ?? '',
-                            subtitle: 'Rp ${plan?.price ?? ''}',
-                            trailing: '/$convert MONTH',
-                            description: plan?.description ?? '',
-                          ).animate().fadeIn().slideY();
-                        },
-                      ),
-                    ),
+                        builder: (context, value, child) {
+                      if (value.requestState == RequestState.loading ||
+                          value.planMember.length == 0) {
+                        Provider.of<PlanProvider>(context).fetchDataPlan();
+                        print("muter");
+                        return CircularProgressIndicator();
+                      }
+                      if (value.requestState == RequestState.loaded ||
+                          value.planMember.length == 0) {
+                        print("muter");
+
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: planModel.length,
+                          itemBuilder: (context, index) {
+                            final plan = planModel[index];
+                            LinearGradient randomGradient =
+                                linearGradient[index % linearGradient.length];
+                            int? duration = plan.duration;
+                            String convert = '';
+                            if (duration != null) {
+                              convert = (duration ~/ 30).toString();
+                            }
+                            return CardItem(
+                              idPlan: int.parse(plan.id.toString()),
+                              gradient: randomGradient,
+                              title: plan.name ?? '',
+                              subtitle: 'Rp ${plan.price ?? ''}',
+                              trailing: '/$convert MONTH',
+                              description: plan.description ?? '',
+                            ).animate().fadeIn().slideY();
+                          },
+                        );
+                      } else if (value.requestState == RequestState.error) {
+                        return Center(
+                          child: Text("Error Data"),
+                        );
+                      }
+                      return Text("");
+                    }),
                   ),
                 ),
               ),

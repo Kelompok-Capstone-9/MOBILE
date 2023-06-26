@@ -10,6 +10,7 @@ class CardItem extends StatelessWidget {
   final String subtitle;
   final String trailing;
   final String description;
+  final int idPlan;
 
   const CardItem({
     Key? key,
@@ -18,14 +19,13 @@ class CardItem extends StatelessWidget {
     required this.subtitle,
     required this.trailing,
     required this.description,
+    required this.idPlan,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final planProvider = Provider.of<PlanProvider>(context);
     final planModel = planProvider.planMember;
-    int selectedPlanId = 0;
-    int idPlan = 0;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -80,10 +80,9 @@ class CardItem extends StatelessWidget {
                     ),
                     backgroundColor: ColorsTheme.colorButton,
                   ),
-                  onPressed: () {
-                    idPlan = selectedPlanId;
-
-                    Navigator.of(context).push(
+                  onPressed: () async {
+                    print('id Terpilih ; $idPlan');
+                    await Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => PaymentMethod(idPlan: idPlan),
                       ),

@@ -196,8 +196,9 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
 
                 if (prov.statusCode == 201) {
                   // var pay = prov/
+                  print('sttaus = ${prov.statusCode}');
                   print('ini transaksi infomu ${prov.getLinkPay}');
-                  await prov.payPlan(linkPay: prov.getLinkPay);
+                   prov.payPlan(linkPay: prov.getLinkPay);
                 }
                 if (prov.statusCode == 200) {
                   showDialog(
@@ -207,7 +208,6 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                         return successDialog(mediaquery, provider);
                       });
                 } else {}
-                setState(() {});
               },
               child: Column(
                 children: [
