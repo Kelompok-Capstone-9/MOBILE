@@ -87,7 +87,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
                         return CircularProgressIndicator();
                       }
                       if (value.requestState == RequestState.loaded ||
-                          value.planMember.length == 0) {
+                          value.planMember.length != 0) {
                         print("muter");
 
                         return ListView.builder(

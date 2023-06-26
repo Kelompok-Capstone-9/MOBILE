@@ -2,15 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/component/booking_detail/convert.dart';
-// import 'package:gofit_apps/model/booking.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/payment_confirmation.dart';
 import 'package:gofit_apps/view_model/booking_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../model/list_detail_dummy.dart';
-import '../../view_model/login_provider.dart';
 
 final id = 1;
 

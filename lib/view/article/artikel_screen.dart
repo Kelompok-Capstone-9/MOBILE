@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:gofit_apps/model/public_api.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gofit_apps/view_model/artikel_provider.dart';
 import 'package:provider/provider.dart';
 import '../../themes/color_style.dart';
@@ -92,9 +92,13 @@ class _ArtikelState extends State<Artikel> {
                   crossAxisCount: 2,
                   childAspectRatio: 0.75,
                 ),
-                itemCount: prov.filteredArtikel.length,
+                itemCount: prov.filteredArtikel.length == 0
+                    ? prov.artikel.length
+                    : prov.filteredArtikel.length,
                 itemBuilder: (context, index) {
-                  final newsletter = prov.filteredArtikel[index];
+                  final newsletter = prov.filteredArtikel.length == 0
+                      ? prov.artikel[index]
+                      : prov.filteredArtikel[index];
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: GestureDetector(
@@ -136,16 +140,18 @@ class _ArtikelState extends State<Artikel> {
                                   width: width / 2 - (5 / 100 * width),
                                   height: 200,
                                   decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: newsletter.urlToImage != null ?
-                                      Image.network(
-                                        newsletter.urlToImage.toString(),
+                                      image: DecorationImage(
                                         fit: BoxFit.cover,
-                                      ).image : const AssetImage('assets/images/mobile.jpeg'),
-                                    ),
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
+                                        image: newsletter.urlToImage != null
+                                            ? Image.network(
+                                                newsletter.urlToImage
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                              ).image
+                                            : const AssetImage(
+                                                'assets/images/mobile.jpeg'),
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment:
@@ -161,11 +167,22 @@ class _ArtikelState extends State<Artikel> {
                                                 ThemeText.headingCustomTittle,
                                           ),
                                         ),
-                                      )
+                                      ).animate().fadeIn().shimmer(
+                                          duration: Duration(
+                                              seconds: prov.artikel.length == 0
+                                                  ? 5
+                                                  : 2)),
                                     ],
                                   ),
-                                ),
-                              ),
+                                ).animate().fadeIn().shimmer(
+                                      duration: Duration(
+                                          seconds:
+                                              prov.artikel.length == 0 ? 5 : 2),
+                                    ),
+                              ).animate().fadeIn().shimmer(
+                                  duration: Duration(
+                                      seconds:
+                                          prov.artikel.length == 0 ? 5 : 2)),
                             ],
                           ),
                           const SizedBox(height: 8),
