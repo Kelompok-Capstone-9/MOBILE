@@ -7,8 +7,12 @@ import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/booking_detail/booking_detail.dart';
 import 'package:gofit_apps/view/booking_detail/payment_information.dart';
 import 'package:gofit_apps/view/booking_detail/payment_methode.dart';
+import 'package:gofit_apps/view/ticket/ticket_screen.dart';
+import 'package:gofit_apps/view_model/booking_provider.dart';
+import 'package:gofit_apps/view_model/login_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../component/booking_detail/button.dart';
 import '../../component/booking_detail/card.dart';
@@ -385,15 +389,51 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                        onTap: () {
+                                        onTap: () async {
                                           log('close window');
-                                          // Navigator.pop(context);
-                                          //   Navigator.push(
-                                          //     context,
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) =>
-                                          //             const BookingDetail()),
-                                          //   );
+                                          // tetep ke halaman detail, tapi pending (booking cancel)
+
+                                          final provBooking =
+                                              Provider.of<BookingProvider>(
+                                                  context,
+                                                  listen: false);
+
+                                          final provGetUser =
+                                              Provider.of<LoginProvider>(
+                                                  context,
+                                                  listen: false);
+                                          final packageId = widget
+                                              .data!
+                                              .classPackages[widget.idPackage]
+                                              .id;
+                                          provGetUser.getUserId;
+                                          final userId =
+                                              provGetUser.userLogin!.id;
+                                          print(
+                                              'classId: ${provBooking.dataClass!.id}, packageId: ${packageId}, userId: ${userId}');
+                                          await provBooking.createBookingClass(
+                                              classId:
+                                                  provBooking.dataClass!.id,
+                                              packageId: packageId,
+                                              userId: userId);
+                                          final detailIdBooking =
+                                              provBooking.tiket?.data?.id;
+
+                                          await provBooking.getClassTiketById(
+                                              classPackageIdBooked:
+                                                  detailIdBooking);
+
+                                          print(
+                                              'is detail = ${detailIdBooking}');
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TicketScreen(
+                                                        classIdBooking: int.parse(
+                                                            detailIdBooking
+                                                                .toString()))),
+                                          );
                                         },
                                         child: ButtonOutlineSmallCancelPayment(
                                             textButton: 'Yes, sure')),
@@ -417,14 +457,30 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                 ? GestureDetector(
                     onTap: () {
                       log('ke proses payment');
+                      // jalan -jalan
+                      //proses request payment
+                      final provBooking =
+                          Provider.of<BookingProvider>(context, listen: false);
+                      final provGetUser =
+                          Provider.of<LoginProvider>(context, listen: false);
+                      final packageId =
+                          widget.data!.classPackages[widget.idPackage].id;
+                      final userId = provGetUser.userLogin?.id;
 
+                      provBooking.createBookingClass(
+                          classId: provBooking.dataClass!.id,
+                          packageId: packageId,
+                          userId: userId);
+                      print("OKK");
+
+                      // if (provBooking.statusCode == 201){}
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PaymentInformation(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentInformation(
                                   hargaTotal: widget.hargaPackage,
-                                )),
-                      );
+                                  paymentType: paymentMethode[widget.cardType]
+                                      ['type'])));
                     },
                     child: ButtonFilledSmall(textButton: 'Continue to payment'),
                   )

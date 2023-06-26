@@ -1,22 +1,18 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:math' show asin, atan2, cos, min, pi, pow, sin, sqrt;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
-import 'package:gofit_apps/model/list_detail_dummy.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../model/apis/tiket_class_models.dart';
 import '../model/booking.dart';
+import '../model/detail_tiket_models.dart';
+import '../model/tiket_class_booking.dart';
 
 enum RequestState { empty, loading, loaded, error }
 
 class BookingProvider extends ChangeNotifier {
-  ApiGym _apiClass = ApiGym();
   DataClass? _dataClass;
   DataClass? get dataClass => _dataClass;
   List<ClassPackage> _packages = [];
@@ -26,6 +22,21 @@ class BookingProvider extends ChangeNotifier {
   String statusPencarianLokasi = "";
   List<DataClass> _alClass = [];
   List<DataClass> get allClass => _alClass;
+  String? _token;
+  String? get token => _token;
+  int? statusCode = 0;
+  String getLinkPay = '';
+// single class pakcage sukses
+  Response? _tiketClass;
+  Response? get tiketClass => _tiketClass;
+
+  Ticket? _tiket;
+  Ticket? get tiket => _tiket;
+  ClassTicketDetail? _tiketDetail;
+  ClassTicketDetail? get tiketDetail => _tiketDetail;
+
+  List<DataDetailBooking> _allBoking = [];
+  List<DataDetailBooking> get allBooking => _allBoking;
 
   RequestState _requestState = RequestState.empty;
   RequestState get requestState => _requestState;
@@ -33,6 +44,129 @@ class BookingProvider extends ChangeNotifier {
   List<DataClass> searchResults = [];
   List<Map<String, dynamic>> filteredWaktu = [];
   //class fungsi
+
+  // booking tiket class
+  Future<void> createBookingClass(
+      {int? classId, int? userId, int? packageId}) async {
+    try {
+      _token = await getToken();
+      notifyListeners();
+      print('tokenmu ${token}');
+      print(
+        'classId: ${classId}, packageId: ${packageId}',
+      );
+      final result = await ApiGym.createClassBooking(
+          classId: classId, userId: userId, packageId: packageId, token: token);
+      statusCode = result['metadata']['status_code'];
+      _tiket = Ticket.fromJson(result);
+      print('ini tiket id ${tiket!.data?.id}}');
+      print('ini pay nya ${tiket!.transactionInfo!.transactionLink}}');
+
+      print("status kode saat ini adalah $statusCode");
+
+      print("status Code: $statusCode");
+
+      notifyListeners();
+
+      if (statusCode == 201) {
+        print("Transaction Link: $getLinkPay");
+        notifyListeners();
+      } else {}
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+    print(statusCode.toString());
+    notifyListeners();
+  }
+
+  Future<void> payTiketClass(
+      {String? linkPay,
+      String? numberCard,
+      String? expiredMonth,
+      String? cvv,
+      String? typePembayaran}) async {
+    try {
+      if (statusCode == 201) {
+        // /transactions/pay/TM52
+        print(
+            "linkPay : $linkPay, numberCard : $numberCard, exp: $expiredMonth, cvv: $cvv, typePem : $typePembayaran");
+        final res = await ApiGym.payTransaksiClass(
+            urlLinktoBookingPlan: linkPay.toString(),
+            token: token.toString(),
+            typePembayaran: "credit_card",
+            // typePembayaran: hapusSpasiCard,
+            expireMonth: int.parse(expiredMonth.toString()),
+            numberCard: int.parse(numberCard.toString()),
+            cvv: int.parse(cvv.toString()));
+        notifyListeners();
+
+        // print('tiket class id payyed ${tiketClass?.id}');
+        print('is ${tiketClass!.data!.amount}');
+        notifyListeners();
+      }
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
+  }
+
+  Future<void> getClassTiketById({int? classPackageIdBooked}) async {
+    _requestState = RequestState.loading;
+    notifyListeners();
+    print(classPackageIdBooked);
+    print('is token ; ${token.toString()}');
+
+    try {
+      final res = await ApiGym.getTiketClassBooked(
+          classPackageIdBooked: classPackageIdBooked, token: token);
+      _tiketDetail = ClassTicketDetail.fromJson(res);
+
+      log('id class: ${classPackageIdBooked.toString()}');
+      log('tiketDetail: ${tiketDetail!.data.classPackage!.classInfo!.classType}');
+      log('tiketDetail: ${tiketDetail!.data.classPackage!.classInfo!.imageBanner}');
+
+      _requestState = RequestState.loaded;
+      notifyListeners();
+    } catch (e) {
+      _requestState = RequestState.error;
+      notifyListeners();
+      print(e);
+      throw "Cant get tike by Id";
+    }
+    notifyListeners();
+  }
+
+  Future<void> getAllBooking() async {
+    print("ok");
+
+    // _requestState = RequestState.loading;
+    // notifyListeners();
+    _token = await getToken();
+    try {
+      _allBoking = await ApiGym.getAllBooking(token: token);
+      print(allBooking.length);
+      for (var element in allBooking) {
+        print('this name: ${element.classPackage!.classInfo!.classType}');
+      }
+      notifyListeners();
+    } catch (e) {
+      // _requestState = RequestState.error;
+      notifyListeners();
+      print(e);
+      throw "Cant get data";
+    }
+  }
+
+  Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString('token');
+    return _token;
+  }
+
   Future<void> bookingDetail({idBooking}) async {
     print("ok");
     /* mas abet & rouf 
@@ -42,7 +176,7 @@ class BookingProvider extends ChangeNotifier {
     notifyListeners();
     var token = "ok";
     try {
-      final result = await ApiGym.detailBooking(id: idBooking);
+      final result = await ApiGym.detailBookingById(id: idBooking);
       _dataClass = DataClass.fromJson(result['data']);
       _packages = _dataClass!.classPackages.map((package) {
         return ClassPackage(
@@ -59,22 +193,7 @@ class BookingProvider extends ChangeNotifier {
       }
       _requestState = RequestState.loaded;
       notifyListeners();
-    }
-
-    // _packages = getClassPackages(result);
-    //   _packages = _dataClass!.classPackages;
-
-    //   notifyListeners();
-    //   // log();
-    //   log('data detail dari ${_dataClass!.name} (${_dataClass!.classType})');
-
-    //   print('mendapatkan select package wkwk');
-
-    //   for (var element in _packages) {
-    //     log('${element.period.toString()} ==> Rp. ${element.price.toString()}');
-    //   }
-    // }
-    catch (e) {
+    } catch (e) {
       _requestState = RequestState.error;
       notifyListeners();
       print(e);
