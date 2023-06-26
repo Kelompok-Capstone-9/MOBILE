@@ -175,6 +175,12 @@ class LoginProvider extends ChangeNotifier {
     return _token;
   }
 
+  Future<String?> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _userId = prefs.getString('userId');
+    return _userId;
+  }
+
   Future<void> upImage({int? userId, File? imageFile, String? token}) async {
     print("oj");
     try {

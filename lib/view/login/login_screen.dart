@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../component/login/forgot_password_screen.dart';
 import '../../component/navbar/home.dart';
 import '../../component/register/decoration_form.dart';
+import '../../themes/color_style.dart';
 import '../../view_model/connection.dart';
 
 class FormLogin extends StatefulWidget {
@@ -19,7 +20,6 @@ class FormLogin extends StatefulWidget {
 }
 
 class FormLoginState extends State<FormLogin> {
-
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();

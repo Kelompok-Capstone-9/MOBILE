@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/detail_tiket_models.dart';
 
+// ignore: must_be_immutable
 class ActivityChild extends StatefulWidget {
   var status;
 
@@ -29,7 +30,6 @@ class _ActivityChildState extends State<ActivityChild> {
     return Consumer<BookingProvider>(
       builder: (context, bookProv, child) {
         final List<DataDetailBooking> pendingBookings = [];
-        final List<DataDetailBooking> bookedBookings = [];
         // final dataLength = bookProv.allBooking;
         print(widget.status);
         bookProv.allBooking.forEach((booking) {
