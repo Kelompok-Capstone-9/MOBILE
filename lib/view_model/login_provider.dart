@@ -11,8 +11,8 @@ class LoginProvider extends ChangeNotifier {
   final apiService = ApiGym();
   UserLogin? _userLogin;
   UserLogin? get userLogin => _userLogin;
-  bool? _getMember = false;
-  bool? get member => _getMember;
+  bool _getMember = false;
+  bool get member => _getMember;
 
   UserModelMetadata? _userLoginResponse;
   UserModelMetadata? get userLoginResponse => _userLoginResponse;
@@ -194,6 +194,6 @@ class LoginProvider extends ChangeNotifier {
 
   Future<void> getMember() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _getMember = prefs.getBool('isMember');
+    _getMember = prefs.getBool('isMember')!;
   }
 }

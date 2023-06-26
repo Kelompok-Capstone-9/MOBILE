@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildMembership() {
     final loginProvider = Provider.of<LoginProvider>(
         context); // Akses LoginProvider dari provider
-    bool member = loginProvider.member!;
+    bool member = loginProvider.member;
 
     if (member) {
       return const SizedBox(); // Jika pengguna adalah member, tidak menampilkan baris "My Membership"

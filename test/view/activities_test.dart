@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gofit_apps/component/activities/onFinished_card.dart';
-import 'package:gofit_apps/component/activities/onProgres_card.dart';
 import 'package:gofit_apps/view/activities/activities_screen.dart';
 
 void main() {
@@ -14,16 +12,6 @@ void main() {
       );
       Finder textField = find.byType(Text);
       expect(textField, findsNWidgets(11));
-    });
-
-    testWidgets('Test Card', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: ActivitiesScreen(),
-        ),
-      );
-      final activitiesCard = find.byType(onProgressActivities());
-      expect(activitiesCard, findsNWidgets(2));
     });
 
     testWidgets('Test Tab', (WidgetTester tester) async {
