@@ -374,7 +374,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
     );
   }
 
-  void showAlert(BuildContext context, mediaquery, provBooking) {
+  Future<void> showAlert(BuildContext context, mediaquery, provBooking) async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -392,7 +392,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
       },
     );
 
-    Future.delayed(const Duration(seconds: 5), () {
+    await Future.delayed(const Duration(seconds: 5), () {
       Navigator.of(context).pop();
     });
 
