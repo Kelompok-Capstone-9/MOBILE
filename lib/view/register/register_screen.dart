@@ -17,7 +17,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
+
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -54,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   buildRegisterForm() => Container(
         padding: const EdgeInsets.only(left: 16, bottom: 16, right: 16),
         child: Form(
-          key: formKey,
+          key: _formKey1,
           child: Column(
             children: [
               TextFormField(
@@ -170,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         : const Color(0xffDFDFDF),
                   ),
                   onPressed: () async {
-                    final isValidForm = formKey.currentState!.validate();
+                    final isValidForm = _formKey1.currentState!.validate();
                     final registerProvider =
                         Provider.of<RegisterProvider>(context, listen: false);
                     String otp = registerProvider.generateOTP();
