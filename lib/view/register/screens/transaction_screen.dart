@@ -37,7 +37,8 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     final prov = Provider.of<RegisterProvider>(context, listen: false);
     Future.microtask(() => Provider.of<RegisterProvider>(context, listen: false)
         .getPlanDetail(idPlan: widget.planId));
-    prov.joinMember(idPlan: widget.planId);
+    Future.microtask(() => Provider.of<RegisterProvider>(context, listen: false)
+        .joinMember(idPlan: widget.planId));
   }
 
   @override
@@ -189,14 +190,14 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             // width: 400,
             // height: 150,
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
                 final prov =
                     Provider.of<RegisterProvider>(context, listen: false);
 
                 if (prov.statusCode == 201) {
                   // var pay = prov/
                   print('ini transaksi infomu ${prov.getLinkPay}');
-                  prov.payPlan(linkPay: prov.getLinkPay);
+                  await prov.payPlan(linkPay: prov.getLinkPay);
                 }
                 if (prov.statusCode == 200) {
                   showDialog(

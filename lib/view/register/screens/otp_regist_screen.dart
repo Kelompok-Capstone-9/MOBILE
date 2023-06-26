@@ -22,12 +22,12 @@ final focusNode = FocusNode();
 bool isOTPFilled = false;
 
 class _OTPRegistScreenState extends State<OTPRegistScreen> {
-  @override
-  void dispose() {
-    pinController.dispose();
-    focusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   pinController.dispose();
+  //   focusNode.dispose();
+  //   super.dispose();
+  // }
 
   @override
   void initState() {
