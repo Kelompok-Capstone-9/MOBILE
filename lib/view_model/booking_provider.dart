@@ -13,7 +13,6 @@ import '../model/tiket_class_booking.dart';
 enum RequestState { empty, loading, loaded, error }
 
 class BookingProvider extends ChangeNotifier {
-  ApiGym _apiClass = ApiGym();
   DataClass? _dataClass;
   DataClass? get dataClass => _dataClass;
   List<ClassPackage> _packages = [];
@@ -29,12 +28,15 @@ class BookingProvider extends ChangeNotifier {
   String getLinkPay = '';
 // single class pakcage sukses
   Response? _tiketClass;
-  // Response? get tiketClass => _tiketClass;
+  Response? get tiketClass => _tiketClass;
 
   Ticket? _tiket;
   Ticket? get tiket => _tiket;
   ClassTicketDetail? _tiketDetail;
   ClassTicketDetail? get tiketDetail => _tiketDetail;
+
+  List<DataDetailBooking> _allBoking = [];
+  List<DataDetailBooking> get allBooking => _allBoking;
 
   RequestState _requestState = RequestState.empty;
   RequestState get requestState => _requestState;
@@ -101,7 +103,7 @@ class BookingProvider extends ChangeNotifier {
         notifyListeners();
 
         // print('tiket class id payyed ${tiketClass?.id}');
-        print('is ${_tiketClass!.data!.amount}');
+        print('is ${tiketClass!.data!.amount}');
         notifyListeners();
       }
 
@@ -136,6 +138,27 @@ class BookingProvider extends ChangeNotifier {
       throw "Cant get tike by Id";
     }
     notifyListeners();
+  }
+
+  Future<void> getAllBooking() async {
+    print("ok");
+
+    // _requestState = RequestState.loading;
+    // notifyListeners();
+    _token = await getToken();
+    try {
+      _allBoking = await ApiGym.getAllBooking(token: token);
+      print(allBooking.length);
+      for (var element in allBooking) {
+        print('this name: ${element.classPackage!.classInfo!.classType}');
+      }
+      notifyListeners();
+    } catch (e) {
+      // _requestState = RequestState.error;
+      notifyListeners();
+      print(e);
+      throw "Cant get data";
+    }
   }
 
   Future<String?> getToken() async {

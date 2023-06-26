@@ -1,20 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:dio/dio.dart';
-import 'package:gofit_apps/model/apis/tiket_class_models.dart';
 import 'package:gofit_apps/model/level_training.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/plan_member.dart';
-import 'package:gofit_apps/model/public_api.dart';
 import 'package:gofit_apps/model/register.dart';
 import 'package:gofit_apps/model/news_letter.dart';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-// import 'package:mime/mime.dart';
 import '../booking.dart';
-import 'package:http_parser/http_parser.dart';
+
+import '../detail_tiket_models.dart';
 
 class ApiGym {
   static const String baseUrl = 'http://18.141.56.154:8000';
@@ -33,6 +28,7 @@ class ApiGym {
 
   static const String bookingDetail = 'classes';
   static const String payEP = 'transactions/pay/';
+  static const String myTiket = 'classes/tickets/mytickets';
 
   /*  "email" : "mobile@email.com",
      "password" : "Mobile9_"
@@ -523,6 +519,28 @@ class ApiGym {
       // print(planData);
       print(response.statusCode);
       throw "Can't get data";
+    }
+  }
+
+  static Future<List<DataDetailBooking>> getAllBooking({String? token}) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/$myTiket'), //class all
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final dataList = responseData['data'];
+      log(responseData.toString());
+      print(dataList.length);
+      // return responseData;
+      return dataList
+          .map<DataDetailBooking>((data) => DataDetailBooking.fromJson(data))
+          .toList();
+    } else {
+      throw Exception('Failed to load Booking data');
     }
   }
 }
