@@ -37,15 +37,13 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     final prov = Provider.of<RegisterProvider>(context, listen: false);
     Future.microtask(() => Provider.of<RegisterProvider>(context, listen: false)
         .getPlanDetail(idPlan: widget.planId));
-    Future.microtask(() => Provider.of<RegisterProvider>(context, listen: false)
-        .joinMember(idPlan: widget.planId));
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<RegisterProvider>(context, listen: false);
     var mediaquery = MediaQuery.of(context).size;
-
+    Future.microtask(() => Provider.of<RegisterProvider>(context, listen: false)
+        .joinMember(idPlan: widget.planId));
     return Scaffold(
       backgroundColor: ColorsTheme.bgScreen,
       appBar: AppBar(
@@ -55,36 +53,23 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
               onTap: () => Navigator.pop(context),
               child: const Icon(Icons.arrow_back, color: Colors.black)),
           backgroundColor: ColorsTheme.bgScreen),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Membership Details',
-                style: ThemeText.headingLogin,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Color(0xffD9D9D9),
-                      width: 1.0,
-                    ),
+      body: Consumer<RegisterProvider>(
+        builder: (context, prov, child) {
+          return SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Membership Details',
+                    style: ThemeText.headingLogin,
                   ),
-                ),
-                child: listMembership(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 24,
-                ),
-                child: Container(
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Container(
                     decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -93,29 +78,46 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                         ),
                       ),
                     ),
-                    child: _detailPayment(provider)),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Color(0xffD9D9D9),
-                        width: 1.0,
+                    child: listMembership(context, prov),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 24,
+                    ),
+                    child: Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Color(0xffD9D9D9),
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        child: _detailPayment(prov)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color(0xffD9D9D9),
+                            width: 1.0,
+                          ),
+                        ),
                       ),
+                      child: _totalPayment(prov),
                     ),
                   ),
-                  child: _totalPayment(provider),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: _paymentMethod(mediaquery, prov),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: _paymentMethod(mediaquery, provider),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -191,43 +193,29 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             // height: 150,
             child: GestureDetector(
               onTap: () async {
-                final prov =
-                    Provider.of<RegisterProvider>(context, listen: false);
-
-                if (prov.statusCode == 201) {
-                  // var pay = prov/
-                  print('sttaus = ${prov.statusCode}');
-                  print('ini transaksi infomu ${prov.getLinkPay}');
-                   prov.payPlan(linkPay: prov.getLinkPay);
+                if (provider.statusCode == 201) {
+                  // var pay = provider/
+                  print('sttaus = ${provider.statusCode}');
+                  print('ini transaksi infomu ${provider.getLinkPay}');
+                  provider.payPlan(linkPay: provider.getLinkPay);
+                  successDialog(context, mediaquery, provider);
                 }
-                if (prov.statusCode == 200) {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (BuildContext context) {
-                        return successDialog(mediaquery, provider);
-                      });
-                } else {}
               },
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    height: 40,
-                    width: 370,
-                    decoration: BoxDecoration(
-                      color: ColorsTheme.activeButton,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      'Pay',
-                      style: GoogleFonts.josefinSans(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: ColorsTheme.activeText),
-                    ),
-                  ),
-                ],
+              child: Container(
+                alignment: Alignment.center,
+                height: 40,
+                width: 370,
+                decoration: BoxDecoration(
+                  color: ColorsTheme.activeButton,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'Pay',
+                  style: GoogleFonts.josefinSans(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: ColorsTheme.activeText),
+                ),
               ),
             ),
           ),
@@ -243,229 +231,251 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
           )
         ],
       );
+}
 
-  AlertDialog successDialog(mediaquery, provider) {
-    return AlertDialog(
-      backgroundColor: ColorsTheme.bgScreen,
-      insetPadding: const EdgeInsets.all(0),
-      icon: Builder(builder: (context) {
-        return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: const Align(
-            alignment: Alignment.topLeft,
-            child: Icon(Icons.close),
+Column _totalPayment(provider) {
+  return Column(
+    children: [
+      Row(
+        children: [
+          Text(
+            'Total Payment',
+            style: ThemeText.heading1,
+          ),
+          const Spacer(),
+          Text(
+            formatCurrency(provider.dataPlan.price),
+            style: ThemeText.heading2,
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 20,
+      ),
+    ],
+  );
+}
+
+Column _detailPayment(provider) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Payment Details',
+        style: ThemeText.heading1,
+      ),
+      const SizedBox(
+        height: 12,
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Subscription Cost',
+                style: ThemeText.heading2,
+              ),
+              const Spacer(),
+              Text(
+                formatCurrency(provider.dataPlan.price),
+                style: ThemeText.heading2,
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Row(
+            children: [
+              Text(
+                'Discount',
+                style: ThemeText.heading2,
+              ),
+              const Spacer(),
+              Text(
+                formatCurrency(0),
+                style: ThemeText.heading2,
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          )
+        ],
+      ),
+    ],
+  );
+}
+
+Column listMembership(context, prov) {
+  var duration = prov.dataPlan?.duration;
+  int convert = 0;
+  if (duration != null) {
+    convert = (duration ~/ 30);
+  }
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Row(
+        children: [
+          Text(
+            'Subscription',
+            style: ThemeText.heading2,
+          ),
+          const Spacer(),
+          Text(
+            '$convert Month',
+            style: ThemeText.heading2,
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 8,
+      ),
+      Row(
+        children: [
+          Text(
+            'StartingDate',
+            style: ThemeText.heading2,
+          ),
+          const Spacer(),
+          Text(
+            prov.getCurrentDate(),
+            style: ThemeText.heading2,
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 8,
+      ),
+      Row(
+        children: [
+          Text(
+            'Ending Date',
+            style: ThemeText.heading2,
+          ),
+          const Spacer(),
+          Text(
+            prov.getTanggalPlus(
+                ditambah: int.parse(prov.dataPlan!.duration.toString())),
+            style: ThemeText.heading2,
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 20,
+      ),
+    ],
+  );
+}
+
+Future<void> successDialog(BuildContext context, mediaquery, provider) async {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return const AlertDialog(
+        backgroundColor: Color.fromARGB(0, 255, 255, 255),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 16.0),
+          ],
+        ),
+      );
+    },
+  );
+  await Future.delayed(const Duration(seconds: 5), () {
+    Navigator.of(context).pop();
+  });
+  // ignore: use_build_context_synchronously
+  showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: ColorsTheme.bgScreen,
+          insetPadding: const EdgeInsets.all(0),
+          icon: Builder(builder: (context) {
+            return GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const FormLogin())),
+              child: const Align(
+                alignment: Alignment.topLeft,
+                child: Icon(Icons.close),
+              ),
+            );
+          }),
+          content: SizedBox(
+            width: 360,
+            height: mediaquery.height,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(bottom: 48, top: 48),
+                  height: 140,
+                  width: 140,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(80),
+                      color: ColorsTheme.success),
+                  child: Icon(Icons.check,
+                      size: 52, color: ColorsTheme.activeText),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: Text(
+                    'Payment Successful! ${provider.getLinkPay}',
+                    style: ThemeText.headingpaymentSucces,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 44.0),
+                  child: Text(
+                    'Hooray! You have completed your payment.',
+                    style: ThemeText.headingAmountPaid,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child:
+                      Text('Amount Paid!', style: ThemeText.headingAmountPaid),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 44.0),
+                  child: Text(
+                    formatCurrency(provider.dataPlan.price),
+                    style: ThemeText.headingRupiah,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    log('masuk ke login screen (redirect to login)');
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const FormLogin()));
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: 38,
+                      width: 360,
+                      decoration: BoxDecoration(
+                        color: ColorsTheme.activeButton,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        'Done',
+                        style: GoogleFonts.josefinSans(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: ColorsTheme.activeText),
+                      )),
+                ),
+              ],
+            ),
           ),
         );
-      }),
-      content: SizedBox(
-        width: 360,
-        height: mediaquery.height,
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 48, top: 48),
-              height: 140,
-              width: 140,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(80),
-                  color: ColorsTheme.success),
-              child: Icon(Icons.check, size: 52, color: ColorsTheme.activeText),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Text(
-                'Payment Successful! ${provider.getLinkPay}',
-                style: ThemeText.headingpaymentSucces,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 44.0),
-              child: Text(
-                'Hooray! You have completed your payment.',
-                style: ThemeText.headingAmountPaid,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Text('Amount Paid!', style: ThemeText.headingAmountPaid),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 44.0),
-              child: Text(
-                formatCurrency(provider.dataPlan.price),
-                style: ThemeText.headingRupiah,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                log('masuk ke login screen (redirect to login)');
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const FormLogin()));
-              },
-              child: Container(
-                  alignment: Alignment.center,
-                  height: 38,
-                  width: 360,
-                  decoration: BoxDecoration(
-                    color: ColorsTheme.activeButton,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    'Done',
-                    style: GoogleFonts.josefinSans(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: ColorsTheme.activeText),
-                  )),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Column _totalPayment(provider) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(
-              'Total Payment',
-              style: ThemeText.heading1,
-            ),
-            const Spacer(),
-            Text(
-              formatCurrency(provider.dataPlan.price),
-              style: ThemeText.heading2,
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-      ],
-    );
-  }
-
-  Column _detailPayment(provider) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Payment Details',
-          style: ThemeText.heading1,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  'Subscription Cost',
-                  style: ThemeText.heading2,
-                ),
-                const Spacer(),
-                Text(
-                  formatCurrency(provider.dataPlan.price),
-                  style: ThemeText.heading2,
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                Text(
-                  'Discount',
-                  style: ThemeText.heading2,
-                ),
-                const Spacer(),
-                Text(
-                  formatCurrency(0),
-                  style: ThemeText.heading2,
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            )
-          ],
-        ),
-      ],
-    );
-  }
-
-  Column listMembership() {
-    final provider = Provider.of<RegisterProvider>(context, listen: false);
-
-    var duartion = provider.dataPlan?.duration;
-    int convert = 0;
-    if (duartion == 30) {
-      convert = 3;
-    } else if (duartion == 180) {
-      convert = 6;
-    } else if (duartion == 90) {
-      convert = 3;
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              'Subscription',
-              style: ThemeText.heading2,
-            ),
-            const Spacer(),
-            Text(
-              '$convert Month',
-              style: ThemeText.heading2,
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Row(
-          children: [
-            Text(
-              'StartingDate',
-              style: ThemeText.heading2,
-            ),
-            const Spacer(),
-            Text(
-              provider.getCurrentDate(),
-              style: ThemeText.heading2,
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Row(
-          children: [
-            Text(
-              'Ending Date',
-              style: ThemeText.heading2,
-            ),
-            const Spacer(),
-            Text(
-              provider.getTanggalPlus(
-                  ditambah: int.parse(provider.dataPlan!.duration.toString())),
-              style: ThemeText.heading2,
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-      ],
-    );
-  }
+      });
 }

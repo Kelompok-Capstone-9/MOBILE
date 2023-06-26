@@ -47,7 +47,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
 
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
+          elevation: 0.2,
           // title: Text('Payment methode', style: ThemeText.heading1),
           leading: GestureDetector(
               onTap: () => Navigator.pop(context),
@@ -322,7 +322,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
         width: mediaquery.width,
         height: 80,
         child: GestureDetector(
-            onTap: () {
+            onTap: () async {
               log("Pay Now heheh :) MASUK KE PAYMENT PROSES");
               /* janganlupa logika TOMBOL ini klik ketika setelah input form 
             atau sebelum 
@@ -351,96 +351,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                         expiredMonth: bbController.text,
                         typePembayaran: cardType);
 
-                    showDialog(
-                        context: context,
-                        barrierDismissible: false, // user must tap button!
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                              backgroundColor: ColorsTheme.bgScreen,
-                              insetPadding: const EdgeInsets.all(0),
-                              icon: Builder(builder: (context) {
-                                return GestureDetector(
-                                  onTap: () => Navigator.of(context).pop(),
-                                  child: const Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Icon(Icons.close),
-                                  ),
-                                );
-                              }),
-                              content: SizedBox(
-                                width: mediaquery.width,
-                                height: mediaquery.height,
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          bottom: 48, top: 48),
-                                      height: 140,
-                                      width: 140,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(80),
-                                          color: ColorsTheme.successColor),
-                                      child: const Icon(Icons.check,
-                                          size: 52,
-                                          color: ColorsTheme.colorLight),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 12.0),
-                                      child: Text(
-                                        'Payment Successful!',
-                                        style: ThemeText.headingSuccessPayment,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 44.0),
-                                      child: Text(
-                                        'Hooray! You have completed your payment.',
-                                        style: ThemeText.headingAmountPaid,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 20.0),
-                                      child: Text('Amount Paid!',
-                                          style: ThemeText.headingAmountPaid),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 44.0),
-                                      child: Text(
-                                        formatCurrency(widget.hargaTotal),
-                                        style: ThemeText.headingRupiah,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        log("masuk ke detail tiket (success page)");
-                                        // kirim id ke classId bookng
-                                        log(provBooking.tiket!.data!.id
-                                            .toString());
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TicketScreen(
-                                                      classIdBooking: int.parse(
-                                                          provBooking
-                                                              .tiket!.data!.id
-                                                              .toString()))),
-                                        );
-                                      },
-                                      child: ButtonPayWithDetail(
-                                        textButton: 'Go to details',
-                                        id: 'to-detail pay',
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ));
-                        });
+                    showAlert(context, mediaquery, provBooking);
                   }
                 }
               } else {}
@@ -461,5 +372,108 @@ class _PaymentInformationState extends State<PaymentInformation> {
             child: ButtonPay(textButton: 'Pay Now')),
       ),
     );
+  }
+
+  void showAlert(BuildContext context, mediaquery, provBooking) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          backgroundColor: Color.fromARGB(0, 142, 142, 142),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+            ],
+          ),
+        );
+      },
+    );
+
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.of(context).pop();
+    });
+
+    showDialog(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+              backgroundColor: ColorsTheme.bgScreen,
+              insetPadding: const EdgeInsets.all(0),
+              icon: Builder(builder: (context) {
+                return GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: const Align(
+                    alignment: Alignment.topLeft,
+                    child: Icon(Icons.close),
+                  ),
+                );
+              }),
+              content: SizedBox(
+                width: mediaquery.width,
+                height: mediaquery.height,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 48, top: 48),
+                      height: 140,
+                      width: 140,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80),
+                          color: ColorsTheme.successColor),
+                      child: const Icon(Icons.check,
+                          size: 52, color: ColorsTheme.colorLight),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Text(
+                        'Payment Successful!',
+                        style: ThemeText.headingSuccessPayment,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 44.0),
+                      child: Text(
+                        'Hooray! You have completed your payment.',
+                        style: ThemeText.headingAmountPaid,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text('Amount Paid!',
+                          style: ThemeText.headingAmountPaid),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 44.0),
+                      child: Text(
+                        formatCurrency(widget.hargaTotal),
+                        style: ThemeText.headingRupiah,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        log("masuk ke detail tiket (success page)");
+                        // kirim id ke classId bookng
+                        log(provBooking.tiket!.data!.id.toString());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TicketScreen(
+                                  classIdBooking: int.parse(
+                                      provBooking.tiket!.data!.id.toString()))),
+                        );
+                      },
+                      child: ButtonPayWithDetail(
+                        textButton: 'Go to details',
+                        id: 'to-detail pay',
+                      ),
+                    )
+                  ],
+                ),
+              ));
+        });
   }
 }

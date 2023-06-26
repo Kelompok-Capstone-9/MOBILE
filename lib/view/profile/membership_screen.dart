@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import '../../component/booking_detail/convert.dart';
 import '../../component/profile/card_membership.dart';
 import '../../component/profile/color_card_membership.dart';
 import '../../themes/color_style.dart';
@@ -15,10 +16,15 @@ class MembershipScreen extends StatefulWidget {
 }
 
 class _MembershipScreenState extends State<MembershipScreen> {
+  void initiState() {
+    print("s");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final planProvider = Provider.of<PlanProvider>(context);
-    final planModel = planProvider.planMember;
+    Future.microtask(() =>
+        Provider.of<PlanProvider>(context, listen: false).fetchDataPlan());
     int selectedPlanId = 0;
     int idPlan = 0;
 
@@ -78,47 +84,36 @@ class _MembershipScreenState extends State<MembershipScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
-                    child: Consumer<PlanProvider>(
-                        builder: (context, value, child) {
-                      if (value.requestState == RequestState.loading ||
-                          value.planMember.length == 0) {
-                        Provider.of<PlanProvider>(context).fetchDataPlan();
-                        print("muter");
-                        return CircularProgressIndicator();
+                    child: Consumer<PlanProvider>(builder: (context, value, _) {
+                      if (value.planMember.isEmpty ||
+                          value.planMember == null) {
+                        value.fetchDataPlan();
                       }
-                      if (value.requestState == RequestState.loaded ||
-                          value.planMember.length != 0) {
-                        print("muter");
-
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: planModel.length,
-                          itemBuilder: (context, index) {
-                            final plan = planModel[index];
-                            LinearGradient randomGradient =
-                                linearGradient[index % linearGradient.length];
-                            int? duration = plan.duration;
-                            String convert = '';
-                            if (duration != null) {
-                              convert = (duration ~/ 30).toString();
-                            }
-                            return CardItem(
-                              idPlan: int.parse(plan.id.toString()),
-                              gradient: randomGradient,
-                              title: plan.name ?? '',
-                              subtitle: 'Rp ${plan.price ?? ''}',
-                              trailing: '/$convert MONTH',
-                              description: plan.description ?? '',
-                            ).animate().fadeIn().slideY();
-                          },
-                        );
-                      } else if (value.requestState == RequestState.error) {
-                        return Center(
-                          child: Text("Error Data"),
-                        );
-                      }
-                      return Text("");
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: value.planMember.length,
+                        itemBuilder: (context, index) {
+                          final plan = value.planMember[index];
+                          LinearGradient randomGradient =
+                              linearGradient[index % linearGradient.length];
+                          int? duration = plan.duration;
+                          String convert = '';
+                          if (duration != null) {
+                            convert = (duration ~/ 30).toString();
+                          }
+                          return CardItem(
+                            idPlan: int.parse(plan.id.toString()),
+                            gradient: randomGradient,
+                            title: plan.name ?? '',
+                            subtitle: formatCurrency(
+                                    int.parse(plan.price.toString())) ??
+                                '',
+                            trailing: '/$convert MONTH',
+                            description: plan.description ?? '',
+                          ).animate().fadeIn().slideY();
+                        },
+                      );
                     }),
                   ),
                 ),

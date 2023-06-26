@@ -31,19 +31,20 @@ class PlanProvider extends ChangeNotifier {
   RequestState _requestState = RequestState.empty;
   RequestState get requestState => _requestState;
   Future<void> fetchDataPlan() async {
-    _requestState = RequestState.loading;
+    // _requestState = RequestState.loading;
     print("object");
     notifyListeners();
     try {
       _planMember = await _api.getAllPlans();
-      _requestState = RequestState.loaded;
+      // _requestState = RequestState.loaded;
       print(planMember.length);
       notifyListeners();
     } catch (error) {
-      _requestState = RequestState.error;
+      // _requestState = RequestState.error;
       notifyListeners();
       rethrow;
     }
+    notifyListeners();
   }
 
   Future<void> fetchData() async {

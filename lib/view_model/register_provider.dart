@@ -140,9 +140,10 @@ class RegisterProvider extends ChangeNotifier {
   // join member (plan)
   Future<void> joinMember({int? idPlan, context}) async {
     try {
-      getToken;
+      _token = await getToken();
       print(token);
       final result = await ApiGym.joinMembership(idPlan: idPlan, token: token);
+      print("this is ${idPlan}");
       statusCode = result['metadata']['status_code'];
       print("status kode saat ini adalah $statusCode");
 
@@ -153,6 +154,7 @@ class RegisterProvider extends ChangeNotifier {
       if (statusCode == 201) {
         getLinkPay = result['transaction_info']['transaction_link'];
         print("Transaction Link: $getLinkPay");
+        notifyListeners();
       }
 
       notifyListeners();
@@ -226,11 +228,10 @@ class RegisterProvider extends ChangeNotifier {
     */
     // _requestState = RequestState.loading;
     // notifyListeners();
-    var token = "ok";
     try {
       final result = await ApiGym.getPlanById(id: idPlan);
       _dataPlan = PlanData.fromJson(result['data']);
-
+      statusCode = result['metadata']['status_code'];
       print('plan diambil $idPlan');
       // _requestState = RequestState.loaded;
       notifyListeners();
@@ -240,6 +241,7 @@ class RegisterProvider extends ChangeNotifier {
       print(e);
       throw "Cant get data Plan";
     }
+    notifyListeners();
   }
 
   String getCurrentDate() {
