@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../component/login/forgot_password_screen.dart';
 import '../../component/navbar/home.dart';
 import '../../component/register/decoration_form.dart';
-import '../../themes/color_style.dart';
+import '../../view_model/connection.dart';
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);
@@ -26,6 +26,13 @@ class FormLoginState extends State<FormLogin> {
   bool hidePw = false;
   bool isFormFilled = false;
   String appName = 'GoFit';
+
+  @override
+  void initState() {
+    super.initState();
+    checkInternetConnection(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

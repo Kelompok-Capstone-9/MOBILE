@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gofit_apps/themes/color_style.dart';
 import 'package:gofit_apps/view/article/artikel_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import '../../view_model/connection.dart';
 // ignore: camel_case_types
 class Home_Screen extends StatefulWidget {
   const Home_Screen({super.key});
@@ -36,6 +36,11 @@ class _Home_Screen extends State<Home_Screen> {
         'Traning on fire'
         'Food in healty'
   ];
+  @override
+  void initState() {
+    super.initState();
+    checkInternetConnection(context);
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
