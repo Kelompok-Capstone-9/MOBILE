@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gofit_apps/model/membership.dart';
 import 'package:gofit_apps/view/profile/membership_screen.dart';
+import 'package:gofit_apps/view_model/plan_member_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +21,16 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isNews = true;
+  bool isMember = false;
   File? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      Provider.of<LoginProvider>(context, listen: false).getMember();
+    });
+  }
 
   Future<void> pickImage(UserLogin? user, tokenn) async {
     // Mengambil gambar dari galeri
@@ -52,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } else if (user?.profile_picture != null) {
       return CircleAvatar(
         radius: 40,
-         backgroundImage: NetworkImage(
+        backgroundImage: NetworkImage(
           'http://18.141.56.154:8000/${user!.profile_picture}',
         ),
       );
@@ -60,7 +71,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return const CircleAvatar(
         radius: 40,
         backgroundImage: AssetImage('assets/images/default_image.jpg'),
-       
+      );
+    }
+  }
+
+  Widget _buildMembership() {
+    final loginProvider = Provider.of<LoginProvider>(
+        context); // Akses LoginProvider dari provider
+    bool member = loginProvider.member!;
+
+    if (member) {
+      return const SizedBox(); // Jika pengguna adalah member, tidak menampilkan baris "My Membership"
+    } else {
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'My Membership',
+                style: ThemeText.headingAccount,
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MembershipScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  size: 14,
+                ),
+              ),
+            ],
+          ),
+          const Divider(
+            color: Color(0xffA5A5A5),
+            thickness: 1,
+          ),
+        ],
       );
     }
   }
@@ -256,34 +308,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: Color(0xffA5A5A5),
                         thickness: 1,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'My Membership',
-                            style: ThemeText.headingAccount,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MembershipScreen(),
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.arrow_forward_ios_outlined,
-                              size: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Divider(
-                        color: Color(0xffA5A5A5),
-                        thickness: 1,
-                      ),
+                      _buildMembership(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -5,6 +5,7 @@ import '../../component/profile/card_membership.dart';
 import '../../component/profile/color_card_membership.dart';
 import '../../themes/color_style.dart';
 import '../../view_model/plan_member_provider.dart';
+import '../register/screens/payment_method_screen.dart';
 
 class MembershipScreen extends StatefulWidget {
   const MembershipScreen({Key? key}) : super(key: key);
@@ -25,6 +26,8 @@ class _MembershipScreenState extends State<MembershipScreen> {
   Widget build(BuildContext context) {
     final planProvider = Provider.of<PlanProvider>(context);
     final planModel = planProvider.planMember;
+    int selectedPlanId = 0;
+    int idPlan = 0;
 
     return Scaffold(
       backgroundColor: ColorsTheme.bgMembership,
@@ -91,7 +94,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
                           final plan = planModel[index];
                           LinearGradient randomGradient =
                               linearGradient[index % linearGradient.length];
-                          int? duration = plan?.duration;
+                          int? duration = plan.duration;
                           String convert = '';
                           if (duration != null) {
                             convert = (duration ~/ 30).toString();

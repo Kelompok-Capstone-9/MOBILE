@@ -4,6 +4,8 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:gofit_apps/model/level_training.dart';
+import 'package:gofit_apps/model/login.dart';
+import 'package:gofit_apps/model/membership.dart';
 import 'package:gofit_apps/model/plan.dart';
 import 'package:gofit_apps/model/plan_member.dart';
 import 'package:gofit_apps/model/public_api.dart';
@@ -23,6 +25,7 @@ class ApiGym {
   static const String userUploadImage = '/users/profile';
   static const String plan = '/plans/all';
   static const String joinMember = '/memberships/join/';
+  static const String member = 'memberships/mymembership';
   static const String apiLevel =
       'https://62f827a6ab9f1f8e89087245.mockapi.io/level_training';
   static const String apiNews =
@@ -419,6 +422,90 @@ class ApiGym {
           .toList();
     } else {
       throw Exception('Failed to load plans');
+    }
+  }
+
+  // Fungsi untuk mendapatkan data UserLogin dari API
+// Fungsi untuk mendapatkan data UserLogin dari API
+  Future<List<UserLogin>> fetchUserLogin() async {
+    final response = await http.get(Uri.parse('$baseUrl/user'));
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse.map((user) => UserLogin.fromJson(user)).toList();
+    } else {
+      throw Exception('Failed to load UserLogin');
+    }
+  }
+
+  // Fungsi untuk mendapatkan data PlanMember dari API
+  Future<List<PlanMember>> fetchPlanMember() async {
+    final response = await http.get(Uri.parse('$baseUrl/plan'));
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse.map((plan) => PlanMember.fromJson(plan)).toList();
+    } else {
+      throw Exception('Failed to load PlanMember');
+    }
+  }
+
+  // Fungsi untuk mendapatkan data DataMember dari API dengan kondisi isActive = true
+  Future<List<DataMember>> fetchDataMember() async {
+    final response = await http.get(Uri.parse('$baseUrl/membership'));
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = json.decode(response.body);
+      List<DataMember> activeDataMembers = [];
+      for (var jsonMember in jsonResponse) {
+        DataMember dataMember = DataMember.fromJson(jsonMember);
+        if (dataMember.is_active ?? true) {
+          activeDataMembers.add(dataMember);
+        }
+      }
+      return activeDataMembers;
+    } else {
+      throw Exception('Failed to load DataMember');
+    }
+  }
+
+  static Future<List<DataMember>> getUserMembership(String token) async {
+    final headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    };
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/membership'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final dataList = responseData['data'];
+      return dataList
+          .map<DataMember>((data) => DataMember.fromJson(data))
+          .toList();
+    } else {
+      throw Exception('Gagal memuat keanggotaan pengguna');
+    }
+  }
+
+  Future<bool> checkMembership(String token) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/memberships/mymembership'),
+        headers: {'Authorization': 'Bearer $token'},
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        final isMember = responseData['isMember'] ?? false;
+        return isMember;
+      } else {
+        // Handle response error
+        return false;
+      }
+    } catch (e) {
+      // Handle request error
+      return false;
     }
   }
 }

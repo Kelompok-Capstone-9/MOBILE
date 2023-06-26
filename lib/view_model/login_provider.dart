@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gofit_apps/model/login.dart';
 import '../model/apis/service_api.dart';
@@ -10,6 +11,8 @@ class LoginProvider extends ChangeNotifier {
   final apiService = ApiGym();
   UserLogin? _userLogin;
   UserLogin? get userLogin => _userLogin;
+  bool? _getMember = false;
+  bool? get member => _getMember;
 
   UserModelMetadata? _userLoginResponse;
   UserModelMetadata? get userLoginResponse => _userLoginResponse;
@@ -20,6 +23,13 @@ class LoginProvider extends ChangeNotifier {
   String? _token;
   String? get token => _token;
   String _image = "";
+
+  bool tokenLogin(String token) {
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+    return decodedToken['isMembership'];
+    // return true;
+  }
+
   Future<void> login({required String email, required String password}) async {
     try {
       final result = await ApiGym.loginUsers(email, password);
@@ -35,6 +45,9 @@ class LoginProvider extends ChangeNotifier {
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
         _token = result['token'];
+        _getMember = tokenLogin(_token!);
+        // _getMember = true;
+
         prefs.setString('email', email);
         prefs.setString('password', password);
         prefs.setString('token', _token!);
@@ -61,7 +74,6 @@ class LoginProvider extends ChangeNotifier {
       if (userLoginResponse!.statusCode == 200) {
         statusCode = 200;
         message = userLoginResponse!.message;
-
         notifyListeners();
         SharedPreferences prefs = await SharedPreferences.getInstance();
       }
@@ -154,6 +166,11 @@ class LoginProvider extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
     return _token;
+  }
+
+  Future<void> getMember() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _getMember = prefs.getBool('isMember');
   }
 
   Future<void> upImage({int? userId, File? imageFile, String? token}) async {
