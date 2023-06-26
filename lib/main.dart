@@ -8,6 +8,7 @@ import 'package:gofit_apps/view_model/newsLetter_provider.dart';
 import 'package:gofit_apps/view_model/profile_provider.dart';
 import 'package:gofit_apps/view_model/register_provider.dart';
 import 'package:gofit_apps/view_model/training_provider.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -41,9 +42,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: isConnected
-            ? const SplashScreen()
-            : const ConnectionErrorScreen(),
+        home:
+            isConnected ? const SplashScreen() : const ConnectionErrorScreen(),
       ),
     );
   }

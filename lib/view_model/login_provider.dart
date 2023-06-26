@@ -185,4 +185,9 @@ class LoginProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> getMember() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _getMember = prefs.getBool('isMember');
+  }
 }
