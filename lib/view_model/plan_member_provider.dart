@@ -5,6 +5,8 @@ import '../model/membership.dart';
 import '../model/plan_member.dart';
 import 'login_provider.dart';
 
+enum RequestState { empty, loading, loaded, error }
+
 class PlanProvider extends ChangeNotifier {
   final ApiGym _api = ApiGym();
   List<PlanMember> _planMember = [];
@@ -26,13 +28,20 @@ class PlanProvider extends ChangeNotifier {
 
   List<UserLogin> get userLogin => _userLogin;
   List<DataMember> get activeDataMembers => _activeDataMembers;
-
+  RequestState _requestState = RequestState.empty;
+  RequestState get requestState => _requestState;
   Future<void> fetchDataPlan() async {
+    _requestState = RequestState.loading;
+    print("object");
+    notifyListeners();
     try {
       _planMember = await _api.getAllPlans();
-
+      _requestState = RequestState.loaded;
+      print(planMember.length);
       notifyListeners();
     } catch (error) {
+      _requestState = RequestState.error;
+      notifyListeners();
       rethrow;
     }
   }
@@ -42,7 +51,9 @@ class PlanProvider extends ChangeNotifier {
     _planMember = await _api.fetchPlanMember();
     _activeDataMembers = await _api.fetchDataMember();
 
+    _requestState = RequestState.error;
     notifyListeners();
+    throw "Cant get data";
   }
 
   Future<void> fetchUserMembership() async {
