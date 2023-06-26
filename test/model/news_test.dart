@@ -11,7 +11,7 @@ void main() {
       "image_url": "https://example.com/image.jpg",
     };
 
-    test('fromJson() return to NewsLetter Object', () {
+    test('Test fromJson() return to NewsLetter Object', () {
       final newsLetter = NewsLetter.fromJson(json);
 
       expect(newsLetter.id, '1');
@@ -21,7 +21,7 @@ void main() {
       expect(newsLetter.imageUrl, 'https://example.com/image.jpg');
     });
 
-    test('toJson() return to JSON Map', () {
+    test('Test toJson() return to JSON Map', () {
       final newsLetter = NewsLetter(
         id: '1',
         category: 'Technology',
