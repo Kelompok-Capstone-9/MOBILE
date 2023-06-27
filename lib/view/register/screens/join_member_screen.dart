@@ -142,13 +142,13 @@ class _JoinMemberScreenState extends State<JoinMemberScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       idPlan = selectedPlanId;
                       final providerLogin =
                           Provider.of<LoginProvider>(context, listen: false);
 
                       if (providerLogin.statusCode == 200) {
-                        Navigator.of(context).push(
+                        await Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => PaymentMethod(idPlan: idPlan),
                           ),

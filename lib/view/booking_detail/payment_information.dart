@@ -401,7 +401,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-              backgroundColor: ColorsTheme.bgScreen,
+              // backgroundColor: ColorsTheme.bgScreen,
               insetPadding: const EdgeInsets.all(0),
               icon: Builder(builder: (context) {
                 return GestureDetector(

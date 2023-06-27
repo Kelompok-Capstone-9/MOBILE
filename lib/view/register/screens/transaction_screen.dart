@@ -428,7 +428,7 @@ Future<void> successDialog(BuildContext context, mediaquery, provider) async {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
                   child: Text(
-                    'Payment Successful! ${provider.getLinkPay}',
+                    'Payment Successful!',
                     style: ThemeText.headingpaymentSucces,
                   ),
                 ),
