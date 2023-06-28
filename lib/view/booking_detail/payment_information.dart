@@ -50,7 +50,17 @@ class _PaymentInformationState extends State<PaymentInformation> {
           elevation: 0.2,
           // title: Text('Payment methode', style: ThemeText.heading1),
           leading: GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context);
+                if (check_save_information == true) {
+                } else {
+                  verifiedCompliteInput = false;
+                  status = '';
+                  bbController.clear();
+                  cvvController.clear();
+                  cardNumberController.clear();
+                }
+              },
               child: const Icon(Icons.arrow_back, color: Colors.black)),
           backgroundColor: ColorsTheme.bgScreen),
       backgroundColor: ColorsTheme.bgScreen,
@@ -166,6 +176,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                           elevation: 0.2,
                           shadowColor: Colors.blue,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             controller: cardNumberController,
                             onChanged: (value) {
                               _cardNumber = value;
@@ -200,6 +211,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                               subtitle: TextFormField(
                                 controller: bbController,
                                 // validator: (value) {},
+                                keyboardType: TextInputType.number,
                                 obscureText: false,
                                 decoration: const InputDecoration(
                                   enabledBorder: OutlineInputBorder(
@@ -224,6 +236,7 @@ class _PaymentInformationState extends State<PaymentInformation> {
                               subtitle: TextFormField(
                                 controller: cvvController,
                                 // validator: (value) {},
+                                keyboardType: TextInputType.number,
                                 obscureText: true,
                                 decoration: const InputDecoration(
                                     enabledBorder: OutlineInputBorder(
@@ -401,7 +414,8 @@ class _PaymentInformationState extends State<PaymentInformation> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-              // backgroundColor: ColorsTheme.bgScreen,
+              elevation: 0.9,
+              backgroundColor: ColorsTheme.bgScreen,
               insetPadding: const EdgeInsets.all(0),
               icon: Builder(builder: (context) {
                 return GestureDetector(
@@ -465,6 +479,14 @@ class _PaymentInformationState extends State<PaymentInformation> {
                                   classIdBooking: int.parse(
                                       provBooking.tiket!.data!.id.toString()))),
                         );
+                        if (check_save_information == true) {
+                        } else {
+                          verifiedCompliteInput = false;
+                          status = '';
+                          bbController.clear();
+                          cvvController.clear();
+                          cardNumberController.clear();
+                        }
                       },
                       child: ButtonPayWithDetail(
                         textButton: 'Go to details',

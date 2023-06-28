@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'dart:math' show asin, atan2, cos, min, pi, pow, sin, sqrt;
+import 'dart:math' show Random, asin, atan2, cos, min, pi, pow, sin, sqrt;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gofit_apps/model/apis/service_api.dart';
@@ -445,5 +445,38 @@ class BookingProvider extends ChangeNotifier {
             'kamu mencari clas ${element.name.toString()} dengan waktu  ${element.isWaktu.toString()}');
       }
     }
+  }
+
+  String generateBookingCode() {
+    Random random = Random();
+
+    int number = random.nextInt(900) + 100;
+
+    String letter1 = String.fromCharCode(random.nextInt(26) + 65);
+    String letter2 = String.fromCharCode(random.nextInt(26) + 65);
+
+    String bookingCode = "B$number$letter1$letter2";
+
+    return bookingCode;
+  }
+
+  String generateRandomMeetingLink() {
+    Random random = Random();
+    String characters = 'abcdefghijklmnopqrstuvwxyz';
+
+    String meetingLink = 'meet.google.com/';
+
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        int randomIndex = random.nextInt(characters.length);
+        meetingLink += characters[randomIndex];
+      }
+
+      if (i < 2) {
+        meetingLink += '-';
+      }
+    }
+
+    return meetingLink;
   }
 }

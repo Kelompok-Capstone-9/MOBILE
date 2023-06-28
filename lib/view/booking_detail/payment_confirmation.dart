@@ -389,7 +389,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                        onTap: () async {
+                                        onTap: () {
                                           log('close window');
                                           // tetep ke halaman detail, tapi pending (booking cancel)
 
@@ -411,7 +411,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                               provGetUser.userLogin!.id;
                                           print(
                                               'classId: ${provBooking.dataClass!.id}, packageId: ${packageId}, userId: ${userId}');
-                                          await provBooking.createBookingClass(
+                                          provBooking.createBookingClass(
                                               classId:
                                                   provBooking.dataClass!.id,
                                               packageId: packageId,
@@ -419,7 +419,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                           final detailIdBooking =
                                               provBooking.tiket?.data?.id;
 
-                                          await provBooking.getClassTiketById(
+                                          provBooking.getClassTiketById(
                                               classPackageIdBooked:
                                                   detailIdBooking);
 

@@ -194,12 +194,20 @@ class _TicketScreenState extends State<TicketScreen> {
                               ],
                             ),
                           ),
-                          Text(
-                            detail.classInfo!.classType == "online"
-                                ? "oxf-wow-wsa"
-                                : 'B17AF30CD',
-                            style: ThemeText.heading3,
-                          )
+                          prov.tiketDetail!.data.status == "booked"
+                              ? Text(
+                                  detail.classInfo!.classType == "online"
+                                      ? prov
+                                          .generateRandomMeetingLink()
+                                          .toString()
+                                      : prov.generateBookingCode(),
+                                  style: ThemeText.heading3,
+                                )
+                              : Text(
+                                  "Booking Canceled",
+                                  style: ThemeText.heading3
+                                      .copyWith(color: Colors.amber),
+                                )
                         ],
                       ),
                       const SizedBox(height: 10),

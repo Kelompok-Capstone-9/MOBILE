@@ -103,8 +103,7 @@ class _GymCardListState extends State<GymCardList> {
               SizedBox(
                   width: 130,
                   // height: 180,
-                  child: 
-                  Image.asset(
+                  child: Image.asset(
                     'assets/images/not-found.png',
                     fit: BoxFit.contain,
                   )).animate().fadeIn(),
@@ -113,7 +112,7 @@ class _GymCardListState extends State<GymCardList> {
                 style: ThemeText.heading4
                     .copyWith(fontWeight: FontWeight.w600, height: 0),
               ).animate().fadeIn(),
-              Center( 
+              Center(
                       child: Text("Please try another search term",
                           style: ThemeText.heading4.copyWith(
                               fontWeight: FontWeight.w500,
@@ -206,7 +205,7 @@ class _GymCardListState extends State<GymCardList> {
                       'http://18.141.56.154:8000/${gymDataItem.imageBanner}',
                       errorBuilder: (BuildContext context, Object exception,
                           StackTrace? stackTrace) {
-                        return Image.asset('assets/images/ShopeePay.png');
+                        return Image.asset('assets/images/open-gym.png');
                       },
                     ),
                   ),
@@ -260,7 +259,7 @@ class _GymCardListState extends State<GymCardList> {
                           Text(
                             // "0",
                             gymDataItem.classPackages.isEmpty
-                                ? "package is Disabaled"
+                                ? "Empty package"
                                 : '${formatCurrency(minPrice!)} - ${formatCurrencyNonLabel(maxPrice!)}',
                             style: ThemeText.heading2.copyWith(
                               fontWeight: FontWeight.w800,
@@ -268,31 +267,49 @@ class _GymCardListState extends State<GymCardList> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BookingDetail(
-                                      id: gymDataItem.id,
-                                    )),
-                          );
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 16),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: ColorsTheme.accent),
-                          child: Text(
-                            "Book",
-                            style: ThemeText.heading4.copyWith(
-                              color: Colors.white,
+                      gymDataItem.classPackages.isEmpty
+                          ? GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: ColorsTheme.bgScreen),
+                                child: Text(
+                                  "Book",
+                                  style: ThemeText.heading4.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BookingDetail(
+                                            id: gymDataItem.id,
+                                          )),
+                                );
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: ColorsTheme.accent),
+                                child: Text(
+                                  "Book",
+                                  style: ThemeText.heading4.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
